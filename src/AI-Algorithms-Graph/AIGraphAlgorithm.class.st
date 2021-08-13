@@ -17,32 +17,38 @@ Class {
 
 { #category : #private }
 AIGraphAlgorithm >> addEdge: eModel from: source to: target [
+
 	| edge sourceNode targetNode |
 	sourceNode := self findNode: (source value: eModel) ifAbsent: [ ^ nil ].
 	targetNode := self findNode: (target value: eModel) ifAbsent: [ ^ nil ].
 	^ self edgeClass
-		ifNil: [ sourceNode to: targetNode.
-			targetNode from: sourceNode.
-			nil ]
-		ifNotNil: [ edge := self edgeClass with: eModel.
-			sourceNode to: targetNode edge: edge.
-			targetNode from: sourceNode edge: edge.
-			edge from: sourceNode.
-			edge to: targetNode.
-			self edges add: edge.
-			edge ]
+		  ifNil: [ 
+			  sourceNode to: targetNode.
+			  targetNode from: sourceNode.
+			  nil ]
+		  ifNotNil: [ 
+			  edge := self edgeClass with: eModel.
+			  sourceNode to: targetNode edge: edge.
+			  targetNode from: sourceNode edge: edge.
+			  edge from: sourceNode.
+			  edge to: targetNode.
+			  self edges add: edge.
+			  edge ]
 ]
 
 { #category : #'building - graph' }
 AIGraphAlgorithm >> addNodeFor: aModel [
-	^ self 
-		findNode: aModel
-		ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
+
+	^ self
+		  findNode: aModel
+		  ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
 ]
 
 { #category : #'building - graph' }
 AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
+
 	"recursively add nodes from the model"
+
 	| parent |
 	model ifNil: [ ^ self ].
 
@@ -51,14 +57,17 @@ AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 		ifFound: [ ^ self "Prevent cycles. Do not add a node already added." ].
 
 	parent := self addNodeFor: model.
-	(childrenBlock value: model)
-		do: [ :child | 
-				self addNodesFrom: child childrenBlock: childrenBlock.
-				self addEdge: { parent model . child } from: #first to: #second ]
+	(childrenBlock value: model) do: [ :child | 
+		self addNodesFrom: child childrenBlock: childrenBlock.
+		self
+			addEdge: { parent model. child }
+			from: #first
+			to: #second ]
 ]
 
 { #category : #testing }
 AIGraphAlgorithm >> canUseSortedNodes [
+
 	"New implementation of the algos to have better performances to find nodes"
 
 	"If nodes are sorted following this block, the find method will be a lot faster. The block should be set on the run method and the nodes sorted at this moment"
@@ -68,46 +77,50 @@ AIGraphAlgorithm >> canUseSortedNodes [
 
 { #category : #configuration }
 AIGraphAlgorithm >> edgeClass [
+
 	^ nil
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> edges [
+
 	^ edges
 ]
 
 { #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source to: target [
-	aCollection 
-		do: [ :eModel |	self addEdge: eModel from: source to: target ]
+
+	aCollection do: [ :eModel | 
+		self addEdge: eModel from: source to: target ]
 ]
 
 { #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source to: target weight: weightFunction [
+
 	| edge |
-	aCollection 
-		do: [ :eModel |
-			edge := self addEdge: eModel from: source to: target.
-			edge ifNotNil: [edge weight: (weightFunction value: eModel)] ]
+	aCollection do: [ :eModel | 
+		edge := self addEdge: eModel from: source to: target.
+		edge ifNotNil: [ edge weight: (weightFunction value: eModel) ] ]
 ]
 
 { #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
-	aCollection
-		do: [ :eModel | 
-			(targets value: eModel)
-				do: [ :target | 
-					self
-						addEdge:
-							{(source value: eModel).
-							target}
-						from: #first
-						to: #second ] ]
+
+	aCollection do: [ :eModel | 
+		(targets value: eModel) do: [ :target | 
+			self
+				addEdge: { 
+						(source value: eModel).
+						target }
+				from: #first
+				to: #second ] ]
 ]
 
 { #category : #private }
 AIGraphAlgorithm >> ensureNodesAreSorted [
+
 	"New implementation of the algos to have better performances to find nodes"
+
 	"If one change is made in the node list, one should call again sortNodes"
 
 	nodeSortBlock ifNotNil: [ ^ self ].
@@ -117,24 +130,29 @@ AIGraphAlgorithm >> ensureNodesAreSorted [
 
 { #category : #private }
 AIGraphAlgorithm >> findBinaryBlock: aModel [
+
 	"New implementation of the algos to have better performances to find nodes"
+
 	^ [ :aNode | 
-	aNode model = aModel
-		ifTrue: [ 0 ]
-		ifFalse: [ aModel hash < aNode model hash
-				ifTrue: [ -1 ]
-				ifFalse: [ 1 ] ] ]
+	  aNode model = aModel
+		  ifTrue: [ 0 ]
+		  ifFalse: [ 
+			  aModel hash < aNode model hash
+				  ifTrue: [ -1 ]
+				  ifFalse: [ 1 ] ] ]
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findEdge: aModel [
-	^ self edges detect: [:edge | edge model = aModel]
+
+	^ self edges detect: [ :edge | edge model = aModel ]
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel [
-	self canUseSortedNodes
-		ifFalse: [ ^ self nodes detect: [ :aNode | aNode model = aModel ] ].
+
+	self canUseSortedNodes ifFalse: [ 
+		^ self nodes detect: [ :aNode | aNode model = aModel ] ].
 	^ self nodes findBinary: (self findBinaryBlock: aModel)
 ]
 

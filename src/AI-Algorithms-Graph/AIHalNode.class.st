@@ -83,6 +83,7 @@ AIHalNode >> removeCycleFromEdges [
 
 { #category : #accessing }
 AIHalNode >> to: aNode [
+
 	super to: aNode.
 	aNode previousNodes add: self
 ]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tarjan'
 	],
-	#category : #'AI-Algorithms-Graph-Tests'
+	#category : #'AI-Algorithms-Graph-Tests-Tests'
 }
 
 { #category : #running }
@@ -59,14 +59,8 @@ AITarjanTest >> testComplexCycle2 [
 { #category : #tests }
 AITarjanTest >> testCustomTarjanGraph [
 
-	| nodes edges nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
-	nodes := $a to: $i.
-	edges := #( #( $a $b ) #( $a $c ) #( $b $a ) #( $b $d ) #( $c $a )
-	            #( $c $d ) #( $d $e ) #( $e $d ) #( $f $b ) #( $f $e )
-	            #( $f $h ) #( $g $f ) #( $h $e ) #( $h $g ) #( $i $g )
-	            #( $i $h ) #( $i $i ) ).
-	tarjan nodes: nodes.
-	tarjan edges: edges from: #first to: #second.
+	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
+	AIGraphFixture stronglyConnectedGraph: tarjan.
 	tarjan run.
 	nodeA := tarjan findNode: $a.
 	nodeB := tarjan findNode: $b.
@@ -90,16 +84,9 @@ AITarjanTest >> testCustomTarjanGraph [
 { #category : #tests }
 AITarjanTest >> testCustomTarjanGraphWithObjects [
 
-	| persons edges nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
-	persons := PersonForTestsNode get9Persons.
-	edges := { { persons at: 1. persons at: 2 }. { persons at: 1. persons at: 3 }. { persons at: 2. persons at: 1 }.
-              { persons at: 2. persons at: 4 }. { persons at: 3. persons at: 1 }. { persons at: 3. persons at: 4 }.
-              { persons at: 4. persons at: 5 }. { persons at: 5. persons at: 4 }. { persons at: 6. persons at: 2 }.
-              { persons at: 6. persons at: 5 }. { persons at: 6. persons at: 8 }. { persons at: 7. persons at: 6 }.
-		        { persons at: 8. persons at: 5 }. { persons at: 8. persons at: 7 }. { persons at: 9. persons at: 7 }.
-		        { persons at: 9. persons at: 8 }. { persons at: 9. persons at: 9 } }.
-	tarjan nodes: persons.
-	tarjan edges: edges from: #first to: #second.
+	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
+	persons := DummyTestingPerson generateNinePersonArray.
+	AIGraphFixture stronglyConnectedGraph: tarjan withObjects: persons.
 	tarjan run.
 	nodeA := tarjan findNode: (persons at: 1).
 	nodeB := tarjan findNode: (persons at: 2).

@@ -7,7 +7,7 @@ I am a facade containing some behavior used by MooseAlgos tests.
 Class {
 	#name : #AIGraphFixture,
 	#superclass : #Object,
-	#category : #'AI-Algorithms-Graph-Tests'
+	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
 { #category : #fixtures }
@@ -192,6 +192,40 @@ AIGraphFixture class >> simpleWeightedGraph: builder [
 	builder edges: edges from: #first to: #second weight: #third.
 	^ builder
 
+]
+
+{ #category : #fixtures }
+AIGraphFixture class >> stronglyConnectedGraph: graphBuilder [
+
+	"This a graph for 4 strongly connected components"
+	| nodes edges |
+	nodes := $a to: $i.
+	edges := #( #( $a $b ) #( $a $c ) #( $b $a ) #( $b $d ) #( $c $a )
+	            #( $c $d ) #( $d $e ) #( $e $d ) #( $f $b ) #( $f $e )
+	            #( $f $h ) #( $g $f ) #( $h $e ) #( $h $g ) #( $i $g )
+	            #( $i $h ) #( $i $i ) ).
+	graphBuilder nodes: nodes.
+	graphBuilder edges: edges from: #first to: #second.
+	^ graphBuilder 
+]
+
+{ #category : #fixtures }
+AIGraphFixture class >> stronglyConnectedGraph: graphBuilder withObjects: objects [
+
+	"This is the exact same graph as #stronglyConnectedGraph: but using a custom object"
+	| edges |
+	edges := { { objects at: 1. objects at: 2 }. { objects at: 1. objects at: 3 }.
+	           { objects at: 2. objects at: 1 }. { objects at: 2. objects at: 4 }.
+	           { objects at: 3. objects at: 1 }. { objects at: 3. objects at: 4 }.
+              { objects at: 4. objects at: 5 }. { objects at: 5. objects at: 4 }.
+              { objects at: 6. objects at: 2 }. { objects at: 6. objects at: 5 }.
+              { objects at: 6. objects at: 8 }. { objects at: 7. objects at: 6 }.
+		        { objects at: 8. objects at: 5 }. { objects at: 8. objects at: 7 }.
+		        { objects at: 9. objects at: 7 }. { objects at: 9. objects at: 8 }.
+		        { objects at: 9. objects at: 9 } }.
+	graphBuilder nodes: objects.
+	graphBuilder edges: edges from: #first to: #second.
+	^ graphBuilder 
 ]
 
 { #category : #fixtures }

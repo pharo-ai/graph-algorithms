@@ -1,19 +1,19 @@
 "
-I am a class only used by the Tests. I am used to test if the graph algorithms work well with complex objects as nodes too, not only nodes that are characters. I only provide an array of persons object to test.
+I am a class only used by the Tests of graph algorithms. I am used to test if the graph algorithms work well with complex objects as nodes too, not only nodes that are characters. I only provide an array of persons object to test.
 "
 Class {
-	#name : #PersonForTestsNode,
+	#name : #DummyTestingPerson,
 	#superclass : #Object,
 	#instVars : [
 		'name',
 		'lastname',
 		'id'
 	],
-	#category : #'AI-Algorithms-Graph-Tests'
+	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
 { #category : #testing }
-PersonForTestsNode class >> get9Persons [
+DummyTestingPerson class >> generateNinePersonArray [
 
 	| person1 person2 person3 person4 person5 person6 person7 person8 person9 |
 	person1 := self new id: 1; name: 'John'; lastname: 'Doe'.
@@ -29,37 +29,37 @@ PersonForTestsNode class >> get9Persons [
 ]
 
 { #category : #accessing }
-PersonForTestsNode >> id [
+DummyTestingPerson >> id [
 
 	^ id
 ]
 
 { #category : #accessing }
-PersonForTestsNode >> id: anObject [
+DummyTestingPerson >> id: anObject [
 
 	id := anObject
 ]
 
 { #category : #accessing }
-PersonForTestsNode >> lastname [
+DummyTestingPerson >> lastname [
 
 	^ lastname
 ]
 
 { #category : #accessing }
-PersonForTestsNode >> lastname: anObject [
+DummyTestingPerson >> lastname: anObject [
 
 	lastname := anObject
 ]
 
 { #category : #accessing }
-PersonForTestsNode >> name [
+DummyTestingPerson >> name [
 
 	^ name
 ]
 
 { #category : #accessing }
-PersonForTestsNode >> name: anObject [
+DummyTestingPerson >> name: anObject [
 
 	name := anObject
 ]

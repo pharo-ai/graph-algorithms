@@ -34,5 +34,6 @@ AINodeWithNext >> nextNodes: aNodeList [
 
 { #category : #accessing }
 AINodeWithNext >> to: targetNode [
-	self nextNodes add: targetNode 
+
+	nextNodes add: targetNode
 ]
