@@ -12,6 +12,6 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 		"Packages"
 		spec package: 'AI-Algorithms-Graph'.
 		spec
-			package: 'AI-Algorithms-Graph'
+			package: 'AI-Algorithms-Graph-Tests'
 			with: [ spec requires: #( 'AI-Algorithms-Graph' ) ] ]
 ]
