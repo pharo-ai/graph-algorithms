@@ -35,6 +35,8 @@ AITarjan >> initialize [
 { #category : #testing }
 AITarjan >> isRootNode: aTarjanNode [
 
+	"Finding a 'root' node means that we found a strongly connected component. The 'root' node represents the beginning of that strongly connected component"
+
 	^ aTarjanNode tarjanIndex = aTarjanNode tarjanLowlink
 ]
 
@@ -68,23 +70,25 @@ AITarjan >> nodesAndNextFrom: aNodeList [
 ]
 
 { #category : #running }
-AITarjan >> popStackAndUpdateCurrentScc: aComponent until: aTarjanNode [
+AITarjan >> popStackAndAddNewSccUntil: aTarjanNode [
 
-	| currentNode |
+	| currentNode stronglyConnectedComponent |
+	stronglyConnectedComponent := OrderedCollection empty.
 	[ 
 	currentNode := stack pop.
 	currentNode popped.
-	aComponent add: currentNode ] doWhileFalse: [ 
+	stronglyConnectedComponent add: currentNode ] doWhileFalse: [ 
 		currentNode = aTarjanNode ].
-	sccs add: aComponent.
-	aComponent do: [ :each | each cycleNodes: aComponent ]
+	sccs add: stronglyConnectedComponent.
+	stronglyConnectedComponent do: [ :each | 
+		each cycleNodes: stronglyConnectedComponent ]
 ]
 
 { #category : #running }
 AITarjan >> putOnStack: aTarjanNode [
 
 	stack push: aTarjanNode.
-	"I use a flag to avoid stack access"
+	"I use a flag to avoid stack access. The stack data structure doesn't allow to check which items has. For this algorithm we need to see if a node is in the stack"
 	aTarjanNode inStack: true
 ]
 
@@ -108,28 +112,20 @@ AITarjan >> stronglyConnectedComponents [
 { #category : #running }
 AITarjan >> traverse: aTarjanNode [
 
-	| component |
 	aTarjanNode tarjanIndex: runningIndex.
 	aTarjanNode tarjanLowlink: runningIndex.
 	runningIndex := runningIndex + 1.
 	self putOnStack: aTarjanNode.
-	self traverseChildrenOf: aTarjanNode.
-	(self isRootNode: aTarjanNode) ifFalse: [ ^ self ].
-	component := OrderedCollection new. "start new SCC"
-	self popStackAndUpdateCurrentScc: component until: aTarjanNode
-]
-
-{ #category : #running }
-AITarjan >> traverseChildrenOf: aTarjanNode [
-
-	aTarjanNode nextNodes do: [ :next | 
-		next isTarjanUndefined
+	aTarjanNode nextNodes do: [ :adjacentNode | 
+		adjacentNode isTarjanUndefined
 			ifTrue: [ 
-				self traverse: next.
+				self traverse: adjacentNode.
 				aTarjanNode tarjanLowlink:
-					(aTarjanNode tarjanLowlink min: next tarjanLowlink) ]
+					(aTarjanNode tarjanLowlink min: adjacentNode tarjanLowlink) ]
 			ifFalse: [ 
-				next inStack ifTrue: [ 
+				adjacentNode inStack ifTrue: [ 
 					aTarjanNode tarjanLowlink:
-						(aTarjanNode tarjanLowlink min: next tarjanIndex) ] ] ]
+						(aTarjanNode tarjanLowlink min: adjacentNode tarjanIndex) ] ] ].
+	(self isRootNode: aTarjanNode) ifTrue: [ 
+		self popStackAndAddNewSccUntil: aTarjanNode ]
 ]
