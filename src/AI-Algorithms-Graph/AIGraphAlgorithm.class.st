@@ -140,58 +140,68 @@ AIGraphAlgorithm >> findNode: aModel [
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
-	self canUseSortedNodes
-		ifFalse: [ ^ self nodes detect: [ :node | node model = aModel ] ifNone: aBlock ].
-^ self nodes
-		findBinary: (self findBinaryBlock: aModel) ifNone: aBlock
+
+	self canUseSortedNodes ifFalse: [ 
+		^ self nodes detect: [ :node | node model = aModel ] ifNone: aBlock ].
+	^ self nodes
+		  findBinary: (self findBinaryBlock: aModel)
+		  ifNone: aBlock
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
-	self canUseSortedNodes
-		ifFalse: [ ^ self nodes detect: [ :node | node model = aModel ] ifFound: aBlock ].
+
+	self canUseSortedNodes ifFalse: [ 
+		^ self nodes detect: [ :node | node model = aModel ] ifFound: aBlock ].
 	"New implementation of the algos to have better performances to find nodes"
 	self notYetImplemented
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> graph [
-	^ {self nodes . self edges}
+
+	^ { self nodes. self edges }
 ]
 
 { #category : #initialization }
 AIGraphAlgorithm >> initialize [
+
 	nodes := OrderedCollection new.
-	edges := OrderedCollection new.
+	edges := OrderedCollection new
 ]
 
 { #category : #configuration }
 AIGraphAlgorithm >> nodeClass [
+
 	^ AIGraphNode
 ]
 
 { #category : #accessing }
-AIGraphAlgorithm >> nodeSortBlock: aBlockClosure [ 
+AIGraphAlgorithm >> nodeSortBlock: aBlockClosure [
+
 	nodeSortBlock := aBlockClosure
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> nodes [
+
 	^ nodes
 ]
 
 { #category : #'building - graph' }
 AIGraphAlgorithm >> nodes: aNodeList [
-	aNodeList 
-		do: [ :model |	self addNodeFor: model ]
+
+	aNodeList do: [ :model | self addNodeFor: model ]
 ]
 
 { #category : #adding }
 AIGraphAlgorithm >> nodesFromSet: aSet [
+
 	"Ensure that the collection do not contains any duplicated item"
 
 	self assert: aSet class == Set.
-	nodes addAll: (aSet collect: [ :aModel | self nodeClass with: aModel ])
+	nodes addAll:
+		(aSet collect: [ :aModel | self nodeClass with: aModel ])
 ]
 
 { #category : #private }
@@ -214,6 +224,7 @@ AIGraphAlgorithm >> run [
 
 { #category : #private }
 AIGraphAlgorithm >> sortNodes [
-	self canUseSortedNodes ifFalse: [ ^self ].
-	self nodes sort: nodeSortBlock.
+
+	self canUseSortedNodes ifFalse: [ ^ self ].
+	self nodes sort: nodeSortBlock
 ]

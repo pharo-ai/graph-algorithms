@@ -32,6 +32,7 @@ AIGraphNode >> label [
 
 { #category : #accessing }
 AIGraphNode >> model [
+
 	^ model
 ]
 
@@ -43,12 +44,15 @@ AIGraphNode >> model: aModel [
 
 { #category : #printing }
 AIGraphNode >> printOn: stream [
+
 	stream nextPutAll: self label.
 	model printOn: stream
 ]
 
 { #category : #accessing }
 AIGraphNode >> to: targetNode [
+
+	
 ]
 
 { #category : #accessing }
