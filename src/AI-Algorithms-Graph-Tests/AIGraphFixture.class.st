@@ -13,27 +13,31 @@ Class {
 { #category : #fixtures }
 AIGraphFixture class >> aseCircuitGraph: builder [
 
+	"https://i.imgur.com/t1S6dG4.jpeg"
+
 	| nodes edges |
 	nodes := $a to: $h.
-	edges := #(($a $b) ($b $a) ($b $c) ($b $d) ($c $d) ($c $f) ($d $b) ($d $e) ($e $a) ($f $g) ($g $h) ($h $g)).
+	edges := #( #( $a $b ) #( $b $a ) #( $b $c ) #( $b $d ) #( $c $d )
+	            #( $c $f ) #( $d $b ) #( $d $e ) #( $e $a ) #( $f $g )
+	            #( $g $h ) #( $h $g ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
-	^ builder	
-
+	^ builder
 ]
 
 { #category : #fixtures }
 AIGraphFixture class >> aseSccGraph: builder [
 
+	"https://i.imgur.com/YEuSm8K.jpeg"
+
 	| nodes edges |
 	nodes := $a to: $e.
-	edges := #(($a $b) ($b $a) ($b $c) ($b $d) ($c $d) ($d $b) ($d $e) ($e $a)).
-
+	edges := #( #( $a $b ) #( $b $a ) #( $b $c ) #( $b $d ) #( $c $d )
+	            #( $d $b ) #( $d $e ) #( $e $a ) ).
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
-	^ builder	
-
+	^ builder
 ]
 
 { #category : #fixtures }
@@ -75,6 +79,32 @@ AIGraphFixture class >> complexCycleGraph: builder [
 	edges := #( #( $a $b ) #( $a $c ) #( $a $g ) #( $b $e ) #( $c $b )
 	            #( $c $d ) #( $d $f ) #( $f $c ) #( $g $h ) #( $g $d )
 	            #( $h $g ) ).
+
+	builder nodes: nodes.
+	builder edges: edges from: #first to: #second.
+	^ builder
+]
+
+{ #category : #fixtures }
+AIGraphFixture class >> complexUndirectedGraph: builder [
+
+	"https://i.imgur.com/qK2zsYb.png"
+
+	| nodes edges |
+	nodes := 0 to: 12.
+	edges := #( #( 0 7 ) #( 0 11 ) #( 0 8 )
+	            #( 1 9 ) #( 1 10 )
+	            #( 2 3 ) #( 2 12 )
+	            #( 3 2 ) #( 3 4 ) #( 3 7 )
+	            #( 4 3 )
+	            #( 5 6 )
+	            #( 6 7 ) #( 6 5 )
+	            #( 7 3 ) #( 7 0 ) #( 7 11 ) #( 7 6 ) 
+	            #( 8 9 ) #( 8 10 ) #( 8 0 )
+               #( 9 1 ) #( 9 8 ) #( 9 12 ) 
+               #( 10 1 ) #( 10 8 )
+               #( 11 7 ) #( 11 0 )
+               #( 12 2 ) #( 12 9 )).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
@@ -136,9 +166,11 @@ AIGraphFixture class >> complexWeightedGraph: builder [
 { #category : #fixtures }
 AIGraphFixture class >> cycleGraph: builder [
 
+	"https://i.imgur.com/MNtwA56.jpeg"
+
 	| nodes edges |
 	nodes := $a to: $d.
-	edges := #(($a $b) ($b $c) ($c $a) ($d $c)).
+	edges := #( #( $a $b ) #( $b $c ) #( $c $a ) #( $d $c ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
@@ -150,7 +182,9 @@ AIGraphFixture class >> dependencyGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $k.
-	edges := #(($a $b) ($a $c) ($c $a) ($c $k) ($d $e) ($d $g) ($d $i) ($e $c) ($e $f) ($f $j) ($g $f) ($g $h) ($g $i) ($h $j)).
+	edges := #( #( $a $b ) #( $a $c ) #( $c $a ) #( $c $k ) #( $d $e )
+	            #( $d $g ) #( $d $i ) #( $e $c ) #( $e $f ) #( $f $j )
+	            #( $g $f ) #( $g $h ) #( $g $i ) #( $h $j ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
@@ -201,14 +235,17 @@ AIGraphFixture class >> moduleGraph: builder [
 { #category : #fixtures }
 AIGraphFixture class >> nestedCycleGraph: builder [
 
+	"https://i.imgur.com/6lk0pmR.jpeg"
+
 	| nodes edges |
 	nodes := $a to: $i.
-	edges := #(($a $b) ($b $c) ($c $d) ($d $e) ($e $a) ($b $e) ($e $b) ($e $f) ($f $g) ($g $h) ($h $f) ($g $i) ($i $g)).
+	edges := #( #( $a $b ) #( $b $c ) #( $c $d ) #( $d $e ) #( $e $a )
+	            #( $b $e ) #( $e $b ) #( $e $f ) #( $f $g ) #( $g $h )
+	            #( $h $f ) #( $g $i ) #( $i $g ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
-	^ builder	
-
+	^ builder
 ]
 
 { #category : #fixtures }
@@ -227,20 +264,28 @@ AIGraphFixture class >> simpleGraph: builder [
 { #category : #fixtures }
 AIGraphFixture class >> simpleWeightedGraph: builder [
 
+	"https://i.imgur.com/AQTX2hz.jpeg"
+
 	| nodes edges |
 	nodes := 1 to: 5.
-	edges := #((1 2 5) (1 3 4) (2 3 2) (3 4 5) (2 4 3) (4 5 1) (5 1 2) (1 5 3)).
+	edges := #( #( 1 2 5 ) #( 1 3 4 ) #( 2 3 2 ) #( 3 4 5 ) #( 2 4 3 )
+	            #( 4 5 1 ) #( 5 1 2 ) #( 1 5 3 ) ).
 
 	builder nodes: nodes.
-	builder edges: edges from: #first to: #second weight: #third.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
 	^ builder
-
 ]
 
 { #category : #fixtures }
 AIGraphFixture class >> stronglyConnectedGraph: graphBuilder [
 
-	"This a graph for 4 strongly connected components https://i.imgur.com/NA87YUP.png"
+	"This a graph for 4 strongly connected components "
+	"https://i.imgur.com/NA87YUP.png"
+
 	| nodes edges |
 	nodes := $a to: $i.
 	edges := #( #( $a $b ) #( $a $c ) #( $b $a ) #( $b $d ) #( $c $a )
@@ -249,7 +294,7 @@ AIGraphFixture class >> stronglyConnectedGraph: graphBuilder [
 	            #( $i $h ) #( $i $i ) ).
 	graphBuilder nodes: nodes.
 	graphBuilder edges: edges from: #first to: #second.
-	^ graphBuilder 
+	^ graphBuilder
 ]
 
 { #category : #fixtures }
@@ -273,25 +318,16 @@ AIGraphFixture class >> stronglyConnectedGraph: graphBuilder withObjects: object
 
 { #category : #fixtures }
 AIGraphFixture class >> withoutCyclesComplexGraph: builder [
+
 	"for longest path algo"
+	"https://i.imgur.com/yTLwTVA.jpeg"
 
 	| nodes edges |
-	nodes :=  #($a $b $c $d $e $f $g $h $i $j $k $l $m $n $o $p $q $r $s).
-	edges := #(
-		($a $e) ($a $g)
-		($b $c) ($b $h)
-		($c $o) ($c $q)
-		($d $f) ($d $i)
-		($f $i)
-		($g $f)
-		($h $d)
-		($i $r)
-		($j $k) ($j $l)
-		($l $m) ($l $n)
-		($o $p)
-		($q $p)
-		($p $s)
-		($r $s)).
+	nodes := #( $a $b $c $d $e $f $g $h $i $j $k $l $m $n $o $p $q $r $s ).
+	edges := #( #( $a $e ) #( $a $g ) #( $b $c ) #( $b $h ) #( $c $o )
+	            #( $c $q ) #( $d $f ) #( $d $i ) #( $f $i ) #( $g $f )
+	            #( $h $d ) #( $i $r ) #( $j $k ) #( $j $l ) #( $l $m )
+	            #( $l $n ) #( $o $p ) #( $q $p ) #( $p $s ) #( $r $s ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
@@ -300,16 +336,14 @@ AIGraphFixture class >> withoutCyclesComplexGraph: builder [
 
 { #category : #fixtures }
 AIGraphFixture class >> withoutCyclesMediumGraph: builder [
+
 	"for longest path algo"
+	"https://i.imgur.com/Vx3QwZF.jpeg"
 
 	| nodes edges |
-	nodes :=  #($a $b $c $d $e $f $g $h).
-	edges := #(
-		($a $e) ($a $g)
-		($b $c) ($b $h)
-		($d $f)
-		($g $f)
-		($h $d) ).
+	nodes := #( $a $b $c $d $e $f $g $h ).
+	edges := #( #( $a $e ) #( $a $g ) #( $b $c ) #( $b $h ) #( $d $f )
+	            #( $g $f ) #( $h $d ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.

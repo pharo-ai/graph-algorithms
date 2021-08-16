@@ -102,11 +102,11 @@ AITarjanTest >> testNestedCycle [
 		                 with: d
 		                 with: e.
 	cycleNodesOfI := Set with: f with: g with: h.
+	self assert: tarjan stronglyConnectedComponents size equals: 2.
+	self assert: tarjan circuits size equals: 2.
 	tarjan nodes do: [ :n | self assert: n isInCycle ].
 	self assert: (c cycleNodes includesAll: cycleNodesOfC).
-	self assert: (cycleNodesOfC includesAll: c cycleNodes).
-	self assert: (i cycleNodes includesAll: cycleNodesOfI).
-	self assert: (cycleNodesOfI includesAll: i cycleNodes)
+	self assert: (i cycleNodes includesAll: cycleNodesOfI)
 ]
 
 { #category : #tests }
