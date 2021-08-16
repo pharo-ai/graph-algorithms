@@ -15,7 +15,8 @@ AITarjanTest >> setUp [
 
 { #category : #tests }
 AITarjanTest >> testComplexCycle [
-	| a b c cycleNodesOfC d f e g h |
+
+	| a b c d f e g h |
 	AIGraphFixture complexCycleGraph: tarjan.
 	tarjan run.
 	a := tarjan findNode: $a.
@@ -26,85 +27,40 @@ AITarjanTest >> testComplexCycle [
 	f := tarjan findNode: $f.
 	g := tarjan findNode: $g.
 	h := tarjan findNode: $h.
-	cycleNodesOfC := Set with: d with: f.
+	self assert: tarjan stronglyConnectedComponents size equals: 5.
+	self assert: tarjan circuits size equals: 2.
+
 	self deny: a isInCycle.
 	self deny: b isInCycle.
+	self deny: e isInCycle.
 	self assert: c isInCycle.
 	self assert: d isInCycle.
 	self assert: f isInCycle.
-	self deny: e isInCycle.
 	self assert: g isInCycle.
 	self assert: h isInCycle.
-	self assert: (c cycleNodes includesAll: cycleNodesOfC).
-	self assert: (cycleNodesOfC includesAll: c cycleNodes).
-	self assert: (g cycleNodes hasEqualElements: (Array with: h)).
-	self assert: (h cycleNodes hasEqualElements: (Array with: g))
+
+	self
+		assertCollection: c cycleNodes
+		hasSameElements: (Array with: d with: f).
+	self assertCollection: g cycleNodes hasSameElements: (Array with: h).
+	self assertCollection: h cycleNodes hasSameElements: (Array with: g)
 ]
 
 { #category : #tests }
 AITarjanTest >> testComplexCycle2 [
 
-	| circuits |
+	| circuit |
 	AIGraphFixture complexCycleGraph2: tarjan.
-	circuits := tarjan
-		            run;
-		            circuits.
+	tarjan run.
 	#( $a $c $g $h $i ) do: [ :each | 
 		self deny: (tarjan findNode: each) isInCycle ].
-	self assert: circuits size equals: 1.
-	self assert:
-		((circuits first collect: [ :each | each model ]) includesAll: #( $b $d $e $f ))
-]
-
-{ #category : #tests }
-AITarjanTest >> testCustomTarjanGraph [
-
-	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
-	AIGraphFixture stronglyConnectedGraph: tarjan.
-	tarjan run.
-	nodeA := tarjan findNode: $a.
-	nodeB := tarjan findNode: $b.
-	nodeC := tarjan findNode: $c.
-	nodeD := tarjan findNode: $d.
-	nodeE := tarjan findNode: $e.
-	nodeF := tarjan findNode: $f.
-	nodeG := tarjan findNode: $g.
-	nodeH := tarjan findNode: $h.
-	self assert: tarjan stronglyConnectedComponents size equals: 4.
-	self assert: tarjan circuits size equals: 3.
-	self assertCollection: nodeA cycleNodes hasSameElements: { 
-			nodeB.
-			nodeC }.
-	self assertCollection: nodeD cycleNodes hasSameElements: { nodeE }.
-	self assertCollection: nodeF cycleNodes hasSameElements: { 
-			nodeG.
-			nodeH }
-]
-
-{ #category : #tests }
-AITarjanTest >> testCustomTarjanGraphWithObjects [
-
-	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
-	persons := DummyTestingPerson generateNinePersonArray.
-	AIGraphFixture stronglyConnectedGraph: tarjan withObjects: persons.
-	tarjan run.
-	nodeA := tarjan findNode: (persons at: 1).
-	nodeB := tarjan findNode: (persons at: 2).
-	nodeC := tarjan findNode: (persons at: 3).
-	nodeD := tarjan findNode: (persons at: 4).
-	nodeE := tarjan findNode: (persons at: 5).
-	nodeF := tarjan findNode: (persons at: 6).
-	nodeG := tarjan findNode: (persons at: 7).
-	nodeH := tarjan findNode: (persons at: 8).
-	self assert: tarjan stronglyConnectedComponents size equals: 4.
-	self assert: tarjan circuits size equals: 3.
-	self assertCollection: nodeA cycleNodes hasSameElements: { 
-			nodeB.
-			nodeC }.
-	self assertCollection: nodeD cycleNodes hasSameElements: { nodeE }.
-	self assertCollection: nodeF cycleNodes hasSameElements: { 
-			nodeG.
-			nodeH }
+	self assert: tarjan stronglyConnectedComponents size equals: 6.
+	self assert: tarjan circuits size equals: 1.
+	circuit := (tarjan stronglyConnectedComponents select: [ :each | 
+		            each size > 1 ]) first.
+	self
+		assertCollection: (circuit collect: #model)
+		hasSameElements: #( $b $e $d $f )
 ]
 
 { #category : #tests }
@@ -159,4 +115,55 @@ AITarjanTest >> testNoCycle [
 	AIGraphFixture simpleGraph: tarjan.
 	tarjan run.
 	tarjan nodes do: [ :n | self deny: n isInCycle ]
+]
+
+{ #category : #tests }
+AITarjanTest >> testStronglyConnectedGraph [
+
+	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
+	AIGraphFixture stronglyConnectedGraph: tarjan.
+	tarjan run.
+	nodeA := tarjan findNode: $a.
+	nodeB := tarjan findNode: $b.
+	nodeC := tarjan findNode: $c.
+	nodeD := tarjan findNode: $d.
+	nodeE := tarjan findNode: $e.
+	nodeF := tarjan findNode: $f.
+	nodeG := tarjan findNode: $g.
+	nodeH := tarjan findNode: $h.
+	self assert: tarjan stronglyConnectedComponents size equals: 4.
+	self assert: tarjan circuits size equals: 3.
+	self assertCollection: nodeA cycleNodes hasSameElements: { 
+			nodeB.
+			nodeC }.
+	self assertCollection: nodeD cycleNodes hasSameElements: { nodeE }.
+	self assertCollection: nodeF cycleNodes hasSameElements: { 
+			nodeG.
+			nodeH }
+]
+
+{ #category : #tests }
+AITarjanTest >> testStronglyConnectedGraphWithObjects [
+
+	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH |
+	persons := DummyTestingPerson generateNinePersonArray.
+	AIGraphFixture stronglyConnectedGraph: tarjan withObjects: persons.
+	tarjan run.
+	nodeA := tarjan findNode: (persons at: 1).
+	nodeB := tarjan findNode: (persons at: 2).
+	nodeC := tarjan findNode: (persons at: 3).
+	nodeD := tarjan findNode: (persons at: 4).
+	nodeE := tarjan findNode: (persons at: 5).
+	nodeF := tarjan findNode: (persons at: 6).
+	nodeG := tarjan findNode: (persons at: 7).
+	nodeH := tarjan findNode: (persons at: 8).
+	self assert: tarjan stronglyConnectedComponents size equals: 4.
+	self assert: tarjan circuits size equals: 3.
+	self assertCollection: nodeA cycleNodes hasSameElements: { 
+			nodeB.
+			nodeC }.
+	self assertCollection: nodeD cycleNodes hasSameElements: { nodeE }.
+	self assertCollection: nodeF cycleNodes hasSameElements: { 
+			nodeG.
+			nodeH }
 ]

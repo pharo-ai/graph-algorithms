@@ -58,7 +58,7 @@ AIGraphFixture class >> complexCycleGraph2: builder [
 					#($c $b) 	#($c $a) 	#($c $e) 	#($c $f) 	#($c $g) 	#($c $d) 
 					#($d $b)
 					#($e $b) 	#($e $d) 	#($e $h) 
-					#($f $b) 	#($f $e) 	#($f $d) 
+					#($f $b) 	#($f $e) 	#($f $d)
 					#($g $b) 	#($g $a) 	#($g $e) 	#($g $f) 	#($g $d) 	#($g $i) ).
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
@@ -68,9 +68,13 @@ AIGraphFixture class >> complexCycleGraph2: builder [
 { #category : #fixtures }
 AIGraphFixture class >> complexCycleGraph: builder [
 
+	"https://i.imgur.com/4trPCcb.jpeg"
+
 	| nodes edges |
 	nodes := $a to: $h.
-	edges := #(($a $b) ($a $c) ($a $g) ($b $e) ($c $b) ($c $d) ($d $f) ($f $c) ($g $h) ($g $d) ($h $g)).
+	edges := #( #( $a $b ) #( $a $c ) #( $a $g ) #( $b $e ) #( $c $b )
+	            #( $c $d ) #( $d $f ) #( $f $c ) #( $g $h ) #( $g $d )
+	            #( $h $g ) ).
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
@@ -236,7 +240,7 @@ AIGraphFixture class >> simpleWeightedGraph: builder [
 { #category : #fixtures }
 AIGraphFixture class >> stronglyConnectedGraph: graphBuilder [
 
-	"This a graph for 4 strongly connected components"
+	"This a graph for 4 strongly connected components https://i.imgur.com/NA87YUP.png"
 	| nodes edges |
 	nodes := $a to: $i.
 	edges := #( #( $a $b ) #( $a $c ) #( $b $a ) #( $b $d ) #( $c $a )
