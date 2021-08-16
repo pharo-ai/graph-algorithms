@@ -18,16 +18,15 @@ The nodes in the graph can be anything, a character, an string, an integer or a 
 
 [//]: # (pi)
 ```smalltalk
-EpMonitor disableDuring: [
-	Metacello new
-		repository: 'github://pharo-ai/graph-algorithms/src';
-		baseline: 'AIGraphAlgorithms';
-		load ]
+Metacello new
+	repository: 'github://pharo-ai/graph-algorithms/src';
+	baseline: 'AIGraphAlgorithms';
+	load
 ```
 
 ## How to depend on it
 
-If you want to add the AIEditDistances to your Metacello Baselines or Configurations, copy and paste the following expression:
+If you want to add this repo to your Metacello Baselines or Configurations, copy and paste the following expression:
 ```smalltalk
 spec
 	baseline: 'AIEditDistances' 
