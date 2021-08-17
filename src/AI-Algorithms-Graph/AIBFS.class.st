@@ -14,64 +14,67 @@ Class {
 	#category : #'AI-Algorithms-Graph-BFS'
 }
 
-{ #category : #configuration }
-AIBFS >> edgeClass [
-
-	^ MalGraphEdge 
-]
-
-{ #category : #private }
+{ #category : #accessing }
 AIBFS >> end [
 
 	^ end
 ]
 
-{ #category : #private }
-AIBFS >> end: aDijsktraNode [
+{ #category : #accessing }
+AIBFS >> end: aBFSNode [
 
-	end := aDijsktraNode
+	end := aBFSNode
 ]
 
 { #category : #configuration }
 AIBFS >> nodeClass [
 
-	^ BFSNode
+	^ AIBFSNode
+]
+
+{ #category : #actions }
+AIBFS >> reconstructPath [
+
+	| path previous |
+	"If no path exists between the start and the end node"
+	end previousNode ifNil: [ ^ #(  ) ].
+	path := LinkedList empty.
+	previous := end.
+	path addFirst: end model.
+	[ previous = start ] whileFalse: [ 
+		previous := previous previousNode.
+		path addFirst: previous model ].
+	^ path
+]
+
+{ #category : #actions }
+AIBFS >> resetValues [
+
+	nodes do: [ :aNode | 
+		aNode
+			visited: false;
+			previousNode: nil ]
 ]
 
 { #category : #running }
 AIBFS >> run [
 
-	| path |
-	queue := LinkedList withAll: start nextEdges.
-	start firstDepth: 0.
-	path := self run: 1.
-	start notVisited.
-	^ path
-]
+	| node neighbours |
+	self resetValues.
 
-{ #category : #running }
-AIBFS >> run: depth [
-	| edge path next |
-	edge := queue removeFirst.
-	next := edge to.
-	^ next = end
-		ifTrue: [ OrderedCollection with: edge from model with: end model ]
-		ifFalse:[
-			next visited ifFalse:[ 
-				"only add edges if node not already visited (avoid cycles on the path)"
-				queue addAll: next nextEdges.
-				next firstDepth: depth ].
-			"continue recursion"
-			path := self run: depth + 1.
-			depth = next firstDepth ifTrue: [
-				"out of stack"
-				path first = next model ifTrue: [ 
-					"backtrack along the path"
-					path addFirst: edge from model ].
-				"reset visited for next run"
-				next notVisited ].
-			"stop recursion, start backtrack"
-			path ]
+	queue := LinkedList with: start.
+	start visited: true.
+
+	[ queue isNotEmpty ] whileTrue: [ 
+		node := queue removeFirst.
+		neighbours := node nextNodes.
+
+		neighbours do: [ :next | 
+			next visited ifFalse: [ 
+				queue addLast: next.
+				next visited: true.
+				next previousNode: node ] ] ].
+	^ self reconstructPath
 ]
 
 { #category : #running }
@@ -83,14 +86,14 @@ AIBFS >> runFrom: startModel to: endModel [
 	^ self run
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 AIBFS >> start [
 
 	^ start
 ]
 
-{ #category : #private }
-AIBFS >> start: aDijsktraNode [
+{ #category : #accessing }
+AIBFS >> start: aBFSNode [
 
-	start := aDijsktraNode
+	start := aBFSNode
 ]

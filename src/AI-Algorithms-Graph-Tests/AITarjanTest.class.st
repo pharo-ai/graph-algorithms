@@ -49,17 +49,14 @@ AITarjanTest >> testComplexCycle [
 { #category : #tests }
 AITarjanTest >> testComplexCycle2 [
 
-	| circuit |
 	AIGraphFixture complexCycleGraph2: tarjan.
 	tarjan run.
 	#( $a $c $g $h $i ) do: [ :each | 
 		self deny: (tarjan findNode: each) isInCycle ].
 	self assert: tarjan stronglyConnectedComponents size equals: 6.
 	self assert: tarjan circuits size equals: 1.
-	circuit := (tarjan stronglyConnectedComponents select: [ :each | 
-		            each size > 1 ]) first.
 	self
-		assertCollection: (circuit collect: #model)
+		assertCollection: (tarjan circuits first collect: #model)
 		hasSameElements: #( $b $e $d $f )
 ]
 
@@ -77,8 +74,7 @@ AITarjanTest >> testCycle [
 	self assert: b isInCycle.
 	self assert: c isInCycle.
 	self deny: (tarjan findNode: $d) isInCycle.
-	self assert: (a cycleNodes includesAll: cycleNodesOfA).
-	self assert: (cycleNodesOfA includesAll: a cycleNodes)
+	self assert: (a cycleNodes includesAll: cycleNodesOfA)
 ]
 
 { #category : #tests }

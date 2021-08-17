@@ -53,7 +53,7 @@ AIDijkstra >> backtrack: b edgeDo: aBlock [
 { #category : #configuration }
 AIDijkstra >> edgeClass [
 
-	^ MalDijkstraEdge
+	^ AIDijkstraEdge
 ]
 
 { #category : #private }

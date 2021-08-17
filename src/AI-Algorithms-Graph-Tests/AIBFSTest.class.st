@@ -24,7 +24,8 @@ AIBFSTest >> testAseGraph [
 	self assert: (#( $a $b $d $e ) hasEqualElements: (bfsp runFrom: $a to: $e)).
 	self assert: (#( $a $b $d ) hasEqualElements: (bfsp runFrom: $a to: $d)).
 	self assert: (#( $d $b $c $f ) hasEqualElements: (bfsp runFrom: $d to: $f)).
-	self should: [ bfsp runFrom: $f to: $a ] raise: Error
+	"Empty list means path doesn't exist"
+	self assert: (#() hasEqualElements: (bfsp runFrom: $f to: $a))
 ]
 
 { #category : #tests }

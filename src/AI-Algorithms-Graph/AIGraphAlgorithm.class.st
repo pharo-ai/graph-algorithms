@@ -16,18 +16,18 @@ Class {
 }
 
 { #category : #private }
-AIGraphAlgorithm >> addEdge: eModel from: source to: target [
+AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 
 	| edge sourceNode targetNode |
-	sourceNode := self findNode: (source value: eModel) ifAbsent: [ ^ nil ].
-	targetNode := self findNode: (target value: eModel) ifAbsent: [ ^ nil ].
+	sourceNode := self findNode: (sourceBlock value: edgeModel) ifAbsent: [ ^ nil ].
+	targetNode := self findNode: (targetBlock value: edgeModel) ifAbsent: [ ^ nil ].
 	^ self edgeClass
 		  ifNil: [ 
 			  sourceNode to: targetNode.
 			  targetNode from: sourceNode.
 			  nil ]
 		  ifNotNil: [ 
-			  edge := self edgeClass with: eModel.
+			  edge := self edgeClass with: edgeModel.
 			  sourceNode to: targetNode edge: edge.
 			  targetNode from: sourceNode edge: edge.
 			  edge from: sourceNode.

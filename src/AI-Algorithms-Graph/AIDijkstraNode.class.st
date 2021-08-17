@@ -22,10 +22,12 @@ AIDijkstraNode >> from: aNode edge: anEdge [
 { #category : #initialization }
 AIDijkstraNode >> initialize [
 
+	super initialize.
 	previousNodes := OrderedCollection new.
 	previousEdges := OrderedCollection new.
 	nextEdges := OrderedCollection new.
-	pathWeight := Float infinity "initialization for Dijsktra"
+	"initialization for Dijsktra"
+	pathWeight := Float infinity
 ]
 
 { #category : #accessing }
@@ -63,7 +65,7 @@ AIDijkstraNode >> printOn: aStream [
 
 	super printOn: aStream.
 	aStream
-		nextPutAll: ' - ';
+		nextPutAll: ' weight: ';
 		nextPutAll: pathWeight asString
 ]
 

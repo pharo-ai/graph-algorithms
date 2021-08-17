@@ -13,22 +13,26 @@ Class {
 
 { #category : #initialization }
 AINodeWithNext >> initialize [
+
 	super initialize.
 	nextNodes := OrderedCollection new
 ]
 
 { #category : #testing }
 AINodeWithNext >> isLeaf [
+
 	^ self nextNodes isEmpty
 ]
 
 { #category : #accessing }
 AINodeWithNext >> nextNodes [
+
 	^ nextNodes
 ]
 
 { #category : #setting }
 AINodeWithNext >> nextNodes: aNodeList [
+
 	nextNodes := aNodeList
 ]
 

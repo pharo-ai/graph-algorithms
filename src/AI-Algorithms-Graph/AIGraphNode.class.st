@@ -1,5 +1,5 @@
 "
-Default representation of a graph vertice (node).
+Default representation of a graph vertex (node).
 "
 Class {
 	#name : #AIGraphNode,
@@ -27,7 +27,7 @@ AIGraphNode >> from: sourceNode edge: anEdge [
 { #category : #accessing }
 AIGraphNode >> label [
 
-	^ 'N '
+	^ 'Node: '
 ]
 
 { #category : #accessing }

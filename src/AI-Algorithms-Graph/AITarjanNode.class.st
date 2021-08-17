@@ -1,6 +1,6 @@
 "
-Node type used by the MalTarjan algorithm.
-Edges are not representated as full objects. We just keep a list of next nodes (following described directed edges).
+Node type used by the Tarjan algorithm.
+We just keep a list of next nodes (neighbours)
 "
 Class {
 	#name : #AITarjanNode,
@@ -16,6 +16,7 @@ Class {
 
 { #category : #accessing }
 AITarjanNode >> cycleNodes [
+
 	^ cycleNodes
 ]
 
@@ -28,16 +29,19 @@ AITarjanNode >> cycleNodes: anObject [
 
 { #category : #accessing }
 AITarjanNode >> inStack [
+
 	^ inStack
 ]
 
 { #category : #setting }
-AITarjanNode >> inStack: anObject [
-	inStack := anObject
+AITarjanNode >> inStack: aBoolean [
+
+	inStack := aBoolean
 ]
 
 { #category : #initialization }
 AITarjanNode >> initialize [
+
 	super initialize.
 	nextNodes := Set new.
 	index := -1.
@@ -46,40 +50,48 @@ AITarjanNode >> initialize [
 
 { #category : #testing }
 AITarjanNode >> isInCycle [
+
 	^ self cycleNodes isNotEmpty
 ]
 
 { #category : #testing }
 AITarjanNode >> isTarjanUndefined [
+
 	^ index = -1
 ]
 
 { #category : #accessing }
 AITarjanNode >> label [
-	^ 'T '
+
+	^ 'Tarjan Node: '
 ]
 
-{ #category : #setting }
+{ #category : #actions }
 AITarjanNode >> popped [
+
 	self inStack: false
 ]
 
 { #category : #accessing }
 AITarjanNode >> tarjanIndex [
+
 	^ index
 ]
 
 { #category : #setting }
 AITarjanNode >> tarjanIndex: anInteger [
+
 	index := anInteger
 ]
 
 { #category : #accessing }
 AITarjanNode >> tarjanLowlink [
+
 	^ lowlink
 ]
 
 { #category : #setting }
 AITarjanNode >> tarjanLowlink: anInteger [
+
 	lowlink := anInteger
 ]

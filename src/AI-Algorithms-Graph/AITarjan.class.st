@@ -1,6 +1,8 @@
 "
 I implement the well known Tarjan's algorithm. My purpose is to find the strongly connected components (aka circuits /cycles) of a graph in O(m+n).
 See https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm for more details.
+
+Instance variable `sccs` means strongly connected components. It is an array with all the strngly connected components that the algorithm found.
 "
 Class {
 	#name : #AITarjan,
