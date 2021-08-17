@@ -13,6 +13,8 @@ The nodes in the graph can be anything, a character, an string, an integer or a 
 ## Migrated graph algorithms
 
   - Tarjan’s Algorithm: Strongly Connected Components
+  - BFS: Breath Fisrt Search
+  - Dijkstra: Shortest path in a weighted graph (WIP)
 
 ## How to install it
 
