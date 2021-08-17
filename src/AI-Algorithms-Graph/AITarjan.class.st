@@ -2,7 +2,18 @@
 I implement the well known Tarjan's algorithm. My purpose is to find the strongly connected components (aka circuits /cycles) of a graph in O(m+n).
 See https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm for more details.
 
-Instance variable `sccs` means strongly connected components. It is an array with all the strngly connected components that the algorithm found.
+Instance variable `sccs` means strongly connected components. It is an array with all the strngly connected components that the algorithm found. The method `#stronglyConnectedComponents` will return a collection with all the strongly connected components of the graph.
+
+See in my test class examples of how to use me. But in a nutshell:
+```
+tarjan := AITarjan new
+				nodes: #( 1 2 3 );
+				edges: { (1 -> 2) . (1 -> 3) . (2 -> 3) } from: #key to: #value;
+				yourself.
+tarjan run.
+tarjan stronglyConnectedComponents
+```
+
 "
 Class {
 	#name : #AITarjan,
@@ -87,6 +98,7 @@ AITarjan >> run [
 { #category : #accessing }
 AITarjan >> stronglyConnectedComponents [
 
+	sccs ifNil: [ self run ].
 	^ sccs collect: [ :component | component collect: #model ]
 ]
 
@@ -97,7 +109,7 @@ AITarjan >> traverse: aTarjanNode [
 	aTarjanNode tarjanLowlink: runningIndex.
 	runningIndex := runningIndex + 1.
 	self putOnStack: aTarjanNode.
-	aTarjanNode nextNodes do: [ :adjacentNode | 
+	aTarjanNode adjacentNodes do: [ :adjacentNode | 
 		adjacentNode isTarjanUndefined
 			ifTrue: [ 
 				self traverse: adjacentNode.

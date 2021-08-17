@@ -1,3 +1,6 @@
+"
+I am a node that is used in the Dijkstra algorithm
+"
 Class {
 	#name : #AIDijkstraNode,
 	#superclass : #AIGraphNode,

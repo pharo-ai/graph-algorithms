@@ -1,21 +1,32 @@
 "
-A basic node able to host the model and to represent edges with no additional class.
-Edges are navigable in one way through the nextNodes instance variable.
+I am basic node that stores my adjacent nodes. The instance variable `nextNodes` represent my adjacent nodes (the nodes to which I am connected)
 "
 Class {
 	#name : #AINodeWithNext,
 	#superclass : #AIGraphNode,
 	#instVars : [
-		'nextNodes'
+		'adjacentNodes'
 	],
 	#category : #'AI-Algorithms-Graph-Nodes'
 }
+
+{ #category : #accessing }
+AINodeWithNext >> adjacentNodes [
+
+	^ adjacentNodes
+]
+
+{ #category : #setting }
+AINodeWithNext >> adjacentNodes: aNodeList [
+
+	adjacentNodes := aNodeList
+]
 
 { #category : #initialization }
 AINodeWithNext >> initialize [
 
 	super initialize.
-	nextNodes := OrderedCollection new
+	adjacentNodes := OrderedCollection new
 ]
 
 { #category : #testing }
@@ -27,17 +38,24 @@ AINodeWithNext >> isLeaf [
 { #category : #accessing }
 AINodeWithNext >> nextNodes [
 
-	^ nextNodes
+	self
+		deprecated: 'Please use #adjacentNodes instead'
+		transformWith: '`@receiver nextNodes' -> '`@receiver adjacentNodes'.
+	^ self adjacentNodes
 ]
 
 { #category : #setting }
 AINodeWithNext >> nextNodes: aNodeList [
 
-	nextNodes := aNodeList
+	self
+		deprecated: 'Please use #adjacentNodes: instead'
+		transformWith:
+		'`@receiver nextNodes: `@arg' -> '`@receiver adjacentNodes: `@arg'.
+	self adjacentNodes: aNodeList
 ]
 
 { #category : #accessing }
 AINodeWithNext >> to: targetNode [
 
-	nextNodes add: targetNode
+	adjacentNodes add: targetNode
 ]

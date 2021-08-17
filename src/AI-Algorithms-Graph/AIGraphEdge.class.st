@@ -1,5 +1,5 @@
 "
-I represent an edge in a graph.  I'm part of the edges of a MalGraphAlgorithm and I link two MalNode together.
+I represent an edge in a graph.  I'm part of the edges of a AIGraphAlgorithm and I link two AINode together.
 
 Public API and Key Messages
 - from
@@ -41,32 +41,36 @@ AIGraphEdge class >> with: aModel from: srcNode to: dstNode [
 { #category : #accessing }
 AIGraphEdge >> asTuple [
 
-	^ {from model. to model}
+	^ {from model . to model}
 ]
 
 { #category : #accessing }
 AIGraphEdge >> from [
+
 	^ from
 ]
 
 { #category : #accessing }
 AIGraphEdge >> from: anObject [
+
 	from := anObject
 ]
 
 { #category : #accessing }
 AIGraphEdge >> model [
+
 	^ model
 ]
 
 { #category : #accessing }
 AIGraphEdge >> model: aModel [
-	
+
 	model := aModel
 ]
 
 { #category : #printing }
 AIGraphEdge >> printOn: aStream [
+
 	self from printOn: aStream.
 	aStream nextPutAll: ' -> '.
 	self to printOn: aStream
@@ -74,10 +78,12 @@ AIGraphEdge >> printOn: aStream [
 
 { #category : #accessing }
 AIGraphEdge >> to [
+
 	^ to
 ]
 
 { #category : #accessing }
 AIGraphEdge >> to: anObject [
+
 	to := anObject
 ]

@@ -2,6 +2,16 @@
 Breadth-first search (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a `search key') and explores the neighbor nodes first, before moving to the next level neighbours. (source: Wikipedia)
 
 The `queue` instance variable uses a LinkedList. This is because the linked list has constant access times. The `removeFist`, `#add:`, `#addLast:` takes a constant time to operate.
+
+See my test class examples of how to use me, but in a nutshell:
+```
+bfs := AIBFS new
+			nodes: #( 1 2 3 4);
+			edges: { (1 -> 4) . (1 -> 2) . (2 -> 3) . (3 -> 4)} from: #key to: #value;
+			yourself.
+shortestPath := bfs runFrom: 1 to: 4
+```
+This will return `#( 1 4 )`.
 "
 Class {
 	#name : #AIBFS,
@@ -67,7 +77,7 @@ AIBFS >> run [
 
 	[ queue isNotEmpty ] whileTrue: [ 
 		node := queue removeFirst.
-		neighbours := node nextNodes.
+		neighbours := node adjacentNodes.
 
 		neighbours do: [ :next | 
 			next visited ifFalse: [ 

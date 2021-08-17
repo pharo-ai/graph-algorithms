@@ -1,6 +1,10 @@
 "
-Node type used by the Tarjan algorithm.
-We just keep a list of next nodes (neighbours)
+Node type used by the Tarjan algorithm. We just keep a list of next nodes (neighbours).
+
+I also have variables to track the lowest my link value and the tarjan index. I have an instance variable `inStack` to check if I am or not in the stack of the Tarjan algorithm.
+
+Tha instance variable `cycleNodes` is a list that contains all the other nodes that are in my same strongly connected component. If I am the only node in the strongly connected component the list will be empty.
+
 "
 Class {
 	#name : #AITarjanNode,
@@ -43,7 +47,7 @@ AITarjanNode >> inStack: aBoolean [
 AITarjanNode >> initialize [
 
 	super initialize.
-	nextNodes := Set new.
+	adjacentNodes := Set new.
 	index := -1.
 	inStack := false
 ]
