@@ -54,7 +54,7 @@ AITarjan >> nodesAndNextFrom: aNodeList [
 	aNodeList do: [ :node | 
 		node nextNodes do: [ :each | 
 			(self findNode: node model) to: (self findNode: each model) ] ]"
-
+	self flag: 'Improve'.
 	aNodeList do: [ :node | self addNodeFor: node model ].
 	aNodeList do: [ :node | 
 		node adjacentNodes do: [ :next | 
