@@ -4,7 +4,7 @@ It has an additional instance variable to track merged nodes.
 "
 Class {
 	#name : #AIReducedGraphNode,
-	#superclass : #MalNodeWithPreviousAndNext,
+	#superclass : #AINodeWithPreviousAndNext,
 	#instVars : [
 		'mergedNodes'
 	],
