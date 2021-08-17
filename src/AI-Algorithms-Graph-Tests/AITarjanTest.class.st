@@ -56,7 +56,7 @@ AITarjanTest >> testComplexCycle2 [
 	self assert: tarjan stronglyConnectedComponents size equals: 6.
 	self assert: tarjan circuits size equals: 1.
 	self
-		assertCollection: (tarjan circuits first collect: #model)
+		assertCollection: tarjan circuits first
 		hasSameElements: #( $b $e $d $f )
 ]
 

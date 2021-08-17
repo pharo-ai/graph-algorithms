@@ -21,19 +21,6 @@ AITarjan >> circuits [
 	^ self stronglyConnectedComponents select: [ :each | each size > 1 ]
 ]
 
-{ #category : #accessing }
-AITarjan >> findNode: aModel ifAbsent: aBlock [
-
-	^ nodes at: aModel ifAbsent: aBlock
-]
-
-{ #category : #initialization }
-AITarjan >> initialize [
-
-	super initialize.
-	nodes := Dictionary new
-]
-
 { #category : #testing }
 AITarjan >> isRootNode: aTarjanNode [
 
@@ -48,27 +35,19 @@ AITarjan >> nodeClass [
 	^ AITarjanNode
 ]
 
-{ #category : #accessing }
-AITarjan >> nodes [
-
-	^ nodes values
-]
-
-{ #category : #'building - graph' }
-AITarjan >> nodes: aCollection [
-
-	aCollection do: [ :model | 
-		nodes at: model put: (self nodeClass with: model) ]
-]
-
 { #category : #setting }
 AITarjan >> nodesAndNextFrom: aNodeList [
 
-	aNodeList do: [ :node | 
+	"aNodeList do: [ :node | 
 		nodes at: node model put: (self nodeClass with: node model) ].
 	aNodeList do: [ :node | 
 		node nextNodes do: [ :each | 
-			(self findNode: node model) to: (self findNode: each model) ] ]
+			(self findNode: node model) to: (self findNode: each model) ] ]"
+
+	aNodeList do: [ :node | self addNodeFor: node model ].
+	aNodeList do: [ :node | 
+		node nextNodes do: [ :next | 
+			(self findNode: node model) to: (self findNode: next model) ] ]
 ]
 
 { #category : #running }
@@ -100,15 +79,15 @@ AITarjan >> run [
 	sccs := OrderedCollection new.
 	stack := Stack new.
 	runningIndex := 0.
-	self nodes do: [ :n | 
-		n isTarjanUndefined ifTrue: [ self traverse: n ] ].
-	^ sccs
+	self nodes do: [ :node | 
+		node isTarjanUndefined ifTrue: [ self traverse: node ] ].
+	^ self stronglyConnectedComponents
 ]
 
 { #category : #accessing }
 AITarjan >> stronglyConnectedComponents [
 
-	^ sccs ifNil: [ self run ]
+	^ sccs collect: [ :component | component collect: #model ]
 ]
 
 { #category : #running }
