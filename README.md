@@ -7,18 +7,18 @@
 
 ## Description
 
-These are the start of the migration of graphs algorithms that are defined in Moose.
+This is a work in progress migration, improving and re-implementation of graphs algorithms that are defined in Moose.
 The nodes in the graph can be anything, a character, an string, an integer or a complex object.
 
 ## Migrated graph algorithms
 
   - Tarjan’s Algorithm: Strongly Connected Components
   - BFS: Breath Fisrt Search
+  - Graph Reducer: Merge all strongly connected components in a graph to a single node
   - Dijkstra: Shortest path in a weighted graph (WIP)
 
 ## How to install it
 
-[//]: # (pi)
 ```smalltalk
 Metacello new
 	repository: 'github://pharo-ai/graph-algorithms/src';
