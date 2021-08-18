@@ -27,10 +27,5 @@ AIGraphAlgorithmTest >> testAddNodesFromChildrenBlock [
 		hasSameElements: { 
 				ByteSymbol.
 				WideSymbol }.
-	self
-		assertCollection:
-			((builder findNode: Symbol) previousNodes collect: [ :each | 
-				 each model ])
-		hasSameElements: { String }.
 	self assert: (builder findNode: ByteSymbol) adjacentNodes isEmpty
 ]

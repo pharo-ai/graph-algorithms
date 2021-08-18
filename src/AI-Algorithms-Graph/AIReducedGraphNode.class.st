@@ -4,7 +4,7 @@ It has an additional instance variable to track merged nodes.
 "
 Class {
 	#name : #AIReducedGraphNode,
-	#superclass : #AINodeWithPreviousAndNext,
+	#superclass : #AINodeWithNext,
 	#instVars : [
 		'mergedNodes'
 	],
@@ -13,7 +13,8 @@ Class {
 
 { #category : #accessing }
 AIReducedGraphNode >> label [
-	^ ''
+
+	^ 'Merged nodes: '
 ]
 
 { #category : #accessing }
@@ -24,4 +25,16 @@ AIReducedGraphNode >> mergedNodes [
 { #category : #setting }
 AIReducedGraphNode >> mergedNodes: aNodeList [
 	mergedNodes := aNodeList
+]
+
+{ #category : #printing }
+AIReducedGraphNode >> printOn: stream [
+
+	stream nextPutAll: self label.
+	model isCollection
+		ifTrue: [ 
+			model
+				do: [ :node | node printOn: stream ]
+				separatedBy: [ stream << ', ' ] ]
+		ifFalse: [ model printOn: stream ]
 ]

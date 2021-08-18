@@ -31,6 +31,21 @@ AIGraphReducerTest >> setUp [
 ]
 
 { #category : #tests }
+AIGraphReducerTest >> testAdjacenciesFor [
+
+	| nodes |
+	AIGraphFixture complexCycleGraph2: graphReducer.
+	nodes := { 
+		         (graphReducer findNode: $f).
+		         (graphReducer findNode: $g) }.
+	self
+		assert: ((graphReducer adjacenciesFor: nodes)
+				 collect: #model
+				 as: SortedCollection) asArray
+		equals: #( $a $b $d $e $i )
+]
+
+{ #category : #tests }
 AIGraphReducerTest >> testComplexCycle [
 
 	| mergedNodes |
@@ -46,11 +61,11 @@ AIGraphReducerTest >> testComplexCycle [
 	mergedNodes := graphReducer nodes select: [ :each | 
 		               each mergedNodes isNotNil ].
 	self
-		assertCollection: (mergedNodes second mergedNodes collect: #model)
-		hasSameElements: #( $g $h ).
-	self
 		assertCollection: (mergedNodes first mergedNodes collect: #model)
-		hasSameElements: #( $d $c $f )
+		hasSameElements: #( $d $c $f ).
+	self
+		assertCollection: (mergedNodes second mergedNodes collect: #model)
+		hasSameElements: #( $g $h )
 ]
 
 { #category : #tests }
@@ -60,6 +75,52 @@ AIGraphReducerTest >> testComplexCycle2 [
 	graphReducer run.
 	self assert: graphReducer nodes size equals: 6.
 	self assert: (graphReducer nodes at: 6) mergedNodes size equals: 4
+]
+
+{ #category : #tests }
+AIGraphReducerTest >> testComplexCycleReferences [
+
+	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH |
+	AIGraphFixture complexCycleGraph: graphReducer.
+	graphReducer run.
+	reducedNodeA := (graphReducer nodes select: [ :each | 
+		                 each model = $a ]) first.
+	reducedNodeB := (graphReducer nodes select: [ :each | 
+		                 each model = $b ]) first.
+	reducedNodeE := (graphReducer nodes select: [ :each | 
+		                 each model = $e ]) first.
+	mergedNodes := graphReducer nodes select: [ :each | 
+		               each model isCollection ].
+	reducedNodeCDF := (mergedNodes select: [ :each | 
+		                   each model includesAll: #( $d $f $c ) ]) first.
+	reducedNodeGH := (mergedNodes select: [ :each | 
+		                  each model includesAll: #( $g $h ) ]) first.
+
+	self
+		assertCollection: reducedNodeA adjacentNodes
+		hasSameElements: { reducedNodeB. reducedNodeGH. reducedNodeCDF }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeA adjacentNodes size equals: 3.
+
+	self
+		assertCollection: reducedNodeB adjacentNodes
+		hasSameElements: { reducedNodeE }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeB adjacentNodes size equals: 1.
+
+	self assert: reducedNodeE adjacentNodes isEmpty.
+
+	self
+		assertCollection: reducedNodeGH adjacentNodes
+		hasSameElements: { reducedNodeCDF }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeGH adjacentNodes size equals: 1.
+
+	self
+		assertCollection: reducedNodeCDF adjacentNodes
+		hasSameElements: { reducedNodeB }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeCDF adjacentNodes size equals: 1.
 ]
 
 { #category : #tests }
@@ -73,7 +134,43 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 ]
 
 { #category : #tests }
+AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
+
+	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD |
+	AIGraphFixture simpleGraph: graphReducer.
+	graphReducer run.
+	reducedNodeA := (graphReducer nodes select: [ :each | 
+		                 each model = $a ]) first.
+	reducedNodeB := (graphReducer nodes select: [ :each | 
+		                 each model = $b ]) first.
+	reducedNodeC := (graphReducer nodes select: [ :each | 
+		                 each model = $c ]) first.
+	reducedNodeD := (graphReducer nodes select: [ :each | 
+		                 each model = $d ]) first.
+	self
+		assertCollection: reducedNodeA adjacentNodes
+		hasSameElements: { reducedNodeB }.
+	self
+		assertCollection: reducedNodeB adjacentNodes
+		hasSameElements: { reducedNodeC }.
+	self
+		assertCollection: reducedNodeD adjacentNodes
+		hasSameElements: { reducedNodeC }.
+	self assert: reducedNodeC adjacentNodes isEmpty
+]
+
+{ #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
+
+	AIGraphFixture complexCycleGraph: graphReducer.
+	graphReducer run.
+	self
+		assertNodes: (graphReducer nodes flatCollect: #nextNodes)
+		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
+]
+
+{ #category : #tests }
+AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 
 	AIGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
@@ -85,47 +182,11 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 
-	self skip.
 	AIGraphFixture stronglyConnectedGraph: graphReducer.
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #nextNodes)
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
-]
-
-{ #category : #tests }
-AIGraphReducerTest >> testMergedNodesNotReferencedInPreviousNodes [
-
-	AIGraphFixture complexCycleGraph2: graphReducer.
-	graphReducer run.
-	self
-		assertNodes: (graphReducer nodes flatCollect: #previousNodes)
-		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
-]
-
-{ #category : #tests }
-AIGraphReducerTest >> testMergedNodesNotReferencedInPreviousNodesForSCG [
-
-	AIGraphFixture stronglyConnectedGraph: graphReducer.
-	graphReducer run.
-	self
-		assertNodes: (graphReducer nodes flatCollect: #previousNodes)
-		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
-]
-
-{ #category : #tests }
-AIGraphReducerTest >> testNextNodesFor [
-
-	| nodes |
-	AIGraphFixture complexCycleGraph2: graphReducer.
-	nodes := { 
-		         (graphReducer findNode: $f).
-		         (graphReducer findNode: $g) }.
-	self
-		assert: ((graphReducer nextNodesFor: nodes)
-				 collect: #model
-				 as: SortedCollection) asArray
-		equals: #( $a $b $d $e $i )
 ]
 
 { #category : #tests }
@@ -135,23 +196,8 @@ AIGraphReducerTest >> testNoCycle [
 	graphReducer run.
 	graphReducer nodes do: [ :node | 
 		self
-			deny: ((node adjacentNodes includes: node) or: [ 
-					 node previousNodes includes: node ])
+			deny: (node adjacentNodes includes: node)
 			description: node asString , ' node is in cycle!' ]
-]
-
-{ #category : #tests }
-AIGraphReducerTest >> testPreviousNodesFor [
-
-	| nodes |
-	AIGraphFixture complexCycleGraph2: graphReducer.
-	nodes := { 
-		         (graphReducer findNode: $f).
-		         (graphReducer findNode: $g) }.
-	self
-		assertCollection:
-		((graphReducer previousNodesFor: nodes) collect: #model)
-		hasSameElements: #( $a $b $c )
 ]
 
 { #category : #tests }
@@ -170,4 +216,42 @@ AIGraphReducerTest >> testStronglyConnectedGraph [
 	self
 		assertCollection: (graphReducer nodes at: 4) model
 		hasSameElements: #( $f $g $h )
+]
+
+{ #category : #tests }
+AIGraphReducerTest >> testStronglyConnectedGraphReferences [
+
+	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH |
+	AIGraphFixture stronglyConnectedGraph: graphReducer.
+	graphReducer run.
+	reducedNodeI := (graphReducer nodes select: [ :each | 
+		                 each model = $i ]) first.
+	mergedNodes := graphReducer nodes select: [ :each | 
+		               each model isCollection ].
+	reducedNodeABC := (mergedNodes select: [ :each | 
+		                   each model includesAll: #( $a $b $c ) ]) first.
+	reducedNodeDE := (mergedNodes select: [ :each | 
+		                  each model includesAll: #( $d $e ) ]) first.
+	reducedNodeFGH := (mergedNodes select: [ :each | 
+		                   each model includesAll: #( $f $g $h ) ]) first.
+
+	self
+		assertCollection: reducedNodeI adjacentNodes
+		hasSameElements: { reducedNodeI. reducedNodeFGH }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeI adjacentNodes size equals: 2.
+
+	self
+		assertCollection: reducedNodeABC adjacentNodes
+		hasSameElements: { reducedNodeDE }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeABC adjacentNodes size equals: 1.
+
+	self
+		assertCollection: reducedNodeFGH adjacentNodes
+		hasSameElements: { reducedNodeDE. reducedNodeABC }.
+	"See is there is no duplicated adjacencies"
+	self assert: reducedNodeFGH adjacentNodes size equals: 2.
+
+	self assert: reducedNodeDE adjacentNodes isEmpty
 ]

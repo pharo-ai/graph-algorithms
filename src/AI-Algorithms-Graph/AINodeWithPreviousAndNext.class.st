@@ -13,17 +13,20 @@ Class {
 
 { #category : #accessing }
 AINodeWithPreviousAndNext >> from: sourceNode [
+
 	self previousNodes add: sourceNode 
 ]
 
 { #category : #initialization }
 AINodeWithPreviousAndNext >> initialize [
+
 	super initialize.
 	previousNodes := OrderedCollection new
 ]
 
 { #category : #testing }
 AINodeWithPreviousAndNext >> isRoot [
+
 	^ self previousNodes isEmpty
 ]
 
@@ -34,5 +37,6 @@ AINodeWithPreviousAndNext >> previousNodes [
 
 { #category : #setting }
 AINodeWithPreviousAndNext >> previousNodes: aNodeList [
+
 	previousNodes := aNodeList
 ]
