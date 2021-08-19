@@ -54,7 +54,9 @@ AITarjan >> nodesAndNextFrom: aNodeList [
 	aNodeList do: [ :node | 
 		node nextNodes do: [ :each | 
 			(self findNode: node model) to: (self findNode: each model) ] ]"
-	self flag: 'Improve'.
+
+	self flag:
+		'Improve. This method is no cohesive. It exists to add nodes from different types of nodes. That responsability should be of the user, not mine.'.
 	aNodeList do: [ :node | self addNodeFor: node model ].
 	aNodeList do: [ :node | 
 		node adjacentNodes do: [ :next | 
