@@ -124,5 +124,5 @@ AIGraphReducer >> run [
 
 	self findCircuits.
 	self reduceGraph.
-	^ self nodes
+	^ nodes
 ]

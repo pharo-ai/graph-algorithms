@@ -5,8 +5,8 @@ Class {
 	#name : #AIBFSNode,
 	#superclass : #AINodeWithNext,
 	#instVars : [
-		'visited',
-		'previousNode'
+		'previousNode',
+		'visited'
 	],
 	#category : #'AI-Algorithms-Graph-Nodes'
 }
@@ -21,7 +21,7 @@ AIBFSNode >> initialize [
 { #category : #accessing }
 AIBFSNode >> label [
 
-	^ 'BFS node: '
+	^ 'BFS: '
 ]
 
 { #category : #accessing }
@@ -36,13 +36,13 @@ AIBFSNode >> previousNode: aNode [
 	previousNode := aNode
 ]
 
-{ #category : #testing }
+{ #category : #initialization }
 AIBFSNode >> visited [
 
 	^ visited
 ]
 
-{ #category : #testing }
+{ #category : #initialization }
 AIBFSNode >> visited: aBoolean [
 
 	visited := aBoolean

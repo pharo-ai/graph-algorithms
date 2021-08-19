@@ -36,25 +36,6 @@ AINodeWithNext >> isLeaf [
 ]
 
 { #category : #accessing }
-AINodeWithNext >> nextNodes [
-
-	self
-		deprecated: 'Please use #adjacentNodes instead'
-		transformWith: '`@receiver nextNodes' -> '`@receiver adjacentNodes'.
-	^ self adjacentNodes
-]
-
-{ #category : #setting }
-AINodeWithNext >> nextNodes: aNodeList [
-
-	self
-		deprecated: 'Please use #adjacentNodes: instead'
-		transformWith:
-		'`@receiver nextNodes: `@arg' -> '`@receiver adjacentNodes: `@arg'.
-	self adjacentNodes: aNodeList
-]
-
-{ #category : #accessing }
 AINodeWithNext >> to: targetNode [
 
 	adjacentNodes add: targetNode

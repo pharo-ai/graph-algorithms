@@ -263,6 +263,24 @@ AIGraphFixture class >> simpleGraph: builder [
 ]
 
 { #category : #fixtures }
+AIGraphFixture class >> simpleGraphForHits: builder [
+
+	"https://i.imgur.com/FvqrFbf.png"
+
+	"Note that the socres (auth and hub) obtained by the hits algorithm will difer the scores from the image. This because the scores of the image were rounded several times in each iteartion to be obtained. But the scores must be similar"
+
+	| nodes edges |
+	nodes := #( 'N1' 'N2' 'N3' 'N4' ).
+	edges := #( #( 'N1' 'N2' ) #( 'N1' 'N3' ) #( 'N1' 'N4' )
+	            #( 'N2' 'N3' ) #( 'N2' 'N4' ) #( 'N3' 'N1' )
+	            #( 'N3' 'N4' ) #( 'N4' 'N4' ) ).
+
+	builder nodes: nodes.
+	builder edges: edges from: #first to: #second.
+	^ builder
+]
+
+{ #category : #fixtures }
 AIGraphFixture class >> simpleWeightedGraph: builder [
 
 	"https://i.imgur.com/AQTX2hz.jpeg"

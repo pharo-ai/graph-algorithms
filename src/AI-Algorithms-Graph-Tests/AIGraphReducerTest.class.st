@@ -165,7 +165,7 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 	AIGraphFixture complexCycleGraph: graphReducer.
 	graphReducer run.
 	self
-		assertNodes: (graphReducer nodes flatCollect: #nextNodes)
+		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
 ]
 
@@ -175,7 +175,7 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 	AIGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
 	self
-		assertNodes: (graphReducer nodes flatCollect: #nextNodes)
+		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
 ]
 
@@ -185,7 +185,7 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 	AIGraphFixture stronglyConnectedGraph: graphReducer.
 	graphReducer run.
 	self
-		assertNodes: (graphReducer nodes flatCollect: #nextNodes)
+		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
 ]
 

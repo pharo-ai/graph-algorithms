@@ -73,7 +73,7 @@ AITarjanNode >> label [
 { #category : #actions }
 AITarjanNode >> popped [
 
-	self inStack: false
+	inStack := false
 ]
 
 { #category : #accessing }

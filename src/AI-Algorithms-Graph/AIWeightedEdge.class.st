@@ -24,12 +24,12 @@ AIWeightedEdge >> asTuple [
 
 { #category : #printing }
 AIWeightedEdge >> printOn: aStream [
+
 	self from printOn: aStream.
 	aStream nextPutAll: ' -> '.
 	self to printOn: aStream.
-	aStream nextPutAll: ' ('.
-	self weight printOn: aStream.
-	aStream nextPut: $).
+	aStream nextPutAll: ' weight: '.
+	self weight printOn: aStream
 ]
 
 { #category : #accessing }
