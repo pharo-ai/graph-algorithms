@@ -2,7 +2,7 @@
 I am a node used for the Hits algorithm
 "
 Class {
-	#name : #MalHitsNode,
+	#name : #AIHitsNode,
 	#superclass : #AINodeWithNextAndPrevious,
 	#instVars : [
 		'auth',
@@ -12,27 +12,27 @@ Class {
 }
 
 { #category : #accessing }
-MalHitsNode >> auth [
+AIHitsNode >> auth [
 	^ auth
 ]
 
 { #category : #accessing }
-MalHitsNode >> auth: anObject [
+AIHitsNode >> auth: anObject [
 	auth := anObject
 ]
 
 { #category : #accessing }
-MalHitsNode >> hub [
+AIHitsNode >> hub [
 	^ hub
 ]
 
 { #category : #accessing }
-MalHitsNode >> hub: anObject [
+AIHitsNode >> hub: anObject [
 	hub := anObject
 ]
 
 { #category : #initialization }
-MalHitsNode >> initialize [
+AIHitsNode >> initialize [
 
 	super initialize.
 	auth := 1.
@@ -40,13 +40,13 @@ MalHitsNode >> initialize [
 ]
 
 { #category : #accessing }
-MalHitsNode >> label [
+AIHitsNode >> label [
 
 	^ 'H '
 ]
 
 { #category : #printing }
-MalHitsNode >> printOn: aStream [
+AIHitsNode >> printOn: aStream [
 
 	aStream nextPut: $(.
 	self model printOn: aStream.

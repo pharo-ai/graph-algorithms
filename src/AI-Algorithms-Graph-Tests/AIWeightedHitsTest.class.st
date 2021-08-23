@@ -15,15 +15,51 @@ AIWeightedHitsTest >> setUp [
 ]
 
 { #category : #tests }
-AIWeightedHitsTest >> testComplexWCycle [
+AIWeightedHitsTest >> testComplexWeighted [
 
 	AIGraphFixture complexWeightedGraph: hits.
-	hits run
+	hits run.
+	hits nodes do: [ :node | 
+		self deny: node hub equals: 1.
+		self deny: node auth equals: 1 ]
+]
+
+{ #category : #tests }
+AIWeightedHitsTest >> testComplexWeighted2 [
+
+	AIGraphFixture complexWeightedGraph2: hits.
+	hits run.
+	hits nodes do: [ :node | 
+		self deny: node hub equals: 1.
+		self deny: node auth equals: 1 ]
+]
+
+{ #category : #tests }
+AIWeightedHitsTest >> testComplexWeighted3 [
+
+	AIGraphFixture complexWeightedGraph3: hits.
+	hits run.
+	hits nodes do: [ :node | 
+		self deny: node hub equals: 1.
+		self deny: node auth equals: 1 ]
 ]
 
 { #category : #tests }
 AIWeightedHitsTest >> testSimpleW [
 
 	AIGraphFixture simpleWeightedGraph: hits.
-	hits run
+	hits run.
+	hits nodes do: [ :node | 
+		self deny: node hub equals: 1.
+		self deny: node auth equals: 1 ]
+]
+
+{ #category : #tests }
+AIWeightedHitsTest >> testWithoutCyclesComplexWeightedGraph [
+
+	AIGraphFixture withoutCyclesComplexWeightedGraph: hits.
+	hits run.
+	hits nodes do: [ :node | 
+		self deny: node hub equals: 1.
+		self deny: node auth equals: 1 ]
 ]

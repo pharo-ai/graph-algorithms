@@ -2,8 +2,8 @@
 I am a node used for the weighted hits algorithm
 "
 Class {
-	#name : #MalWeightedHitsNode,
-	#superclass : #MalHitsNode,
+	#name : #AIWeightedHitsNode,
+	#superclass : #AIHitsNode,
 	#instVars : [
 		'outgoingEdges',
 		'incomingEdges'
@@ -12,20 +12,20 @@ Class {
 }
 
 { #category : #accessing }
-MalWeightedHitsNode >> from: aNode edge: anEdge [
+AIWeightedHitsNode >> from: aNode edge: anEdge [
 
 	incomingNodes add: aNode.
 	incomingEdges add: anEdge
 ]
 
 { #category : #accessing }
-MalWeightedHitsNode >> incomingEdges [
+AIWeightedHitsNode >> incomingEdges [
 
 	^ incomingEdges
 ]
 
 { #category : #initialization }
-MalWeightedHitsNode >> initialize [
+AIWeightedHitsNode >> initialize [
 
 	super initialize.
 	outgoingEdges := OrderedCollection new.
@@ -33,19 +33,19 @@ MalWeightedHitsNode >> initialize [
 ]
 
 { #category : #accessing }
-MalWeightedHitsNode >> label [
+AIWeightedHitsNode >> label [
 
 	^ 'WH '
 ]
 
 { #category : #accessing }
-MalWeightedHitsNode >> outgoingEdges [
+AIWeightedHitsNode >> outgoingEdges [
 
 	^ outgoingEdges
 ]
 
 { #category : #accessing }
-MalWeightedHitsNode >> to: aNode edge: anEdge [
+AIWeightedHitsNode >> to: aNode edge: anEdge [
 
 	adjacentNodes add: aNode.
 	outgoingEdges add: anEdge

@@ -32,7 +32,7 @@ AINodeWithNext >> initialize [
 { #category : #testing }
 AINodeWithNext >> isLeaf [
 
-	^ self nextNodes isEmpty
+	^ adjacentNodes isEmpty
 ]
 
 { #category : #accessing }

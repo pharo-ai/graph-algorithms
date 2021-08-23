@@ -61,7 +61,7 @@ AIHits >> k: aNumberOfIterations [
 { #category : #configuration }
 AIHits >> nodeClass [
 
-	^ MalHitsNode
+	^ AIHitsNode
 ]
 
 { #category : #running }

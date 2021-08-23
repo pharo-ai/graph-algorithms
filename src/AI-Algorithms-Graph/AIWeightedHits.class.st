@@ -38,5 +38,5 @@ AIWeightedHits >> edgeClass [
 { #category : #configuration }
 AIWeightedHits >> nodeClass [
 
-	^ MalWeightedHitsNode
+	^ AIWeightedHitsNode
 ]
