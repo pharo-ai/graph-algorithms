@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'nodes',
 		'edges',
-		'nodeSortBlock'
+		'sortingBlock'
 	],
 	#category : #'AI-Algorithms-Graph-Core'
 }
@@ -65,14 +65,15 @@ AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 			to: #second ]
 ]
 
-{ #category : #testing }
-AIGraphAlgorithm >> canUseSortedNodes [
+{ #category : #'building - graph' }
+AIGraphAlgorithm >> addNodesFromDifferentGraph: aNodeList [
 
-	"New implementation of the algos to have better performances to find nodes"
+	"Adds nodes from another graph. This is useful for example when you want to add all the nodes, and its adjacencies, from one graph to another. For example, first running a graph reducing algo and then do a topological sort. First create the graph reduced graph and then add its nodes to a topological sort graph. "
 
-	"If nodes are sorted following this block, the find method will be a lot faster. The block should be set on the run method and the nodes sorted at this moment"
-
-	^ nodeSortBlock isNotNil
+	aNodeList do: [ :node | self addNodeFor: node model ].
+	aNodeList do: [ :node | 
+		node adjacentNodes do: [ :next | 
+			self addEdge: node model -> next model from: #key to: #value ] ]
 ]
 
 { #category : #configuration }
@@ -116,88 +117,68 @@ AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 				to: #second ] ]
 ]
 
-{ #category : #private }
-AIGraphAlgorithm >> ensureNodesAreSorted [
+{ #category : #'building - graph' }
+AIGraphAlgorithm >> emptyGraph [
 
-	"New implementation of the algos to have better performances to find nodes"
-
-	"If one change is made in the node list, one should call again sortNodes"
-
-	nodeSortBlock ifNotNil: [ ^ self ].
-	self nodeSortBlock: [ :a :b | a model hash <= b model hash ].
-	self sortNodes
+	edges := edges copyEmpty.
+	nodes := nodes copyEmpty
 ]
 
 { #category : #private }
 AIGraphAlgorithm >> findBinaryBlock: aModel [
 
-	"New implementation of the algos to have better performances to find nodes"
+	"New implementation of the algos to have better performances to find nodes. The nodes and edges are sorted from low to high according to their has number."
 
-	^ [ :aNode | 
-	  aNode model = aModel
-		  ifTrue: [ 0 ]
-		  ifFalse: [ 
-			  aModel hash < aNode model hash
-				  ifTrue: [ -1 ]
-				  ifFalse: [ 1 ] ] ]
+	^ [ :aNode | aModel hash - aNode model hash ]
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findEdge: aModel [
 
-	^ self edges detect: [ :edge | edge model = aModel ]
+	^ edges findBinary: (self findBinaryBlock: aModel)
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel [
 
-	self canUseSortedNodes ifFalse: [ 
-		^ self nodes detect: [ :aNode | aNode model = aModel ] ].
-	^ self nodes findBinary: (self findBinaryBlock: aModel)
+	"The nodes are stored in a sorted collection from low to high. That means that they will be always sorted. So, we can use the binary search method that takes O(log(n))."
+
+	^ nodes findBinary: (self findBinaryBlock: aModel)
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
-	self canUseSortedNodes ifFalse: [ 
-		^ self nodes detect: [ :node | node model = aModel ] ifNone: aBlock ].
-	^ self nodes
-		  findBinary: (self findBinaryBlock: aModel)
-		  ifNone: aBlock
+	^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 
-	self canUseSortedNodes ifFalse: [ 
-		^ self nodes detect: [ :node | node model = aModel ] ifFound: aBlock ].
-	"New implementation of the algos to have better performances to find nodes"
-	self notYetImplemented
+	^ nodes
+		  findBinary: (self findBinaryBlock: aModel)
+		  do: aBlock
+		  ifNone: [  ]
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> graph [
 
-	^ { self nodes. self edges }
+	^ {  nodes. edges }
 ]
 
 { #category : #initialization }
 AIGraphAlgorithm >> initialize [
 
-	nodes := OrderedCollection new.
-	edges := OrderedCollection new
+	sortingBlock := [ :a :b | a model hash <= b model hash ].
+	nodes := SortedCollection sortUsing: sortingBlock.
+	edges := SortedCollection sortUsing: sortingBlock
 ]
 
 { #category : #configuration }
 AIGraphAlgorithm >> nodeClass [
 
 	^ AIGraphNode
-]
-
-{ #category : #accessing }
-AIGraphAlgorithm >> nodeSortBlock: aBlockClosure [
-
-	nodeSortBlock := aBlockClosure
 ]
 
 { #category : #accessing }
@@ -212,37 +193,8 @@ AIGraphAlgorithm >> nodes: aNodeList [
 	aNodeList do: [ :model | self addNodeFor: model ]
 ]
 
-{ #category : #adding }
-AIGraphAlgorithm >> nodesFromSet: aSet [
-
-	"Ensure that the collection do not contains any duplicated item"
-
-	self assert: aSet class == Set.
-	nodes addAll:
-		(aSet collect: [ :aModel | self nodeClass with: aModel ])
-]
-
-{ #category : #private }
-AIGraphAlgorithm >> privateEdges: aCollection [
-
-	edges := aCollection 
-]
-
-{ #category : #private }
-AIGraphAlgorithm >> privateNodes: aCollection [
-
-	nodes := aCollection 
-]
-
 { #category : #running }
 AIGraphAlgorithm >> run [
 
 	self subclassResponsibility 
-]
-
-{ #category : #private }
-AIGraphAlgorithm >> sortNodes [
-
-	self canUseSortedNodes ifFalse: [ ^ self ].
-	self nodes sort: nodeSortBlock
 ]

@@ -83,17 +83,22 @@ AIBFS >> run [
 			next visited ifFalse: [ 
 				queue addLast: next.
 				next visited: true.
-				next previousNode: node ] ] ].
-	^ self reconstructPath
+				next previousNode: node ] ] ]
+]
+
+{ #category : #running }
+AIBFS >> runFrom: startModel [
+
+	self start: (self findNode: startModel).
+	self run
 ]
 
 { #category : #running }
 AIBFS >> runFrom: startModel to: endModel [
 
-	self
-		start: (self findNode: startModel);
-		end: (self findNode: endModel).
-	^ self run
+	self runFrom: startModel.
+	self end: (self findNode: endModel).
+	^ self reconstructPath
 ]
 
 { #category : #accessing }

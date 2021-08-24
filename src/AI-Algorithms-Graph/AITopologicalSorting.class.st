@@ -26,20 +26,6 @@ AITopologicalSorting >> nodeClass [
 	^ AINodeWithNextAndPrevious
 ]
 
-{ #category : #configuration }
-AITopologicalSorting >> nodesFromGraph: aNodeList [
-
-	"Add from the nodes of another graph"
-
-	| newNodes |
-	newNodes := aNodeList collect: #model.
-	nodes := OrderedCollection new.
-	self nodes: newNodes.
-	aNodeList do: [ :aNode | 
-		aNode adjacentNodes do: [ :adjacent | 
-			self addEdge: aNode model -> adjacent model from: #key to: #value ] ]
-]
-
 { #category : #private }
 AITopologicalSorting >> removeEdgesOf: aNode [
 
@@ -54,8 +40,9 @@ AITopologicalSorting >> run [
 
 	topologicalSortedElements := OrderedCollection new.
 	"nodesWithNoIncomingEdge is a queue"
-	nodesWithNoIncomingEdge := nodes select: [ :node | 
-		                           node incomingNodes isEmpty ].
+	nodesWithNoIncomingEdge := OrderedCollection empty.
+	nodesWithNoIncomingEdge addAll:
+		(nodes select: [ :node | node incomingNodes isEmpty ]).
 	[ nodesWithNoIncomingEdge isNotEmpty ] whileTrue: [ 
 		| node |
 		node := nodesWithNoIncomingEdge removeFirst.

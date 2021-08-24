@@ -203,19 +203,18 @@ AIGraphReducerTest >> testNoCycle [
 { #category : #tests }
 AIGraphReducerTest >> testStronglyConnectedGraph [
 
+	| nodeModels |
 	AIGraphFixture stronglyConnectedGraph: graphReducer.
 	graphReducer run.
+	nodeModels := graphReducer nodes collect: #model.
 	self assert: graphReducer nodes size equals: 4.
-	self assert: (graphReducer nodes at: 1) model equals: $i.
-	self
-		assertCollection: (graphReducer nodes at: 2) model
-		hasSameElements: #( $d $e ).
-	self
-		assertCollection: (graphReducer nodes at: 3) model
-		hasSameElements: #( $a $b $c ).
-	self
-		assertCollection: (graphReducer nodes at: 4) model
-		hasSameElements: #( $f $g $h )
+	self assert: (nodeModels includes: $i).
+	self assert: (nodeModels anySatisfy: [ :aNodeModel | 
+			 aNodeModel asOrderedCollection includesAll: #( $e $d ) ]).
+	self assert: (nodeModels anySatisfy: [ :aNodeModel | 
+			 aNodeModel asOrderedCollection includesAll: #( $a $b $c ) ]).
+	self assert: (nodeModels anySatisfy: [ :aNodeModel | 
+			 aNodeModel asOrderedCollection includesAll: #( $f $g $h ) ])
 ]
 
 { #category : #tests }

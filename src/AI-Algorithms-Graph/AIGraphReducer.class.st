@@ -35,7 +35,7 @@ AIGraphReducer >> findCircuits [
 
 	| tarjanCircuits |
 	tarjanCircuits := AITarjan new
-		                  nodesAndNextFrom: nodes;
+		                  addNodesFromDifferentGraph: nodes;
 		                  run;
 		                  circuits.
 	circuits := tarjanCircuits collect: [ :circuit | 
@@ -74,15 +74,6 @@ AIGraphReducer >> reduceNodesInCircuit: aCircuit [
 			 model: (aCircuit collect: [ :each | each model ]);
 			 adjacentNodes: (self adjacenciesFor: aCircuit);
 			 yourself)
-]
-
-{ #category : #updating }
-AIGraphReducer >> removeCircularDependenciesFrom: circuitNode [
-
-	circuitNode adjacentNodes removeAllSuchThat: [ :each | 
-		each = circuitNode ].
-	circuitNode previousNodes removeAllSuchThat: [ :each | 
-		each = circuitNode ]
 ]
 
 { #category : #updating }
