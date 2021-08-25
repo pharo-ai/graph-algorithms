@@ -10,7 +10,7 @@
 This is a work in progress migration, improving and re-implementation of graphs algorithms that are defined in Moose.
 The nodes in the graph can be anything, a character, an string, an integer or a complex object.
 
-## Migrated graph algorithms
+## Graph algorithms
 
   - Tarjan’s Algorithm: Strongly Connected Components
   - BFS: Breath Fisrt Search
