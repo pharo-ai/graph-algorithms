@@ -13,7 +13,7 @@ Class {
 	#instVars : [
 		'weight'
 	],
-	#category : #'AI-Algorithms-Graph-Edges'
+	#category : #'AI-Algorithms-Graph-Components-Edges'
 }
 
 { #category : #accessing }

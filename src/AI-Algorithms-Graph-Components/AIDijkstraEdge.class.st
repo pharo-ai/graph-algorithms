@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'visited'
 	],
-	#category : #'AI-Algorithms-Graph-Edges'
+	#category : #'AI-Algorithms-Graph-Components-Edges'
 }
 
 { #category : #initialization }

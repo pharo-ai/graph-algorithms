@@ -19,7 +19,7 @@ Class {
 		'from',
 		'to'
 	],
-	#category : #'AI-Algorithms-Graph-Edges'
+	#category : #'AI-Algorithms-Graph-Components-Edges'
 }
 
 { #category : #'instance creation' }

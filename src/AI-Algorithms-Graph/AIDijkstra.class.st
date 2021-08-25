@@ -11,7 +11,7 @@ Class {
 		'start',
 		'end'
 	],
-	#category : #'AI-Algorithms-Graph-Dijkstra'
+	#category : #'AI-Algorithms-Graph-Shortest path'
 }
 
 { #category : #backtracking }

@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'model'
 	],
-	#category : #'AI-Algorithms-Graph-Nodes'
+	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
 
 { #category : #'instance creation' }

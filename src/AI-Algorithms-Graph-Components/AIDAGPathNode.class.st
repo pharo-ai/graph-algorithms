@@ -1,13 +1,15 @@
+"
+I am a node that is used in the shortest path algorithm for DAG (Directed Acyclic Graph)
+"
 Class {
 	#name : #AIDAGPathNode,
 	#superclass : #AINodeWithNext,
 	#instVars : [
 		'previousNode',
-		'visited',
 		'pathWeight',
 		'outgoingEdges'
 	],
-	#category : #'AI-Algorithms-Graph-Nodes'
+	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
 
 { #category : #initialization }
@@ -15,14 +17,19 @@ AIDAGPathNode >> initialize [
 
 	super initialize.
 	outgoingEdges := OrderedCollection new.
-	visited := false.
 	pathWeight := Float infinity
 ]
 
 { #category : #accessing }
 AIDAGPathNode >> label [
 
-	^ 'BFS: '
+	^ 'Path in DAG: '
+]
+
+{ #category : #accessing }
+AIDAGPathNode >> outgoingEdges [
+
+	^ outgoingEdges
 ]
 
 { #category : #accessing }
@@ -54,16 +61,4 @@ AIDAGPathNode >> to: aNode edge: anEdge [
 
 	adjacentNodes add: aNode.
 	outgoingEdges add: anEdge
-]
-
-{ #category : #initialization }
-AIDAGPathNode >> visited [
-
-	^ visited
-]
-
-{ #category : #initialization }
-AIDAGPathNode >> visited: aBoolean [
-
-	visited := aBoolean
 ]

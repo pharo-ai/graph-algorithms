@@ -21,7 +21,7 @@ Class {
 		'end',
 		'queue'
 	],
-	#category : #'AI-Algorithms-Graph-BFS'
+	#category : #'AI-Algorithms-Graph-Shortest path'
 }
 
 { #category : #accessing }

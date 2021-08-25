@@ -3,7 +3,7 @@ The reduced graph of G is the graph G where each strongly connected components w
 
 circuitsNodes instance variable will collect all nodes created by merging nodes in a circuit.
 
-This algorithm was not tested with weighted graphs. However, reducing a weighted graphs needs an specific way of doing it according to the use case.
+This algorithm is not merging the weights of the graph. However, reducing a weighted graphs needs an specific way of doing it according to the use case.
 "
 Class {
 	#name : #AIGraphReducer,
