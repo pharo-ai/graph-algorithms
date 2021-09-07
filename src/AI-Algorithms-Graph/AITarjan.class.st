@@ -23,7 +23,7 @@ Class {
 		'runningIndex',
 		'sccs'
 	],
-	#category : #'AI-Algorithms-Graph-Tarjan'
+	#category : #'AI-Algorithms-Graph-Strongly Connected Components'
 }
 
 { #category : #accessing }

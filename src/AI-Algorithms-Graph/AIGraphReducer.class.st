@@ -12,7 +12,7 @@ Class {
 		'circuits',
 		'circuitNodes'
 	],
-	#category : #'AI-Algorithms-Graph-Graph Reducer'
+	#category : #'AI-Algorithms-Graph-Strongly Connected Components'
 }
 
 { #category : #updating }
