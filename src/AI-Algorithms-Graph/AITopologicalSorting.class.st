@@ -8,8 +8,8 @@ Class {
 	#name : #AITopologicalSorting,
 	#superclass : #AIGraphAlgorithm,
 	#instVars : [
-		'nodesWithNoIncomingEdge',
-		'topologicalSortedElements'
+		'topologicalSortedElements',
+		'nodesWithNoIncomingEdges'
 	],
 	#category : #'AI-Algorithms-Graph-Topological Sorting'
 }
@@ -17,7 +17,7 @@ Class {
 { #category : #private }
 AITopologicalSorting >> graphHasEdges [
 
-	^ (nodes allSatisfy: [ :node | node adjacentNodes isEmpty ]) not
+	^ nodes anySatisfy: [ :node | node adjacentNodes isNotEmpty ]
 ]
 
 { #category : #configuration }
@@ -31,26 +31,26 @@ AITopologicalSorting >> removeEdgesOf: aNode [
 
 	aNode adjacentNodes do: [ :node | 
 		node incomingNodes remove: aNode.
-		node incomingNodes ifEmpty: [ nodesWithNoIncomingEdge add: node ] ].
+		node incomingNodes ifEmpty: [ nodesWithNoIncomingEdges add: node ] ].
 	aNode adjacentNodes: #(  )
 ]
 
 { #category : #running }
 AITopologicalSorting >> run [
 
-	topologicalSortedElements := OrderedCollection new.
+	topologicalSortedElements := OrderedCollection empty.
 	"nodesWithNoIncomingEdge is a queue"
-	nodesWithNoIncomingEdge := OrderedCollection empty.
-	nodesWithNoIncomingEdge addAll:
+	nodesWithNoIncomingEdges := OrderedCollection empty.
+	nodesWithNoIncomingEdges addAll:
 		(nodes select: [ :node | node incomingNodes isEmpty ]).
-	[ nodesWithNoIncomingEdge isNotEmpty ] whileTrue: [ 
+	[ nodesWithNoIncomingEdges isNotEmpty ] whileTrue: [ 
 		| node |
-		node := nodesWithNoIncomingEdge removeFirst.
+		node := nodesWithNoIncomingEdges removeFirst.
 		topologicalSortedElements addLast: node model.
 		self removeEdgesOf: node ].
 	self graphHasEdges ifTrue: [ 
 		Error signal: 'Not a DAG (Directed Acyclic Graph)' ].
-	"Return the topological order the first element being the node without any dependency"
+	"Return the topological order the first element being the node without any dependencies"
 	^ topologicalSortedElements
 ]
 
