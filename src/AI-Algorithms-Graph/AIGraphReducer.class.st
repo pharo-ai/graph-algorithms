@@ -10,15 +10,15 @@ Class {
 	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'circuits',
-		'circuitNodes'
+		'collapsedNodes'
 	],
 	#category : #'AI-Algorithms-Graph-Strongly Connected Components'
 }
 
 { #category : #updating }
-AIGraphReducer >> addCircuitNodes [
+AIGraphReducer >> addCollapsedNodes [
 
-	nodes addAll: circuitNodes
+	nodes addAll: collapsedNodes
 ]
 
 { #category : #actions }
@@ -45,7 +45,7 @@ AIGraphReducer >> findCircuits [
 { #category : #initialization }
 AIGraphReducer >> initialize [
 	super initialize.
-	circuitNodes := OrderedCollection new.
+	collapsedNodes := OrderedCollection new.
 	circuits := OrderedCollection new
 ]
 
@@ -60,7 +60,7 @@ AIGraphReducer >> reduceGraph [
 
 	circuits do: [ :each | self reduceNodesInCircuit: each ].
 	self removeMergedNodes.
-	self addCircuitNodes.
+	self addCollapsedNodes.
 	self replaceReferencesToMergedNodes
 ]
 
@@ -69,7 +69,7 @@ AIGraphReducer >> reduceNodesInCircuit: aCircuit [
 
 	"This method created a reduced node (called circuit node) that contains all the nodes that are inside a circuit inside a strongly connected component that the Tarjan algorithm found."
 
-	circuitNodes add: (self nodeClass new
+	collapsedNodes add: (self nodeClass new
 			 mergedNodes: aCircuit;
 			 model: (aCircuit collect: [ :each | each model ]);
 			 adjacentNodes: (self adjacenciesFor: aCircuit);
@@ -79,7 +79,7 @@ AIGraphReducer >> reduceNodesInCircuit: aCircuit [
 { #category : #updating }
 AIGraphReducer >> removeMergedNodes [
 
-	nodes removeAll: (circuitNodes flatCollect: #mergedNodes)
+	nodes removeAll: (collapsedNodes flatCollect: #mergedNodes)
 ]
 
 { #category : #reducing }
@@ -93,7 +93,7 @@ AIGraphReducer >> replaceReferencesToMergedNode: aReducedNode [
 	aReducedNode adjacentNodes do: [ :anAdjacentNode |
 		"Iterate through all the circuitNodes to see if the adjacent node was merged.
 		If that is the case (if we found the adjacent node merged), then we need to remove the reference to that node and reference to the new merged node instead. "
-		circuitNodes do: [ :aNode | 
+		collapsedNodes do: [ :aNode | 
 			(aNode mergedNodes includes: anAdjacentNode) ifTrue: [ 
 				newAdjacencies add: aNode.
 				adjacenciesToRemove add: anAdjacentNode ] ] ].

@@ -58,14 +58,13 @@ AIGraphReducerTest >> testComplexCycle [
 		(graphReducer nodes anySatisfy: [ :each | each model = $b ]).
 	self assert:
 		(graphReducer nodes anySatisfy: [ :each | each model = $e ]).
-	mergedNodes := graphReducer nodes select: [ :each | 
-		               each mergedNodes isNotNil ].
-	self
-		assertCollection: (mergedNodes first mergedNodes collect: #model)
-		hasSameElements: #( $d $c $f ).
-	self
-		assertCollection: (mergedNodes second mergedNodes collect: #model)
-		hasSameElements: #( $g $h )
+	mergedNodes := graphReducer nodes
+		               select: [ :each | each mergedNodes isNotNil ]
+		               thenCollect: #model.
+	self assert: (mergedNodes anySatisfy: [ :collapsedNode | 
+			 collapsedNode includesAll: #( $g $h ) ]).
+	self assert: (mergedNodes anySatisfy: [ :collapsedNode | 
+			 collapsedNode includesAll: #( $c $d $f ) ])
 ]
 
 { #category : #tests }
