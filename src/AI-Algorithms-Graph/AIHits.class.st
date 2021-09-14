@@ -90,5 +90,6 @@ AIHits >> run [
 	k timesRepeat: [ 
 		nodes do: [ :node | self computeAuthoritiesFor: node ].
 		nodes do: [ :node | self computeHubsFor: node ].
-		self normalizeScores ]
+		self normalizeScores ].
+	^ nodes
 ]
