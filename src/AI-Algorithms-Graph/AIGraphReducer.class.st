@@ -26,8 +26,9 @@ AIGraphReducer >> adjacenciesFor: aMergedNodeList [
 
 	"Obtains the adjacent nodes of the merged nodes. Then removes the references to the same merged nodes (to avoid referencing a merged node). Because all the merged nodes are now a same 'reduced' node"
 
-	^ ((aMergedNodeList flatCollect: #adjacentNodes as: Set) difference:
-		   aMergedNodeList) asOrderedCollection
+	^ ((aMergedNodeList
+		    flatCollect: [ :each | each adjacentNodes ]
+		    as: Set) difference: aMergedNodeList) asOrderedCollection
 ]
 
 { #category : #running }
@@ -79,7 +80,8 @@ AIGraphReducer >> reduceNodesInCircuit: aCircuit [
 { #category : #updating }
 AIGraphReducer >> removeMergedNodes [
 
-	nodes removeAll: (collapsedNodes flatCollect: #mergedNodes)
+	nodes removeAll:
+		(collapsedNodes flatCollect: [ :each | each mergedNodes ])
 ]
 
 { #category : #reducing }

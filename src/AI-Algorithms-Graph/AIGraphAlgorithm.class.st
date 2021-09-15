@@ -54,15 +54,16 @@ AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 
 	self
 		findNode: model
-		ifFound: [ ^ self "Prevent cycles. Do not add a node already added." ].
+		ifFound: [ 
+		^ self "Prevent cycles. Do not add a node already added." ].
 
 	parent := self addNodeFor: model.
 	(childrenBlock value: model) do: [ :child | 
 		self addNodesFrom: child childrenBlock: childrenBlock.
 		self
 			addEdge: { parent model. child }
-			from: #first
-			to: #second ]
+			from: [ :each | each first ]
+			to: [ :each | each second ] ]
 ]
 
 { #category : #'building - graph' }
@@ -73,7 +74,10 @@ AIGraphAlgorithm >> addNodesFromDifferentGraph: aNodeList [
 	aNodeList do: [ :node | self addNodeFor: node model ].
 	aNodeList do: [ :node | 
 		node adjacentNodes do: [ :next | 
-			self addEdge: node model -> next model from: #key to: #value ] ]
+			self
+				addEdge: node model -> next model
+				from: [ :each | each key ]
+				to: [ :each | each value ] ] ]
 ]
 
 { #category : #configuration }
@@ -113,8 +117,8 @@ AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 				addEdge: { 
 						(source value: eModel).
 						target }
-				from: #first
-				to: #second ] ]
+				from: [ :each | each first ]
+				to: [ :each | each second ] ] ]
 ]
 
 { #category : #'building - graph' }

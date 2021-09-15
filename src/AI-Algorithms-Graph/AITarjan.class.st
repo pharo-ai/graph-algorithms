@@ -84,7 +84,8 @@ AITarjan >> run [
 AITarjan >> stronglyConnectedComponents [
 
 	sccs ifNil: [ self run ].
-	^ sccs collect: [ :component | component collect: #model ]
+	^ sccs collect: [ :component | 
+		  component collect: [ :each | each model ] ]
 ]
 
 { #category : #running }

@@ -50,11 +50,10 @@ AIKruskal >> run [
 
 	| treeEdges sortedEdges |
 	treeEdges := OrderedCollection new.
-	nodes do: #makeSet.
+	nodes do: [ :each | each makeSet ].
 	sortedEdges := edges asSortedCollection: sortBlock.
 	sortedEdges
-		reject: [ :edge |
-			"Only join the two nodes if they don't belong to the same component" 
+		reject: [ :edge | "Only join the two nodes if they don't belong to the same component" 
 			edge from find = edge to find ]
 		thenDo: [ :edge | 
 			edge from union: edge to.
