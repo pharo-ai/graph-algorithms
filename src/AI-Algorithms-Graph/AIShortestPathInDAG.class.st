@@ -88,6 +88,21 @@ AIShortestPathInDAG >> run [
 					nextEdge to previousNode: sortedNode ] ] ]
 ]
 
+{ #category : #running }
+AIShortestPathInDAG >> runFrom: startModel [
+
+	self start: startModel.
+	self run
+]
+
+{ #category : #running }
+AIShortestPathInDAG >> runFrom: startModel to: endModel [
+
+	self runFrom: startModel.
+	self end: endModel.
+	^ self reconstructPath
+]
+
 { #category : #accessing }
 AIShortestPathInDAG >> start [
 

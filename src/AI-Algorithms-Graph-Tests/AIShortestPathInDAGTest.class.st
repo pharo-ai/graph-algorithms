@@ -35,10 +35,7 @@ AIShortestPathInDAGTest >> testWeightedDAG [
 	self assert: (shortestPathAlgo findNode: $E) pathWeight equals: 12.
 	self assert: shortestPath asArray equals: #( $A $B $E ).
 
-	shortestPathAlgo
-		start: $B;
-		end: $F;
-		run.
+	shortestPathAlgo runFrom: $B to: $F.
 	shortestPath := shortestPathAlgo reconstructPath.
 	self assert: (shortestPathAlgo findNode: $F) pathWeight equals: 18.
 	self assert: shortestPath asArray equals: #( $B $E $F ).

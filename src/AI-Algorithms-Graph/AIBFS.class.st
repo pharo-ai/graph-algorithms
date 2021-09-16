@@ -31,9 +31,9 @@ AIBFS >> end [
 ]
 
 { #category : #accessing }
-AIBFS >> end: aBFSNode [
+AIBFS >> end: endModel [
 
-	end := aBFSNode
+	end := self findNode: endModel
 ]
 
 { #category : #configuration }
@@ -89,7 +89,7 @@ AIBFS >> run [
 { #category : #running }
 AIBFS >> runFrom: startModel [
 
-	self start: (self findNode: startModel).
+	self start: startModel.
 	self run
 ]
 
@@ -97,7 +97,7 @@ AIBFS >> runFrom: startModel [
 AIBFS >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
-	self end: (self findNode: endModel).
+	self end: endModel.
 	^ self reconstructPath
 ]
 
@@ -108,7 +108,7 @@ AIBFS >> start [
 ]
 
 { #category : #accessing }
-AIBFS >> start: aBFSNode [
+AIBFS >> start: startModel [
 
-	start := aBFSNode
+	start := self findNode: startModel
 ]

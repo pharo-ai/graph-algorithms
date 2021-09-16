@@ -122,7 +122,6 @@ AIDijkstra >> start: aDijsktraNode [
 { #category : #running }
 AIDijkstra >> traverse: node [
 
-	self flag: #pharoTodo. "optimize traversal of nodes"
 	node nextEdges do: [ :edge | 
 		edge isVisited ifFalse: [ 
 			edge to pathWeight:
