@@ -338,6 +338,25 @@ AIGraphFixture class >> stronglyConnectedGraph: graphBuilder withObjects: object
 ]
 
 { #category : #fixtures }
+AIGraphFixture class >> weightedDAG: builder [
+
+	"https://i.imgur.com/D5zMoQI.png"
+
+	| nodes edges |
+	nodes := $A to: $G.
+	edges := #( #( $A $B 1 ) #( $B $C 5 ) #( $B $E 11 ) #( $B $D 8 )
+	            #( $D $E 6 ) #( $E $F 7 ) #( $G $D 4 ) ).
+
+	builder nodes: nodes.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
+	^ builder
+]
+
+{ #category : #fixtures }
 AIGraphFixture class >> withoutCyclesComplexGraph: builder [
 
 	"for longest path algo"

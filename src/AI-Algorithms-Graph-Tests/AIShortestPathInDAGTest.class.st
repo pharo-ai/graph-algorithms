@@ -18,6 +18,33 @@ AIShortestPathInDAGTest >> setUp [
 ]
 
 { #category : #tests }
+AIShortestPathInDAGTest >> testWeightedDAG [
+
+	| shortestPath |
+	AIGraphFixture weightedDAG: shortestPathAlgo.
+	shortestPathAlgo
+		start: $A;
+		end: $F;
+		run.
+	shortestPath := shortestPathAlgo reconstructPath.
+	self assert: (shortestPathAlgo findNode: $F) pathWeight equals: 19.
+	self assert: shortestPath asArray equals: #( $A $B $E $F ).
+
+	shortestPathAlgo end: $E.
+	shortestPath := shortestPathAlgo reconstructPath.
+	self assert: (shortestPathAlgo findNode: $E) pathWeight equals: 12.
+	self assert: shortestPath asArray equals: #( $A $B $E ).
+
+	shortestPathAlgo
+		start: $B;
+		end: $F;
+		run.
+	shortestPath := shortestPathAlgo reconstructPath.
+	self assert: (shortestPathAlgo findNode: $F) pathWeight equals: 18.
+	self assert: shortestPath asArray equals: #( $B $E $F )
+]
+
+{ #category : #tests }
 AIShortestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
 	| shortestPath |

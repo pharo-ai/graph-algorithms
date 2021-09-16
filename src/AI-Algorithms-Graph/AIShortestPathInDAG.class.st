@@ -78,7 +78,7 @@ AIShortestPathInDAG >> run [
 	stack := topSorter topologicalSortedElements.
 	[ stack isNotEmpty ] whileTrue: [ 
 		sortedNode := self findNode: stack removeFirst.
-		sortedNode outgoingEdges do: [ :nextEdge | 
+		sortedNode outgoingEdges do: [ :nextEdge |
 			"If the pathWeight of the outgoing node (adjacent node) is greater than the cost of the current pathWeight +
 			the weight of the edge, then update the pathWeight of the outgoing node with smaller cost."
 			nextEdge to pathWeight > (sortedNode pathWeight + nextEdge weight) 
