@@ -53,6 +53,35 @@ AIDijkstra >> backtrack: b edgeDo: aBlock [
 				  yourself ]
 ]
 
+{ #category : #running }
+AIDijkstra >> dijkstra [
+
+	| pq |
+	pq := self newPriorityQueue.
+	pq add: start -> 0.
+	
+	[ pq isNotEmpty ] whileTrue: [ 
+		| assoc node minValue |
+		assoc := self removeMostPromisingPair: pq.
+		node := assoc key.
+		minValue := assoc value.
+		"Do not visit again the node"
+		node visited: true.
+
+		"Skip if the path weight is less than the one obtained from the pq.
+		This is an optimization for not processing unnecessary nodes."
+		node pathWeight < minValue ifFalse: [
+			
+			node nextEdges do: [ :edge | 
+				edge visited ifFalse: [ 
+					| newDistance |
+					newDistance := node pathWeight + edge weight.
+					
+					newDistance < edge to pathWeight ifTrue: [ 
+						edge to pathWeight: newDistance.
+						pq add: edge to -> newDistance ] ] ] ] ]
+]
+
 { #category : #configuration }
 AIDijkstra >> edgeClass [
 
@@ -71,6 +100,12 @@ AIDijkstra >> end: aDijsktraNode [
 	end := aDijsktraNode
 ]
 
+{ #category : #'instance creation' }
+AIDijkstra >> newPriorityQueue [
+
+	^ OrderedCollection new
+]
+
 { #category : #configuration }
 AIDijkstra >> nodeClass [
 
@@ -81,6 +116,14 @@ AIDijkstra >> nodeClass [
 AIDijkstra >> pathWeight [
 
 	^ self end pathWeight
+]
+
+{ #category : #running }
+AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
+
+	| minValue |
+	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].
+	^ aPriorityQueue remove: minValue
 ]
 
 { #category : #initialization }
