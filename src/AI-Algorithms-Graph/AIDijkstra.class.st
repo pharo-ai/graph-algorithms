@@ -14,49 +14,10 @@ Class {
 	#category : #'AI-Algorithms-Graph-Shortest path'
 }
 
-{ #category : #backtracking }
-AIDijkstra >> backtrack [
-
-	^ self backtrack: self end
-]
-
-{ #category : #backtracking }
-AIDijkstra >> backtrack: b [
-
-	| p |
-	b pathWeight = Float infinity ifTrue: [ ^ #(  ) ]. "no solution"
-	^ b = self start
-		  ifTrue: [ OrderedCollection with: b model ]
-		  ifFalse: [ 
-			  p := b previousNodes detectMin: [ :n | n pathWeight ].
-			  (self backtrack: p)
-				  add: b model;
-				  yourself ]
-]
-
-{ #category : #backtracking }
-AIDijkstra >> backtrack: b edgeDo: aBlock [
-
-	"special purpose backtracking for CSE: backtrack through edge and do something on each edge 
-	while traversing.
-	 do not check if there is a solution (pathWeight ~= Float infinity)"
-
-	| pe p |
-	^ b = self start
-		  ifTrue: [ OrderedCollection with: b model ]
-		  ifFalse: [ 
-			  pe := b previousEdges detectMin: [ :e | e from pathWeight ].
-			  p := pe from.
-			  aBlock value: pe.
-			  (self backtrack: p edgeDo: aBlock)
-				  add: b model;
-				  yourself ]
-]
-
 { #category : #configuration }
 AIDijkstra >> edgeClass [
 
-	^ AIDijkstraEdge
+	^ AIWeightedEdge
 ]
 
 { #category : #private }
@@ -71,6 +32,12 @@ AIDijkstra >> end: aDijsktraNode [
 	end := aDijsktraNode
 ]
 
+{ #category : #'instance creation' }
+AIDijkstra >> newPriorityQueue [
+
+	^ OrderedCollection new
+]
+
 { #category : #configuration }
 AIDijkstra >> nodeClass [
 
@@ -83,25 +50,73 @@ AIDijkstra >> pathWeight [
 	^ self end pathWeight
 ]
 
+{ #category : #backtracking }
+AIDijkstra >> reconstructPath [
+
+	| path previous |
+	"If no path exists between the start and the end node"
+	end pathWeight = Float infinity ifTrue: [ ^ #(  ) ].
+	path := LinkedList empty.
+	previous := end.
+	path addFirst: end model.
+	[ previous = start ] whileFalse: [ 
+		previous := previous previousNode.
+		path addFirst: previous model ].
+	^ path
+]
+
+{ #category : #running }
+AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
+
+	| minValue |
+	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].
+	^ aPriorityQueue remove: minValue
+]
+
 { #category : #initialization }
 AIDijkstra >> reset [
 
-	self nodes do: [ :n | n pathWeight: Float infinity ].
-	self edges do: [ :e | e visited: false ]
+	self nodes do: [ :node |
+		node
+			pathWeight: Float infinity;
+			visited: false ]
 ]
 
 { #category : #running }
 AIDijkstra >> run [
 
-	self traverse: self start
+	| pq |
+	pq := self newPriorityQueue.
+	pq add: start -> 0.
+	
+	[ pq isNotEmpty ] whileTrue: [ 
+		| assoc node minWeight |
+		assoc := self removeMostPromisingPair: pq.
+		node := assoc key.
+		minWeight := assoc value.
+		"Do not visit again the node"
+		node visited: true.
+
+		"Skip if the path weight is less than the one obtained from the pq.
+		This is an optimization for not processing unnecessary nodes."
+		node pathWeight < minWeight ifFalse: [
+			
+			node nextEdges do: [ :edge | 
+				edge to visited ifFalse: [ 
+					| newDistance |
+					newDistance := node pathWeight + edge weight.
+					
+					newDistance < edge to pathWeight ifTrue: [ 
+						edge to previousNode: node.
+						edge to pathWeight: newDistance.
+						pq add: edge to -> newDistance ] ] ] ] ]
 ]
 
 { #category : #running }
 AIDijkstra >> runFrom: startModel to: endModel [
 
-	self
-		start: (self findNode: startModel);
-		end: (self findNode: endModel).
+	self start: (self findNode: startModel).
+	self end: (self findNode: endModel).
 	self run.
 	^ self pathWeight
 ]
@@ -117,15 +132,4 @@ AIDijkstra >> start: aDijsktraNode [
 
 	start := aDijsktraNode.
 	aDijsktraNode pathWeight: 0
-]
-
-{ #category : #running }
-AIDijkstra >> traverse: node [
-
-	node nextEdges do: [ :edge | 
-		edge isVisited ifFalse: [ 
-			edge to pathWeight:
-				(edge to pathWeight min: node pathWeight + edge weight).
-			edge visited: true.
-			self traverse: edge to ] ]
 ]

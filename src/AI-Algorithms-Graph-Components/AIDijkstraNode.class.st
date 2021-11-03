@@ -5,30 +5,22 @@ Class {
 	#name : #AIDijkstraNode,
 	#superclass : #AIGraphNode,
 	#instVars : [
+		'previousNode',
 		'pathWeight',
-		'previousEdges',
 		'nextEdges',
-		'previousNodes'
+		'visited'
 	],
 	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
-
-{ #category : #accessing }
-AIDijkstraNode >> from: aNode edge: anEdge [
-
-	previousNodes add: aNode.
-	previousEdges add: anEdge
-]
 
 { #category : #initialization }
 AIDijkstraNode >> initialize [
 
 	super initialize.
-	previousNodes := OrderedCollection new.
-	previousEdges := OrderedCollection new.
 	nextEdges := OrderedCollection new.
 	"initialization for Dijsktra"
-	pathWeight := Float infinity
+	pathWeight := Float infinity.
+	visited := false
 ]
 
 { #category : #accessing }
@@ -50,15 +42,15 @@ AIDijkstraNode >> pathWeight: anObject [
 ]
 
 { #category : #accessing }
-AIDijkstraNode >> previousEdges [
+AIDijkstraNode >> previousNode [
 
-	^ previousEdges
+	^ previousNode
 ]
 
 { #category : #accessing }
-AIDijkstraNode >> previousNodes [
+AIDijkstraNode >> previousNode: aNode [
 
-	^ previousNodes
+	previousNode := aNode
 ]
 
 { #category : #printing }
@@ -74,4 +66,16 @@ AIDijkstraNode >> printOn: aStream [
 AIDijkstraNode >> to: aNode edge: anEdge [
 
 	nextEdges add: anEdge
+]
+
+{ #category : #accessing }
+AIDijkstraNode >> visited [
+
+	^ visited
+]
+
+{ #category : #accessing }
+AIDijkstraNode >> visited: anObject [
+
+	visited := anObject
 ]
