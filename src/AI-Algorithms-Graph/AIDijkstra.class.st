@@ -2,7 +2,7 @@
 Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. It was conceived by computer scientist Edsger W. Dijkstra in 1956 and published in 1959. The algorithm exists in many variants; Dijkstra's original variant found the shortest path between two nodes, but a more common variant fixes a single node as the ""source"" node and finds shortest paths from the source to all other nodes in the graph, producing a shortest path tree. (source: Wikipedia).
 
 
-This algorithm doesn't work properly is still Work in Progress
+The current implementation of this algo is the naive one. To improve it, Implement the data structure ""priority queue"" is needed. That is the key to improve the time complexity. Now, the priority queue is implemented as a list and the method `removeMostPromisingPair:` does a iteration to the list O(N) to retrieve the most promising pair. We can implement the priority queue as heap for example.
 "
 Class {
 	#name : #AIDijkstra,
@@ -34,6 +34,8 @@ AIDijkstra >> end: aDijsktraNode [
 
 { #category : #'instance creation' }
 AIDijkstra >> newPriorityQueue [
+
+	"This is the naive implementation of the data structure. See the class comment for more info"
 
 	^ OrderedCollection new
 ]
@@ -67,6 +69,8 @@ AIDijkstra >> reconstructPath [
 
 { #category : #running }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
+
+	"This is the naive implementation of the data structure. See the class comment for more info"
 
 	| minValue |
 	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].
