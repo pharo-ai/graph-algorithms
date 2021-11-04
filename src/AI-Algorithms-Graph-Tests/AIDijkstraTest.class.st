@@ -17,16 +17,18 @@ AIDijkstraTest >> setUp [
 AIDijkstraTest >> testAseBasicCircuit [
 
 	AIGraphFixture aseCircuitWeightedGraph: dijkstra.
-
-	self assert: 1 equals: (dijkstra runFrom: $a to: $b).
+	dijkstra runFrom: $a.
+	self assert: 1 equals: (dijkstra findNode: $b) pathDistance.
+	self assert: 3 equals: (dijkstra findNode: $e) pathDistance.
+	self assert: 5 equals: (dijkstra findNode: $h) pathDistance.
+	
 	dijkstra reset.
-	self assert: 3 equals: (dijkstra runFrom: $a to: $e).
+	dijkstra runFrom: $c.
+	self assert: 2 equals: (dijkstra findNode: $b) pathDistance.
+	
 	dijkstra reset.
-	self assert: 2 equals: (dijkstra runFrom: $c to: $b).
-	dijkstra reset.
-	self assert: 5 equals: (dijkstra runFrom: $a to: $h).
-	dijkstra reset.
-	self assert: Float infinity equals: (dijkstra runFrom: $h to: $a)
+	dijkstra runFrom: $h.
+	self assert: Float infinity equals: (dijkstra findNode: $a) pathDistance.
 ]
 
 { #category : #tests }
@@ -58,28 +60,15 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
-	| pathWeight |
 
-	AIGraphFixture complexWeightedGraph2: dijkstra.
-	pathWeight := dijkstra runFrom: 0 to: 1.
-	self assert: pathWeight equals: 4.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: 0 to: 2.
-	self assert: pathWeight equals: 1.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: 0 to: 3.
-	self assert: pathWeight equals: 7.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: 0 to: 4.
-	self assert: pathWeight equals: 9.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: 0 to: 5.
-	self assert: pathWeight equals: 10.
-	dijkstra reset
+	AIGraphFixture complexWeightedGraph2: dijkstra.	
+	
+	dijkstra runFrom: 0.
+	self assert: (dijkstra findNode: 1) pathDistance equals: 4.
+	self assert: (dijkstra findNode: 2) pathDistance equals: 1.
+	self assert: (dijkstra findNode: 3) pathDistance equals: 7.
+	self assert: (dijkstra findNode: 4) pathDistance equals: 9.
+	self assert: (dijkstra findNode: 5) pathDistance equals: 10
 ]
 
 { #category : #tests }
@@ -121,23 +110,14 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
-	| pathWeight |
-	AIGraphFixture complexWeightedGraph3: dijkstra.
-	pathWeight := dijkstra runFrom: $a to: $b.
-	self assert: pathWeight equals: 3.
-	dijkstra reset.
+	AIGraphFixture complexWeightedGraph3: dijkstra.	
+	
+	dijkstra runFrom: $a.
+	self assert: (dijkstra findNode: $b) pathDistance equals: 3.
+	self assert: (dijkstra findNode: $c) pathDistance equals: 7.
+	self assert: (dijkstra findNode: $d) pathDistance equals: 1.
+	self assert: (dijkstra findNode: $e) pathDistance equals: 2.
 
-	pathWeight := dijkstra runFrom: $a to: $c.
-	self assert: pathWeight equals: 7.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: $a to: $d.
-	self assert: pathWeight equals: 1.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: $a to: $e.
-	self assert: pathWeight equals: 2.
-	dijkstra reset
 ]
 
 { #category : #tests }
@@ -173,23 +153,13 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraph [
 
-	| pathWeight |
 	AIGraphFixture simpleWeightedGraph: dijkstra.
-	pathWeight := dijkstra runFrom: 1 to: 2.
-	self assert: pathWeight equals: 5.
-	dijkstra reset.
 
-	pathWeight := dijkstra runFrom: 1 to: 3.
-	self assert: pathWeight equals: 4.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: 1 to: 4.
-	self assert: pathWeight equals: 8.
-	dijkstra reset.
-
-	pathWeight := dijkstra runFrom: 1 to: 5.
-	self assert: pathWeight equals: 3.
-	dijkstra reset
+	dijkstra runFrom: 1.
+	self assert: (dijkstra findNode: 2) pathDistance equals: 5.
+	self assert: (dijkstra findNode: 3) pathDistance equals: 4.
+	self assert: (dijkstra findNode: 4) pathDistance equals: 8.
+	self assert: (dijkstra findNode: 5) pathDistance equals: 3
 ]
 
 { #category : #tests }

@@ -105,12 +105,18 @@ AIBellmanFord >> run [
 ]
 
 { #category : #running }
-AIBellmanFord >> runFrom: startModel to: endModel [
+AIBellmanFord >> runFrom: startModel [
 
 	self start: startModel.
+	self run
+]
+
+{ #category : #running }
+AIBellmanFord >> runFrom: startModel to: endModel [
+
+	self runFrom: startModel.
 	self end: endModel.
-	self run.
-	^ end pathDistance
+	^ self reconstructPath
 ]
 
 { #category : #accessing }

@@ -118,12 +118,19 @@ AIDijkstra >> run [
 ]
 
 { #category : #running }
-AIDijkstra >> runFrom: startModel to: endModel [
+AIDijkstra >> runFrom: startModel [
 
 	self start: startModel.
+	self run
+	
+]
+
+{ #category : #running }
+AIDijkstra >> runFrom: startModel to: endModel [
+
+	self runFrom: startModel.
 	self end: endModel.
-	self run.
-	^ self pathDistance
+	^ self reconstructPath
 ]
 
 { #category : #private }
