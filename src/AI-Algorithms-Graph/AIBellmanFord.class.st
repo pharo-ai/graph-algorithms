@@ -58,6 +58,7 @@ AIBellmanFord >> relaxEdges [
 		edges do: [ :edge | 
 			edge from pathDistance + edge weight < edge to pathDistance ifTrue: [ 
 				edge to pathDistance: edge from pathDistance + edge weight.
+				edge to previousNode: edge from.
 				anEdgeHasBeenRelaxed := true ] ].
 
 		"If no edge has been relaxed means that we can stop the iteration before V-1 times"
@@ -83,6 +84,15 @@ AIBellmanFord >> relaxEdgesToNegativeInfinity [
 		anEdgeHasBeenRelaxed ifFalse: [ ^ self ] ]
 ]
 
+{ #category : #actions }
+AIBellmanFord >> reset [
+
+	self nodes do: [ :node |
+		node
+			pathDistance: Float infinity;
+			previousNode: nil ]
+]
+
 { #category : #running }
 AIBellmanFord >> run [
 
@@ -106,5 +116,6 @@ AIBellmanFord >> runFrom: startModel to: endModel [
 { #category : #accessing }
 AIBellmanFord >> start: aModel [
 
-	start := (self findNode: aModel)
+	start := (self findNode: aModel).
+	start pathDistance: 0
 ]

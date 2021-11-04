@@ -83,7 +83,8 @@ AIDijkstra >> reset [
 	self nodes do: [ :node |
 		node
 			pathDistance: Float infinity;
-			visited: false ]
+			visited: false;
+			previousNode: nil ]
 ]
 
 { #category : #running }

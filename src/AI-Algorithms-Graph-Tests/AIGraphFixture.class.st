@@ -294,7 +294,7 @@ AIGraphFixture class >> negativeWeightedGraph2: builder [
 ]
 
 { #category : #fixtures }
-AIGraphFixture class >> negativeWeightsGraph: builder [
+AIGraphFixture class >> negativeWeightedGraph: builder [
 
 	"https://i.imgur.com/GsnrKtx.png"
 
