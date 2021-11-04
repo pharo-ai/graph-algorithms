@@ -16,6 +16,7 @@ The nodes in the graph can be anything, a character, an string, an integer or a 
   - BFS: Breath Fisrt Search
   - Graph Reducer: Merge all strongly connected components in a graph to a single node
   - Dijkstra: Shortest path in a weighted graph
+  - Bellman-Ford: Shortest path in negative weighted graphs
   - Kruskal: Minimum or Maximum expanding tree in a graph
   - HITS: Hyperlink-Induced Topic Search
   - Topological Sort
