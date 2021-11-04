@@ -43,13 +43,13 @@ AIDijkstra >> newPriorityQueue [
 { #category : #configuration }
 AIDijkstra >> nodeClass [
 
-	^ AIDijkstraNode
+	^ AIPathDistanceNode
 ]
 
 { #category : #running }
-AIDijkstra >> pathWeight [
+AIDijkstra >> pathDistance [
 
-	^ self end pathWeight
+	^ self end pathDistance
 ]
 
 { #category : #backtracking }
@@ -57,7 +57,7 @@ AIDijkstra >> reconstructPath [
 
 	| path previous |
 	"If no path exists between the start and the end node"
-	end pathWeight = Float infinity ifTrue: [ ^ #(  ) ].
+	end pathDistance = Float infinity ifTrue: [ ^ #(  ) ].
 	path := LinkedList empty.
 	previous := end.
 	path addFirst: end model.
@@ -82,7 +82,7 @@ AIDijkstra >> reset [
 
 	self nodes do: [ :node |
 		node
-			pathWeight: Float infinity;
+			pathDistance: Float infinity;
 			visited: false ]
 ]
 
@@ -103,16 +103,16 @@ AIDijkstra >> run [
 
 		"Skip if the path weight is less than the one obtained from the pq.
 		This is an optimization for not processing unnecessary nodes."
-		node pathWeight < minWeight ifFalse: [
+		node pathDistance < minWeight ifFalse: [
 			
-			node nextEdges do: [ :edge | 
+			node outgoingEdges do: [ :edge | 
 				edge to visited ifFalse: [ 
 					| newDistance |
-					newDistance := node pathWeight + edge weight.
+					newDistance := node pathDistance + edge weight.
 					
-					newDistance < edge to pathWeight ifTrue: [ 
+					newDistance < edge to pathDistance ifTrue: [ 
 						edge to previousNode: node.
-						edge to pathWeight: newDistance.
+						edge to pathDistance: newDistance.
 						pq add: edge to -> newDistance ] ] ] ] ]
 ]
 
@@ -122,7 +122,7 @@ AIDijkstra >> runFrom: startModel to: endModel [
 	self start: (self findNode: startModel).
 	self end: (self findNode: endModel).
 	self run.
-	^ self pathWeight
+	^ self pathDistance
 ]
 
 { #category : #private }
@@ -135,5 +135,5 @@ AIDijkstra >> start [
 AIDijkstra >> start: aDijsktraNode [
 
 	start := aDijsktraNode.
-	aDijsktraNode pathWeight: 0
+	aDijsktraNode pathDistance: 0
 ]

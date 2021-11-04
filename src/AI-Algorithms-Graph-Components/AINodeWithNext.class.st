@@ -29,12 +29,6 @@ AINodeWithNext >> initialize [
 	adjacentNodes := OrderedCollection new
 ]
 
-{ #category : #testing }
-AINodeWithNext >> isLeaf [
-
-	^ adjacentNodes isEmpty
-]
-
 { #category : #accessing }
 AINodeWithNext >> to: targetNode [
 
