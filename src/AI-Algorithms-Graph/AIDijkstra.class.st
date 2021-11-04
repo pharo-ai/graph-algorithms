@@ -27,9 +27,9 @@ AIDijkstra >> end [
 ]
 
 { #category : #private }
-AIDijkstra >> end: aDijsktraNode [
+AIDijkstra >> end: endModel [
 
-	end := aDijsktraNode
+	end := (self findNode: endModel)
 ]
 
 { #category : #'instance creation' }
@@ -119,8 +119,8 @@ AIDijkstra >> run [
 { #category : #running }
 AIDijkstra >> runFrom: startModel to: endModel [
 
-	self start: (self findNode: startModel).
-	self end: (self findNode: endModel).
+	self start: startModel.
+	self end: endModel.
 	self run.
 	^ self pathDistance
 ]
@@ -132,8 +132,8 @@ AIDijkstra >> start [
 ]
 
 { #category : #private }
-AIDijkstra >> start: aDijsktraNode [
+AIDijkstra >> start: startModel [
 
-	start := aDijsktraNode.
-	aDijsktraNode pathDistance: 0
+	start := (self findNode: startModel).
+	start pathDistance: 0
 ]

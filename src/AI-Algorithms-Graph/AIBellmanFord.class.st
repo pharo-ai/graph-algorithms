@@ -1,3 +1,6 @@
+"
+The Bellman Ford algorithm calculates the shortest path in any kind of graph. The graph edges can have negative weights and this algo hanldes negative cycles. If a negative cycle is detected, the path distance of that node is set to negative infinity
+"
 Class {
 	#name : #AIBellmanFord,
 	#superclass : #AIGraphAlgorithm,
@@ -14,10 +17,34 @@ AIBellmanFord >> edgeClass [
 	^ AIWeightedEdge
 ]
 
+{ #category : #accessing }
+AIBellmanFord >> end: aModel [
+
+	end := (self findNode: aModel)
+]
+
 { #category : #configuration }
 AIBellmanFord >> nodeClass [
 
 	^ AIPathDistanceNode
+]
+
+{ #category : #actions }
+AIBellmanFord >> reconstructPath [
+
+	| path previous |
+	"If no path exists between the start and the end node"
+	end pathDistance = Float infinity ifTrue: [ ^ #(  ) ].
+	"If the end node is part of a negative cycle"
+	end pathDistance = Float negativeInfinity ifTrue: [ ^ #(  ) ].
+	
+	path := LinkedList empty.
+	previous := end.
+	path addFirst: end model.
+	[ previous = start ] whileFalse: [ 
+		previous := previous previousNode.
+		path addFirst: previous model ].
+	^ path
 ]
 
 { #category : #running }
@@ -62,8 +89,18 @@ AIBellmanFord >> run [
 	start pathDistance: 0.
 	self relaxEdges.
 	"Run the algorithm another time to detect if any negative cycles exist.
-	The only variation now is that if we can relax another time an edge, then means that we are part of a negative cycle. So, we put negative infinity as the path distance"
+	The only variation now is that if we can relax another time an edge,
+	then means that we are part of a negative cycle. So, we put negative infinity as the path distance"
 	self relaxEdgesToNegativeInfinity
+]
+
+{ #category : #running }
+AIBellmanFord >> runFrom: startModel to: endModel [
+
+	self start: startModel.
+	self end: endModel.
+	self run.
+	^ end pathDistance
 ]
 
 { #category : #accessing }
