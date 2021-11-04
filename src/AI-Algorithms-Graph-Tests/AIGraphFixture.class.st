@@ -256,6 +256,64 @@ AIGraphFixture class >> moduleGraph: builder [
 ]
 
 { #category : #fixtures }
+AIGraphFixture class >> negativeUnconnectedWeightedGraph: builder [
+
+	"https://i.imgur.com/EKPxvx7.png"
+
+	| nodes edges |
+	nodes := 0 to: 9.
+	edges := #( #( 0 1 5 ) #( 1 2 20 ) #( 1 6 60 ) #( 1 5 30 )
+	            #( 2 3 10 ) #( 2 4 75 ) #( 3 2 -15 ) #( 4 9 100 )
+	            #( 5 4 25 ) #( 5 6 5 ) #( 6 7 -50 ) ).
+	builder nodes: nodes.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
+	^ builder
+]
+
+{ #category : #fixtures }
+AIGraphFixture class >> negativeWeightedGraph2: builder [
+
+	"https://i.imgur.com/R3EV1pl.png"
+
+	| nodes edges |
+	nodes := 0 to: 9.
+	edges := #( #( 0 1 5 ) #( 1 2 20 ) #( 1 6 60 ) #( 1 5 30 )
+	            #( 2 3 10 ) #( 2 4 75 ) #( 3 2 -15 ) #( 4 9 100 )
+	            #( 5 4 25 ) #( 5 6 5 ) #( 6 7 -50 ) #( 8 7 -18 ) ).
+	builder nodes: nodes.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
+	^ builder
+]
+
+{ #category : #fixtures }
+AIGraphFixture class >> negativeWeightedGraph: builder [
+
+	"https://i.imgur.com/GsnrKtx.png"
+
+	| nodes edges |
+	nodes := 0 to: 9.
+	edges := #( #( 0 1 5 ) #( 1 2 20 ) #( 1 6 60 ) #( 1 5 30 )
+	            #( 2 3 10 ) #( 2 4 75 ) #( 3 2 -15 ) #( 4 9 100 )
+	            #( 5 4 25 ) #( 5 6 5 ) #( 5 8 50 ) #( 6 7 -50 )
+	            #( 7 8 -10 ) ).
+	builder nodes: nodes.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
+	^ builder
+]
+
+{ #category : #fixtures }
 AIGraphFixture class >> nestedCycleGraph: builder [
 
 	"https://i.imgur.com/6lk0pmR.jpeg"

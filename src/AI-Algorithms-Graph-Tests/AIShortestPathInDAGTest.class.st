@@ -27,22 +27,22 @@ AIShortestPathInDAGTest >> testWeightedDAG [
 		end: $F;
 		run.
 	shortestPath := shortestPathAlgo reconstructPath.
-	self assert: (shortestPathAlgo findNode: $F) pathWeight equals: 19.
+	self assert: (shortestPathAlgo findNode: $F) pathDistance equals: 19.
 	self assert: shortestPath asArray equals: #( $A $B $E $F ).
 
 	shortestPathAlgo end: $E.
 	shortestPath := shortestPathAlgo reconstructPath.
-	self assert: (shortestPathAlgo findNode: $E) pathWeight equals: 12.
+	self assert: (shortestPathAlgo findNode: $E) pathDistance equals: 12.
 	self assert: shortestPath asArray equals: #( $A $B $E ).
 
 	shortestPathAlgo runFrom: $B to: $F.
 	shortestPath := shortestPathAlgo reconstructPath.
-	self assert: (shortestPathAlgo findNode: $F) pathWeight equals: 18.
+	self assert: (shortestPathAlgo findNode: $F) pathDistance equals: 18.
 	self assert: shortestPath asArray equals: #( $B $E $F ).
 	shortestPathAlgo end: $G.
 	shortestPath := shortestPathAlgo reconstructPath.
 	self
-		assert: (shortestPathAlgo findNode: $G) pathWeight
+		assert: (shortestPathAlgo findNode: $G) pathDistance
 		equals: Float infinity.
 	self assert: shortestPath asArray equals: #(  )
 ]
@@ -57,6 +57,6 @@ AIShortestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 		end: $s;
 		run.
 	shortestPath := shortestPathAlgo reconstructPath.
-	self assert: (shortestPathAlgo findNode: $s) pathWeight equals: 10.
+	self assert: (shortestPathAlgo findNode: $s) pathDistance equals: 10.
 	self assert: shortestPath asArray equals: #( $b $c $q $p $s )
 ]

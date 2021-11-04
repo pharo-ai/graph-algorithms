@@ -3,57 +3,23 @@ I am a node that is used in the shortest path algorithm for DAG (Directed Acycli
 "
 Class {
 	#name : #AIDAGPathNode,
-	#superclass : #AINodeWithNext,
+	#superclass : #AIPathDistanceNode,
 	#instVars : [
-		'previousNode',
-		'pathWeight',
-		'outgoingEdges'
+		'adjacentNodes'
 	],
 	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
+
+{ #category : #accessing }
+AIDAGPathNode >> adjacentNodes [
+	^ adjacentNodes
+]
 
 { #category : #initialization }
 AIDAGPathNode >> initialize [
 
 	super initialize.
-	outgoingEdges := OrderedCollection new.
-	pathWeight := Float infinity
-]
-
-{ #category : #accessing }
-AIDAGPathNode >> label [
-
-	^ 'Path in DAG: '
-]
-
-{ #category : #accessing }
-AIDAGPathNode >> outgoingEdges [
-
-	^ outgoingEdges
-]
-
-{ #category : #accessing }
-AIDAGPathNode >> pathWeight [
-
-	^ pathWeight
-]
-
-{ #category : #accessing }
-AIDAGPathNode >> pathWeight: aNumber [
-
-	pathWeight := aNumber
-]
-
-{ #category : #accessing }
-AIDAGPathNode >> previousNode [
-
-	^ previousNode
-]
-
-{ #category : #accessing }
-AIDAGPathNode >> previousNode: aNode [
-
-	previousNode := aNode
+	adjacentNodes := OrderedCollection new
 ]
 
 { #category : #accessing }

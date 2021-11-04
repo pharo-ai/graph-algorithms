@@ -40,8 +40,8 @@ AIShortestPathInDAG >> end: aModel [
 { #category : #running }
 AIShortestPathInDAG >> initializePathWeights [
 
-	nodes do: [ :node | node pathWeight: Float infinity ].
-	start pathWeight: 0
+	nodes do: [ :node | node pathDistance: Float infinity ].
+	start pathDistance: 0
 ]
 
 { #category : #configuration }
@@ -81,9 +81,9 @@ AIShortestPathInDAG >> run [
 		sortedNode outgoingEdges do: [ :nextEdge |
 			"If the pathWeight of the outgoing node (adjacent node) is greater than the cost of the current pathWeight +
 			the weight of the edge, then update the pathWeight of the outgoing node with smaller cost."
-			nextEdge to pathWeight > (sortedNode pathWeight + nextEdge weight) 
+			nextEdge to pathDistance > (sortedNode pathDistance + nextEdge weight) 
 				ifTrue: [ 
-					nextEdge to pathWeight: sortedNode pathWeight + nextEdge weight.
+					nextEdge to pathDistance: sortedNode pathDistance + nextEdge weight.
 					"The previousNode is useful for retrieving the path"
 					nextEdge to previousNode: sortedNode ] ] ]
 ]
