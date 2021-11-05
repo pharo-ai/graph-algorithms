@@ -37,6 +37,12 @@ AINodeWithNextAndPrevious >> initialize [
 ]
 
 { #category : #testing }
+AINodeWithNextAndPrevious >> isLeaf [
+
+	^ incomingNodes isEmpty
+]
+
+{ #category : #testing }
 AINodeWithNextAndPrevious >> isRoot [
 
 	^ incomingNodes isEmpty

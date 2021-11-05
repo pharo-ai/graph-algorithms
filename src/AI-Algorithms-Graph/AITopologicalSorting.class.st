@@ -31,7 +31,7 @@ AITopologicalSorting >> removeEdgesOf: aNode [
 
 	aNode adjacentNodes do: [ :node | 
 		node incomingNodes remove: aNode.
-		node incomingNodes ifEmpty: [ nodesWithNoIncomingEdges add: node ] ].
+		node isLeaf ifTrue: [ nodesWithNoIncomingEdges add: node ] ].
 	aNode adjacentNodes: #(  )
 ]
 
@@ -42,7 +42,7 @@ AITopologicalSorting >> run [
 	"nodesWithNoIncomingEdge is a queue"
 	nodesWithNoIncomingEdges := OrderedCollection empty.
 	nodesWithNoIncomingEdges addAll:
-		(nodes select: [ :node | node incomingNodes isEmpty ]).
+		(nodes select: [ :node | node isLeaf ]).
 	[ nodesWithNoIncomingEdges isNotEmpty ] whileTrue: [ 
 		| node |
 		node := nodesWithNoIncomingEdges removeFirst.
