@@ -5,7 +5,8 @@ Class {
 	#name : #AIGraphNode,
 	#superclass : #Object,
 	#instVars : [
-		'model'
+		'model',
+		'adjacentNodes'
 	],
 	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
@@ -17,11 +18,30 @@ AIGraphNode class >> with: aModel [
 ]
 
 { #category : #accessing }
+AIGraphNode >> adjacentNodes [
+
+	^ adjacentNodes
+]
+
+{ #category : #accessing }
+AIGraphNode >> adjacentNodes: aNodeList [
+
+	adjacentNodes := aNodeList
+]
+
+{ #category : #accessing }
 AIGraphNode >> from: sourceNode [
 ]
 
 { #category : #accessing }
 AIGraphNode >> from: sourceNode edge: anEdge [
+]
+
+{ #category : #initialization }
+AIGraphNode >> initialize [
+
+	super initialize.
+	adjacentNodes := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -52,7 +72,7 @@ AIGraphNode >> printOn: stream [
 { #category : #accessing }
 AIGraphNode >> to: targetNode [
 
-	
+	adjacentNodes add: targetNode
 ]
 
 { #category : #accessing }

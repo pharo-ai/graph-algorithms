@@ -3,7 +3,7 @@ I am a node that is used in the BFS algorithm defined in the `AIBFS` class. I ha
 "
 Class {
 	#name : #AIBFSNode,
-	#superclass : #AINodeWithNext,
+	#superclass : #AIGraphNode,
 	#instVars : [
 		'previousNode',
 		'visited'

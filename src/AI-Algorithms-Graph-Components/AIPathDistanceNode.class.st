@@ -64,7 +64,8 @@ AIPathDistanceNode >> printOn: aStream [
 { #category : #accessing }
 AIPathDistanceNode >> to: aNode edge: anEdge [
 
-	outgoingEdges add: anEdge
+	outgoingEdges add: anEdge.
+	adjacentNodes add: aNode
 ]
 
 { #category : #accessing }

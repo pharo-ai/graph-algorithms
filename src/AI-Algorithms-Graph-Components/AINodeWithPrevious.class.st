@@ -3,8 +3,8 @@ A basic node able to host the model and to represent edges with no additional cl
 Edges are navigable in both way through the nextNodes and prevousNodes instances variables.
 "
 Class {
-	#name : #AINodeWithNextAndPrevious,
-	#superclass : #AINodeWithNext,
+	#name : #AINodeWithPrevious,
+	#superclass : #AIGraphNode,
 	#instVars : [
 		'incomingNodes'
 	],
@@ -12,38 +12,38 @@ Class {
 }
 
 { #category : #accessing }
-AINodeWithNextAndPrevious >> from: sourceNode [
+AINodeWithPrevious >> from: sourceNode [
 
 	incomingNodes add: sourceNode
 ]
 
 { #category : #accessing }
-AINodeWithNextAndPrevious >> incomingNodes [
+AINodeWithPrevious >> incomingNodes [
 
 	^ incomingNodes
 ]
 
 { #category : #setting }
-AINodeWithNextAndPrevious >> incomingNodes: aNodeList [
+AINodeWithPrevious >> incomingNodes: aNodeList [
 
 	incomingNodes := aNodeList
 ]
 
 { #category : #initialization }
-AINodeWithNextAndPrevious >> initialize [
+AINodeWithPrevious >> initialize [
 
 	super initialize.
 	incomingNodes := OrderedCollection new
 ]
 
 { #category : #testing }
-AINodeWithNextAndPrevious >> isLeaf [
+AINodeWithPrevious >> isLeaf [
 
 	^ incomingNodes isEmpty
 ]
 
 { #category : #testing }
-AINodeWithNextAndPrevious >> isRoot [
+AINodeWithPrevious >> isRoot [
 
 	^ incomingNodes isEmpty
 ]

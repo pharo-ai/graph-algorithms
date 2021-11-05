@@ -14,7 +14,7 @@ I am used by the Kruskal's algorithm to find cycles in a graph with a constant t
 "
 Class {
 	#name : #AIDisjointSetNode,
-	#superclass : #AINodeWithNext,
+	#superclass : #AIGraphNode,
 	#instVars : [
 		'parent'
 	],

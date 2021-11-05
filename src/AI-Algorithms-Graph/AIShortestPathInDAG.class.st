@@ -47,7 +47,7 @@ AIShortestPathInDAG >> initializePathWeights [
 { #category : #configuration }
 AIShortestPathInDAG >> nodeClass [
 
-	^ AIDAGPathNode 
+	^ AIPathDistanceNode 
 ]
 
 { #category : #running }

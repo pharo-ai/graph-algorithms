@@ -23,7 +23,7 @@ AITopologicalSorting >> graphHasEdges [
 { #category : #configuration }
 AITopologicalSorting >> nodeClass [
 
-	^ AINodeWithNextAndPrevious
+	^ AINodeWithPrevious
 ]
 
 { #category : #private }

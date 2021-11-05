@@ -8,7 +8,7 @@ Tha instance variable `cycleNodes` is a list that contains all the other nodes t
 "
 Class {
 	#name : #AITarjanNode,
-	#superclass : #AINodeWithNext,
+	#superclass : #AIGraphNode,
 	#instVars : [
 		'index',
 		'lowlink',

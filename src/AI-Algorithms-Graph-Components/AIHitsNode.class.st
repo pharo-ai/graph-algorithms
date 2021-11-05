@@ -3,7 +3,7 @@ I am a node used for the Hits algorithm
 "
 Class {
 	#name : #AIHitsNode,
-	#superclass : #AINodeWithNextAndPrevious,
+	#superclass : #AINodeWithPrevious,
 	#instVars : [
 		'auth',
 		'hub'
