@@ -14,10 +14,26 @@ Class {
 	#category : #'AI-Algorithms-Graph-Topological Sorting'
 }
 
+{ #category : #running }
+AITopologicalSorting >> gatherNoIncomingNodes [
+
+	nodesWithNoIncomingEdges addAll:
+		(nodes select: [ :node | node isLeaf ])
+]
+
 { #category : #private }
 AITopologicalSorting >> graphHasEdges [
 
 	^ nodes anySatisfy: [ :node | node adjacentNodes isNotEmpty ]
+]
+
+{ #category : #running }
+AITopologicalSorting >> initializeElements [
+
+	topologicalSortedElements := OrderedCollection new.
+	"nodesWithNoIncomingEdge is a queue is a linked list because it has
+	a better time complexity for removing the first element."
+	nodesWithNoIncomingEdges := LinkedList new
 ]
 
 { #category : #configuration }
@@ -38,19 +54,16 @@ AITopologicalSorting >> removeEdgesOf: aNode [
 { #category : #running }
 AITopologicalSorting >> run [
 
-	topologicalSortedElements := OrderedCollection empty.
-	"nodesWithNoIncomingEdge is a queue"
-	nodesWithNoIncomingEdges := OrderedCollection empty.
-	nodesWithNoIncomingEdges addAll:
-		(nodes select: [ :node | node isLeaf ]).
+	self initializeElements.
+	self gatherNoIncomingNodes.
 	[ nodesWithNoIncomingEdges isNotEmpty ] whileTrue: [ 
 		| node |
 		node := nodesWithNoIncomingEdges removeFirst.
 		topologicalSortedElements addLast: node model.
 		self removeEdgesOf: node ].
+
 	self graphHasEdges ifTrue: [ 
 		Error signal: 'Not a DAG (Directed Acyclic Graph)' ].
-	"Return the topological order the first element being the node without any dependencies"
 	^ topologicalSortedElements
 ]
 
