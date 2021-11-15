@@ -122,6 +122,19 @@ AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 ]
 
 { #category : #'building - graph' }
+AIGraphAlgorithm >> edgesByPair: aCollection [
+
+	" aCollection must be a collection where the incoming edge has to be in the first position and the outgoing esge has to be in the second position.
+	
+	You can use this method instead of doing
+	edge: aCollection from: #first to: #second"
+	aCollection do: [ :eModel | 
+		self addEdge: eModel
+		from: [ :each | each first ]
+		to: [ :each | each second ] ]
+]
+
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> emptyGraph [
 
 	edges := edges copyEmpty.
