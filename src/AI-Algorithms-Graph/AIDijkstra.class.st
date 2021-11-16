@@ -35,7 +35,7 @@ AIDijkstra >> end: endModel [
 { #category : #'instance creation' }
 AIDijkstra >> newPriorityQueue [
 
-	"This is the naive implementation of the data structure. See the class comment for more info"
+	"This is the naive implementation of the data structure."
 
 	^ OrderedCollection new
 ]
@@ -70,7 +70,7 @@ AIDijkstra >> reconstructPath [
 { #category : #running }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
 
-	"This is the naive implementation of the data structure. See the class comment for more info"
+	"This is the naive implementation of the data structure."
 
 	| minValue |
 	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].

@@ -51,6 +51,18 @@ AIShortestPathInDAG >> nodeClass [
 ]
 
 { #category : #running }
+AIShortestPathInDAG >> orderNodesInTopologicalOrder [
+
+	| topSorter stack |
+	topSorter := AITopologicalSorting new
+		             addNodesFromDifferentGraph: nodes;
+		             yourself.
+	topSorter run.
+	stack := topSorter topologicalSortedElements.
+	^ stack
+]
+
+{ #category : #running }
 AIShortestPathInDAG >> reconstructPath [
 
 	| path previous |
@@ -68,24 +80,16 @@ AIShortestPathInDAG >> reconstructPath [
 { #category : #running }
 AIShortestPathInDAG >> run [
 
-	| topSorter stack sortedNode |
+	| stack sortedNode |
 	self initializePathWeights.
-	topSorter := AITopologicalSorting new
-		             addNodesFromDifferentGraph: nodes;
-		             yourself.
-	topSorter run.
-	"Sort the nodes in topological order"
-	stack := topSorter topologicalSortedElements.
+	stack := self orderNodesInTopologicalOrder.
+
 	[ stack isNotEmpty ] whileTrue: [ 
 		sortedNode := self findNode: stack removeFirst.
-		sortedNode outgoingEdges do: [ :nextEdge |
-			"If the pathWeight of the outgoing node (adjacent node) is greater than the cost of the current pathWeight +
-			the weight of the edge, then update the pathWeight of the outgoing node with smaller cost."
-			nextEdge to pathDistance > (sortedNode pathDistance + nextEdge weight) 
-				ifTrue: [ 
-					nextEdge to pathDistance: sortedNode pathDistance + nextEdge weight.
-					"The previousNode is useful for retrieving the path"
-					nextEdge to previousNode: sortedNode ] ] ]
+		
+		sortedNode outgoingEdges do: [ :nextEdge | 
+			nextEdge to pathDistance > (sortedNode pathDistance + nextEdge weight)
+				ifTrue: [ self updatePathDistance: nextEdge previousNode: sortedNode ] ] ]
 ]
 
 { #category : #running }
@@ -113,4 +117,11 @@ AIShortestPathInDAG >> start [
 AIShortestPathInDAG >> start: aModel [
 
 	start := self findNode: aModel
+]
+
+{ #category : #running }
+AIShortestPathInDAG >> updatePathDistance: edge previousNode: previousNode [
+
+	edge to pathDistance: previousNode pathDistance + edge weight.
+	edge to previousNode: previousNode
 ]
