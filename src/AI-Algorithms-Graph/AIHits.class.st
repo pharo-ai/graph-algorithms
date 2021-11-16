@@ -16,7 +16,9 @@ Class {
 AIHits >> computeAuthoritiesFor: aNode [
 
 	aNode auth:
-		(aNode incomingNodes inject: 0 into: [ :sum :node | sum + node hub ])
+		(aNode incomingNodes 
+			inject: 0
+			into: [ :sum :node | sum + node hub ])
 ]
 
 { #category : #running }
@@ -24,8 +26,8 @@ AIHits >> computeHubsFor: aNode [
 
 	aNode hub:
 		(aNode adjacentNodes
-			 inject: 0
-			 into: [ :sum :node | sum + node auth ])
+			inject: 0
+			into: [ :sum :node | sum + node auth ])
 ]
 
 { #category : #initialization }
@@ -39,9 +41,8 @@ AIHits >> initialize [
 AIHits >> initializeNodes [
 
 	nodes do: [ :n | 
-		n
-			auth: 1.0;
-			hub: 1.0 ]
+		n auth: 1.0.
+		n hub: 1.0 ]
 ]
 
 { #category : #configuration }
@@ -70,14 +71,18 @@ AIHits >> normalizeScores [
 	| authNorm hubNorm |
 	authNorm := 0.
 	hubNorm := 0.
+	
 	nodes do: [ :node | 
 		authNorm := authNorm + node auth squared.
 		hubNorm := hubNorm + node hub squared ].
+	
 	authNorm := authNorm sqrt.
 	hubNorm := hubNorm sqrt.
+	
 	"To avoid dividing by 0"
 	authNorm = 0 ifTrue: [ authNorm := 1.0 ].
 	hubNorm = 0 ifTrue: [ hubNorm := 1.0 ].
+	
 	nodes do: [ :n | 
 		n auth: n auth / authNorm.
 		n hub: n hub / hubNorm ]
