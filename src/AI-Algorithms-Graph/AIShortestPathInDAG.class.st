@@ -51,18 +51,6 @@ AIShortestPathInDAG >> nodeClass [
 ]
 
 { #category : #running }
-AIShortestPathInDAG >> orderNodesInTopologicalOrder [
-
-	| topSorter stack |
-	topSorter := AITopologicalSorting new
-		             addNodesFromDifferentGraph: nodes;
-		             yourself.
-	topSorter run.
-	stack := topSorter topologicalSortedElements.
-	^ stack
-]
-
-{ #category : #running }
 AIShortestPathInDAG >> reconstructPath [
 
 	| path previous |
@@ -82,7 +70,7 @@ AIShortestPathInDAG >> run [
 
 	| stack sortedNode |
 	self initializePathWeights.
-	stack := self orderNodesInTopologicalOrder.
+	stack := self topologicalSortedNodes.
 
 	[ stack isNotEmpty ] whileTrue: [ 
 		sortedNode := self findNode: stack removeFirst.
@@ -117,6 +105,18 @@ AIShortestPathInDAG >> start [
 AIShortestPathInDAG >> start: aModel [
 
 	start := self findNode: aModel
+]
+
+{ #category : #running }
+AIShortestPathInDAG >> topologicalSortedNodes [
+
+	| topSorter  |
+	topSorter := AITopologicalSorting new
+		addNodesFromDifferentGraph: nodes;
+		yourself.
+	topSorter run.
+	^ topSorter topologicalSortedElements
+	
 ]
 
 { #category : #running }

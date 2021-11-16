@@ -98,9 +98,10 @@ AIBellmanFord >> run [
 
 	start pathDistance: 0.
 	self relaxEdges.
-	"Run the algorithm another time to detect if any negative cycles exist.
-	The only variation now is that if we can relax another time an edge,
-	then means that we are part of a negative cycle. So, we put negative infinity as the path distance"
+	"Run the algorithm one more time to detect if thre is any negative cycles.
+	The variation now is if we can relax one more time an edge,
+	means that the edge is part of a negative cycle.
+	So, we put negative infinity as the path distance"
 	self relaxEdgesToNegativeInfinity
 ]
 
