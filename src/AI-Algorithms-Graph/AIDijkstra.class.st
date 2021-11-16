@@ -93,27 +93,24 @@ AIDijkstra >> run [
 	| pq |
 	pq := self newPriorityQueue.
 	pq add: start -> 0.
-	
+
 	[ pq isNotEmpty ] whileTrue: [ 
 		| assoc node minWeight |
 		assoc := self removeMostPromisingPair: pq.
 		node := assoc key.
 		minWeight := assoc value.
-		"Do not visit again the node"
 		node visited: true.
 
 		"Skip if the path weight is less than the one obtained from the pq.
 		This is an optimization for not processing unnecessary nodes."
-		node pathDistance < minWeight ifFalse: [
-			
+		node pathDistance < minWeight ifFalse: [ 
 			node outgoingEdges do: [ :edge | 
 				edge to visited ifFalse: [ 
 					| newDistance |
 					newDistance := node pathDistance + edge weight.
 					
 					newDistance < edge to pathDistance ifTrue: [ 
-						edge to previousNode: node.
-						edge to pathDistance: newDistance.
+						self updateDistance: newDistance of: edge to previousNode: node.
 						pq add: edge to -> newDistance ] ] ] ] ]
 ]
 
@@ -144,4 +141,11 @@ AIDijkstra >> start: startModel [
 
 	start := (self findNode: startModel).
 	start pathDistance: 0
+]
+
+{ #category : #running }
+AIDijkstra >> updateDistance: newDistance of: aNode previousNode: previousNode [
+
+	aNode previousNode: previousNode.
+	aNode pathDistance: newDistance
 ]
