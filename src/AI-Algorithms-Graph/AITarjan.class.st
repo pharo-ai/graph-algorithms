@@ -26,6 +26,21 @@ Class {
 	#category : #'AI-Algorithms-Graph-Strongly Connected Components'
 }
 
+{ #category : #running }
+AITarjan >> addNewSccForNode: aTarjanNode [
+
+	| currentNode stronglyConnectedComponent |
+	stronglyConnectedComponent := OrderedCollection empty.
+
+	[ currentNode := stack pop.
+	currentNode popped.
+	stronglyConnectedComponent add: currentNode ]
+	doWhileFalse: [ currentNode = aTarjanNode ].
+	
+	sccs add: stronglyConnectedComponent.
+	stronglyConnectedComponent do: [ :each | each cycleNodes: stronglyConnectedComponent ]
+]
+
 { #category : #accessing }
 AITarjan >> circuits [
 
@@ -47,25 +62,9 @@ AITarjan >> nodeClass [
 ]
 
 { #category : #running }
-AITarjan >> popStackAndAddNewSccUntil: aTarjanNode [
-
-	| currentNode stronglyConnectedComponent |
-	stronglyConnectedComponent := OrderedCollection empty.
-	[ 
-	currentNode := stack pop.
-	currentNode popped.
-	stronglyConnectedComponent add: currentNode ] doWhileFalse: [ 
-		currentNode = aTarjanNode ].
-	sccs add: stronglyConnectedComponent.
-	stronglyConnectedComponent do: [ :each | 
-		each cycleNodes: stronglyConnectedComponent ]
-]
-
-{ #category : #running }
 AITarjan >> putOnStack: aTarjanNode [
 
 	stack push: aTarjanNode.
-	"I use a flag to avoid stack access. The stack data structure doesn't allow to check which items has. For this algorithm we need to see if a node is in the stack"
 	aTarjanNode inStack: true
 ]
 
@@ -84,8 +83,7 @@ AITarjan >> run [
 AITarjan >> stronglyConnectedComponents [
 
 	sccs ifNil: [ self run ].
-	^ sccs collect: [ :component | 
-		  component collect: [ :each | each model ] ]
+	^ sccs collect: [ :component | component collect: [ :each | each model ] ]
 ]
 
 { #category : #running }
@@ -94,7 +92,9 @@ AITarjan >> traverse: aTarjanNode [
 	aTarjanNode tarjanIndex: runningIndex.
 	aTarjanNode tarjanLowlink: runningIndex.
 	runningIndex := runningIndex + 1.
+	
 	self putOnStack: aTarjanNode.
+	
 	aTarjanNode adjacentNodes do: [ :adjacentNode | 
 		adjacentNode isTarjanUndefined
 			ifTrue: [ 
@@ -105,6 +105,6 @@ AITarjan >> traverse: aTarjanNode [
 				adjacentNode inStack ifTrue: [ 
 					aTarjanNode tarjanLowlink:
 						(aTarjanNode tarjanLowlink min: adjacentNode tarjanIndex) ] ] ].
-	(self isRootNode: aTarjanNode) ifTrue: [ 
-		self popStackAndAddNewSccUntil: aTarjanNode ]
+
+	(self isRootNode: aTarjanNode) ifTrue: [ self addNewSccForNode: aTarjanNode ]
 ]
