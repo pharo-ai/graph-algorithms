@@ -35,10 +35,10 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 BaselineOfAIGraphAlgorithms >> defineGroups: spec [ 
 
 	spec
-		group: 'Core' with: #( 'AI-Algorithms-Graph' );
-		group: 'Tests' with: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Tests' ).
+		group: 'Core' with: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components');
+		group: 'Tests' with: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components' 'AI-Algorithms-Graph-Tests' ).
 	spec
-		group: 'GraphGenerators' with: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Generators' );
+		group: 'GraphGenerators' with: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components' 'AI-Algorithms-Graph-Generators' );
 		group: 'GraphGeneratorsTests' with: #( 'AI-Algorithms-Graph-Generators' 'AI-Algorithms-Graph-Generators-Tests' ).
 	spec
 		group: 'All' with: #( 'Core' 'Tests' );
