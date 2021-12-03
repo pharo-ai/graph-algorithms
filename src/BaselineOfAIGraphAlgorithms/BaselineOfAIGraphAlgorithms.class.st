@@ -1,3 +1,6 @@
+"
+Baseline of the project
+"
 Class {
 	#name : #BaselineOfAIGraphAlgorithms,
 	#superclass : #BaselineOf,
@@ -9,10 +12,10 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 
 	<baseline>
 	spec for: #common do: [
+
 		"Packages"
-		
 		spec package: 'AI-Algorithms-Graph-Components'.
-				
+		
 		spec
 			package: 'AI-Algorithms-Graph'
 			with: [ spec requires: #( 'AI-Algorithms-Graph-Components' ) ]..
@@ -26,12 +29,12 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 		spec
 			package: 'AI-Algorithms-Graph-Generators-Tests'
 			with: [ spec requires: #( 'AI-Algorithms-Graph-Generators' ) ].
-			
+		
 	"Define groups"
 	self defineGroups: spec	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #defaults }
 BaselineOfAIGraphAlgorithms >> defineGroups: spec [ 
 
 	spec
