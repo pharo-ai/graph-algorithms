@@ -12,7 +12,7 @@ This a re-implementation of an ancient version of graphs algorithms package from
 ## Available graph algorithms
 
   - Tarjan’s Algorithm: Strongly Connected Components
-  - BFS: Breath Fisrt Search
+  - BFS: Breath First Search
   - Graph Reducer: Merge all strongly connected components in a graph to a single node
   - Dijkstra: Shortest path in a weighted graph
   - Bellman-Ford: Shortest path in negative weighted graphs
