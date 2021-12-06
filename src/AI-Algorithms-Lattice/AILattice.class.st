@@ -1,4 +1,6 @@
 "
+This algorithms need the Formal Concept Analysis algos from MooseAlgos https://github.com/moosetechnology/MooseAlgos
+
 AILattice on: MalFormalContext mammals2.
 
 AILattice new viewLattice: (AILattice on: MalFormalContext mammals2)
