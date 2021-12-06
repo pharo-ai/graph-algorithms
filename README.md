@@ -5,11 +5,37 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![license-badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## Description
+### Table of Contents  
+[Description](#description)  
+[How to install it](#how-to-install-it)  
+[How to depend on it](#how-to-depend-on-it)  
+[Implemented graph algorithms](#implemented-graph-algorithms)  
+[How to use the graph algorithms](#how-to-use-the-graph-algorithms)  
+[Graph generation algorithms](#graph-generation-algorithms)  
+
+## [Description](#Description)
 
 This a re-implementation of an ancient version of graphs algorithms package from [Moose](https://github.com/moosetechnology). Also, several algorithms were added. The nodes in the graph can be any kind of object: a Character, a String, an Integer or a complex object.
 
-## Available graph algorithms
+## [How to install it](#How-to-install-it)
+
+```smalltalk
+Metacello new
+    repository: 'github://pharo-ai/graph-algorithms/src';
+    baseline: 'AIGraphAlgorithms';
+    load
+```
+
+## [How to depend on it](#How-to-depend-on-it)
+
+If you want to add this repo to your Metacello Baselines or Configurations, copy and paste the following expression:
+```smalltalk
+spec
+    baseline: 'AIGraphAlgorithms' 
+    with: [ spec repository: 'github://pharo-ai/graph-algorithms/src' ]
+```
+
+## [Implemented graph algorithms](#Implemented-graph-algorithms)
 
   - Tarjan’s Algorithm: Strongly Connected Components
   - BFS: Breath First Search
@@ -21,25 +47,7 @@ This a re-implementation of an ancient version of graphs algorithms package from
   - Topological Sort
   - Shortest Path in DAG
 
-## How to install it
-
-```smalltalk
-Metacello new
-    repository: 'github://pharo-ai/graph-algorithms/src';
-    baseline: 'AIGraphAlgorithms';
-    load
-```
-
-## How to depend on it
-
-If you want to add this repo to your Metacello Baselines or Configurations, copy and paste the following expression:
-```smalltalk
-spec
-    baseline: 'AIGraphAlgorithms' 
-    with: [ spec repository: 'github://pharo-ai/graph-algorithms/src' ]
-```
-
-## How to use it
+## [How to use the graph algorithms](#How-to-use-the-graph-algorithms)
 
 The below code was extracted from the Pharo Graphs booklet which is a booklet in which this library along with all the algorithms are explained. You can check it out in [Booklet-PharoGraphs](https://github.com/SquareBracketAssociates/Booklet-PharoGraphs)
 
@@ -106,3 +114,20 @@ pathDistanceAToF := (dijkstra findNode: $F) pathDistance.
 dijkstra reset.
 shortestPathBToE := dijkstra runFrom: $B to: $E.
 ```
+
+## [Graph generation algorithms](#Graph-generation-algorithms)
+
+This library also contains algorithms for generating random graphs. This algorithms are not loaded by default. To load them, you can either load them manually using Iceberg directly from the Pharo image or load the `GraphGenerators` baseline group.
+
+The algorithms implemented are:
+
+- Albert Barabasi Graph Generator
+- Atlas Graph Graph Generator
+- Erdos Renyi GNM Graph Generator
+- Erdos Renyi GNP Graph Generator
+- Grdi 2D Graph Generator
+- Grid 3D Graph Generator
+- Hexagonal Lattice Graph Generator
+- Kleinberg Graph Generator
+- Triangular Lattice Graph Generator
+- Waltz Strogatz Graph Generator
