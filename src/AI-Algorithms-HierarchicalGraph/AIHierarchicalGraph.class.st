@@ -1,5 +1,5 @@
 "
-A MalHierarchicalGraph is composed of a collection of nodes situated in a hierarchy and two types of edges: edges between the base nodes and edges that are propagated up in the hierarchy.
+I am a composed of a collection of nodes situated in a hierarchy and two types of edges: edges between the base nodes and edges that are propagated up in the hierarchy.
 
 Instance Variables
 	levels:		<Dictionary>

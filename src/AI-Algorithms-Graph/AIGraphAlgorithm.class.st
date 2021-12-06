@@ -152,30 +152,36 @@ AIGraphAlgorithm >> findBinaryBlock: aModel [
 { #category : #accessing }
 AIGraphAlgorithm >> findEdge: aModel [
 
-	^ edges findBinary: (self findBinaryBlock: aModel)
+	"^ edges findBinary: (self findBinaryBlock: aModel)"
+
+	^ edges detect: [ :edge | edge model = aModel ]
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel [
 
-	"The nodes are stored in a sorted collection from low to high. That means that they will be always sorted. So, we can use the binary search method that takes O(log(n))."
+	"^ nodes findBinary: (self findBinaryBlock: aModel)."
 
-	^ nodes findBinary: (self findBinaryBlock: aModel)
+	^ nodes detect: [ :node | node model = aModel ]
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
-	^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock
+	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
+
+	^ nodes detect: [ :node | node model = aModel ] ifNone: aBlock
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 
-	^ nodes
+	"^ nodes
 		  findBinary: (self findBinaryBlock: aModel)
 		  do: aBlock
-		  ifNone: [  ]
+		  ifNone: [  ]"
+
+	^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock
 ]
 
 { #category : #accessing }

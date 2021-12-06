@@ -29,6 +29,9 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 		spec
 			package: 'AI-Algorithms-Graph-Generators-Tests'
 			with: [ spec requires: #( 'AI-Algorithms-Graph-Generators' ) ].
+		spec
+			package: 'AI-Algorithms-Graph-Generators-Examples'
+			with: [ spec requires: #( 'AI-Algorithms-Graph-Generators' ) ].
 		
 	"Define groups"
 	self defineGroups: spec	

@@ -8,7 +8,7 @@ Class {
 AILatticeTest >> initializeDataMammals [
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
-	fca := MalFormalContext new.
+	fca := LatticeFormalContext new.
 	^fca with: data using: #first using: #last.
 ]
 
@@ -16,7 +16,7 @@ AILatticeTest >> initializeDataMammals [
 AILatticeTest >> initializeDataMammals2 [
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#smart #fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
-	fca := MalFormalContext new.
+	fca := LatticeFormalContext new.
 	^fca with: data using: #first using: #last.
 ]
 
@@ -25,7 +25,7 @@ AILatticeTest >> initializeHD [
 	"lattice with horizontal decomposition"
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine))).
-	fca := MalFormalContext new.
+	fca := LatticeFormalContext new.
 	^fca with: data using: #first using: #last.
 ]
 
@@ -34,7 +34,7 @@ AILatticeTest >> initializeHD2 [
 	"lattice with horizontal decomposition"
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine)) #(#a #(#b #c))).
-	fca := MalFormalContext new.
+	fca := LatticeFormalContext new.
 	^fca with: data using: #first using: #last.
 ]
 
@@ -97,7 +97,7 @@ AILatticeTest >> testLatticePatterns [
 AILatticeTest >> testModule [
 	| data fca context lattice modules |
 	data := #(#(#a #()) #(#b #(1)) #(#c #(1 2)) #(#(#d) #(1 3)) #(#x #(1 5)) #(#(#e) #(1 2 3 5)) #(#(#f) #(1 2 3 4 5))).
-	fca := MalFormalContext new.
+	fca := LatticeFormalContext new.
 	context := fca with: data using: #first using: #last.
 	lattice := AILattice on: context.
 	modules := ModuleIdentification on: lattice.
@@ -109,7 +109,7 @@ AILatticeTest >> testModule [
 AILatticeTest >> testModule2 [
 	| data fca context lattice modules |
 	data := #(#(#a #()) #(#b #(1)) #(#c #(1 2)) #(#(#d) #(1 3)) #(#(#e) #(1 2 3)) #(#(#f) #(1 2 3 4))).
-	fca := MalFormalContext new.
+	fca := LatticeFormalContext new.
 	context := fca with: data using: #first using: #last.
 	lattice := AILattice on: context.	"(MalLattice new viewLattice: lattice)."
 	modules := ModuleIdentification on: lattice.

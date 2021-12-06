@@ -1,14 +1,14 @@
 "
-A MalHgNode is a node inside a hierarchical graph. It knows the graph it belongs to, its children and its parent, on which level in the graph it resides and its outgoing ind incoming edges. One can also store arbitrary informaition as attributes to a node.
+I am a node inside a hierarchical graph. It knows the graph it belongs to, its children and its parent, on which level in the graph it resides and its outgoing ind incoming edges. One can also store arbitrary informaition as attributes to a node.
 
 Instance Variables
 	attributes:		<Dictionary>
-	children:		<OrderedCollection>
-	hiGraph:		<MalHierarchicalGraph>
+	children:		<OrderedCollection> s
+	hiGraph:		<AIHierarchicalGraph>
 	incoming:		<OrderedCollection>
 	level:		      <Number>
 	outgoing:		<OrderedCollection>
-	parent:		      <MalHgNode>
+	parent:		      <AIHgNode>
 
 attributes
 	- Dictionary to attach arbitrary information to a node
