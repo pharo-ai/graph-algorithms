@@ -21,7 +21,7 @@ This a re-implementation of an ancient version of graphs algorithms package from
 
 ```smalltalk
 Metacello new
-    repository: 'github://pharo-ai/graph-algorithms/src';
+    repository: 'github://pharo-ai/graph-algorithms';
     baseline: 'AIGraphAlgorithms';
     load
 ```
@@ -32,7 +32,7 @@ If you want to add this repo to your Metacello Baselines or Configurations, copy
 ```smalltalk
 spec
     baseline: 'AIGraphAlgorithms' 
-    with: [ spec repository: 'github://pharo-ai/graph-algorithms/src' ]
+    with: [ spec repository: 'github://pharo-ai/graph-algorithms' ]
 ```
 
 ## [Implemented graph algorithms](#Implemented-graph-algorithms)
@@ -125,7 +125,7 @@ The algorithms implemented are:
 - Atlas Graph Graph Generator
 - Erdos Renyi GNM Graph Generator
 - Erdos Renyi GNP Graph Generator
-- Grdi 2D Graph Generator
+- Grid 2D Graph Generator
 - Grid 3D Graph Generator
 - Hexagonal Lattice Graph Generator
 - Kleinberg Graph Generator
