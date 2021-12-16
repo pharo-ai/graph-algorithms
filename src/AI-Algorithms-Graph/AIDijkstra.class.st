@@ -20,19 +20,19 @@ AIDijkstra >> edgeClass [
 	^ AIWeightedEdge
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 AIDijkstra >> end [
 
 	^ end
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 AIDijkstra >> end: endModel [
 
 	end := (self findNode: endModel)
 ]
 
-{ #category : #'instance creation' }
+{ #category : #actions }
 AIDijkstra >> newPriorityQueue [
 
 	"This is the naive implementation of the data structure."
@@ -67,7 +67,7 @@ AIDijkstra >> reconstructPath [
 	^ path
 ]
 
-{ #category : #running }
+{ #category : #actions }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
 
 	"This is the naive implementation of the data structure."
@@ -130,20 +130,20 @@ AIDijkstra >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 AIDijkstra >> start [
 
 	^ start
 ]
 
-{ #category : #private }
+{ #category : #accessing }
 AIDijkstra >> start: startModel [
 
 	start := (self findNode: startModel).
 	start pathDistance: 0
 ]
 
-{ #category : #running }
+{ #category : #private }
 AIDijkstra >> updateDistance: newDistance of: aNode previousNode: previousNode [
 
 	aNode previousNode: previousNode.
