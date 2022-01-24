@@ -117,7 +117,7 @@ shortestPathBToE := dijkstra runFrom: $B to: $E.
 
 ## [Graph generation algorithms](#Graph-generation-algorithms)
 
-This library also contains algorithms for generating random graphs. This algorithms are not loaded by default. To load them, you can either load them manually using Iceberg directly from the Pharo image or load the `GraphGenerators` baseline group.
+This library also contains algorithms for generating regular and random graphs. This algorithms are not loaded by default. To load them, you can either load them manually using Iceberg directly from the Pharo image or load the `GraphGenerators` baseline group.
 
 The algorithms implemented are:
 
