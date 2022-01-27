@@ -20,7 +20,8 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 			package: 'AI-Algorithms-Graph'
 			with: [ spec requires: #( 'AI-Algorithms-Graph-Components' ) ]..
 		
-		spec package: 'AI-Algorithms-Graph-Tests' with: [ 
+		spec
+		    package: 'AI-Algorithms-Graph-Tests' with: [ 
 			spec requires: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components' ) ] ].
 	
 		spec
@@ -47,5 +48,5 @@ BaselineOfAIGraphAlgorithms >> defineGroups: spec [
 		group: 'GraphGenerators'
 		with: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components' 'AI-Algorithms-Graph-Generators' );
 		group: 'GraphGeneratorsTests' with: #( 'AI-Algorithms-Graph-Generators' 'AI-Algorithms-Graph-Generators-Tests' ).
-	spec group: 'default' with: #( 'Core' 'Tests' )
+	spec group: 'default' with: #( 'Core' 'Tests' 'GraphGenerators' 'GraphGeneratorsTests' )
 ]
