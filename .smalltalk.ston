@@ -4,5 +4,10 @@ SmalltalkCISpec {
       #baseline : 'AIGraphAlgorithms',
       #directory : 'src'
     }
-  ]
+  ],
+  #testing : {
+    #coverage : {
+      #packages : [ 'AIGraphAlgorithms*' 'AIAlgorithmsGraphGenerators*' ]
+    }
+  }
 }
