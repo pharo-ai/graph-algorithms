@@ -64,7 +64,7 @@ Some of the common methods are:
 
 For example, for using the topological sort algorithm for the following graph, we can run this code snippet
 
-<img src="https://user-images.githubusercontent.com/33934979/144241102-639f4ff8-6bc2-41ad-9082-ea6e8dada306.png" width="500" />
+<img src="https://user-images.githubusercontent.com/33934979/144241102-639f4ff8-6bc2-41ad-9082-ea6e8dada306.png" width="300" />
 
 ```st
 "First define the nodes and the edges"
@@ -88,7 +88,7 @@ topologicalSortedElements := topSortingAlgo run.
 
 Or if we want to find the shortest path in a weighted graph:
 
-<img src="https://user-images.githubusercontent.com/33934979/144241616-8cc92bf7-959b-4f47-817d-6d1cd2f3cf70.png" width="500" />
+<img src="https://user-images.githubusercontent.com/33934979/144241616-8cc92bf7-959b-4f47-817d-6d1cd2f3cf70.png" width="300" />
 
 ```st
 nodes := $A to: $F.
