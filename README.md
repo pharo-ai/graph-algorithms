@@ -1,7 +1,7 @@
 # Graph Algorithms
 
 [![Build status](https://github.com/pharo-ai/linear-models/workflows/CI/badge.svg)](https://github.com/pharo-ai/graph-algorithms/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/pharo-ai/graph-algorithms/badge.svg?branch=master)](https://coveralls.io/github/pharo-ai/]graph-algorithms?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/pharo-ai/graph-algorithms/badge.svg?branch=master)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![license-badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
