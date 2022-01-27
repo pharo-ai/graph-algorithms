@@ -7,7 +7,7 @@ SmalltalkCISpec {
   ],
   #testing : {
     #coverage : {
-      #packages : [ 'AIGraphAlgorithms*' 'AIAlgorithmsGraphGenerators*' ]
+      #packages : [ 'AIGraphAlgorithms*', 'AIAlgorithmsGraphGenerators*' ]
     }
   }
 }
