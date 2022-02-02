@@ -6,17 +6,20 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![license-badge](https://img.shields.io/badge/license-MIT-blue.svg)](https://img.shields.io/badge/license-MIT-blue.svg)
 
-### Table of Contents  
-[Description](#description)  
-[How to install it](#how-to-install-it)  
-[How to depend on it](#how-to-depend-on-it)  
+For more information please refer to the pharo-ai wiki: https://github.com/pharo-ai/wiki/blob/master/wiki/Graphs/Graph-Algorithms.md
+
+### Table of Contents
+
+[Description](#description)
+[How to install it](#how-to-install-it)
+[How to depend on it](#how-to-depend-on-it)
 [Implemented graph algorithms](#implemented-graph-algorithms)  
 [How to use the graph algorithms](#how-to-use-the-graph-algorithms)  
-[Graph generation algorithms](#graph-generation-algorithms)  
+[Graph generation algorithms](#graph-generation-algorithms)
 
 ## [Description](#Description)
 
-This a re-implementation of an ancient version of graphs algorithms package from [Moose](https://github.com/moosetechnology). Also, several algorithms were added. The nodes in the graph can be any kind of object: a Character, a String, an Integer or a complex object.
+This library contains several graphs algorithms. The nodes in the graph can be any kind of object: a Character, a String, an Integer or a complex object.
 
 ## [How to install it](#How-to-install-it)
 
@@ -63,9 +66,9 @@ Some of the common methods are:
 - `algorithm findNode:`
 - `algorithm run`
 
-For example, for using the topological sort algorithm for the following graph, we can run this code snippet
+### Example 1
 
-<img src="https://user-images.githubusercontent.com/33934979/144241102-639f4ff8-6bc2-41ad-9082-ea6e8dada306.png" width="300" />
+For using the topological sort algorithm, we can run this code snippet
 
 ```st
 "First define the nodes and the edges"
@@ -87,9 +90,9 @@ topSortingAlgo
 topologicalSortedElements := topSortingAlgo run.
 ```
 
-Or if we want to find the shortest path in a weighted graph:
+### Example 2
 
-<img src="https://user-images.githubusercontent.com/33934979/144241616-8cc92bf7-959b-4f47-817d-6d1cd2f3cf70.png" width="300" />
+Or if we want to find the shortest path in a weighted graph:
 
 ```st
 nodes := $A to: $F.
