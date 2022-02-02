@@ -8,6 +8,8 @@
 
 For more information please refer to the pharo-ai wiki: https://github.com/pharo-ai/wiki/blob/master/wiki/Graphs/Graph-Algorithms.md
 
+Or also to our graphs booklet [Booklet-PharoGraphs](https://github.com/SquareBracketAssociates/Booklet-PharoGraphs)
+
 ### Table of Contents
 
 - [Description](#description)
