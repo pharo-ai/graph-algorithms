@@ -17,7 +17,7 @@ For more information please refer to the pharo-ai wiki: https://github.com/pharo
 - [How to use the graph algorithms](#how-to-use-the-graph-algorithms)  
 - [Graph generation algorithms](#graph-generation-algorithms)
 
-## [Description](#Description)
+## Description
 
 This library contains several graphs algorithms. The nodes in the graph can be any kind of object: a Character, a String, an Integer or a complex object.
 
