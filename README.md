@@ -21,7 +21,7 @@ For more information please refer to the pharo-ai wiki: https://github.com/pharo
 
 This library contains several graphs algorithms. The nodes in the graph can be any kind of object: a Character, a String, an Integer or a complex object.
 
-## [How to install it](#How-to-install-it)
+## How to install it
 
 ```smalltalk
 Metacello new
@@ -30,7 +30,7 @@ Metacello new
     load
 ```
 
-## [How to depend on it](#How-to-depend-on-it)
+## How to depend on it
 
 If you want to add this repo to your Metacello Baselines or Configurations, copy and paste the following expression:
 ```smalltalk
@@ -39,7 +39,7 @@ spec
     with: [ spec repository: 'github://pharo-ai/graph-algorithms' ]
 ```
 
-## [Implemented graph algorithms](#Implemented-graph-algorithms)
+## Implemented graph algorithms
 
   - Tarjan’s Algorithm: Strongly Connected Components
   - BFS: Breath First Search
@@ -51,7 +51,7 @@ spec
   - Topological Sort
   - Shortest Path in DAG
 
-## [How to use the graph algorithms](#How-to-use-the-graph-algorithms)
+## How to use the graph algorithms
 
 The below code was extracted from the Pharo Graphs booklet which is a booklet in which this library along with all the algorithms are explained. You can check it out in [Booklet-PharoGraphs](https://github.com/SquareBracketAssociates/Booklet-PharoGraphs)
 
@@ -119,7 +119,7 @@ dijkstra reset.
 shortestPathBToE := dijkstra runFrom: $B to: $E.
 ```
 
-## [Graph generation algorithms](#Graph-generation-algorithms)
+## Graph generation algorithms
 
 This library also contains algorithms for generating regular and random graphs. This algorithms are not loaded by default. To load them, you can either load them manually using Iceberg directly from the Pharo image or load the `GraphGenerators` baseline group.
 
