@@ -10,12 +10,12 @@ For more information please refer to the pharo-ai wiki: https://github.com/pharo
 
 ### Table of Contents
 
-[Description](#description)
-[How to install it](#how-to-install-it)
-[How to depend on it](#how-to-depend-on-it)
-[Implemented graph algorithms](#implemented-graph-algorithms)  
-[How to use the graph algorithms](#how-to-use-the-graph-algorithms)  
-[Graph generation algorithms](#graph-generation-algorithms)
+- [Description](#description)
+- [How to install it](#how-to-install-it)
+- [How to depend on it](#how-to-depend-on-it)
+- [Implemented graph algorithms](#implemented-graph-algorithms)  
+- [How to use the graph algorithms](#how-to-use-the-graph-algorithms)  
+- [Graph generation algorithms](#graph-generation-algorithms)
 
 ## [Description](#Description)
 
