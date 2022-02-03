@@ -2,7 +2,8 @@ SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'AIGraphAlgorithms',
-      #directory : 'src'
+      #directory : 'src',
+      #platforms : [ #pharo ]
     }
   ],
   #testing : {
