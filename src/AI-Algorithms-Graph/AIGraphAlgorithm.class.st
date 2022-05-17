@@ -216,6 +216,12 @@ AIGraphAlgorithm >> nodes: aNodeList [
 	aNodeList do: [ :model | self addNodeFor: model ]
 ]
 
+{ #category : #'building - graph' }
+AIGraphAlgorithm >> rawNodes: aRawNodeList [
+
+	nodes := aRawNodeList
+]
+
 { #category : #running }
 AIGraphAlgorithm >> run [
 
