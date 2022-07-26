@@ -12,10 +12,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        smalltalk: [ Pharo64-8.0, Pharo64-9.0, Pharo64-10 ]
+        os: [ macos-latest, windows-latest, ubuntu-latest]
+        smalltalk: [ Pharo64-9.0, Pharo64-10, Pharo64-11 ]
+    runs-on: ${{ matrix.os }}
     name: ${{ matrix.smalltalk }}
     steps:
       - uses: actions/checkout@v2
