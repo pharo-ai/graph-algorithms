@@ -15,6 +15,12 @@ Class {
 	#category : #'AI-Algorithms-Graph-Core'
 }
 
+{ #category : #testing }
+AIGraphAlgorithm class >> isAbstract [
+
+	^ self = AIGraphAlgorithm
+]
+
 { #category : #private }
 AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 
