@@ -63,7 +63,8 @@ AIBFS >> resetValues [
 	nodes do: [ :aNode | 
 		aNode
 			visited: false;
-			previousNode: nil ]
+			previousNode: nil;
+			distance: nil ]
 ]
 
 { #category : #running }
@@ -74,6 +75,7 @@ AIBFS >> run [
 
 	queue := LinkedList with: start.
 	start visited: true.
+	start distance: 0.
 
 	[ queue isNotEmpty ] whileTrue: [ 
 		node := queue removeFirst.
@@ -83,6 +85,7 @@ AIBFS >> run [
 			next visited ifFalse: [ 
 				queue addLast: next.
 				next visited: true.
+				next distance: node distance + 1.
 				next previousNode: node ] ] ]
 ]
 

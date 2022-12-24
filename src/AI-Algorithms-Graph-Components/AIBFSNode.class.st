@@ -6,10 +6,23 @@ Class {
 	#superclass : #AIGraphNode,
 	#instVars : [
 		'previousNode',
-		'visited'
+		'visited',
+		'distance'
 	],
 	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
+
+{ #category : #accessing }
+AIBFSNode >> distance [
+
+	^ distance
+]
+
+{ #category : #accessing }
+AIBFSNode >> distance: anObject [
+
+	distance := anObject
+]
 
 { #category : #initialization }
 AIBFSNode >> initialize [
