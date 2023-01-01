@@ -10,7 +10,7 @@ Class {
 { #category : #helpers }
 AIGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 
-	aNodeList collect: [ :each | each model ] thenDo: [ :model | 
+	aNodeList collect: [ :each | each model ] thenDo: [ :model |
 		self
 			deny: ((anotherNodeList collect: [ :each | each model ]) includes: model)
 			description: model asString , ' should not be referenced!' ]
@@ -19,7 +19,7 @@ AIGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 { #category : #helpers }
 AIGraphReducerTest >> mergedNodesIn: aNodeList [
 
-	^ (aNodeList select: [ :node | node mergedNodes notNil ]) 
+	^ (aNodeList select: [ :node | node mergedNodes notNil ])
 		  flatCollect: #mergedNodes
 ]
 
@@ -35,7 +35,7 @@ AIGraphReducerTest >> testAdjacenciesFor [
 
 	| nodes |
 	AIGraphFixture complexCycleGraph2: graphReducer.
-	nodes := { 
+	nodes := {
 		         (graphReducer findNode: $f).
 		         (graphReducer findNode: $g) }.
 	self
@@ -61,9 +61,9 @@ AIGraphReducerTest >> testComplexCycle [
 	mergedNodes := graphReducer nodes
 		               select: [ :each | each mergedNodes isNotNil ]
 		               thenCollect: #model.
-	self assert: (mergedNodes anySatisfy: [ :collapsedNode | 
+	self assert: (mergedNodes anySatisfy: [ :collapsedNode |
 			 collapsedNode includesAll: #( $g $h ) ]).
-	self assert: (mergedNodes anySatisfy: [ :collapsedNode | 
+	self assert: (mergedNodes anySatisfy: [ :collapsedNode |
 			 collapsedNode includesAll: #( $c $d $f ) ])
 ]
 
@@ -82,17 +82,17 @@ AIGraphReducerTest >> testComplexCycleReferences [
 	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH |
 	AIGraphFixture complexCycleGraph: graphReducer.
 	graphReducer run.
-	reducedNodeA := (graphReducer nodes select: [ :each | 
+	reducedNodeA := (graphReducer nodes select: [ :each |
 		                 each model = $a ]) first.
-	reducedNodeB := (graphReducer nodes select: [ :each | 
+	reducedNodeB := (graphReducer nodes select: [ :each |
 		                 each model = $b ]) first.
-	reducedNodeE := (graphReducer nodes select: [ :each | 
+	reducedNodeE := (graphReducer nodes select: [ :each |
 		                 each model = $e ]) first.
-	mergedNodes := graphReducer nodes select: [ :each | 
+	mergedNodes := graphReducer nodes select: [ :each |
 		               each model isCollection ].
-	reducedNodeCDF := (mergedNodes select: [ :each | 
+	reducedNodeCDF := (mergedNodes select: [ :each |
 		                   each model includesAll: #( $d $f $c ) ]) first.
-	reducedNodeGH := (mergedNodes select: [ :each | 
+	reducedNodeGH := (mergedNodes select: [ :each |
 		                  each model includesAll: #( $g $h ) ]) first.
 
 	self
@@ -119,7 +119,7 @@ AIGraphReducerTest >> testComplexCycleReferences [
 		assertCollection: reducedNodeCDF adjacentNodes
 		hasSameElements: { reducedNodeB }.
 	"See is there is no duplicated adjacencies"
-	self assert: reducedNodeCDF adjacentNodes size equals: 1.
+	self assert: reducedNodeCDF adjacentNodes size equals: 1
 ]
 
 { #category : #tests }
@@ -138,13 +138,13 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD |
 	AIGraphFixture simpleGraph: graphReducer.
 	graphReducer run.
-	reducedNodeA := (graphReducer nodes select: [ :each | 
+	reducedNodeA := (graphReducer nodes select: [ :each |
 		                 each model = $a ]) first.
-	reducedNodeB := (graphReducer nodes select: [ :each | 
+	reducedNodeB := (graphReducer nodes select: [ :each |
 		                 each model = $b ]) first.
-	reducedNodeC := (graphReducer nodes select: [ :each | 
+	reducedNodeC := (graphReducer nodes select: [ :each |
 		                 each model = $c ]) first.
-	reducedNodeD := (graphReducer nodes select: [ :each | 
+	reducedNodeD := (graphReducer nodes select: [ :each |
 		                 each model = $d ]) first.
 	self
 		assertCollection: reducedNodeA adjacentNodes
@@ -193,7 +193,7 @@ AIGraphReducerTest >> testNoCycle [
 
 	AIGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
-	graphReducer nodes do: [ :node | 
+	graphReducer nodes do: [ :node |
 		self
 			deny: (node adjacentNodes includes: node)
 			description: node asString , ' node is in cycle!' ]
@@ -208,11 +208,11 @@ AIGraphReducerTest >> testStronglyConnectedGraph [
 	nodeModels := graphReducer nodes collect: #model.
 	self assert: graphReducer nodes size equals: 4.
 	self assert: (nodeModels includes: $i).
-	self assert: (nodeModels anySatisfy: [ :aNodeModel | 
+	self assert: (nodeModels anySatisfy: [ :aNodeModel |
 			 aNodeModel asOrderedCollection includesAll: #( $e $d ) ]).
-	self assert: (nodeModels anySatisfy: [ :aNodeModel | 
+	self assert: (nodeModels anySatisfy: [ :aNodeModel |
 			 aNodeModel asOrderedCollection includesAll: #( $a $b $c ) ]).
-	self assert: (nodeModels anySatisfy: [ :aNodeModel | 
+	self assert: (nodeModels anySatisfy: [ :aNodeModel |
 			 aNodeModel asOrderedCollection includesAll: #( $f $g $h ) ])
 ]
 
@@ -222,15 +222,15 @@ AIGraphReducerTest >> testStronglyConnectedGraphReferences [
 	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH |
 	AIGraphFixture stronglyConnectedGraph: graphReducer.
 	graphReducer run.
-	reducedNodeI := (graphReducer nodes select: [ :each | 
+	reducedNodeI := (graphReducer nodes select: [ :each |
 		                 each model = $i ]) first.
-	mergedNodes := graphReducer nodes select: [ :each | 
+	mergedNodes := graphReducer nodes select: [ :each |
 		               each model isCollection ].
-	reducedNodeABC := (mergedNodes select: [ :each | 
+	reducedNodeABC := (mergedNodes select: [ :each |
 		                   each model includesAll: #( $a $b $c ) ]) first.
-	reducedNodeDE := (mergedNodes select: [ :each | 
+	reducedNodeDE := (mergedNodes select: [ :each |
 		                  each model includesAll: #( $d $e ) ]) first.
-	reducedNodeFGH := (mergedNodes select: [ :each | 
+	reducedNodeFGH := (mergedNodes select: [ :each |
 		                   each model includesAll: #( $f $g $h ) ]) first.
 
 	self

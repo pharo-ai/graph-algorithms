@@ -32,7 +32,7 @@ AIReducedGraphNode >> printOn: stream [
 
 	stream nextPutAll: self label.
 	model isCollection
-		ifTrue: [ 
+		ifTrue: [
 			model
 				do: [ :node | node printOn: stream ]
 				separatedBy: [ stream << ', ' ] ]

@@ -26,7 +26,7 @@ AIErdosRenyiGNMGraphGenerator >> run [
 	"https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model"
 
 	edgesNumber
-		timesRepeat: [ 
+		timesRepeat: [
 			| source target |
 			source := self nodes atRandom.
 			target := ((self nodes copy)

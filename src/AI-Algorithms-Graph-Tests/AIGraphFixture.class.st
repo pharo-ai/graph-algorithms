@@ -81,11 +81,11 @@ AIGraphFixture class >> aseWeightedCircuitGraph: builder [
 AIGraphFixture class >> complexCycleGraph2: builder [
 	| nodes edges |
 	nodes := $a to: $i.
-	edges := #( #($a $b) 	#($a $f)	
-					#($b $e) 	#($b $f) 
-					#($c $b) 	#($c $a) 	#($c $e) 	#($c $f) 	#($c $g) 	#($c $d) 
+	edges := #( #($a $b) 	#($a $f)
+					#($b $e) 	#($b $f)
+					#($c $b) 	#($c $a) 	#($c $e) 	#($c $f) 	#($c $g) 	#($c $d)
 					#($d $b)
-					#($e $b) 	#($e $d) 	#($e $h) 
+					#($e $b) 	#($e $d) 	#($e $h)
 					#($f $b) 	#($f $e) 	#($f $d)
 					#($g $b) 	#($g $a) 	#($g $e) 	#($g $f) 	#($g $d) 	#($g $i) ).
 	builder nodes: nodes.
@@ -413,7 +413,7 @@ AIGraphFixture class >> stronglyConnectedGraph: graphBuilder withObjects: object
 		        { objects at: 9. objects at: 9 } }.
 	graphBuilder nodes: objects.
 	graphBuilder edges: edges from: #first to: #second.
-	^ graphBuilder 
+	^ graphBuilder
 ]
 
 { #category : #fixtures }

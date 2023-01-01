@@ -51,7 +51,7 @@ AIBFS >> reconstructPath [
 	path := LinkedList empty.
 	previous := end.
 	path addFirst: end model.
-	[ previous = start ] whileFalse: [ 
+	[ previous = start ] whileFalse: [
 		previous := previous previousNode.
 		path addFirst: previous model ].
 	^ path
@@ -60,7 +60,7 @@ AIBFS >> reconstructPath [
 { #category : #actions }
 AIBFS >> resetValues [
 
-	nodes do: [ :aNode | 
+	nodes do: [ :aNode |
 		aNode
 			visited: false;
 			previousNode: nil;
@@ -77,12 +77,12 @@ AIBFS >> run [
 	start visited: true.
 	start distance: 0.
 
-	[ queue isNotEmpty ] whileTrue: [ 
+	[ queue isNotEmpty ] whileTrue: [
 		node := queue removeFirst.
 		neighbours := node adjacentNodes.
 
-		neighbours do: [ :next | 
-			next visited ifFalse: [ 
+		neighbours do: [ :next |
+			next visited ifFalse: [
 				queue addLast: next.
 				next visited: true.
 				next distance: node distance + 1.

@@ -39,7 +39,7 @@ AIGraphReducer >> findCircuits [
 		                  addNodesFromDifferentGraph: nodes;
 		                  run;
 		                  circuits.
-	circuits := tarjanCircuits collect: [ :circuit | 
+	circuits := tarjanCircuits collect: [ :circuit |
 		            circuit collect: [ :each | self findNode: each ] ]
 ]
 
@@ -95,8 +95,8 @@ AIGraphReducer >> replaceReferencesToMergedNode: aReducedNode [
 	aReducedNode adjacentNodes do: [ :anAdjacentNode |
 		"Iterate through all the circuitNodes to see if the adjacent node was merged.
 		If that is the case (if we found the adjacent node merged), then we need to remove the reference to that node and reference to the new merged node instead. "
-		collapsedNodes do: [ :aNode | 
-			(aNode mergedNodes includes: anAdjacentNode) ifTrue: [ 
+		collapsedNodes do: [ :aNode |
+			(aNode mergedNodes includes: anAdjacentNode) ifTrue: [
 				newAdjacencies add: aNode.
 				adjacenciesToRemove add: anAdjacentNode ] ] ].
 	aReducedNode adjacentNodes
@@ -108,7 +108,7 @@ AIGraphReducer >> replaceReferencesToMergedNode: aReducedNode [
 { #category : #reducing }
 AIGraphReducer >> replaceReferencesToMergedNodes [
 
-	nodes do: [ :reducedNode | 
+	nodes do: [ :reducedNode |
 		self replaceReferencesToMergedNode: reducedNode ]
 ]
 

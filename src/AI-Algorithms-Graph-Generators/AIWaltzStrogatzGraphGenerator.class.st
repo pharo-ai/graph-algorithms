@@ -39,11 +39,11 @@ AIWaltzStrogatzGraphGenerator >> rewireRandomly [
 	" | numberOfNodes |
 numberOfNodes := self nodes size.
 	self edges
-		do: [ :e | 
+		do: [ :e |
 			100 atRandom / 100 < beta
-				ifTrue: [ 
+				ifTrue: [
 					[ k := numberOfNodes atRandom  ] repeatUntil: (true).
-						
+
 					 ] ]"
 ]
 

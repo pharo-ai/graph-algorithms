@@ -24,14 +24,14 @@ AIHexagonalLatticeGenerator >> buildLinks [
 	"Connect each nodes to nodes that are in 2 steps "
 
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			| links |
 			"Build the top of hexagon"
 			(each y \\ 4 = 1 and: [ each x \\ 2 = 1 ])
 				ifTrue: [ "and: [ each x \\ 2 = 1 ]"
 					links := self nodesAtDistance: 2 toNode: each.
 					links
-						do: [ :node | 
+						do: [ :node |
 							node y > each y
 								ifTrue: [ self
 										addEdge:
@@ -44,7 +44,7 @@ AIHexagonalLatticeGenerator >> buildLinks [
 				ifTrue: [ "and: [ each x \\ 2 = 1 ]"
 					links := self nodesAtDistance: 2 toNode: each.
 					links
-						do: [ :node | 
+						do: [ :node |
 							node y > each y
 								ifTrue: [ self
 										addEdge:
@@ -57,7 +57,7 @@ AIHexagonalLatticeGenerator >> buildLinks [
 				ifTrue: [ "and: [ each x \\ 2 = 1 ]"
 					links := self nodesOnColumnAtDistance: 1 toNode: each.
 					links
-						do: [ :node | 
+						do: [ :node |
 							self
 								addEdge:
 									{each model.
@@ -69,7 +69,7 @@ AIHexagonalLatticeGenerator >> buildLinks [
 				ifTrue: [ "and: [ each x \\ 2 = 1 ]"
 					links := self nodesOnColumnAtDistance: 1 toNode: each.
 					links
-						do: [ :node | 
+						do: [ :node |
 							self
 								addEdge:
 									{each model.
@@ -88,7 +88,7 @@ AIHexagonalLatticeGenerator >> initializeNodesOnGrid [
 	| nbNodes |
 	nbNodes := 1.
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			each x: (nbNodes - 1) \\ n + 1.
 			each y: (nbNodes - 1 quo: n) + 1.
 			nbNodes := nbNodes + 1 ]
@@ -127,7 +127,7 @@ AIHexagonalLatticeGenerator >> nodesAtDistance: aDistance toNode: aNode [
 	i := aNode x.
 	j := aNode y.
 	^ nodes
-		select: [ :each | 
+		select: [ :each |
 			k := each x.
 			l := each y.
 			((k - i) raisedTo:2) + ((l - j) raisedTo:2) = aDistance ]
@@ -141,7 +141,7 @@ AIHexagonalLatticeGenerator >> nodesOnColumnAtDistance: aDistance toNode: aNode 
 	i := aNode x.
 	j := aNode y.
 	^ nodes
-		select: [ :each | 
+		select: [ :each |
 			k := each x.
 			l := each y.
 			i = k and: [ l - j = aDistance ] ]
@@ -152,7 +152,7 @@ AIHexagonalLatticeGenerator >> removeUnnecessaryNodes [
 	| listeActiveNodes |
 	listeActiveNodes := OrderedCollection new.
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			(each y \\ 4 = 0 and: [ each x \\ 2 = 1 ])
 			ifTrue: [ listeActiveNodes add: each ].
 			(each y \\ 4 = 1 and: [ each x \\ 2 = 1 ])

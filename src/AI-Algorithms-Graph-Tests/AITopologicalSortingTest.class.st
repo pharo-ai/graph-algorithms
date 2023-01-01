@@ -39,7 +39,7 @@ AITopologicalSortingTest >> testSortStringHierarchy [
 		childrenBlock: [ :class | class subclasses ].
 	result := sorter run asArray.
 	"This is one of the topological orders of the String hierarchy"
-	topologicalOrder := { 
+	topologicalOrder := {
 		                    String.
 		                    ByteString.
 		                    Symbol.

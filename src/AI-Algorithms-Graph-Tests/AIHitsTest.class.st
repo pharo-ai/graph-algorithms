@@ -19,7 +19,7 @@ AIHitsTest >> testComplexCycle [
 
 	AIGraphFixture complexCycleGraph: hits.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
 		self deny: node auth equals: 1 ]
 ]
@@ -29,7 +29,7 @@ AIHitsTest >> testComplexWCycle [
 
 	AIGraphFixture complexWeightedGraph: hits.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
 		self deny: node auth equals: 1 ]
 ]
@@ -39,7 +39,7 @@ AIHitsTest >> testCycle [
 
 	AIGraphFixture cycleGraph: hits.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
 		self deny: node auth equals: 1 ]
 ]
@@ -50,7 +50,7 @@ AIHitsTest >> testGraphForHits [
 	AIGraphFixture simpleGraphForHits: hits.
 	hits k: 3.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 0.
 		self deny: node auth equals: 0 ]
 ]
@@ -60,7 +60,7 @@ AIHitsTest >> testNestedCycle [
 
 	AIGraphFixture nestedCycleGraph: hits.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
 		self deny: node auth equals: 1 ]
 ]
@@ -70,7 +70,7 @@ AIHitsTest >> testSimple [
 
 	AIGraphFixture simpleGraph: hits.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
 		self deny: node auth equals: 1 ]
 ]
@@ -80,7 +80,7 @@ AIHitsTest >> testSimpleW [
 
 	AIGraphFixture simpleWeightedGraph: hits.
 	hits run.
-	hits nodes do: [ :node | 
+	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
 		self deny: node auth equals: 1 ]
 ]

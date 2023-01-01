@@ -61,7 +61,7 @@ AIDijkstra >> reconstructPath [
 	path := LinkedList empty.
 	previous := end.
 	path addFirst: end model.
-	[ previous = start ] whileFalse: [ 
+	[ previous = start ] whileFalse: [
 		previous := previous previousNode.
 		path addFirst: previous model ].
 	^ path
@@ -94,7 +94,7 @@ AIDijkstra >> run [
 	pq := self newPriorityQueue.
 	pq add: start -> 0.
 
-	[ pq isNotEmpty ] whileTrue: [ 
+	[ pq isNotEmpty ] whileTrue: [
 		| assoc node minWeight |
 		assoc := self removeMostPromisingPair: pq.
 		node := assoc key.
@@ -103,13 +103,13 @@ AIDijkstra >> run [
 
 		"Skip if the path weight is less than the one obtained from the pq.
 		This is an optimization for not processing unnecessary nodes."
-		node pathDistance < minWeight ifFalse: [ 
-			node outgoingEdges do: [ :edge | 
-				edge to visited ifFalse: [ 
+		node pathDistance < minWeight ifFalse: [
+			node outgoingEdges do: [ :edge |
+				edge to visited ifFalse: [
 					| newDistance |
 					newDistance := node pathDistance + edge weight.
-					
-					newDistance < edge to pathDistance ifTrue: [ 
+
+					newDistance < edge to pathDistance ifTrue: [
 						self updateDistance: newDistance of: edge to previousNode: node.
 						pq add: edge to -> newDistance ] ] ] ] ]
 ]
@@ -119,7 +119,6 @@ AIDijkstra >> runFrom: startModel [
 
 	self start: startModel.
 	self run
-	
 ]
 
 { #category : #running }

@@ -32,13 +32,13 @@ AITriangularLatticeGenerator >> buildLinks [
 	"Connect each nodes to nodes that are in 2 steps "
 
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			| links lineLinks|
 			"Build chord between nodes situated on diffenents lines"
 			(each x \\ 2 = 1 and: [ each y \\ 2 = 1 ])
 				ifTrue: [ links := self nodesAtDistance: 2 toNode: each.
 					links
-						do: [ :node | 
+						do: [ :node |
 							self
 								addEdge:
 									{each model.
@@ -49,7 +49,7 @@ AITriangularLatticeGenerator >> buildLinks [
 			(each x + each y) \\ 2 = 0
 				ifTrue: [ lineLinks := self nodesOnLineAtDistance: 2 toNode: each.
 					lineLinks
-						do: [ :node | 
+						do: [ :node |
 							self
 								addEdge:
 									{each model.
@@ -68,7 +68,7 @@ AITriangularLatticeGenerator >> initializeNodesOnGrid [
 	| nbNodes |
 	nbNodes := 1.
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			each x: (nbNodes - 1) \\ n + 1.
 			each y: (nbNodes - 1 quo: n) + 1.
 			nbNodes := nbNodes + 1 ]
@@ -76,7 +76,7 @@ AITriangularLatticeGenerator >> initializeNodesOnGrid [
 
 { #category : #accessing }
 AITriangularLatticeGenerator >> m [
-	^m 
+	^m
 ]
 
 { #category : #accessing }
@@ -107,7 +107,7 @@ AITriangularLatticeGenerator >> nodesAtDistance: aDistance toNode: aNode [
 	i := aNode x.
 	j := aNode y.
 	^ nodes
-		select: [ :each | 
+		select: [ :each |
 			k := each x.
 			l := each y.
 			((k - i) raisedTo:2) + ((l - j) raisedTo:2) = aDistance ]
@@ -121,7 +121,7 @@ AITriangularLatticeGenerator >> nodesOnLineAtDistance: aDistance toNode: aNode [
 	i := aNode x.
 	j := aNode y.
 	^ nodes
-		select: [ :each | 
+		select: [ :each |
 			k := each x.
 			l := each y.
 			l = j and: [ k - i = aDistance ] ]
@@ -132,10 +132,10 @@ AITriangularLatticeGenerator >> removeUnnecessaryNodes [
 	| listeActiveNodes |
 	listeActiveNodes := OrderedCollection new.
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			(each x + each y) \\ 2 = 0
 				ifTrue: [ listeActiveNodes add: each ] ].
-	 self activeNodes:listeActiveNodes.
+	 self activeNodes:listeActiveNodes
 ]
 
 { #category : #running }
