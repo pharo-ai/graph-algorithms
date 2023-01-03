@@ -32,11 +32,11 @@ AIKleinbergGraphGenerator >> buildLocalLinks [
 	"Connect each nodes to nodes that are in p steps (following the manhattan distance)"
 
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			| links |
 			links := self nodesLessThanDistance: p toNode: each.
 			links
-				do: [ :node | 
+				do: [ :node |
 					self
 						addEdge:
 							{each model.
@@ -50,15 +50,15 @@ AIKleinbergGraphGenerator >> buildLongRangeLinks [
 	"Build q long range links for each nodes"
 
 |probs cdf |
-q == 0 ifFalse: [ 
+q == 0 ifFalse: [
 	r == 0
 		ifTrue: [ self buildUniformDistributionOfLongRangeLinks ]
 		ifFalse: [ nodes
-				do: [ :n1 | 
-					probs := #(0) asOrderedCollection.	
+				do: [ :n1 |
+					probs := #(0) asOrderedCollection.
 					nodes do: [ :n2 |
 						|d|
-						n1 == n2 ifFalse: [  
+						n1 == n2 ifFalse: [
 						d := self distanceFrom: n1 to:n2.
 						probs add: (d raisedTo: r negated).
 						]].
@@ -69,8 +69,8 @@ q == 0 ifFalse: [
 							self addEdge:
 							{n1 model . target model}
 							from: #first
-								to: #second			
-						 ]	
+								to: #second
+						 ]
 					 ] ]
 			]
 ]
@@ -111,7 +111,7 @@ AIKleinbergGraphGenerator >> initializeNodesOnGrid [
 	| nbNodes |
 	nbNodes := 1.
 	nodes
-		do: [ :each | 
+		do: [ :each |
 			each x: (nbNodes - 1) \\ n + 1.
 			each y: (nbNodes - 1 quo: n) + 1.
 			nbNodes := nbNodes + 1]
@@ -129,7 +129,7 @@ AIKleinbergGraphGenerator >> n: anInteger [
 
 { #category : #configuration }
 AIKleinbergGraphGenerator >> nodeClass [
-	^ AI2DGridNode 
+	^ AI2DGridNode
 ]
 
 { #category : #running }
@@ -139,7 +139,7 @@ AIKleinbergGraphGenerator >> nodesLessThanDistance: aDistance toNode: aNode [
 	| i j k l |
 	i := aNode x.
 	j := aNode y.
-	
+
 ^nodes select: [ : each|
 		k := each x.
 		l := each y.

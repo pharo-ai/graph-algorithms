@@ -25,13 +25,13 @@ AIErdosRenyiGNPGraphGenerator >> run [
 	"https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model"
 
 	self nodes
-		do: [ :n1 | 
+		do: [ :n1 |
 			self nodes
-				do: [ :n2 | 
+				do: [ :n2 |
 					n1 ~= n2
-						ifTrue: [ 
+						ifTrue: [
 							100 atRandom / 100 < probability
-								ifTrue: [ 
+								ifTrue: [
 									self
 										addEdge:
 											{n1 model.

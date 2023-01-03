@@ -21,14 +21,14 @@ AIDijkstraTest >> testAseBasicCircuit [
 	self assert: 1 equals: (dijkstra findNode: $b) pathDistance.
 	self assert: 3 equals: (dijkstra findNode: $e) pathDistance.
 	self assert: 5 equals: (dijkstra findNode: $h) pathDistance.
-	
+
 	dijkstra reset.
 	dijkstra runFrom: $c.
 	self assert: 2 equals: (dijkstra findNode: $b) pathDistance.
-	
+
 	dijkstra reset.
 	dijkstra runFrom: $h.
-	self assert: Float infinity equals: (dijkstra findNode: $a) pathDistance.
+	self assert: Float infinity equals: (dijkstra findNode: $a) pathDistance
 ]
 
 { #category : #tests }
@@ -61,8 +61,8 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
-	AIGraphFixture complexWeightedGraph2: dijkstra.	
-	
+	AIGraphFixture complexWeightedGraph2: dijkstra.
+
 	dijkstra runFrom: 0.
 	self assert: (dijkstra findNode: 1) pathDistance equals: 4.
 	self assert: (dijkstra findNode: 2) pathDistance equals: 1.
@@ -110,14 +110,13 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
-	AIGraphFixture complexWeightedGraph3: dijkstra.	
-	
+	AIGraphFixture complexWeightedGraph3: dijkstra.
+
 	dijkstra runFrom: $a.
 	self assert: (dijkstra findNode: $b) pathDistance equals: 3.
 	self assert: (dijkstra findNode: $c) pathDistance equals: 7.
 	self assert: (dijkstra findNode: $d) pathDistance equals: 1.
-	self assert: (dijkstra findNode: $e) pathDistance equals: 2.
-
+	self assert: (dijkstra findNode: $e) pathDistance equals: 2
 ]
 
 { #category : #tests }

@@ -17,7 +17,7 @@ AI2DGridNode >> x [
 ]
 
 { #category : #accessing }
-AI2DGridNode >> x: anInteger [ 
+AI2DGridNode >> x: anInteger [
 	x := anInteger
 ]
 
@@ -27,6 +27,6 @@ AI2DGridNode >> y [
 ]
 
 { #category : #accessing }
-AI2DGridNode >> y: anInteger [ 
+AI2DGridNode >> y: anInteger [
 	y := anInteger
 ]

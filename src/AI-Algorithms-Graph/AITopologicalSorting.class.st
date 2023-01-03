@@ -45,7 +45,7 @@ AITopologicalSorting >> nodeClass [
 { #category : #private }
 AITopologicalSorting >> removeEdgesOf: aNode [
 
-	aNode adjacentNodes do: [ :node | 
+	aNode adjacentNodes do: [ :node |
 		node incomingNodes remove: aNode.
 		node isLeaf ifTrue: [ nodesWithNoIncomingEdges add: node ] ].
 	aNode adjacentNodes: #(  )
@@ -56,13 +56,13 @@ AITopologicalSorting >> run [
 
 	self initializeElements.
 	self gatherNoIncomingNodes.
-	[ nodesWithNoIncomingEdges isNotEmpty ] whileTrue: [ 
+	[ nodesWithNoIncomingEdges isNotEmpty ] whileTrue: [
 		| node |
 		node := nodesWithNoIncomingEdges removeFirst.
 		topologicalSortedElements addLast: node model.
 		self removeEdgesOf: node ].
 
-	self graphHasEdges ifTrue: [ 
+	self graphHasEdges ifTrue: [
 		Error signal: 'Not a DAG (Directed Acyclic Graph)' ].
 	^ topologicalSortedElements
 ]

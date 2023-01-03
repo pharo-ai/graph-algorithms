@@ -159,7 +159,7 @@ AIAtlasGraphGenerator >> edgesArray: anArray [
 { #category : #running }
 AIAtlasGraphGenerator >> run [
 	edgesArray
-		do: [ :edge | 
+		do: [ :edge |
 			self
 				addEdge:
 					{edge first.

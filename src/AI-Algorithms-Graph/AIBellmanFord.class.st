@@ -37,11 +37,11 @@ AIBellmanFord >> reconstructPath [
 	end pathDistance = Float infinity ifTrue: [ ^ #(  ) ].
 	"If the end node is part of a negative cycle"
 	end pathDistance = Float negativeInfinity ifTrue: [ ^ #(  ) ].
-	
+
 	path := LinkedList empty.
 	previous := end.
 	path addFirst: end model.
-	[ previous = start ] whileFalse: [ 
+	[ previous = start ] whileFalse: [
 		previous := previous previousNode.
 		path addFirst: previous model ].
 	^ path
@@ -52,11 +52,11 @@ AIBellmanFord >> relaxEdges [
 
 	| anEdgeHasBeenRelaxed |
 	"Relax the edges V-1 times at worst case"
-	nodes size - 1 timesRepeat: [ 
+	nodes size - 1 timesRepeat: [
 		anEdgeHasBeenRelaxed := false.
 
-		edges do: [ :edge | 
-			edge from pathDistance + edge weight < edge to pathDistance ifTrue: [ 
+		edges do: [ :edge |
+			edge from pathDistance + edge weight < edge to pathDistance ifTrue: [
 				edge to pathDistance: edge from pathDistance + edge weight.
 				edge to previousNode: edge from.
 				anEdgeHasBeenRelaxed := true ] ].
@@ -69,14 +69,14 @@ AIBellmanFord >> relaxEdges [
 AIBellmanFord >> relaxEdgesToNegativeInfinity [
 
 	"This method is called after a first relaxation has ocurred already. The algorithm is the same as the previous one but with the only difference that now if an edge can be relaxed we set the path distance as negative infinity because means that the edge is part of a negative cycle."
-	
+
 	| anEdgeHasBeenRelaxed |
 	"Relax the edges V-1 times at worst case"
-	nodes size - 1 timesRepeat: [ 
+	nodes size - 1 timesRepeat: [
 		anEdgeHasBeenRelaxed := false.
 
-		edges do: [ :edge | 
-			edge from pathDistance + edge weight < edge to pathDistance ifTrue: [ 
+		edges do: [ :edge |
+			edge from pathDistance + edge weight < edge to pathDistance ifTrue: [
 				edge to pathDistance: Float negativeInfinity.
 				anEdgeHasBeenRelaxed := true ] ].
 

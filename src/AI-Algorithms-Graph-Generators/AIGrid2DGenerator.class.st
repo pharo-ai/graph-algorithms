@@ -16,8 +16,8 @@ Class {
 AIGrid2DGenerator >> buildMooreNeighborhood [
 	| graph |
 	graph := self nodes.
-	2 to: width do: [ :i | 
-		2 to: height do: [ :j | 
+	2 to: width do: [ :i |
+		2 to: height do: [ :j |
 			self
 				addEdge:
 					{(graph at: (j - 1) * width + i) model.
@@ -38,7 +38,7 @@ AIGrid2DGenerator >> buildMooreNeighborhood [
 				to: #second ] ].
 
 	"Link upper nodes"
-	1 to: width - 1 do: [ :i | 
+	1 to: width - 1 do: [ :i |
 		self
 			addEdge:
 				{(graph at: i) model.
@@ -47,15 +47,15 @@ AIGrid2DGenerator >> buildMooreNeighborhood [
 			to: #second ].
 
 	"Link left nodes"
-	1 to: height - 1 do: [ :i | 
+	1 to: height - 1 do: [ :i |
 		self
 			addEdge:
 				{(graph at: (i - 1) * width + 1) model.
 				(graph at: (i - 1) * width + 1 + width) model}
 			from: #first
 			to: #second ].
-	1 to: width - 1 do: [ :i | 
-		2 to: height do: [ :j | 
+	1 to: width - 1 do: [ :i |
+		2 to: height do: [ :j |
 			self
 				addEdge:
 					{(graph at: (j - 1) * width + i) model.
@@ -68,8 +68,8 @@ AIGrid2DGenerator >> buildMooreNeighborhood [
 AIGrid2DGenerator >> buildVonNeumannNeighorhood [
 	| graph |
 	graph := self nodes.
-	2 to: width do: [ :i | 
-		2 to: height do: [ :j | 
+	2 to: width do: [ :i |
+		2 to: height do: [ :j |
 			self
 				addEdge:
 					{(graph at: (j - 1) * width + i) model.
@@ -84,7 +84,7 @@ AIGrid2DGenerator >> buildVonNeumannNeighorhood [
 				to: #second ] ].
 
 	"Link upper nodes"
-	1 to: width - 1 do: [ :i | 
+	1 to: width - 1 do: [ :i |
 		self
 			addEdge:
 				{(graph at: i) model.
@@ -93,7 +93,7 @@ AIGrid2DGenerator >> buildVonNeumannNeighorhood [
 			to: #second ].
 
 	"Link left nodes"
-	1 to: height - 1 do: [ :i | 
+	1 to: height - 1 do: [ :i |
 		self
 			addEdge:
 				{(graph at: (i - 1) * width + 1) model.

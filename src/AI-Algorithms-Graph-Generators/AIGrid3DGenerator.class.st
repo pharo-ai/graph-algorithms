@@ -17,9 +17,9 @@ Class {
 AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 	| graph |
 	graph := self nodes.
-	1 to: length - 1 do: [ :i | 
-		1 to: height - 1 do: [ :j | 
-			1 to: width - 1 do: [ :k | 
+	1 to: length - 1 do: [ :i |
+		1 to: height - 1 do: [ :j |
+			1 to: width - 1 do: [ :k |
 				self
 					addEdge:
 						{(graph at: i + ((j - 1) * length) + ((k - 1) * length * height)) model.
@@ -40,8 +40,8 @@ AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 					to: #second ] ] ].
 
 	"Right plane"
-	1 to: height - 1 do: [ :j | 
-		1 to: width - 1 do: [ :k | 
+	1 to: height - 1 do: [ :j |
+		1 to: width - 1 do: [ :k |
 			self
 				addEdge:
 					{(graph at: length + ((j - 1) * length) + ((k - 1) * length * height)) model.
@@ -56,8 +56,8 @@ AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 				to: #second ] ].
 
 	"Top plan"
-	1 to: length - 1 do: [ :i | 
-		1 to: height - 1 do: [ :j | 
+	1 to: length - 1 do: [ :i |
+		1 to: height - 1 do: [ :j |
 			self
 				addEdge:
 					{(graph at: i + ((j - 1) * length) + ((width - 1) * length * height)) model.
@@ -71,8 +71,8 @@ AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 				from: #first
 				to: #second ] ].
 	"Back Plane"
-	1 to: length - 1 do: [ :i | 
-		1 to: width - 1 do: [ :k | 
+	1 to: length - 1 do: [ :i |
+		1 to: width - 1 do: [ :k |
 			self
 				addEdge:
 					{(graph at: i + ((height - 1) * length) + ((k - 1) * length * height)) model.
@@ -87,7 +87,7 @@ AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 				to: #second ] ].
 
 	"Rigth Edge"
-	1 to: width - 1 do: [ :k | 
+	1 to: width - 1 do: [ :k |
 		self
 			addEdge:
 				{(graph at: length + ((height - 1) * length) + ((k - 1) * length * height)) model.
@@ -95,7 +95,7 @@ AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 			from: #first
 			to: #second ].
 	"Top Edge"
-	1 to: height - 1 do: [ :j | 
+	1 to: height - 1 do: [ :j |
 		self
 			addEdge:
 				{(graph at: length + ((j - 1) * length) + ((width - 1) * length * height)) model.
@@ -104,7 +104,7 @@ AIGrid3DGenerator >> buildVonNeumannNeighorhood [
 			to: #second ].
 
 	"Top Back Edge"
-	1 to: length - 1 do: [ :i | 
+	1 to: length - 1 do: [ :i |
 		self
 			addEdge:
 				{(graph at: i + ((height - 1) * length) + ((width - 1) * length * height)) model.

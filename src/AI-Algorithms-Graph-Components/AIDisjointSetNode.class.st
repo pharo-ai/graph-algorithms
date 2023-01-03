@@ -32,7 +32,7 @@ AIDisjointSetNode >> find [
 
 	"Compress the path leading back to the root.
 	This is the path compression operation that gives the linear amortized time complexity"
-	[ node = root ] whileFalse: [ 
+	[ node = root ] whileFalse: [
 		next := node parent.
 		node parent: root.
 		node := next ].

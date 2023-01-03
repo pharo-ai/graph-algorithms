@@ -47,7 +47,7 @@ AIShortestPathInDAG >> initializePathWeights [
 { #category : #configuration }
 AIShortestPathInDAG >> nodeClass [
 
-	^ AIPathDistanceNode 
+	^ AIPathDistanceNode
 ]
 
 { #category : #running }
@@ -59,7 +59,7 @@ AIShortestPathInDAG >> reconstructPath [
 	path := LinkedList empty.
 	previous := end.
 	path addFirst: end model.
-	[ previous = start ] whileFalse: [ 
+	[ previous = start ] whileFalse: [
 		previous := previous previousNode.
 		path addFirst: previous model ].
 	^ path
@@ -72,10 +72,10 @@ AIShortestPathInDAG >> run [
 	self initializePathWeights.
 	stack := self topologicalSortedNodes.
 
-	[ stack isNotEmpty ] whileTrue: [ 
+	[ stack isNotEmpty ] whileTrue: [
 		sortedNode := self findNode: stack removeFirst.
-		
-		sortedNode outgoingEdges do: [ :nextEdge | 
+
+		sortedNode outgoingEdges do: [ :nextEdge |
 			nextEdge to pathDistance > (sortedNode pathDistance + nextEdge weight)
 				ifTrue: [ self updatePathDistance: nextEdge previousNode: sortedNode ] ] ]
 ]
@@ -116,7 +116,6 @@ AIShortestPathInDAG >> topologicalSortedNodes [
 		yourself.
 	topSorter run.
 	^ topSorter topologicalSortedElements
-	
 ]
 
 { #category : #running }

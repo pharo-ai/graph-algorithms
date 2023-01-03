@@ -36,7 +36,7 @@ AITarjan >> addNewSccForNode: aTarjanNode [
 	currentNode popped.
 	stronglyConnectedComponent add: currentNode ]
 	doWhileFalse: [ currentNode = aTarjanNode ].
-	
+
 	sccs add: stronglyConnectedComponent.
 	stronglyConnectedComponent do: [ :each | each cycleNodes: stronglyConnectedComponent ]
 ]
@@ -74,7 +74,7 @@ AITarjan >> run [
 	sccs := OrderedCollection new.
 	stack := Stack new.
 	runningIndex := 0.
-	self nodes do: [ :node | 
+	self nodes do: [ :node |
 		node isTarjanUndefined ifTrue: [ self traverse: node ] ].
 	^ self stronglyConnectedComponents
 ]
@@ -92,17 +92,17 @@ AITarjan >> traverse: aTarjanNode [
 	aTarjanNode tarjanIndex: runningIndex.
 	aTarjanNode tarjanLowlink: runningIndex.
 	runningIndex := runningIndex + 1.
-	
+
 	self putOnStack: aTarjanNode.
-	
-	aTarjanNode adjacentNodes do: [ :adjacentNode | 
+
+	aTarjanNode adjacentNodes do: [ :adjacentNode |
 		adjacentNode isTarjanUndefined
-			ifTrue: [ 
+			ifTrue: [
 				self traverse: adjacentNode.
 				aTarjanNode tarjanLowlink:
 					(aTarjanNode tarjanLowlink min: adjacentNode tarjanLowlink) ]
-			ifFalse: [ 
-				adjacentNode inStack ifTrue: [ 
+			ifFalse: [
+				adjacentNode inStack ifTrue: [
 					aTarjanNode tarjanLowlink:
 						(aTarjanNode tarjanLowlink min: adjacentNode tarjanIndex) ] ] ].
 

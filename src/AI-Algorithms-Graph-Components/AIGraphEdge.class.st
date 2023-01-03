@@ -35,7 +35,7 @@ AIGraphEdge class >> with: aModel from: srcNode to: dstNode [
 	edge model: aModel.
 	edge from: srcNode.
 	edge to: dstNode.
-	^ edge.
+	^ edge
 ]
 
 { #category : #accessing }

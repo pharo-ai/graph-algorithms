@@ -28,11 +28,11 @@ AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 	sourceNode := self findNode: (sourceBlock value: edgeModel) ifAbsent: [ ^ nil ].
 	targetNode := self findNode: (targetBlock value: edgeModel) ifAbsent: [ ^ nil ].
 	^ self edgeClass
-		  ifNil: [ 
+		  ifNil: [
 			  sourceNode to: targetNode.
 			  targetNode from: sourceNode.
 			  nil ]
-		  ifNotNil: [ 
+		  ifNotNil: [
 			  edge := self edgeClass with: edgeModel.
 			  sourceNode to: targetNode edge: edge.
 			  targetNode from: sourceNode edge: edge.
@@ -60,11 +60,11 @@ AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 
 	self
 		findNode: model
-		ifFound: [ 
+		ifFound: [
 		^ self "Prevent cycles. Do not add a node already added." ].
 
 	parent := self addNodeFor: model.
-	(childrenBlock value: model) do: [ :child | 
+	(childrenBlock value: model) do: [ :child |
 		self addNodesFrom: child childrenBlock: childrenBlock.
 		self
 			addEdge: { parent model. child }
@@ -78,8 +78,8 @@ AIGraphAlgorithm >> addNodesFromDifferentGraph: aNodeList [
 	"Adds nodes from another graph. This is useful for example when you want to add all the nodes, and its adjacencies, from one graph to another. For example, first running a graph reducing algo and then do a topological sort. First create the graph reduced graph and then add its nodes to a topological sort graph. "
 
 	aNodeList do: [ :node | self addNodeFor: node model ].
-	aNodeList do: [ :node | 
-		node adjacentNodes do: [ :next | 
+	aNodeList do: [ :node |
+		node adjacentNodes do: [ :next |
 			self
 				addEdge: node model -> next model
 				from: [ :each | each key ]
@@ -101,7 +101,7 @@ AIGraphAlgorithm >> edges [
 { #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source to: target [
 
-	aCollection do: [ :eModel | 
+	aCollection do: [ :eModel |
 		self addEdge: eModel from: source to: target ]
 ]
 
@@ -109,7 +109,7 @@ AIGraphAlgorithm >> edges: aCollection from: source to: target [
 AIGraphAlgorithm >> edges: aCollection from: source to: target weight: weightFunction [
 
 	| edge |
-	aCollection do: [ :eModel | 
+	aCollection do: [ :eModel |
 		edge := self addEdge: eModel from: source to: target.
 		edge ifNotNil: [ edge weight: (weightFunction value: eModel) ] ]
 ]
@@ -117,10 +117,10 @@ AIGraphAlgorithm >> edges: aCollection from: source to: target weight: weightFun
 { #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 
-	aCollection do: [ :eModel | 
-		(targets value: eModel) do: [ :target | 
+	aCollection do: [ :eModel |
+		(targets value: eModel) do: [ :target |
 			self
-				addEdge: { 
+				addEdge: {
 						(source value: eModel).
 						target }
 				from: [ :each | each first ]
@@ -131,10 +131,10 @@ AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 AIGraphAlgorithm >> edgesByPair: aCollection [
 
 	" aCollection must be a collection where the incoming edge has to be in the first position and the outgoing esge has to be in the second position.
-	
+
 	You can use this method instead of doing
 	edge: aCollection from: #first to: #second"
-	aCollection do: [ :eModel | 
+	aCollection do: [ :eModel |
 		self addEdge: eModel
 		from: [ :each | each first ]
 		to: [ :each | each second ] ]
@@ -231,5 +231,5 @@ AIGraphAlgorithm >> rawNodes: aRawNodeList [
 { #category : #running }
 AIGraphAlgorithm >> run [
 
-	self subclassResponsibility 
+	self subclassResponsibility
 ]
