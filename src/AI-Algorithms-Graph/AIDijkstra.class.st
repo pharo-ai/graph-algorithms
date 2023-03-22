@@ -35,9 +35,9 @@ AIDijkstra >> end: endModel [
 { #category : #actions }
 AIDijkstra >> newPriorityQueue [
 
-	"This is the naive implementation of the data structure."
+	"We use the Heap object defined in the SequenceableCollections package."
 
-	^ OrderedCollection new
+	^ Heap new
 ]
 
 { #category : #configuration }
@@ -70,11 +70,7 @@ AIDijkstra >> reconstructPath [
 { #category : #actions }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
 
-	"This is the naive implementation of the data structure."
-
-	| minValue |
-	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].
-	^ aPriorityQueue remove: minValue
+	^ aPriorityQueue removeFirst
 ]
 
 { #category : #initialization }
@@ -89,9 +85,10 @@ AIDijkstra >> reset [
 
 { #category : #running }
 AIDijkstra >> run [
-
+	
 	| pq |
 	pq := self newPriorityQueue.
+	pq sortBlock: [ :element1 :element2 | (element1 value) <= (element2 value)].
 	pq add: start -> 0.
 
 	[ pq isNotEmpty ] whileTrue: [
