@@ -89,7 +89,8 @@ AIDijkstra >> run [
 	| pq |
 	pq := self newPriorityQueue.
 	pq sortBlock: [ :element1 :element2 | (element1 priority ) <= (element2 priority )].
-	pq add: (start priority: 0).
+	start priority: 0.
+	pq add: start.
 
 	[ pq isNotEmpty ] whileTrue: [ 
 		| node minWeight |
