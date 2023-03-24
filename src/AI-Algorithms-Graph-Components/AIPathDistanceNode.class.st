@@ -74,7 +74,6 @@ AIPathDistanceNode >> priority [
 AIPathDistanceNode >> priority: anInteger [
 	
 	priority := anInteger.
-	^ self
 ]
 
 { #category : #accessing }
