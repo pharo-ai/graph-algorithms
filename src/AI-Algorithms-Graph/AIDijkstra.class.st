@@ -108,7 +108,8 @@ AIDijkstra >> run [
 					
 					newDistance < edge to pathDistance ifTrue: [ 
 						self updateDistance: newDistance of: edge to previousNode: node.
-						pq add: (edge to priority: newDistance) ] ] ] ] ]
+						edge to priority: newDistance.
+						pq add: edge to] ] ] ] ]
 ]
 
 
