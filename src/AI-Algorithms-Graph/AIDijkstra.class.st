@@ -35,9 +35,9 @@ AIDijkstra >> end: endModel [
 { #category : #actions }
 AIDijkstra >> newPriorityQueue [
 
-	"This is the naive implementation of the data structure."
+	"We use the Heap object defined in the SequenceableCollections package."
 
-	^ OrderedCollection new
+	^ Heap new
 ]
 
 { #category : #configuration }
@@ -70,11 +70,7 @@ AIDijkstra >> reconstructPath [
 { #category : #actions }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
 
-	"This is the naive implementation of the data structure."
-
-	| minValue |
-	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].
-	^ aPriorityQueue remove: minValue
+	^ aPriorityQueue removeFirst
 ]
 
 { #category : #initialization }
@@ -92,27 +88,30 @@ AIDijkstra >> run [
 
 	| pq |
 	pq := self newPriorityQueue.
-	pq add: start -> 0.
+	pq sortBlock: [ :element1 :element2 | (element1 priority ) <= (element2 priority )].
+	start priority: 0.
+	pq add: start.
 
-	[ pq isNotEmpty ] whileTrue: [
-		| assoc node minWeight |
-		assoc := self removeMostPromisingPair: pq.
-		node := assoc key.
-		minWeight := assoc value.
+	[ pq isNotEmpty ] whileTrue: [ 
+		| node minWeight |
+		node := self removeMostPromisingPair: pq.
+		minWeight := node priority.
 		node visited: true.
 
 		"Skip if the path weight is less than the one obtained from the pq.
 		This is an optimization for not processing unnecessary nodes."
-		node pathDistance < minWeight ifFalse: [
-			node outgoingEdges do: [ :edge |
-				edge to visited ifFalse: [
+		node pathDistance < minWeight ifFalse: [ 
+			node outgoingEdges do: [ :edge | 
+				edge to visited ifFalse: [ 
 					| newDistance |
 					newDistance := node pathDistance + edge weight.
-
-					newDistance < edge to pathDistance ifTrue: [
+					
+					newDistance < edge to pathDistance ifTrue: [ 
 						self updateDistance: newDistance of: edge to previousNode: node.
-						pq add: edge to -> newDistance ] ] ] ] ]
+						edge to priority: newDistance.
+						pq add: edge to] ] ] ] ]
 ]
+
 
 { #category : #running }
 AIDijkstra >> runFrom: startModel [
