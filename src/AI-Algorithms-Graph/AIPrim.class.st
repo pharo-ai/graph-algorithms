@@ -19,7 +19,10 @@ AIPrim >> minNode [
 	|lowNode lowKey|
 	lowKey := Float infinity.
 	nodes do: [ :each | 
-			((each distance < lowKey) & (each visited not) ) ifTrue: [ lowNode := each ]
+			((each distance < lowKey) & (each visited not) ) ifTrue: [ 
+					lowKey := each distance.
+					lowNode := each 
+				]
 		 ].
 	^lowNode
 ]
@@ -31,28 +34,32 @@ AIPrim >> nodeClass [
 
 { #category : #running }
 AIPrim >> run [ 
-	|firstNode numNodes curNode curEdge treeEdges|
+	|curNode curEdge treeEdges fromNode toNode|
+	
 	nodes do: [ :each | each distance: Float infinity ].
 	
 	treeEdges := OrderedCollection new.
-	firstNode := nodes first.
-	firstNode distance: 0.
+	
+	nodes first distance: 0; previousNode: nil.
 
-	numNodes := nodes size.
-
-	numNodes timesRepeat: [ 
+	(nodes size ) timesRepeat: [ 
 			curNode := self minNode.
+			curNode visited: true.
+			curNode previousNode ifNotNil: [ 
+					treeEdges add: { curNode previousNode. curNode. curNode distance }.
+				 ].
+			
 			edges do: [ :edge |
 					curEdge := edge asTuple.
-					(curEdge first == curNode) ifTrue: [ 
-							((curEdge third < curEdge second distance) & (curEdge second visited not)) ifTrue: [ 
-									curEdge second previous: curNode.
-									curEdge second visited: true.
-									treeEdges add: edge.
-								 ]
-						 ]
-				 ]
+					fromNode := (self findNode: (curEdge first)).
+					toNode := (self findNode: (curEdge second)).
+					((fromNode == curNode) & (curEdge third < toNode distance) & (toNode visited not)) ifTrue: [ 
+							toNode previousNode: curNode.
+							toNode distance: curEdge third.
+						]
+				 ].
 		 ].
+	
 	^treeEdges  
 	
 ]
