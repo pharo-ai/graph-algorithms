@@ -35,9 +35,9 @@ AIDijkstra >> end: endModel [
 { #category : #actions }
 AIDijkstra >> newPriorityQueue [
 
-	"We use the Heap object defined in the SequenceableCollections package."
+	"This is the naive implementation of the data structure."
 
-	^ Heap new
+	^ OrderedCollection new
 ]
 
 { #category : #configuration }
@@ -70,7 +70,11 @@ AIDijkstra >> reconstructPath [
 { #category : #actions }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
 
-	^ aPriorityQueue removeFirst
+	"This is the naive implementation of the data structure."
+
+	| minValue |
+	minValue := aPriorityQueue detectMin: [ :assoc | assoc value ].
+	^ aPriorityQueue remove: minValue
 ]
 
 { #category : #initialization }
@@ -88,30 +92,27 @@ AIDijkstra >> run [
 
 	| pq |
 	pq := self newPriorityQueue.
-	pq sortBlock: [ :element1 :element2 | (element1 priority ) <= (element2 priority )].
-	start priority: 0.
-	pq add: start.
+	pq add: start -> 0.
 
-	[ pq isNotEmpty ] whileTrue: [ 
-		| node minWeight |
-		node := self removeMostPromisingPair: pq.
-		minWeight := node priority.
+	[ pq isNotEmpty ] whileTrue: [
+		| assoc node minWeight |
+		assoc := self removeMostPromisingPair: pq.
+		node := assoc key.
+		minWeight := assoc value.
 		node visited: true.
 
 		"Skip if the path weight is less than the one obtained from the pq.
 		This is an optimization for not processing unnecessary nodes."
-		node pathDistance < minWeight ifFalse: [ 
-			node outgoingEdges do: [ :edge | 
-				edge to visited ifFalse: [ 
+		node pathDistance < minWeight ifFalse: [
+			node outgoingEdges do: [ :edge |
+				edge to visited ifFalse: [
 					| newDistance |
 					newDistance := node pathDistance + edge weight.
-					
-					newDistance < edge to pathDistance ifTrue: [ 
-						self updateDistance: newDistance of: edge to previousNode: node.
-						edge to priority: newDistance.
-						pq add: edge to] ] ] ] ]
-]
 
+					newDistance < edge to pathDistance ifTrue: [
+						self updateDistance: newDistance of: edge to previousNode: node.
+						pq add: edge to -> newDistance ] ] ] ] ]
+]
 
 { #category : #running }
 AIDijkstra >> runFrom: startModel [

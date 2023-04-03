@@ -8,8 +8,7 @@ Class {
 		'previousNode',
 		'visited',
 		'outgoingEdges',
-		'pathDistance',
-		'priority'
+		'pathDistance'
 	],
 	#category : #'AI-Algorithms-Graph-Components-Nodes'
 }
@@ -20,9 +19,7 @@ AIPathDistanceNode >> initialize [
 	super initialize.
 	outgoingEdges := OrderedCollection new.
 	pathDistance := Float infinity.
-	visited := false.
-	priority := Float infinity. 
-	
+	visited := false
 ]
 
 { #category : #accessing }
@@ -62,18 +59,6 @@ AIPathDistanceNode >> printOn: aStream [
 	aStream
 		nextPutAll: ' weight: ';
 		nextPutAll: pathDistance asString
-]
-
-{ #category : #accessing }
-AIPathDistanceNode >> priority [ 
-	
-	^ priority 
-]
-
-{ #category : #accessing }
-AIPathDistanceNode >> priority: anInteger [
-	
-	priority := anInteger.
 ]
 
 { #category : #accessing }
