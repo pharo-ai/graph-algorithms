@@ -112,7 +112,6 @@ AIDijkstra >> run [
 						pq add: edge to] ] ] ] ]
 ]
 
-
 { #category : #running }
 AIDijkstra >> runFrom: startModel [
 
