@@ -42,7 +42,7 @@ AIPrim >> nodeClass [
 { #category : #running }
 AIPrim >> run [
 
-	| curNode curEdge treeEdges fromNode toNode |
+	| curNode curEdge treeEdges fromNode toNode primEdge |
 	nodes do: [ :each | each distance: Float infinity ].
 
 	treeEdges := OrderedCollection new.
@@ -55,10 +55,11 @@ AIPrim >> run [
 		curNode := self minNode.
 		curNode visited: true.
 		curNode previousNode ifNotNil: [
-			treeEdges add: {
-					curNode previousNode.
-					curNode.
-					curNode distance } ].
+			primEdge := {
+				            curNode previousNode model.
+				            curNode model.
+				            curNode distance }.
+			treeEdges add: (self findEdge: primEdge) ].
 
 		edges do: [ :edge |
 			curEdge := edge asTuple.
