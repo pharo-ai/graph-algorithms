@@ -168,6 +168,31 @@ AIGraphFixture class >> complexWeightedGraph3: builder [
 ]
 
 { #category : #fixtures }
+AIGraphFixture class >> complexWeightedGraph4: builder [
+	"https://imgur.com/Szd19hW"
+
+	| nodes edges |
+	nodes := 1 to: 12.
+	edges := #( #( 1 2 1 ) #( 1 4 25 ) #( 2 1 1 ) #( 2 3 26 ) #( 3 2 26 )
+	            #( 3 4 17 ) #( 3 5 6 ) #( 3 6 20 ) #( 4 1 25 )
+	            #( 4 3 17 ) #( 4 6 15 ) #( 4 7 8 ) #( 5 3 6 ) #( 5 6 18 )
+	            #( 5 9 16 ) #( 5 12 23 ) #( 6 3 20 ) #( 6 4 15 )
+	            #( 6 5 18 ) #( 6 7 6 ) #( 6 8 16 ) #( 6 9 16 )
+	            #( 7 4 8 ) #( 7 6 6 ) #( 7 8 20 ) #( 8 6 16 ) #( 8 7 20 )
+	            #( 8 9 7 ) #( 8 10 9 ) #( 9 5 16 ) #( 9 6 16 )
+	            #( 9 8 7 ) #( 9 11 24 ) #( 9 12 9 ) #( 10 8 9 )
+	            #( 10 11 9 ) #( 11 9 24 ) #( 11 10 9 ) #( 11 12 16 )
+	            #( 12 5 23 ) #( 12 9 9 ) #( 12 11 16 ) ).
+	builder nodes: nodes.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
+	^ builder
+]
+
+{ #category : #fixtures }
 AIGraphFixture class >> complexWeightedGraph: builder [
 
 	"https://i.imgur.com/LAy4W3Z.jpeg"
@@ -358,6 +383,25 @@ AIGraphFixture class >> simpleGraphForHits: builder [
 
 	builder nodes: nodes.
 	builder edges: edges from: #first to: #second.
+	^ builder
+]
+
+{ #category : #fixtures }
+AIGraphFixture class >> simpleWeightedGraph2: builder [
+	"https://imgur.com/6Mjdngn"
+
+	| nodes edges |
+	nodes := 1 to: 5.
+	edges := #( #( 1 2 3 ) #( 1 4 7 ) #( 1 5 8 ) #( 2 1 3 ) #( 2 3 1 )
+	            #( 2 4 4 ) #( 3 2 1 ) #( 3 4 2 ) #( 4 1 7 ) #( 4 2 4 )
+	            #( 4 3 2 ) #( 4 5 3 ) #( 5 1 8 ) #( 5 4 3 ) ).
+
+	builder nodes: nodes.
+	builder
+		edges: edges
+		from: #first
+		to: #second
+		weight: #third.
 	^ builder
 ]
 
