@@ -136,7 +136,7 @@ AIAstar >> run [
 	gScore := Dictionary new.
 	gScore at: start put: 0.
 	fScore := Dictionary new.
-	fScore at: start put: Float infinity "(self heuristicFrom: start to: end)".
+	fScore at: start put: (self heuristicFrom: start to: end).
 	"Transcript show: (self heuristicFrom: start to: end);cr."
 	
 	gs := [ :p | gScore at: p ifAbsent: Float infinity ].
@@ -176,7 +176,7 @@ AIAstar >> run [
 							self updateDistance: tentative_gScore of: edge to previousNode: current.
 		                cameFrom at: (edge to) put: current.
 		                gScore at: (edge to) put: tentative_gScore.
-		                fScore at: (edge to) put: tentative_gScore + 0"(self heuristicFrom: (edge to) to: end)".
+		                fScore at: (edge to) put: tentative_gScore + (self heuristicFrom: (edge to) to: end).
 		                "Transcript show: (self heuristicFrom: (edge to) to: end);cr."
 		                (pq includes: (edge to)) ifFalse: [ pq add: (edge to) ].
 						] 
