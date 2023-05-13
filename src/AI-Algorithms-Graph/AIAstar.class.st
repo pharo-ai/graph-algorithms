@@ -28,13 +28,18 @@ AIAstar >> end: endModel [
 
 { #category : #running }
 AIAstar >> heuristicFrom: startModel to: endModel [
-  | pq cameFrom gScore fScore gs fs |
+  "We are using a version of dijkstra algorithm here with all weights the for every node (value 1).
+   So it has the same time complexity as BFS and takes into account the number of nodes in 
+   between intermediate and goal as a heuristic function. Edge weight can be increased to add 
+   more weight to heuristic part of Astar."
+  | pq cameFrom gScore fScore gs fs edgeWeight|
 	
 	cameFrom := Dictionary new.
 	gScore := Dictionary new.
 	gScore at: startModel put: 0.
 	fScore := Dictionary new.
 	fScore at: startModel put: Float infinity .
+	edgeWeight := 1.
 	
 	gs := [ :p | gScore at: p ifAbsent: Float infinity ].
 	fs := [ :p | fScore at: p ifAbsent: Float infinity ].
@@ -46,12 +51,6 @@ AIAstar >> heuristicFrom: startModel to: endModel [
 		| current  ans |
 		current := pq removeFirst.
 		
-		"Transcript show: current;cr."
-		"Transcript show: current outgoingEdges;cr."
-      "Transcript show: end;cr."		
-		"hook for visualization, call it with current and came from maps"
-		"stepHook ifNotNil: [ stepHook value: current value: cameFrom ]."
-		
 		current = endModel 
 			ifTrue: [
       			^ current priority.
@@ -59,7 +58,7 @@ AIAstar >> heuristicFrom: startModel to: endModel [
 			ifFalse: [ 
 				current outgoingEdges do: [ :edge |
 					| tentative_gScore |
-					tentative_gScore := (gs value: current) + (edge weight).
+					tentative_gScore := (gs value: current) + edgeWeight"(edge weight)".
 					tentative_gScore < (gs value: (edge to))
 						ifTrue: [ 
 							"This path to neighbor is better than any previous one. Record it!"
@@ -137,7 +136,6 @@ AIAstar >> run [
 	gScore at: start put: 0.
 	fScore := Dictionary new.
 	fScore at: start put: (self heuristicFrom: start to: end).
-	"Transcript show: (self heuristicFrom: start to: end);cr."
 	
 	gs := [ :p | gScore at: p ifAbsent: Float infinity ].
 	fs := [ :p | fScore at: p ifAbsent: Float infinity ].
@@ -148,12 +146,6 @@ AIAstar >> run [
 	[ pq isEmpty ] whileFalse: [ 
 		| current |
 		current := pq removeFirst.
-		
-		"Transcript show: current;cr."
-		"Transcript show: current outgoingEdges;cr."
-      "Transcript show: end;cr."		
-		"hook for visualization, call it with current and came from maps"
-		"stepHook ifNotNil: [ stepHook value: current value: cameFrom ]."
 		
 		current = end 
 			ifTrue: [
@@ -177,7 +169,6 @@ AIAstar >> run [
 		                cameFrom at: (edge to) put: current.
 		                gScore at: (edge to) put: tentative_gScore.
 		                fScore at: (edge to) put: tentative_gScore + (self heuristicFrom: (edge to) to: end).
-		                "Transcript show: (self heuristicFrom: (edge to) to: end);cr."
 		                (pq includes: (edge to)) ifFalse: [ pq add: (edge to) ].
 						] 
 				].
