@@ -106,6 +106,17 @@ AIGraphAlgorithm >> edges: aCollection from: source to: target [
 ]
 
 { #category : #'building - graph' }
+AIGraphAlgorithm >> edges: aCollection from: source to: target capacity: capacityFunction [
+
+	| edge edgeRev|
+	aCollection do: [ :eModel |
+		edge := self addEdge: eModel from: source to: target.
+		edge ifNotNil: [ edge capacity: (capacityFunction value: eModel) ].
+		edgeRev := self addEdge: eModel from: target to: source.
+		edgeRev ifNotNil: [ edgeRev capacity:0 ].]
+]
+
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source to: target weight: weightFunction [
 
 	| edge |
