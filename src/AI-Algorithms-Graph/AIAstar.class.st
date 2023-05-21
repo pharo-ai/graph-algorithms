@@ -63,7 +63,7 @@ AIAstar >> heuristicFrom: startModel to: endModel [
 			ifFalse: [ 
 				current outgoingEdges do: [ :edge |
 					| tentative_gScore |
-					tentative_gScore := (gs value: current) + edgeWeight"(edge weight)".
+					tentative_gScore := (gs value: current) + "edgeWeight"(edge weight).
 					tentative_gScore < (gs value: (edge to))
 						ifTrue: [ 
 							"This path to neighbor is better than any previous one. Record it!"
@@ -161,7 +161,7 @@ AIAstar >> run [
 					path addFirst: prev.
 					prev := cameFrom at: prev ifAbsent: nil.
 				].
-      			^ path.
+      			"^ path."
       			 ]
 			ifFalse: [ 
 				current outgoingEdges do: [ :edge |
@@ -180,8 +180,8 @@ AIAstar >> run [
 			].
 	].
 
-   send := OrderedCollection new.
-   ^send
+   "send := OrderedCollection new.
+   ^send"
 ]
 
 { #category : #running }
