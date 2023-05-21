@@ -45,6 +45,7 @@ AIDinic >> dfs: fromNode pushed: p [
 
 	arr := mapping at: fromNode.
 	cid := fromNode currentIndex.
+	tr := 0.
 
 	[ cid <= arr size ] whileTrue: [
 		id := arr at: cid.
@@ -167,7 +168,7 @@ AIDinic >> run: startNode to: sinkNode [
 		bfsBool ifTrue: [ ^ 0 ].
 		self currentIndexSetup.
 		pushed := self dfs: start pushed: maxValue.
-		pushed == 0 whileFalse: [
+		[ pushed == 0 ] whileFalse: [
 			finalFlow := finalFlow + pushed.
 			pushed := self dfs: start pushed: maxValue ] ].
 	^ finalFlow
