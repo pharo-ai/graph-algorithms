@@ -154,22 +154,31 @@ AIDinic >> run [
 { #category : #running }
 AIDinic >> run: startNode to: sinkNode [
 
-	| finalFlow bfsBool pushed maxValue |
+	| finalFlow bfsBool pushed maxValue breakLoop |
 	start := startNode.
 	sink := sinkNode.
 	self mapConfig.
 	maxValue := SmallInteger maxVal.
 	finalFlow := 0.
-	[ true ] whileTrue: [
+	breakLoop := true.
+
+	self levelSetup.
+	start level: 0.
+	queue addLast: start.
+	bfsBool := self bfs.
+	bfsBool ifTrue: [ ^ 0 ].
+	self currentIndexSetup.
+
+	[ breakLoop ] whileTrue: [
+		pushed := self dfs: start pushed: maxValue.
+		[ pushed == 0 ] whileFalse: [
+			finalFlow := finalFlow + pushed.
+			pushed := self dfs: start pushed: maxValue ].
 		self levelSetup.
 		start level: 0.
 		queue addLast: start.
 		bfsBool := self bfs.
-		bfsBool ifTrue: [ ^ 0 ].
-		self currentIndexSetup.
-		pushed := self dfs: start pushed: maxValue.
-		[ pushed == 0 ] whileFalse: [
-			finalFlow := finalFlow + pushed.
-			pushed := self dfs: start pushed: maxValue ] ].
+		bfsBool ifTrue: [ breakLoop := false ].
+		self currentIndexSetup ].
 	^ finalFlow
 ]
