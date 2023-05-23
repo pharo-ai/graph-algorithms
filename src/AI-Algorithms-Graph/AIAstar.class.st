@@ -37,47 +37,47 @@ AIAstar >> heuristicFrom: startModel to: endModel [
    So it has the same time complexity as BFS and takes into account the number of nodes in 
    between intermediate and goal as a heuristic function. Edge weight can be increased to add 
    more weight to heuristic part of Astar."
-  | pq cameFrom gScore fScore gs fs edgeWeight|
-	
-	cameFrom := Dictionary new.
-	gScore := Dictionary new.
-	gScore at: startModel put: 0.
-	fScore := Dictionary new.
-	fScore at: startModel put: Float infinity .
-	edgeWeight := 1.
-	
-	gs := [ :p | gScore at: p ifAbsent: Float infinity ].
-	fs := [ :p | fScore at: p ifAbsent: Float infinity ].
-	
-	pq := SortedCollection sortUsing: [ :a :b | (fs value: a) < (fs value: b) ].
-	pq add: startModel.
-	
-	[ pq isEmpty ] whileFalse: [ 
-		| current  ans |
-		current := pq removeFirst.
-		
-		current = endModel 
-			ifTrue: [
-      			^ current priority.
-      			 ]
-			ifFalse: [ 
-				current outgoingEdges do: [ :edge |
-					| tentative_gScore |
-					tentative_gScore := (gs value: current) + "edgeWeight"(edge weight).
-					tentative_gScore < (gs value: (edge to))
-						ifTrue: [ 
-							"This path to neighbor is better than any previous one. Record it!"
-							(edge to) priority: tentative_gScore .
-		                cameFrom at: (edge to) put: current.
-		                gScore at: (edge to) put: tentative_gScore.
-		                fScore at: (edge to) put: tentative_gScore.
-		                (pq includes: (edge to)) ifFalse: [ pq add: (edge to) ].
-						] 
-				].
-			].
-	].
+|dijkstra addEdges shortestPath pathD use|  
 
-   ^Float infinity .
+addEdges := OrderedCollection new.
+
+edges do:[:edge|
+	|efrom eto eval array|
+	efrom :=(edge from model).
+	eto := (edge to model).
+	eval := edge weight.
+	array := OrderedCollection  new.
+	array add: efrom. 
+	array add: eto.
+	array add: eval.
+	addEdges add: array asArray .
+	"Transcript show: array;cr."
+	].
+addEdges := addEdges asArray.
+
+
+
+end isNil ifTrue: [ ^0 ].
+endModel isNil ifTrue: [ ^0 ].
+
+dijkstra := AIDijkstra new.
+dijkstra nodes: ((nodes first model) to: (nodes last model)).
+dijkstra 
+  edges: addEdges 
+  from: [ :each | each first ]
+  to: [ :each | each second ]
+  weight: [ :each | each third ].
+
+use:= OrderedCollection new.
+use add: (startModel model).
+use add: (endModel model).
+dijkstra start: use first.
+dijkstra end: use second.
+dijkstra run.
+pathD:= (dijkstra findNode: (endModel model)) pathDistance .
+
+
+^pathD
 ]
 
 { #category : #actions }
