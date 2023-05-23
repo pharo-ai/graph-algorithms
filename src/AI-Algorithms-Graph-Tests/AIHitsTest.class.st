@@ -17,7 +17,9 @@ AIHitsTest >> setUp [
 { #category : #tests }
 AIHitsTest >> testComplexCycle [
 
-	AIGraphFixture complexCycleGraph: hits.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	hits :=graph complexCycleGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -27,7 +29,9 @@ AIHitsTest >> testComplexCycle [
 { #category : #tests }
 AIHitsTest >> testComplexWCycle [
 
-	AIGraphFixture complexWeightedGraph: hits.
+	| graph |
+	graph := AICyclicWeightedGraph new.
+	hits :=graph complexWeightedGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -37,7 +41,9 @@ AIHitsTest >> testComplexWCycle [
 { #category : #tests }
 AIHitsTest >> testCycle [
 
-	AIGraphFixture cycleGraph: hits.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	hits :=graph cycleGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -47,7 +53,9 @@ AIHitsTest >> testCycle [
 { #category : #tests }
 AIHitsTest >> testGraphForHits [
 
-	AIGraphFixture simpleGraphForHits: hits.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	hits :=graph simpleGraphForHits: hits .
 	hits k: 3.
 	hits run.
 	hits nodes do: [ :node |
@@ -58,7 +66,9 @@ AIHitsTest >> testGraphForHits [
 { #category : #tests }
 AIHitsTest >> testNestedCycle [
 
-	AIGraphFixture nestedCycleGraph: hits.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	hits :=graph nestedCycleGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -68,7 +78,9 @@ AIHitsTest >> testNestedCycle [
 { #category : #tests }
 AIHitsTest >> testSimple [
 
-	AIGraphFixture simpleGraph: hits.
+	| graph |
+	graph := AINonWeightedDAG new.
+	hits :=graph simpleGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -78,7 +90,9 @@ AIHitsTest >> testSimple [
 { #category : #tests }
 AIHitsTest >> testSimpleW [
 
-	AIGraphFixture simpleWeightedGraph: hits.
+	| graph |
+	graph := AICyclicWeightedGraph new.
+	hits :=graph simpleWeightedGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.

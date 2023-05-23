@@ -16,7 +16,9 @@ AIBFSTest >> setUp [
 { #category : #tests }
 AIBFSTest >> testAseGraph [
 
-	AIGraphFixture aseCircuitGraph: bfsp.
+	|graph|
+	graph := AICyclicNonWeightedGraph new.
+	bfsp:=graph aseCircuitGraph: bfsp.
 	self assert: (#( $a $b $c ) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#( $d $b $c ) hasEqualElements: (bfsp runFrom: $d to: $c)).
 	self assert: (#( $e $a ) hasEqualElements: (bfsp runFrom: $e to: $a)).
@@ -31,7 +33,9 @@ AIBFSTest >> testAseGraph [
 { #category : #tests }
 AIBFSTest >> testAseSccGraph [
 
-	AIGraphFixture aseCircuitGraph: bfsp.
+	|graph|
+	graph := AICyclicNonWeightedGraph new.
+	bfsp:=graph aseCircuitGraph: bfsp.
 	self assert: (#( $a $b $d $e ) hasEqualElements: (bfsp runFrom: $a to: $e)).
 	self assert: (#( $b $d ) hasEqualElements: (bfsp runFrom: $b to: $d)).
 	self assert: (#( $a $b $d ) hasEqualElements: (bfsp runFrom: $a to: $d))
@@ -40,7 +44,9 @@ AIBFSTest >> testAseSccGraph [
 { #category : #tests }
 AIBFSTest >> testComplexUndirectedGraph [
 
-	AIGraphFixture complexUndirectedGraph: bfsp.
+	|graph|
+	graph := AICyclicNonWeightedGraph new.
+	bfsp:=graph complexUndirectedGraph: bfsp.
 	self assert: (#( 10 8 0 7 3 ) hasEqualElements: (bfsp runFrom: 10 to: 3)).
 	self assert: (bfsp runFrom: 10 to: 12) size equals: 4.
 	self assert: (#( 10 8 0 11 ) hasEqualElements: (bfsp runFrom: 10 to: 11)).
@@ -53,7 +59,9 @@ AIBFSTest >> testComplexUndirectedGraph [
 { #category : #tests }
 AIBFSTest >> testSimpleGraph [
 
-	AIGraphFixture simpleGraph: bfsp.
+	|graph|
+	graph := AINonWeightedDAG new.
+	bfsp:=graph simpleGraph: bfsp.
 	self assert: (#( $a $b $c ) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#( $d $c ) hasEqualElements: (bfsp runFrom: $d to: $c))
 ]
@@ -61,7 +69,9 @@ AIBFSTest >> testSimpleGraph [
 { #category : #tests }
 AIBFSTest >> testWithoutCyclesComplexGraph [
 
-	AIGraphFixture withoutCyclesComplexGraph: bfsp.
+	|graph|
+	graph := AINonWeightedDAG new.
+	bfsp:=graph withoutCyclesComplexGraph: bfsp.
 	self assert: (#( $b $c $o $p $s ) hasEqualElements: (bfsp runFrom: $b to: $s)).
 	self assert: (#( $b $h $d $i $r ) hasEqualElements: (bfsp runFrom: $b to: $r))
 ]

@@ -17,7 +17,9 @@ AIWeightedHitsTest >> setUp [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted [
 
-	AIGraphFixture complexWeightedGraph: hits.
+	| graph |
+	graph := AICyclicWeightedGraph new.
+	hits :=graph complexWeightedGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -27,7 +29,9 @@ AIWeightedHitsTest >> testComplexWeighted [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted2 [
 
-	AIGraphFixture complexWeightedGraph2: hits.
+	| graph |
+	graph := AICyclicWeightedGraph new.
+	hits :=graph complexWeightedGraph2: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -37,7 +41,9 @@ AIWeightedHitsTest >> testComplexWeighted2 [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted3 [
 
-	AIGraphFixture complexWeightedGraph3: hits.
+	| graph |
+	graph := AICyclicWeightedGraph new.
+	hits :=graph complexWeightedGraph3: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -47,7 +53,9 @@ AIWeightedHitsTest >> testComplexWeighted3 [
 { #category : #tests }
 AIWeightedHitsTest >> testSimpleW [
 
-	AIGraphFixture simpleWeightedGraph: hits.
+	| graph |
+	graph := AICyclicWeightedGraph new.
+	hits :=graph simpleWeightedGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -57,7 +65,9 @@ AIWeightedHitsTest >> testSimpleW [
 { #category : #tests }
 AIWeightedHitsTest >> testWithoutCyclesComplexWeightedGraph [
 
-	AIGraphFixture withoutCyclesComplexWeightedGraph: hits.
+	| graph |
+	graph := AIWeightedDAG new.
+	hits :=graph withoutCyclesComplexWeightedGraph: hits .
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.

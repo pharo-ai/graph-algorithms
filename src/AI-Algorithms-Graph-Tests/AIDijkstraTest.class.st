@@ -16,7 +16,9 @@ AIDijkstraTest >> setUp [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuit [
 
-	AIGraphFixture aseCircuitWeightedGraph: dijkstra.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph aseCircuitWeightedGraph: dijkstra .
 	dijkstra runFrom: $a.
 	self assert: 1 equals: (dijkstra findNode: $b) pathDistance.
 	self assert: 3 equals: (dijkstra findNode: $e) pathDistance.
@@ -34,7 +36,9 @@ AIDijkstraTest >> testAseBasicCircuit [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuitBacktrack [
 
-	AIGraphFixture aseCircuitWeightedGraph: dijkstra.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph aseCircuitWeightedGraph: dijkstra .
 
 	self assert: (#( $a $b ) hasEqualElements: (dijkstra
 				  runFrom: $a to: $b;
@@ -61,7 +65,9 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
-	AIGraphFixture complexWeightedGraph2: dijkstra.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph complexWeightedGraph2: dijkstra .
 
 	dijkstra runFrom: 0.
 	self assert: (dijkstra findNode: 1) pathDistance equals: 4.
@@ -74,8 +80,9 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph2: dijkstra.
+	| shortestPath graph |
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph complexWeightedGraph2: dijkstra .
 	shortestPath := dijkstra
 		                runFrom: 0 to: 1;
 		                reconstructPath.
@@ -110,7 +117,9 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
-	AIGraphFixture complexWeightedGraph3: dijkstra.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph complexWeightedGraph3: dijkstra .
 
 	dijkstra runFrom: $a.
 	self assert: (dijkstra findNode: $b) pathDistance equals: 3.
@@ -122,8 +131,9 @@ AIDijkstraTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph3: dijkstra.
+	| shortestPath graph |
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph complexWeightedGraph3: dijkstra .
 	shortestPath := dijkstra
 		                runFrom: $a to: $b;
 		                reconstructPath.
@@ -152,7 +162,9 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraph [
 
-	AIGraphFixture simpleWeightedGraph: dijkstra.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph simpleWeightedGraph: dijkstra .
 
 	dijkstra runFrom: 1.
 	self assert: (dijkstra findNode: 2) pathDistance equals: 5.
@@ -164,8 +176,9 @@ AIDijkstraTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath |
-	AIGraphFixture simpleWeightedGraph: dijkstra.
+	| shortestPath graph |
+	graph := AICyclicWeightedGraph new.
+	dijkstra :=graph simpleWeightedGraph: dijkstra .
 	shortestPath := dijkstra
 		                runFrom: 1 to: 2;
 		                reconstructPath.

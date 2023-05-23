@@ -19,8 +19,9 @@ AITopologicalSortingTest >> setUp [
 { #category : #tests }
 AITopologicalSortingTest >> testSimpleGraph [
 
-	| sortedItems |
-	AIGraphFixture simpleGraph: sorter.
+	| sortedItems graph |
+	graph := AINonWeightedDAG new.
+	sorter :=graph simpleGraph: sorter .
 	sorter run.
 	sortedItems := sorter topologicalSortedElements.
 	"First level: A, D
@@ -52,16 +53,19 @@ AITopologicalSortingTest >> testSortStringHierarchy [
 { #category : #tests }
 AITopologicalSortingTest >> testSortWithCycle [
 
-	AIGraphFixture cycleGraph: sorter.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	sorter :=graph cycleGraph: sorter .
 	self should: [ sorter run ] raise: Error
 ]
 
 { #category : #tests }
 AITopologicalSortingTest >> testSortWithReducedGraph [
 
-	| graphReducer result |
+	| graphReducer result graph|
 	graphReducer := AIGraphReducer new.
-	AIGraphFixture complexCycleGraph2: graphReducer.
+	graph:= AICyclicNonWeightedGraph new.
+	graphReducer := graph complexCycleGraph2: graphReducer.
 	sorter addNodesFromDifferentGraph: graphReducer run.
 	result := sorter run.
 
@@ -78,8 +82,9 @@ AITopologicalSortingTest >> testSortWithReducedGraph [
 { #category : #tests }
 AITopologicalSortingTest >> testWithoutCyclesComplexGraph [
 
-	| sortedItems |
-	AIGraphFixture withoutCyclesComplexGraph: sorter.
+	| sortedItems graph |
+	graph := AINonWeightedDAG new.
+	sorter :=graph withoutCyclesComplexGraph: sorter .
 	sorter run.
 	sortedItems := sorter topologicalSortedElements.
 	"There are several possible topological orders with this combinations:
@@ -100,8 +105,9 @@ AITopologicalSortingTest >> testWithoutCyclesComplexGraph [
 { #category : #tests }
 AITopologicalSortingTest >> testWithoutCyclesMediumGraph [
 
-	| sortedItems |
-	AIGraphFixture withoutCyclesMediumGraph: sorter.
+	| sortedItems graph |
+	graph := AINonWeightedDAG new.
+	sorter :=graph withoutCyclesMediumGraph: sorter .
 	sorter run.
 	sortedItems := sorter topologicalSortedElements.
 	"A, B must come first. E and G come after A. C and H come after B. D comes after H. F comes after D and G."

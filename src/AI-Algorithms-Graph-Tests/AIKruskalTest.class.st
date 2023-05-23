@@ -23,8 +23,9 @@ AIKruskalTest >> setUp [
 { #category : #tests }
 AIKruskalTest >> testMaxSpanningTreeComplex [
 
-	| tree expectedEdges |
-	AIGraphFixture complexWeightedGraph: kruskal.
+	| tree expectedEdges graph |
+	graph := AICyclicWeightedGraph new.
+	kruskal :=graph complexWeightedGraph: kruskal .
 	kruskal maxSpanningTree.
 	tree := kruskal run collect: [ :e | e asTuple ].
 
@@ -43,8 +44,9 @@ AIKruskalTest >> testMaxSpanningTreeComplex [
 { #category : #tests }
 AIKruskalTest >> testMaxSpanningTreeSimple [
 
-	| tree expectedEdges |
-	AIGraphFixture simpleWeightedGraph: kruskal.
+	| tree expectedEdges graph |
+	graph := AICyclicWeightedGraph new.
+	kruskal :=graph simpleWeightedGraph: kruskal .
 	kruskal maxSpanningTree.
 	tree := kruskal run collect: [ :e | e asTuple ].
 
@@ -58,8 +60,9 @@ AIKruskalTest >> testMaxSpanningTreeSimple [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeComplex [
 
-	| tree |
-	AIGraphFixture complexWeightedGraph: kruskal.
+	| tree graph |
+	graph := AICyclicWeightedGraph new.
+	kruskal :=graph complexWeightedGraph: kruskal .
 	tree := kruskal run collect: [ :e | e asTuple ].
 	self assert: tree size equals: kruskal nodes size - 1.
 	self
@@ -70,8 +73,9 @@ AIKruskalTest >> testMinSpanningTreeComplex [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 
-	| tree |
-	AIGraphFixture withoutCyclesComplexWeightedGraph: kruskal.
+	| tree graph |
+	graph := AIWeightedDAG new.
+	kruskal :=graph withoutCyclesComplexWeightedGraph: kruskal .
 	tree := kruskal run collect: [ :e | e asTuple ].
 	"The result is 2 trees. One with a total weight of 20 and the other with a total weight of 75"
 	self
@@ -82,8 +86,9 @@ AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeSimple [
 
-	| tree expectedEdges |
-	AIGraphFixture simpleWeightedGraph: kruskal.
+	| tree expectedEdges graph |
+	graph := AICyclicWeightedGraph new.
+	kruskal :=graph simpleWeightedGraph: kruskal .
 	tree := kruskal run collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( 4 5 1 ) #( 5 1 2 ) #( 2 3 2 ) #( 2 4 3 ) ).

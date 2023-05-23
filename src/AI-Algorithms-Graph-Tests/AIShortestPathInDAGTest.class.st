@@ -20,8 +20,9 @@ AIShortestPathInDAGTest >> setUp [
 { #category : #tests }
 AIShortestPathInDAGTest >> testWeightedDAG [
 
-	| shortestPath |
-	AIGraphFixture weightedDAG: shortestPathAlgo.
+	| shortestPath graph |
+	graph := AIWeightedDAG new.
+	shortestPathAlgo :=graph weightedDAG: shortestPathAlgo .
 	shortestPathAlgo
 		start: $A;
 		end: $F;
@@ -50,8 +51,9 @@ AIShortestPathInDAGTest >> testWeightedDAG [
 { #category : #tests }
 AIShortestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
-	| shortestPath |
-	AIGraphFixture withoutCyclesComplexWeightedGraph: shortestPathAlgo.
+	| shortestPath graph |
+	graph := AIWeightedDAG new.
+	shortestPathAlgo :=graph withoutCyclesComplexWeightedGraph: shortestPathAlgo .
 	shortestPathAlgo
 		start: $b;
 		end: $s;

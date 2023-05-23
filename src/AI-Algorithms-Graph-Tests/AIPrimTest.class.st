@@ -17,8 +17,9 @@ AIPrimTest >> setUp [
 { #category : #tests }
 AIPrimTest >> testMinSpanningTreeComplex2 [
 
-	| tree |
-	AIGraphFixture complexWeightedGraph4: prim.
+	| tree graph |
+	graph := AICyclicWeightedGraph new.
+	prim :=graph complexWeightedGraph4: prim .
 	tree := prim run collect: [ :e | e asTuple ].
 	self assert: tree size equals: 11.
 	self
@@ -29,8 +30,9 @@ AIPrimTest >> testMinSpanningTreeComplex2 [
 { #category : #tests }
 AIPrimTest >> testMinimumSpanningTreeComplex [
 
-	| tree expectedEdges |
-	AIGraphFixture complexWeightedGraph3: prim.
+	| tree expectedEdges graph |
+	graph := AICyclicWeightedGraph new.
+	prim :=graph complexWeightedGraph3: prim .
 	tree := prim run collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( $a $d 1 ) #( $d $e 1 ) #( $d $b 2 )
@@ -44,8 +46,9 @@ AIPrimTest >> testMinimumSpanningTreeComplex [
 { #category : #tests }
 AIPrimTest >> testMinimumSpanningTreeSimple [
 
-	| tree expectedEdges |
-	AIGraphFixture simpleWeightedGraph2: prim.
+	| tree expectedEdges graph |
+	graph := AICyclicWeightedGraph new.
+	prim :=graph simpleWeightedGraph2: prim .
 	tree := prim run collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( 1 2 3 ) #( 2 3 1 ) #( 3 4 2 ) #( 4 5 3 ) ).

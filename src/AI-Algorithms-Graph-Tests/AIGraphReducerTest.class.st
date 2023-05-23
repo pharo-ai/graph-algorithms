@@ -33,8 +33,9 @@ AIGraphReducerTest >> setUp [
 { #category : #tests }
 AIGraphReducerTest >> testAdjacenciesFor [
 
-	| nodes |
-	AIGraphFixture complexCycleGraph2: graphReducer.
+	| nodes graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph2: graphReducer .
 	nodes := {
 		         (graphReducer findNode: $f).
 		         (graphReducer findNode: $g) }.
@@ -48,8 +49,9 @@ AIGraphReducerTest >> testAdjacenciesFor [
 { #category : #tests }
 AIGraphReducerTest >> testComplexCycle [
 
-	| mergedNodes |
-	AIGraphFixture complexCycleGraph: graphReducer.
+	| mergedNodes graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph: graphReducer .
 	graphReducer run.
 	self assert: graphReducer nodes size equals: 5.
 	self assert:
@@ -70,7 +72,9 @@ AIGraphReducerTest >> testComplexCycle [
 { #category : #tests }
 AIGraphReducerTest >> testComplexCycle2 [
 
-	AIGraphFixture complexCycleGraph2: graphReducer.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph2: graphReducer .
 	graphReducer run.
 	self assert: graphReducer nodes size equals: 6.
 	self assert: (graphReducer nodes at: 6) mergedNodes size equals: 4
@@ -79,8 +83,9 @@ AIGraphReducerTest >> testComplexCycle2 [
 { #category : #tests }
 AIGraphReducerTest >> testComplexCycleReferences [
 
-	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH |
-	AIGraphFixture complexCycleGraph: graphReducer.
+	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph: graphReducer .
 	graphReducer run.
 	reducedNodeA := (graphReducer nodes select: [ :each |
 		                 each model = $a ]) first.
@@ -125,8 +130,9 @@ AIGraphReducerTest >> testComplexCycleReferences [
 { #category : #tests }
 AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 
-	| initialGraph |
-	AIGraphFixture simpleGraph: graphReducer.
+	| initialGraph graph |
+	graph := AINonWeightedDAG new.
+	graphReducer :=graph simpleGraph: graphReducer .
 	initialGraph := graphReducer graph copy.
 	graphReducer run.
 	self assert: initialGraph equals: graphReducer graph
@@ -135,8 +141,9 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 { #category : #tests }
 AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 
-	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD |
-	AIGraphFixture simpleGraph: graphReducer.
+	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD graph |
+	graph := AINonWeightedDAG new.
+	graphReducer :=graph simpleGraph: graphReducer .
 	graphReducer run.
 	reducedNodeA := (graphReducer nodes select: [ :each |
 		                 each model = $a ]) first.
@@ -161,7 +168,9 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 
-	AIGraphFixture complexCycleGraph: graphReducer.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph: graphReducer .
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
@@ -171,7 +180,9 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 
-	AIGraphFixture complexCycleGraph2: graphReducer.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph2: graphReducer .
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
@@ -181,7 +192,9 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 
-	AIGraphFixture stronglyConnectedGraph: graphReducer.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph stronglyConnectedGraph: graphReducer .
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
@@ -191,7 +204,9 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 { #category : #tests }
 AIGraphReducerTest >> testNoCycle [
 
-	AIGraphFixture complexCycleGraph2: graphReducer.
+	| graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph complexCycleGraph2: graphReducer .
 	graphReducer run.
 	graphReducer nodes do: [ :node |
 		self
@@ -202,8 +217,9 @@ AIGraphReducerTest >> testNoCycle [
 { #category : #tests }
 AIGraphReducerTest >> testStronglyConnectedGraph [
 
-	| nodeModels nodeModelsCollection |
-	AIGraphFixture stronglyConnectedGraph: graphReducer.
+	| nodeModels nodeModelsCollection graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph stronglyConnectedGraph: graphReducer .
 	graphReducer run.
 	nodeModels := graphReducer nodes collect: #model.
 	nodeModelsCollection := nodeModels select: [ :e | e isCollection ].
@@ -221,8 +237,9 @@ AIGraphReducerTest >> testStronglyConnectedGraph [
 { #category : #tests }
 AIGraphReducerTest >> testStronglyConnectedGraphReferences [
 
-	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH |
-	AIGraphFixture stronglyConnectedGraph: graphReducer.
+	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH graph |
+	graph := AICyclicNonWeightedGraph new.
+	graphReducer :=graph stronglyConnectedGraph: graphReducer .
 	graphReducer run.
 	reducedNodeI := (graphReducer nodes select: [ :each |
 		                 each model = $i ]) first.
