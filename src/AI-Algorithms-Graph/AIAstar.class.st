@@ -37,7 +37,7 @@ AIAstar >> heuristicFrom: startModel to: endModel [
    So it has the same time complexity as BFS and takes into account the number of nodes in 
    between intermediate and goal as a heuristic function. Edge weight can be increased to add 
    more weight to heuristic part of Astar."
-|dijkstra addEdges shortestPath pathD use|  
+|dijkstra addEdges pathD use|  
 
 addEdges := OrderedCollection new.
 
