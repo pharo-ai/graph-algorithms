@@ -1,3 +1,7 @@
+"
+This class represents a node in the Dinic's algorithm.
+Each node has a level and a currentIndex property.
+"
 Class {
 	#name : #AIDinicNode,
 	#superclass : #AIGraphNode,

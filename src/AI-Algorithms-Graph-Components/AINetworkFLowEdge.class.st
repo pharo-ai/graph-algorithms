@@ -1,3 +1,7 @@
+"
+This class represents an edge in the Dinic's Algorithm.
+Each edge has a capacity and a flow property.
+"
 Class {
 	#name : #AINetworkFLowEdge,
 	#superclass : #AIGraphEdge,
