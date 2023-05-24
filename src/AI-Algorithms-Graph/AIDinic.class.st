@@ -59,6 +59,9 @@ Class {
 
 { #category : #backtracking }
 AIDinic >> bfs [
+	"This method uses bfs on the residual graph to construct a level graph.
+	The level graph assigns levels or distances to each node, indicating the shortest path from the source.
+	The ret boolean indicates if there exists and augmenting path(path from source to sink) in the residual level graph."
 
 	| node ind ret |
 	[ queue isNotEmpty ] whileTrue: [
@@ -85,6 +88,8 @@ AIDinic >> currentIndexSetup [
 
 { #category : #backtracking }
 AIDinic >> dfs: fromNode pushed: p [
+	"This method uses DFS-style algorithm to find a blocking flow (A blocking flow is a flow that saturates all the edges on the path, preventing any further flow) along the augmenting path.
+This performs a series of depth-first searches on the residual graph, exploring the edges with positive residual capacity."
 
 	| arr cid id edg reverseEdg toNode tr min |
 	p == 0 ifTrue: [ ^ 0 ].
@@ -98,11 +103,13 @@ AIDinic >> dfs: fromNode pushed: p [
 		id := arr at: cid.
 		edg := edges at: id.
 		toNode := edg to.
-
+		"Checking if the TO NODE is one level greater than FROM NODE, and for positive residual capacity"
 		fromNode level + 1 == toNode level & (edg capacity - edg flow >= 1)
 			ifTrue: [
 				fromNode currentIndex: cid.
+				"Calculating the minimum value between the current positive residual capacity and the pushed value from previous iterations"
 				min := self minimumValue: edg capacity - edg flow compare: p.
+				"The recursive call of DFS"
 				tr := self dfs: toNode pushed: min ].
 
 		tr == 0 ifFalse: [
@@ -130,6 +137,10 @@ AIDinic >> initialize [
 
 { #category : #configuration }
 AIDinic >> initializeAndBfs [
+	"This method 
+ - Initialises all the levels and current index of the nodes
+ - Runs the bfs method to get the level graph
+ - Returns a boolean based on whether the there exists an augmenting path or not."
 
 	| bfsBool |
 	self levelSetup.
