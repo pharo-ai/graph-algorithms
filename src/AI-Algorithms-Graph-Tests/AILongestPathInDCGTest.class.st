@@ -16,7 +16,9 @@ AILongestPathInDCGTest >> setUp [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 
-	AIGraphFixture negativeUnconnectedWeightedGraph: longestPathAlgo.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	longestPathAlgo :=graph negativeUnconnectedWeightedGraph: longestPathAlgo .
 
 	longestPathAlgo start: 0.
 	longestPathAlgo run.
@@ -36,7 +38,9 @@ AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraph [
 
-	AIGraphFixture negativeWeightedGraph: longestPathAlgo.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	longestPathAlgo :=graph negativeWeightedGraph: longestPathAlgo .
 
 	longestPathAlgo start: 0.
 	longestPathAlgo run.
@@ -55,7 +59,9 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 
-	AIGraphFixture negativeWeightedGraph2: longestPathAlgo.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	longestPathAlgo :=graph negativeWeightedGraph2: longestPathAlgo .
 
 	longestPathAlgo start: 0.
 	longestPathAlgo run.
@@ -75,7 +81,9 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraphReconstrucPath [
 
-	AIGraphFixture negativeWeightedGraph: longestPathAlgo.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	longestPathAlgo :=graph negativeWeightedGraph: longestPathAlgo .
 
 	longestPathAlgo runFrom: 0 to: 8.
 	self assertCollection: longestPathAlgo reconstructPath asArray equals: #( 0 1 5 8).

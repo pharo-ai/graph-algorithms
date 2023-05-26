@@ -16,7 +16,9 @@ AIAstarTest >> setUp [
 { #category : #tests }
 AIAstarTest >> testAseBasicCircuit [
 
-	AIGraphFixture aseCircuitWeightedGraph: astar.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	astar :=graph aseCircuitWeightedGraph: astar .
 	astar runFrom: $a.
 	self assert: 1 equals: (astar findNode: $b) pathDistance.
 	self assert: 3 equals: (astar findNode: $e) pathDistance.
@@ -34,7 +36,9 @@ AIAstarTest >> testAseBasicCircuit [
 { #category : #tests }
 AIAstarTest >> testAseBasicCircuitBacktrack [
 
-	AIGraphFixture aseCircuitWeightedGraph: astar.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	astar :=graph aseCircuitWeightedGraph: astar .
 
 	self assert: (#( $a $b ) hasEqualElements: (astar
 				  runFrom: $a to: $b;
@@ -61,7 +65,9 @@ AIAstarTest >> testAseBasicCircuitBacktrack [
 AIAstarTest >> testComplexWeightedGraph2 [
 
 
-	AIGraphFixture complexWeightedGraph2: astar.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	astar :=graph complexWeightedGraph2: astar .
 
 	astar runFrom: 0.
 	self assert: (astar findNode: 1) pathDistance equals: 4.
@@ -74,8 +80,9 @@ AIAstarTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph2: astar.
+	| shortestPath graph |
+	graph := AICyclicWeightedGraph new.
+	astar :=graph complexWeightedGraph2: astar .
 	shortestPath := astar
 		                runFrom: 0 to: 1;
 		                reconstructPath.
@@ -110,7 +117,9 @@ AIAstarTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph3 [
 
-	AIGraphFixture complexWeightedGraph3: astar.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	astar :=graph complexWeightedGraph3: astar .
 
 	astar runFrom: $a.
 	self assert: (astar findNode: $b) pathDistance equals: 3.
@@ -122,8 +131,9 @@ AIAstarTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph3: astar.
+	| shortestPath graph |
+	graph := AICyclicWeightedGraph new.
+	astar :=graph complexWeightedGraph3: astar .
 	shortestPath := astar
 		                runFrom: $a to: $b;
 		                reconstructPath.
@@ -152,7 +162,9 @@ AIAstarTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIAstarTest >> testSimpleWeightedGraph [
 
-	AIGraphFixture simpleWeightedGraph: astar.
+	|graph|
+	graph := AICyclicWeightedGraph new.
+	astar :=graph simpleWeightedGraph: astar .
 
 	astar runFrom: 1.
 	self assert: (astar findNode: 2) pathDistance equals: 5.
@@ -164,8 +176,9 @@ AIAstarTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIAstarTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath |
-	AIGraphFixture simpleWeightedGraph: astar.
+	| shortestPath graph |
+	graph := AICyclicWeightedGraph new.
+	astar :=graph simpleWeightedGraph: astar .
 	shortestPath := astar
 		                runFrom: 1 to: 2;
 		                reconstructPath.

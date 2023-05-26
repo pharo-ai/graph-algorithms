@@ -17,38 +17,40 @@ AILongestPathInDAGTest >> setUp [
 { #category : #tests }
 AILongestPathInDAGTest >> testWeightedDAG [
 
-	| shortestPath |
-	AIGraphFixture weightedDAG: longestPathAlgo.
+	| longestPath graph |
+	graph := AIWeightedDAG new.
+	longestPathAlgo :=graph weightedDAG: longestPathAlgo .
 	longestPathAlgo
 		start: $A;
 		end: $F;
 		run.
-	shortestPath := longestPathAlgo reconstructPath.
+	longestPath := longestPathAlgo reconstructPath.
 	self assert: (longestPathAlgo findNode: $F) pathDistance equals: 22.
-	self assert: shortestPath asArray equals: #( $A $B $D $E $F ).
+	self assert: longestPath asArray equals: #( $A $B $D $E $F ).
 
 	longestPathAlgo end: $E.
-	shortestPath := longestPathAlgo reconstructPath.
+	longestPath := longestPathAlgo reconstructPath.
 	self assert: (longestPathAlgo findNode: $E) pathDistance equals: 15.
-	self assert: shortestPath asArray equals: #( $A $B $D $E ).
+	self assert: longestPath asArray equals: #( $A $B $D $E ).
 
 	longestPathAlgo runFrom: $B to: $F.
-	shortestPath := longestPathAlgo reconstructPath.
+	longestPath := longestPathAlgo reconstructPath.
 	self assert: (longestPathAlgo findNode: $F) pathDistance equals: 21.
-	self assert: shortestPath asArray equals: #( $B $D $E $F ).
+	self assert: longestPath asArray equals: #( $B $D $E $F ).
 	longestPathAlgo end: $G.
-	shortestPath := longestPathAlgo reconstructPath.
+	longestPath := longestPathAlgo reconstructPath.
 	self
 		assert: (longestPathAlgo findNode: $G) pathDistance
 		equals: Float infinity.
-	self assert: shortestPath asArray equals: #(  )
+	self assert: longestPath asArray equals: #(  )
 ]
 
 { #category : #tests }
 AILongestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
-	| longestPath |
-	AIGraphFixture withoutCyclesComplexWeightedGraph: longestPathAlgo.
+	| longestPath graph |
+	graph := AIWeightedDAG new.
+	longestPathAlgo :=graph withoutCyclesComplexWeightedGraph: longestPathAlgo .
 	longestPathAlgo
 		start: $b;
 		end: $s;
