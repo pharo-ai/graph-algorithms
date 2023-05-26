@@ -16,9 +16,15 @@ AILongestPathInDCGTest >> setUp [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	longestPathAlgo :=graph negativeUnconnectedWeightedGraph: longestPathAlgo .
+	algo :=graph negativeUnconnectedWeightedGraph.
+	longestPathAlgo nodes: algo nodes.
+	longestPathAlgo  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	longestPathAlgo start: 0.
 	longestPathAlgo run.
@@ -38,9 +44,15 @@ AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraph [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	longestPathAlgo :=graph negativeWeightedGraph: longestPathAlgo .
+	algo :=graph negativeWeightedGraph.
+	longestPathAlgo nodes: algo nodes.
+	longestPathAlgo  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	longestPathAlgo start: 0.
 	longestPathAlgo run.
@@ -59,9 +71,15 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	longestPathAlgo :=graph negativeWeightedGraph2: longestPathAlgo .
+	algo :=graph negativeWeightedGraph2.
+	longestPathAlgo nodes: algo nodes.
+	longestPathAlgo  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	longestPathAlgo start: 0.
 	longestPathAlgo run.
@@ -81,9 +99,15 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraphReconstrucPath [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	longestPathAlgo :=graph negativeWeightedGraph: longestPathAlgo .
+	algo :=graph negativeWeightedGraph.
+	longestPathAlgo nodes: algo nodes.
+	longestPathAlgo  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	longestPathAlgo runFrom: 0 to: 8.
 	self assertCollection: longestPathAlgo reconstructPath asArray equals: #( 0 1 5 8).

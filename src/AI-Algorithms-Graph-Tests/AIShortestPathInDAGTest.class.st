@@ -20,9 +20,15 @@ AIShortestPathInDAGTest >> setUp [
 { #category : #tests }
 AIShortestPathInDAGTest >> testWeightedDAG [
 
-	| shortestPath graph |
+	| shortestPath graph algo |
 	graph := AIWeightedDAG new.
-	shortestPathAlgo :=graph weightedDAG: shortestPathAlgo .
+	algo :=graph weightedDAG.
+	shortestPathAlgo nodes: algo nodes.
+	shortestPathAlgo  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPathAlgo
 		start: $A;
 		end: $F;
@@ -51,9 +57,15 @@ AIShortestPathInDAGTest >> testWeightedDAG [
 { #category : #tests }
 AIShortestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
-	| shortestPath graph |
+	| shortestPath graph algo |
 	graph := AIWeightedDAG new.
-	shortestPathAlgo :=graph withoutCyclesComplexWeightedGraph: shortestPathAlgo .
+	algo :=graph withoutCyclesComplexWeightedGraph.
+	shortestPathAlgo nodes: algo nodes.
+	shortestPathAlgo  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPathAlgo
 		start: $b;
 		end: $s;

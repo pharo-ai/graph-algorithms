@@ -17,9 +17,11 @@ AIHitsTest >> setUp [
 { #category : #tests }
 AIHitsTest >> testComplexCycle [
 
-	| graph |
+	| graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	hits :=graph complexCycleGraph: hits .
+	algo := graph complexCycleGraph.
+	hits nodes: algo nodes.
+	hits edges: algo edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -29,9 +31,15 @@ AIHitsTest >> testComplexCycle [
 { #category : #tests }
 AIHitsTest >> testComplexWCycle [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicWeightedGraph new.
-	hits :=graph complexWeightedGraph: hits .
+	algo :=graph complexWeightedGraph.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -41,9 +49,11 @@ AIHitsTest >> testComplexWCycle [
 { #category : #tests }
 AIHitsTest >> testCycle [
 
-	| graph |
+	| graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	hits :=graph cycleGraph: hits .
+	algo := graph cycleGraph.
+	hits nodes: algo nodes.
+	hits edges: algo edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -53,9 +63,11 @@ AIHitsTest >> testCycle [
 { #category : #tests }
 AIHitsTest >> testGraphForHits [
 
-	| graph |
+	| graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	hits :=graph simpleGraphForHits: hits .
+	algo := graph simpleGraphForHits.
+	hits nodes: algo nodes.
+	hits edges: algo edges from: #first to: #second.
 	hits k: 3.
 	hits run.
 	hits nodes do: [ :node |
@@ -66,9 +78,11 @@ AIHitsTest >> testGraphForHits [
 { #category : #tests }
 AIHitsTest >> testNestedCycle [
 
-	| graph |
+	| graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	hits :=graph nestedCycleGraph: hits .
+	algo := graph nestedCycleGraph.
+	hits nodes: algo nodes.
+	hits edges: algo edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -78,9 +92,11 @@ AIHitsTest >> testNestedCycle [
 { #category : #tests }
 AIHitsTest >> testSimple [
 
-	| graph |
+	| graph algo|
 	graph := AINonWeightedDAG new.
-	hits :=graph simpleGraph: hits .
+	algo := graph simpleGraph.
+	hits nodes: algo nodes.
+	hits edges: algo edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -90,9 +106,15 @@ AIHitsTest >> testSimple [
 { #category : #tests }
 AIHitsTest >> testSimpleW [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicWeightedGraph new.
-	hits :=graph simpleWeightedGraph: hits .
+	algo :=graph simpleWeightedGraph.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.

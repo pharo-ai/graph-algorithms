@@ -17,9 +17,15 @@ AIWeightedHitsTest >> setUp [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicWeightedGraph new.
-	hits :=graph complexWeightedGraph: hits .
+	algo :=graph complexWeightedGraph.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -29,9 +35,15 @@ AIWeightedHitsTest >> testComplexWeighted [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted2 [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicWeightedGraph new.
-	hits :=graph complexWeightedGraph2: hits .
+	algo :=graph complexWeightedGraph2.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -41,9 +53,15 @@ AIWeightedHitsTest >> testComplexWeighted2 [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted3 [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicWeightedGraph new.
-	hits :=graph complexWeightedGraph3: hits .
+	algo :=graph complexWeightedGraph3.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -53,9 +71,15 @@ AIWeightedHitsTest >> testComplexWeighted3 [
 { #category : #tests }
 AIWeightedHitsTest >> testSimpleW [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicWeightedGraph new.
-	hits :=graph simpleWeightedGraph: hits .
+	algo :=graph simpleWeightedGraph.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -65,9 +89,15 @@ AIWeightedHitsTest >> testSimpleW [
 { #category : #tests }
 AIWeightedHitsTest >> testWithoutCyclesComplexWeightedGraph [
 
-	| graph |
+	| graph algo |
 	graph := AIWeightedDAG new.
-	hits :=graph withoutCyclesComplexWeightedGraph: hits .
+	algo :=graph weightedDAG.
+	hits nodes: algo nodes.
+	hits  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.

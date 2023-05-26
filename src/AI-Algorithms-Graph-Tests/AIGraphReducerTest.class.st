@@ -33,9 +33,11 @@ AIGraphReducerTest >> setUp [
 { #category : #tests }
 AIGraphReducerTest >> testAdjacenciesFor [
 
-	| nodes graph |
+	| nodes graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph2: graphReducer .
+	algo := graph complexCycleGraph2.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	nodes := {
 		         (graphReducer findNode: $f).
 		         (graphReducer findNode: $g) }.
@@ -49,9 +51,11 @@ AIGraphReducerTest >> testAdjacenciesFor [
 { #category : #tests }
 AIGraphReducerTest >> testComplexCycle [
 
-	| mergedNodes graph |
+	| mergedNodes graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph: graphReducer .
+	algo := graph complexCycleGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	self assert: graphReducer nodes size equals: 5.
 	self assert:
@@ -72,9 +76,11 @@ AIGraphReducerTest >> testComplexCycle [
 { #category : #tests }
 AIGraphReducerTest >> testComplexCycle2 [
 
-	| graph |
+	| graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph2: graphReducer .
+	algo := graph complexCycleGraph2.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	self assert: graphReducer nodes size equals: 6.
 	self assert: (graphReducer nodes at: 6) mergedNodes size equals: 4
@@ -83,9 +89,11 @@ AIGraphReducerTest >> testComplexCycle2 [
 { #category : #tests }
 AIGraphReducerTest >> testComplexCycleReferences [
 
-	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH graph |
+	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph: graphReducer .
+	algo := graph complexCycleGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	reducedNodeA := (graphReducer nodes select: [ :each |
 		                 each model = $a ]) first.
@@ -130,9 +138,11 @@ AIGraphReducerTest >> testComplexCycleReferences [
 { #category : #tests }
 AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 
-	| initialGraph graph |
+	| initialGraph graph algo|
 	graph := AINonWeightedDAG new.
-	graphReducer :=graph simpleGraph: graphReducer .
+	algo := graph simpleGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	initialGraph := graphReducer graph copy.
 	graphReducer run.
 	self assert: initialGraph equals: graphReducer graph
@@ -141,9 +151,11 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 { #category : #tests }
 AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 
-	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD graph |
+	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD graph algo|
 	graph := AINonWeightedDAG new.
-	graphReducer :=graph simpleGraph: graphReducer .
+	algo := graph simpleGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	reducedNodeA := (graphReducer nodes select: [ :each |
 		                 each model = $a ]) first.
@@ -168,9 +180,11 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 
-	| graph |
+	| graph algo|
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph: graphReducer .
+	algo := graph complexCycleGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
@@ -180,9 +194,11 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph2: graphReducer .
+	algo := graph complexCycleGraph2.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
@@ -192,9 +208,11 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 { #category : #tests }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph stronglyConnectedGraph: graphReducer .
+	algo := graph stronglyConnectedGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	self
 		assertNodes: (graphReducer nodes flatCollect: #adjacentNodes)
@@ -204,9 +222,11 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 { #category : #tests }
 AIGraphReducerTest >> testNoCycle [
 
-	| graph |
+	| graph algo |
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph complexCycleGraph2: graphReducer .
+	algo := graph complexCycleGraph2.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	graphReducer nodes do: [ :node |
 		self
@@ -217,9 +237,11 @@ AIGraphReducerTest >> testNoCycle [
 { #category : #tests }
 AIGraphReducerTest >> testStronglyConnectedGraph [
 
-	| nodeModels nodeModelsCollection graph |
+	| nodeModels nodeModelsCollection graph algo |
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph stronglyConnectedGraph: graphReducer .
+	algo := graph stronglyConnectedGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	nodeModels := graphReducer nodes collect: #model.
 	nodeModelsCollection := nodeModels select: [ :e | e isCollection ].
@@ -237,9 +259,11 @@ AIGraphReducerTest >> testStronglyConnectedGraph [
 { #category : #tests }
 AIGraphReducerTest >> testStronglyConnectedGraphReferences [
 
-	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH graph |
+	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH graph algo |
 	graph := AICyclicNonWeightedGraph new.
-	graphReducer :=graph stronglyConnectedGraph: graphReducer .
+	algo := graph stronglyConnectedGraph.
+	graphReducer nodes: algo nodes.
+	graphReducer edges: algo edges from: #first to: #second.
 	graphReducer run.
 	reducedNodeI := (graphReducer nodes select: [ :each |
 		                 each model = $i ]) first.

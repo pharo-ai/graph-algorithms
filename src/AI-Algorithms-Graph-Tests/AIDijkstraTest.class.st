@@ -16,9 +16,15 @@ AIDijkstraTest >> setUp [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuit [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph aseCircuitWeightedGraph: dijkstra .
+	algo :=graph aseCircuitWeightedGraph.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	dijkstra runFrom: $a.
 	self assert: 1 equals: (dijkstra findNode: $b) pathDistance.
 	self assert: 3 equals: (dijkstra findNode: $e) pathDistance.
@@ -36,9 +42,15 @@ AIDijkstraTest >> testAseBasicCircuit [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuitBacktrack [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph aseCircuitWeightedGraph: dijkstra .
+	algo :=graph aseCircuitWeightedGraph.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	self assert: (#( $a $b ) hasEqualElements: (dijkstra
 				  runFrom: $a to: $b;
@@ -65,9 +77,15 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph complexWeightedGraph2: dijkstra .
+	algo :=graph complexWeightedGraph2.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	dijkstra runFrom: 0.
 	self assert: (dijkstra findNode: 1) pathDistance equals: 4.
@@ -80,9 +98,15 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath graph |
+	| shortestPath graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph complexWeightedGraph2: dijkstra .
+	algo :=graph complexWeightedGraph2.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := dijkstra
 		                runFrom: 0 to: 1;
 		                reconstructPath.
@@ -117,9 +141,15 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph complexWeightedGraph3: dijkstra .
+	algo :=graph complexWeightedGraph3.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	dijkstra runFrom: $a.
 	self assert: (dijkstra findNode: $b) pathDistance equals: 3.
@@ -131,9 +161,15 @@ AIDijkstraTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath graph |
+	| shortestPath graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph complexWeightedGraph3: dijkstra .
+	algo :=graph complexWeightedGraph3.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := dijkstra
 		                runFrom: $a to: $b;
 		                reconstructPath.
@@ -162,9 +198,15 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraph [
 
-	|graph|
+	|graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph simpleWeightedGraph: dijkstra .
+	algo :=graph simpleWeightedGraph.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	dijkstra runFrom: 1.
 	self assert: (dijkstra findNode: 2) pathDistance equals: 5.
@@ -176,9 +218,15 @@ AIDijkstraTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath graph |
+	| shortestPath graph algo |
 	graph := AICyclicWeightedGraph new.
-	dijkstra :=graph simpleWeightedGraph: dijkstra .
+	algo :=graph simpleWeightedGraph.
+	dijkstra nodes: algo nodes.
+	dijkstra  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := dijkstra
 		                runFrom: 1 to: 2;
 		                reconstructPath.

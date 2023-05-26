@@ -23,9 +23,15 @@ AIKruskalTest >> setUp [
 { #category : #tests }
 AIKruskalTest >> testMaxSpanningTreeComplex [
 
-	| tree expectedEdges graph |
+	| tree expectedEdges graph algo |
 	graph := AICyclicWeightedGraph new.
-	kruskal :=graph complexWeightedGraph: kruskal .
+	algo :=graph complexWeightedGraph.
+	kruskal nodes: algo nodes.
+	kruskal  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	kruskal maxSpanningTree.
 	tree := kruskal run collect: [ :e | e asTuple ].
 
@@ -44,9 +50,15 @@ AIKruskalTest >> testMaxSpanningTreeComplex [
 { #category : #tests }
 AIKruskalTest >> testMaxSpanningTreeSimple [
 
-	| tree expectedEdges graph |
+	| tree expectedEdges graph algo |
 	graph := AICyclicWeightedGraph new.
-	kruskal :=graph simpleWeightedGraph: kruskal .
+	algo :=graph simpleWeightedGraph.
+	kruskal nodes: algo nodes.
+	kruskal  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	kruskal maxSpanningTree.
 	tree := kruskal run collect: [ :e | e asTuple ].
 
@@ -60,9 +72,15 @@ AIKruskalTest >> testMaxSpanningTreeSimple [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeComplex [
 
-	| tree graph |
+	| tree graph algo |
 	graph := AICyclicWeightedGraph new.
-	kruskal :=graph complexWeightedGraph: kruskal .
+	algo :=graph complexWeightedGraph.
+	kruskal nodes: algo nodes.
+	kruskal  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	tree := kruskal run collect: [ :e | e asTuple ].
 	self assert: tree size equals: kruskal nodes size - 1.
 	self
@@ -73,9 +91,15 @@ AIKruskalTest >> testMinSpanningTreeComplex [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 
-	| tree graph |
+	| tree graph algo |
 	graph := AIWeightedDAG new.
-	kruskal :=graph withoutCyclesComplexWeightedGraph: kruskal .
+	algo :=graph withoutCyclesComplexWeightedGraph.
+	kruskal nodes: algo nodes.
+	kruskal  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	tree := kruskal run collect: [ :e | e asTuple ].
 	"The result is 2 trees. One with a total weight of 20 and the other with a total weight of 75"
 	self
@@ -86,9 +110,15 @@ AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeSimple [
 
-	| tree expectedEdges graph |
+	| tree expectedEdges graph algo |
 	graph := AICyclicWeightedGraph new.
-	kruskal :=graph simpleWeightedGraph: kruskal .
+	algo :=graph simpleWeightedGraph.
+	kruskal nodes: algo nodes.
+	kruskal  
+	   edges: algo edges
+		from: #first
+		to: #second
+		weight: #third.
 	tree := kruskal run collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( 4 5 1 ) #( 5 1 2 ) #( 2 3 2 ) #( 2 4 3 ) ).
