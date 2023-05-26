@@ -76,8 +76,8 @@ AILongestPathInDAG >> run [
 		sortedNode := self findNode: stack removeFirst.
 
 		sortedNode outgoingEdges do: [ :nextEdge |
-			nextEdge to pathDistance > (sortedNode pathDistance + ((-1)*nextEdge weight))
-				ifTrue: [ self updatePathDistance: nextEdge previousNode: sortedNode ] ] ]
+			nextEdge to pathDistance > (sortedNode pathDistance + (-1 * nextEdge weight)) ifTrue: [
+				self updatePathDistance: nextEdge previousNode: sortedNode ] ] ]
 ]
 
 { #category : #running }

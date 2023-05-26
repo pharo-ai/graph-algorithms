@@ -32,9 +32,7 @@ AILongestPathInDCG >> nodeClass [
 { #category : #actions }
 AILongestPathInDCG >> pathPositive [
 
-	self nodes do: [ :node |
-		node
-			pathDistance: (-1)*(node pathDistance) ]
+	self nodes do: [ :node | node pathDistance: -1 * node pathDistance ]
 ]
 
 { #category : #actions }
@@ -64,8 +62,8 @@ AILongestPathInDCG >> relaxEdges [
 		anEdgeHasBeenRelaxed := false.
 
 		edges do: [ :edge |
-			edge from pathDistance + ((-1)*edge weight) < edge to pathDistance ifTrue: [
-				edge to pathDistance: edge from pathDistance + ((-1)*edge weight).
+			edge from pathDistance + (-1 * edge weight) < edge to pathDistance ifTrue: [
+				edge to pathDistance: edge from pathDistance + (-1 * edge weight).
 				edge to previousNode: edge from.
 				anEdgeHasBeenRelaxed := true ] ].
 
@@ -75,8 +73,10 @@ AILongestPathInDCG >> relaxEdges [
 
 { #category : #running }
 AILongestPathInDCG >> relaxEdgesToNegativeInfinity [
-
-	"This method is called after a first relaxation has ocurred already. The algorithm is the same as the previous one but with the only difference that now if an edge can be relaxed we set the path distance as negative infinity because means that the edge is part of a negative cycle."
+	"This method is called after a first relaxation has ocurred already. The algorithm is the
+	same as the previous one but with the only difference that now if an edge can be relaxed
+	we set the path distance as negative infinity because means that the edge is part of a
+	negative cycle."
 
 	| anEdgeHasBeenRelaxed |
 	"Relax the edges V-1 times at worst case"
@@ -84,7 +84,7 @@ AILongestPathInDCG >> relaxEdgesToNegativeInfinity [
 		anEdgeHasBeenRelaxed := false.
 
 		edges do: [ :edge |
-			edge from pathDistance + ((-1)*edge weight) < edge to pathDistance ifTrue: [
+			edge from pathDistance + (-1 * edge weight) < edge to pathDistance ifTrue: [
 				edge to pathDistance: Float negativeInfinity.
 				anEdgeHasBeenRelaxed := true ] ].
 
@@ -112,7 +112,7 @@ AILongestPathInDCG >> run [
 	means that the edge is part of a negative cycle.
 	So, we put negative infinity as the path distance"
 	self relaxEdgesToNegativeInfinity.
-	self pathPositive .
+	self pathPositive
 ]
 
 { #category : #running }
@@ -133,6 +133,6 @@ AILongestPathInDCG >> runFrom: startModel to: endModel [
 { #category : #accessing }
 AILongestPathInDCG >> start: aModel [
 
-	start := (self findNode: aModel).
+	start := self findNode: aModel.
 	start pathDistance: 0
 ]
