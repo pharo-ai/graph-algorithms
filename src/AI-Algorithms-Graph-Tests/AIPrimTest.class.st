@@ -18,7 +18,7 @@ AIPrimTest >> setUp [
 AIPrimTest >> testMinSpanningTreeComplex2 [
 
 	| tree graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph4.
 	prim nodes: algo nodes.
 	prim  
@@ -37,7 +37,7 @@ AIPrimTest >> testMinSpanningTreeComplex2 [
 AIPrimTest >> testMinimumSpanningTreeComplex [
 
 	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
 	prim nodes: algo nodes.
 	prim  
@@ -59,7 +59,7 @@ AIPrimTest >> testMinimumSpanningTreeComplex [
 AIPrimTest >> testMinimumSpanningTreeSimple [
 
 	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph2.
 	prim nodes: algo nodes.
 	prim  

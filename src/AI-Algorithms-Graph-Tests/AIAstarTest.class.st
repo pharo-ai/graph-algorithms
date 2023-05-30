@@ -17,8 +17,9 @@ AIAstarTest >> setUp [
 AIAstarTest >> testAseBasicCircuit [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph aseCircuitWeightedGraph.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -43,8 +44,9 @@ AIAstarTest >> testAseBasicCircuit [
 AIAstarTest >> testAseBasicCircuitBacktrack [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph aseCircuitWeightedGraph.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -78,8 +80,9 @@ AIAstarTest >> testComplexWeightedGraph2 [
 
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -99,8 +102,9 @@ AIAstarTest >> testComplexWeightedGraph2 [
 AIAstarTest >> testComplexWeightedGraph2BackTracking [
 
 	| shortestPath graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -142,8 +146,9 @@ AIAstarTest >> testComplexWeightedGraph2BackTracking [
 AIAstarTest >> testComplexWeightedGraph3 [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -162,8 +167,9 @@ AIAstarTest >> testComplexWeightedGraph3 [
 AIAstarTest >> testComplexWeightedGraph3Backtracking [
 
 	| shortestPath graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -199,8 +205,9 @@ AIAstarTest >> testComplexWeightedGraph3Backtracking [
 AIAstarTest >> testSimpleWeightedGraph [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -219,8 +226,9 @@ AIAstarTest >> testSimpleWeightedGraph [
 AIAstarTest >> testSimpleWeightedGraphBacktracking [
 
 	| shortestPath graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
+	algo InspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges

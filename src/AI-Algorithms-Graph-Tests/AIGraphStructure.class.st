@@ -46,7 +46,7 @@ RSLineBuilder arrowedLine
     useAssociations: (edges collect: [:each | each first -> each last ]).
     
 RSCircleLayout on: c nodes.
-c
+^c
 ]
 
 { #category : #accessing }

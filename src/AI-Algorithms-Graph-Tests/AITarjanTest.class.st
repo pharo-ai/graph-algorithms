@@ -17,7 +17,7 @@ AITarjanTest >> setUp [
 AITarjanTest >> testComplexCycle [
 
 	| a b c d f e g h graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedComplexGraph new.
 	algo := graph complexCycleGraph.
 	tarjan nodes: algo nodes.
 	tarjan edges: algo edges from: #first to: #second.
@@ -53,7 +53,7 @@ AITarjanTest >> testComplexCycle [
 AITarjanTest >> testComplexCycle2 [
 
 	| graph algo |
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedComplexGraph new.
 	algo := graph complexCycleGraph2.
 	tarjan nodes: algo nodes.
 	tarjan edges: algo edges from: #first to: #second.
@@ -71,7 +71,7 @@ AITarjanTest >> testComplexCycle2 [
 AITarjanTest >> testCycle [
 
 	| a b c cycleNodesOfA graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph cycleGraph.
 	tarjan nodes: algo nodes.
 	tarjan edges: algo edges from: #first to: #second.
@@ -91,7 +91,7 @@ AITarjanTest >> testCycle [
 AITarjanTest >> testNestedCycle [
 
 	| a b c cycleNodesOfC d f e g h cycleNodesOfI i graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph nestedCycleGraph.
 	tarjan nodes: algo nodes.
 	tarjan edges: algo edges from: #first to: #second.
@@ -134,7 +134,7 @@ AITarjanTest >> testNoCycle [
 AITarjanTest >> testStronglyConnectedGraph [
 
 	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedComplexGraph new.
 	algo := graph stronglyConnectedGraph.
 	tarjan nodes: algo nodes.
 	tarjan edges: algo edges from: #first to: #second.
@@ -162,7 +162,7 @@ AITarjanTest >> testStronglyConnectedGraph [
 AITarjanTest >> testStronglyConnectedGraphWithObjects [
 
 	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedComplexGraph new.
 	persons := DummyTestingPerson generateNinePersonArray.
 	algo := graph stronglyConnectedGraph: persons.
 	tarjan nodes: algo nodes.

@@ -17,7 +17,7 @@ AILongestPathInDCGTest >> setUp [
 AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeUnconnectedWeightedGraph.
 	longestPathAlgo nodes: algo nodes.
 	longestPathAlgo  
@@ -45,7 +45,7 @@ AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 AILongestPathInDCGTest >> testNegativeWeightedGraph [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeWeightedGraph.
 	longestPathAlgo nodes: algo nodes.
 	longestPathAlgo  
@@ -72,7 +72,7 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph [
 AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeWeightedGraph2.
 	longestPathAlgo nodes: algo nodes.
 	longestPathAlgo  
@@ -100,7 +100,7 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 AILongestPathInDCGTest >> testNegativeWeightedGraphReconstrucPath [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeWeightedGraph.
 	longestPathAlgo nodes: algo nodes.
 	longestPathAlgo  

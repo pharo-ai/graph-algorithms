@@ -17,7 +17,7 @@ AIBFSTest >> setUp [
 AIBFSTest >> testAseGraph [
 
 	|graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph aseCircuitGraph.
 	bfsp nodes: algo nodes.
 	bfsp edges: algo edges from: #first to: #second.
@@ -36,7 +36,7 @@ AIBFSTest >> testAseGraph [
 AIBFSTest >> testAseSccGraph [
 
 	|graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph aseCircuitGraph.
 	bfsp nodes: algo nodes.
 	bfsp edges: algo edges from: #first to: #second.
@@ -49,7 +49,7 @@ AIBFSTest >> testAseSccGraph [
 AIBFSTest >> testComplexUndirectedGraph [
 
 	|graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedComplexGraph new.
 	algo := graph complexUndirectedGraph.
 	bfsp nodes: algo nodes.
 	bfsp edges: algo edges from: #first to: #second.

@@ -18,7 +18,7 @@ AIWeightedHitsTest >> setUp [
 AIWeightedHitsTest >> testComplexWeighted [
 
 	| graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph.
 	hits nodes: algo nodes.
 	hits  
@@ -36,7 +36,7 @@ AIWeightedHitsTest >> testComplexWeighted [
 AIWeightedHitsTest >> testComplexWeighted2 [
 
 	| graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
 	hits nodes: algo nodes.
 	hits  
@@ -54,7 +54,7 @@ AIWeightedHitsTest >> testComplexWeighted2 [
 AIWeightedHitsTest >> testComplexWeighted3 [
 
 	| graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
 	hits nodes: algo nodes.
 	hits  
@@ -72,7 +72,7 @@ AIWeightedHitsTest >> testComplexWeighted3 [
 AIWeightedHitsTest >> testSimpleW [
 
 	| graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
 	hits nodes: algo nodes.
 	hits  

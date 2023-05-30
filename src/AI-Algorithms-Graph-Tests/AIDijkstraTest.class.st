@@ -17,7 +17,7 @@ AIDijkstraTest >> setUp [
 AIDijkstraTest >> testAseBasicCircuit [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph aseCircuitWeightedGraph.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -43,7 +43,7 @@ AIDijkstraTest >> testAseBasicCircuit [
 AIDijkstraTest >> testAseBasicCircuitBacktrack [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph aseCircuitWeightedGraph.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -78,7 +78,7 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -99,7 +99,7 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 
 	| shortestPath graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -142,7 +142,7 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -162,7 +162,7 @@ AIDijkstraTest >> testComplexWeightedGraph3 [
 AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 
 	| shortestPath graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -199,7 +199,7 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 AIDijkstraTest >> testSimpleWeightedGraph [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
 	dijkstra nodes: algo nodes.
 	dijkstra  
@@ -219,7 +219,7 @@ AIDijkstraTest >> testSimpleWeightedGraph [
 AIDijkstraTest >> testSimpleWeightedGraphBacktracking [
 
 	| shortestPath graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
 	dijkstra nodes: algo nodes.
 	dijkstra  

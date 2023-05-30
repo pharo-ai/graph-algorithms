@@ -18,7 +18,7 @@ AIHitsTest >> setUp [
 AIHitsTest >> testComplexCycle [
 
 	| graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedComplexGraph new.
 	algo := graph complexCycleGraph.
 	hits nodes: algo nodes.
 	hits edges: algo edges from: #first to: #second.
@@ -32,7 +32,7 @@ AIHitsTest >> testComplexCycle [
 AIHitsTest >> testComplexWCycle [
 
 	| graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph.
 	hits nodes: algo nodes.
 	hits  
@@ -50,7 +50,7 @@ AIHitsTest >> testComplexWCycle [
 AIHitsTest >> testCycle [
 
 	| graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph cycleGraph.
 	hits nodes: algo nodes.
 	hits edges: algo edges from: #first to: #second.
@@ -64,7 +64,7 @@ AIHitsTest >> testCycle [
 AIHitsTest >> testGraphForHits [
 
 	| graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph simpleGraphForHits.
 	hits nodes: algo nodes.
 	hits edges: algo edges from: #first to: #second.
@@ -79,7 +79,7 @@ AIHitsTest >> testGraphForHits [
 AIHitsTest >> testNestedCycle [
 
 	| graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph nestedCycleGraph.
 	hits nodes: algo nodes.
 	hits edges: algo edges from: #first to: #second.
@@ -107,7 +107,7 @@ AIHitsTest >> testSimple [
 AIHitsTest >> testSimpleW [
 
 	| graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
 	hits nodes: algo nodes.
 	hits  

@@ -24,7 +24,7 @@ AIKruskalTest >> setUp [
 AIKruskalTest >> testMaxSpanningTreeComplex [
 
 	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph.
 	kruskal nodes: algo nodes.
 	kruskal  
@@ -51,7 +51,7 @@ AIKruskalTest >> testMaxSpanningTreeComplex [
 AIKruskalTest >> testMaxSpanningTreeSimple [
 
 	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
 	kruskal nodes: algo nodes.
 	kruskal  
@@ -73,7 +73,7 @@ AIKruskalTest >> testMaxSpanningTreeSimple [
 AIKruskalTest >> testMinSpanningTreeComplex [
 
 	| tree graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph.
 	kruskal nodes: algo nodes.
 	kruskal  
@@ -111,7 +111,7 @@ AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 AIKruskalTest >> testMinSpanningTreeSimple [
 
 	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
 	kruskal nodes: algo nodes.
 	kruskal  

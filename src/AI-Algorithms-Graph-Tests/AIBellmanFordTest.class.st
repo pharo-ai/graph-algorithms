@@ -20,7 +20,7 @@ AIBellmanFordTest >> setUp [
 AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeUnconnectedWeightedGraph.
 	bellmanFord nodes: algo nodes.
 	bellmanFord 
@@ -48,7 +48,7 @@ AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 AIBellmanFordTest >> testNegativeWeightedGraph [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeWeightedGraph.
 	bellmanFord nodes: algo nodes.
 	bellmanFord 
@@ -75,7 +75,7 @@ AIBellmanFordTest >> testNegativeWeightedGraph [
 AIBellmanFordTest >> testNegativeWeightedGraph2 [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeWeightedGraph2.
 	bellmanFord nodes: algo nodes.
 	bellmanFord 
@@ -103,7 +103,7 @@ AIBellmanFordTest >> testNegativeWeightedGraph2 [
 AIBellmanFordTest >> testNegativeWeightedGraphReconstrucPath [
 
 	|graph algo |
-	graph := AICyclicWeightedGraph new.
+	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph negativeWeightedGraph.
 	bellmanFord nodes: algo nodes.
 	bellmanFord 

@@ -56,7 +56,7 @@ AITopologicalSortingTest >> testSortStringHierarchy [
 AITopologicalSortingTest >> testSortWithCycle [
 
 	| graph algo|
-	graph := AICyclicNonWeightedGraph new.
+	graph := AICyclicNonWeightedSimpleGraph new.
 	algo := graph cycleGraph.
 	sorter nodes: algo nodes.
 	sorter edges: algo edges from: #first to: #second.
@@ -68,7 +68,7 @@ AITopologicalSortingTest >> testSortWithReducedGraph [
 
 	| graphReducer result graph algo|
 	graphReducer := AIGraphReducer new.
-	graph:= AICyclicNonWeightedGraph new.
+	graph:= AICyclicNonWeightedComplexGraph new.
 	algo := graph complexCycleGraph2.
 	graphReducer nodes: algo nodes.
 	graphReducer edges: algo edges from: #first to: #second.
