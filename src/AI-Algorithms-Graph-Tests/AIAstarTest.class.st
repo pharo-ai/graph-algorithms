@@ -19,7 +19,7 @@ AIAstarTest >> testAseBasicCircuit [
 	|graph algo |
 	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph aseCircuitWeightedGraph.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -46,7 +46,7 @@ AIAstarTest >> testAseBasicCircuitBacktrack [
 	|graph algo |
 	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph aseCircuitWeightedGraph.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -82,7 +82,7 @@ AIAstarTest >> testComplexWeightedGraph2 [
 	|graph algo |
 	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -104,7 +104,7 @@ AIAstarTest >> testComplexWeightedGraph2BackTracking [
 	| shortestPath graph algo |
 	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph2.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -148,7 +148,7 @@ AIAstarTest >> testComplexWeightedGraph3 [
 	|graph algo |
 	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -169,7 +169,7 @@ AIAstarTest >> testComplexWeightedGraph3Backtracking [
 	| shortestPath graph algo |
 	graph := AICyclicWeightedComplexGraph new.
 	algo :=graph complexWeightedGraph3.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -207,7 +207,7 @@ AIAstarTest >> testSimpleWeightedGraph [
 	|graph algo |
 	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges
@@ -228,7 +228,7 @@ AIAstarTest >> testSimpleWeightedGraphBacktracking [
 	| shortestPath graph algo |
 	graph := AICyclicWeightedSimpleGraph new.
 	algo :=graph simpleWeightedGraph.
-	algo InspectGraph .
+	algo inspectGraph .
 	astar nodes: algo nodes.
 	astar 
 	   edges: algo edges

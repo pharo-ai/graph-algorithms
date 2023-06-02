@@ -8,6 +8,13 @@ Graph Class:
 Class {
 	#name : #AICyclicNonWeightedComplexGraph,
 	#superclass : #Object,
+	#instVars : [
+		'complexCycleGraph',
+		'complexCycleGraph2',
+		'complexUndirectedGraph',
+		'stronglyConnectedGraph',
+		'stronglyConnectedGraphWithObjects'
+	],
 	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
@@ -22,7 +29,7 @@ AICyclicNonWeightedComplexGraph >> complexCycleGraph [
 	            #( $c $d ) #( $d $f ) #( $f $c ) #( $g $h ) #( $g $d )
 	            #( $h $g ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -39,7 +46,7 @@ AICyclicNonWeightedComplexGraph >> complexCycleGraph2 [
 					#($e $b) 	#($e $d) 	#($e $h)
 					#($f $b) 	#($f $e) 	#($f $d)
 					#($g $b) 	#($g $a) 	#($g $e) 	#($g $f) 	#($g $d) 	#($g $i) ).
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -59,10 +66,22 @@ AICyclicNonWeightedComplexGraph >> complexUndirectedGraph [
 	            #( 10 1 ) #( 10 8 ) #( 11 7 ) #( 11 0 ) #( 12 2 )
 	            #( 12 9 ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
+]
+
+{ #category : #initialization }
+AICyclicNonWeightedComplexGraph >> initialize [ 
+  |persons|
+  super initialize .
+  complexCycleGraph := self complexCycleGraph . 
+  complexCycleGraph2 := self complexCycleGraph2 .
+  complexUndirectedGraph := self complexUndirectedGraph .
+  stronglyConnectedGraph := self stronglyConnectedGraph .
+  persons := DummyTestingPerson generateNinePersonArray.
+  stronglyConnectedGraphWithObjects := self stronglyConnectedGraph: persons.
 ]
 
 { #category : #fixtures }
@@ -77,7 +96,7 @@ AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph [
 	            #( $c $d ) #( $d $e ) #( $e $d ) #( $f $b ) #( $f $e )
 	            #( $f $h ) #( $g $f ) #( $h $e ) #( $h $g ) #( $i $g )
 	            #( $i $h ) #( $i $i ) ).
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -97,7 +116,7 @@ AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph: objects [
 		        { objects at: 8. objects at: 5 }. { objects at: 8. objects at: 7 }.
 		        { objects at: 9. objects at: 7 }. { objects at: 9. objects at: 8 }.
 		        { objects at: 9. objects at: 9 } }.
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: objects .
 	graph edges: edges.
 	^graph

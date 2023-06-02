@@ -8,6 +8,15 @@ Graph Class:
 Class {
 	#name : #AICyclicNonWeightedSimpleGraph,
 	#superclass : #Object,
+	#instVars : [
+		'aseCircuitGraph',
+		'aseSccGraph',
+		'cycleGraph',
+		'dependencyGraph',
+		'moduleGraph',
+		'nestedCycleGraph',
+		'simpleGraphForHits'
+	],
 	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
@@ -22,7 +31,7 @@ AICyclicNonWeightedSimpleGraph >> aseCircuitGraph [
 	            #( $c $f ) #( $d $b ) #( $d $e ) #( $e $a ) #( $f $g )
 	            #( $g $h ) #( $h $g ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -35,7 +44,7 @@ AICyclicNonWeightedSimpleGraph >> aseSccGraph [
 	nodes := $a to: $e.
 	edges := #( #( $a $b ) #( $b $a ) #( $b $c ) #( $b $d ) #( $c $d )
 	            #( $d $b ) #( $d $e ) #( $e $a ) ).
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -50,7 +59,7 @@ AICyclicNonWeightedSimpleGraph >> cycleGraph [
 	nodes := $a to: $d.
 	edges := #( #( $a $b ) #( $b $c ) #( $c $a ) #( $d $c ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -65,10 +74,22 @@ AICyclicNonWeightedSimpleGraph >> dependencyGraph [
 	            #( $d $g ) #( $d $i ) #( $e $c ) #( $e $f ) #( $f $j )
 	            #( $g $f ) #( $g $h ) #( $g $i ) #( $h $j ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
+]
+
+{ #category : #initialization }
+AICyclicNonWeightedSimpleGraph >> initialize [ 
+  super initialize .
+  aseCircuitGraph := self aseCircuitGraph . 
+  aseSccGraph := self aseSccGraph .
+  cycleGraph := self cycleGraph .
+  dependencyGraph := self dependencyGraph .
+  moduleGraph := self moduleGraph .
+  nestedCycleGraph := self nestedCycleGraph .
+  simpleGraphForHits := self simpleGraphForHits .
 ]
 
 { #category : #fixtures }
@@ -87,7 +108,7 @@ AICyclicNonWeightedSimpleGraph >> moduleGraph [
 		('v8' 'v9') ('v8' 'v10') ('v8' 'v11')
 		('v9' 'v10') ('v9' 'v11')).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -104,7 +125,7 @@ AICyclicNonWeightedSimpleGraph >> nestedCycleGraph [
 	            #( $b $e ) #( $e $b ) #( $e $f ) #( $f $g ) #( $g $h )
 	            #( $h $f ) #( $g $i ) #( $i $g ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -123,7 +144,7 @@ AICyclicNonWeightedSimpleGraph >> simpleGraphForHits [
 	            #( 'N2' 'N3' ) #( 'N2' 'N4' ) #( 'N3' 'N1' )
 	            #( 'N3' 'N4' ) #( 'N4' 'N4' ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph

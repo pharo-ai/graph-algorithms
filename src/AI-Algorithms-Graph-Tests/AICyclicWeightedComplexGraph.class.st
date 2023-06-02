@@ -8,6 +8,12 @@ Graph Class:
 Class {
 	#name : #AICyclicWeightedComplexGraph,
 	#superclass : #Object,
+	#instVars : [
+		'complexWeightedGraph',
+		'complexWeightedGraph2',
+		'complexWeightedGraph3',
+		'complexWeightedGraph4'
+	],
 	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
@@ -25,7 +31,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph [
 	            #( $k $g 5 ) #( $m $n 7 ) #( $m $o 6 ) #( $n $c 5 )
 	            #( $p $b 5 ) #( $q $i 4 ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -41,7 +47,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph2 [
 	edges := #( #( 0 1 5 ) #( 0 2 1 ) #( 1 2 2 ) #( 1 4 20 ) #( 1 3 3 )
 	            #( 2 1 3 ) #( 2 4 12 ) #( 3 2 3 ) #( 3 4 2 ) #( 3 5 6 )
 	            #( 4 5 1 ) ).
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -58,7 +64,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph3 [
 	            #( $b $d 2 ) #( $b $e 2 ) #( $c $b 5 ) #( $c $e 5 )
 	            #( $d $a 1 ) #( $d $b 2 ) #( $d $e 1 ) #( $e $b 2 )
 	            #( $e $c 5 ) #( $e $d 1 ) ).
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -80,8 +86,17 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph4 [
 	            #( 9 8 7 ) #( 9 11 24 ) #( 9 12 9 ) #( 10 8 9 )
 	            #( 10 11 9 ) #( 11 9 24 ) #( 11 10 9 ) #( 11 12 16 )
 	            #( 12 5 23 ) #( 12 9 9 ) #( 12 11 16 ) ).
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
+]
+
+{ #category : #initialization }
+AICyclicWeightedComplexGraph >> initialize [ 
+  super initialize .
+  complexWeightedGraph := self complexWeightedGraph . 
+  complexWeightedGraph2 := self complexWeightedGraph2 .
+  complexWeightedGraph3 := self complexWeightedGraph3 .
+  complexWeightedGraph4 := self complexWeightedGraph4 .
 ]

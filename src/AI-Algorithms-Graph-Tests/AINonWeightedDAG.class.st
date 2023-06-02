@@ -7,8 +7,23 @@ Graph Class:
 Class {
 	#name : #AINonWeightedDAG,
 	#superclass : #Object,
+	#instVars : [
+		'moduleGraph2',
+		'simpleGraph',
+		'withoutCyclesComplexGraph',
+		'withoutCyclesMediumGraph'
+	],
 	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
+
+{ #category : #initialization }
+AINonWeightedDAG >> initialize [ 
+  super initialize .
+  moduleGraph2 := self moduleGraph2 . 
+  simpleGraph := self simpleGraph .
+  withoutCyclesComplexGraph := self withoutCyclesComplexGraph .
+  withoutCyclesMediumGraph := self withoutCyclesMediumGraph .
+]
 
 { #category : #fixtures }
 AINonWeightedDAG >> moduleGraph2 [
@@ -21,7 +36,7 @@ AINonWeightedDAG >> moduleGraph2 [
 	            #( $w $v ) #( $v $b ) #( $v $d ) #( $v $z ) #( $z $b )
 	            #( $a $d ) #( $c $v ) #( $c $z ) #( $d $b ) #( $d $z ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -36,7 +51,7 @@ AINonWeightedDAG >> simpleGraph [
 	nodes := $a to: $d.
 	edges := #( #( $a $b ) #( $b $c ) #( $d $c ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -56,7 +71,7 @@ AINonWeightedDAG >> withoutCyclesComplexGraph [
 	            #( $h $d ) #( $i $r ) #( $j $k ) #( $j $l ) #( $l $m )
 	            #( $l $n ) #( $o $p ) #( $q $p ) #( $p $s ) #( $r $s ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -73,7 +88,7 @@ AINonWeightedDAG >> withoutCyclesMediumGraph [
 	edges := #( #( $a $e ) #( $a $g ) #( $b $c ) #( $b $h ) #( $d $f )
 	            #( $g $f ) #( $h $d ) ).
 
-	graph:= AIGraphStructure new.
+	graph:= AIGraphNonWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
