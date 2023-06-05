@@ -17,37 +17,63 @@ Class {
 { #category : #action }
 AIGraphWeightedStructureFixture >> buildGraphCanvas [
 
-	| c box label |
+	| c box label arrowHeight marker ap interaction |
 	c := RSCanvas new.
-	nodes := self nodes.
-	edges := self edges.
+nodes:= self nodes.
+edges := self edges.
 
-	c addAll: (RSComposite models: nodes forEach: [ :shape :model | 
-			 label := RSLabel new
-				          text: model asString;
-				          color: Color black;
-				          yourself.
-			 box := RSCircle new
-				        extent: label extent y @ label extent y;
-				        color: Color white;
-				        borderColor: Color black.
-			 shape
-				 add: box;
-				 add: label;
-				 yourself ]).
-	c nodes @ RSDraggable new.
+c addAll: (RSComposite models: nodes forEach: [:shape :model |
+    label := (RSLabel new
+        text: model asString;
+        color: Color black;
+        yourself).
+    box := RSCircle new
+          extent: label extent y @ label extent y;
+        color: Color white;
+        borderColor: Color black.
+    shape
+        add: box;
+        add: label;
+        yourself
+     ]).
+c nodes @ RSDraggable new.
 
-	c @ RSCanvasController new.
+c @ RSCanvasController new.
 
-	RSLineBuilder arrowedLine
-		color: Color black;
-		withBorderAttachPoint;
-		shapes: c nodes;
-		useAssociations:
-			(edges collect: [ :each | each first -> each last ]).
-
-	RSCircleLayout on: c nodes.
-	^ c
+"RSLineBuilder arrowedLine
+    color: Color black;
+    withBorderAttachPoint;
+    shapes: c nodes;
+    useAssociations: (edges collect: [:each | each first -> each last ])."
+arrowHeight := 10.
+marker := RSShapeFactory arrow size: arrowHeight.
+marker := marker asMarker.
+marker offset: arrowHeight / 2.
+ap := RSBorderAttachPoint new
+    endOffset: arrowHeight / 2;
+    yourself.
+edges do: [ :edge | 
+    c add: (RSLine new
+        markerEnd: marker;
+        attachPoint: ap;
+        color: Color black;
+        from: (c nodes shapeFromModel: edge first) children second;
+        to: (c nodes shapeFromModel: edge second) children second;
+        model: edge third;
+        yourself)
+     ].
+c lines pushBack.
+interaction := RSLabeled new.
+interaction text: [ :edgeModel | 'Model: ', edgeModel asString ].
+interaction location inner; middle.
+interaction shapeBuilder labelShape
+    fontSize: 12;
+    bold.
+c lines @ interaction.
+RSForceBasedLayout new
+    charge: -200;
+    on: c nodes.
+^c
 ]
 
 { #category : #accessing }

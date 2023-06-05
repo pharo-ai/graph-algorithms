@@ -32,7 +32,7 @@ AICyclicWeightedSimpleGraph >> aseCircuitWeightedGraph [
 	            #( $c $f 1 ) #( $d $b 1 ) #( $d $e 1 ) #( $e $a 1 ) #( $f $g 1 )
 	            #( $g $h 1 ) #( $h $g 1 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -47,7 +47,7 @@ AICyclicWeightedSimpleGraph >> aseWeightedCircuitGraph [
 	            #( $c $d 1 ) #( $c $f 1 ) #( $d $b 1 ) #( $d $e 1 )
 	            #( $e $a 1 ) #( $f $g 1 ) #( $g $h 1 ) #( $h $g 1 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -75,7 +75,7 @@ AICyclicWeightedSimpleGraph >> negativeUnconnectedWeightedGraph [
 	edges := #( #( 0 1 5 ) #( 1 2 20 ) #( 1 6 60 ) #( 1 5 30 )
 	            #( 2 3 10 ) #( 2 4 75 ) #( 3 2 -15 ) #( 4 9 100 )
 	            #( 5 4 25 ) #( 5 6 5 ) #( 6 7 -50 ) ).
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -92,7 +92,7 @@ AICyclicWeightedSimpleGraph >> negativeWeightedGraph [
 	            #( 2 3 10 ) #( 2 4 75 ) #( 3 2 -15 ) #( 4 9 100 )
 	            #( 5 4 25 ) #( 5 6 5 ) #( 5 8 50 ) #( 6 7 -50 )
 	            #( 7 8 -10 ) ).
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -108,7 +108,7 @@ AICyclicWeightedSimpleGraph >> negativeWeightedGraph2 [
 	edges := #( #( 0 1 5 ) #( 1 2 20 ) #( 1 6 60 ) #( 1 5 30 )
 	            #( 2 3 10 ) #( 2 4 75 ) #( 3 2 -15 ) #( 4 9 100 )
 	            #( 5 4 25 ) #( 5 6 5 ) #( 6 7 -50 ) #( 8 7 -18 ) ).
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -124,7 +124,7 @@ AICyclicWeightedSimpleGraph >> simpleWeightedGraph [
 	edges := #( #( 1 2 5 ) #( 1 3 4 ) #( 2 3 2 ) #( 3 4 5 ) #( 2 4 3 )
 	            #( 4 5 1 ) #( 5 1 2 ) #( 1 5 3 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -140,7 +140,7 @@ AICyclicWeightedSimpleGraph >> simpleWeightedGraph2 [
 	            #( 2 4 4 ) #( 3 2 1 ) #( 3 4 2 ) #( 4 1 7 ) #( 4 2 4 )
 	            #( 4 3 2 ) #( 4 5 3 ) #( 5 1 8 ) #( 5 4 3 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph

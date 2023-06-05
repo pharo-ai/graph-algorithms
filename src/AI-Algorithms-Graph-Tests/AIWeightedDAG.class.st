@@ -31,7 +31,7 @@ AIWeightedDAG >> weightedDAG [
 	edges := #( #( $A $B 1 ) #( $B $C 5 ) #( $B $E 11 ) #( $B $D 8 )
 	            #( $D $E 6 ) #( $E $F 7 ) #( $G $D 4 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -52,7 +52,7 @@ AIWeightedDAG >> withoutCyclesComplexWeightedGraph [
 	            #( $j $k 7 ) #( $j $l 6 ) #( $l $m 5 ) #( $l $n 3 )
 	            #( $o $p 10 ) #( $q $p 1 ) #( $p $s 3 ) #( $r $s 7 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphWeightedStructureFixture new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
