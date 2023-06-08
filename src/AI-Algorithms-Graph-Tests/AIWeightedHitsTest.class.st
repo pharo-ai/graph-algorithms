@@ -17,12 +17,12 @@ AIWeightedHitsTest >> setUp [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted [
 
-	| graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph.
-	hits nodes: algo nodes.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph.
+	hits nodes: graph nodes.
 	hits  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -35,12 +35,12 @@ AIWeightedHitsTest >> testComplexWeighted [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted2 [
 
-	| graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph2.
-	hits nodes: algo nodes.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	hits nodes: graph nodes.
 	hits  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -53,12 +53,12 @@ AIWeightedHitsTest >> testComplexWeighted2 [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted3 [
 
-	| graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph3.
-	hits nodes: algo nodes.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	hits nodes: graph nodes.
 	hits  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -71,12 +71,12 @@ AIWeightedHitsTest >> testComplexWeighted3 [
 { #category : #tests }
 AIWeightedHitsTest >> testSimpleW [
 
-	| graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	hits nodes: algo nodes.
+	| graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	hits nodes: graph nodes.
 	hits  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -89,12 +89,12 @@ AIWeightedHitsTest >> testSimpleW [
 { #category : #tests }
 AIWeightedHitsTest >> testWithoutCyclesComplexWeightedGraph [
 
-	| graph algo |
-	graph := AIWeightedDAG new.
-	algo :=graph weightedDAG.
-	hits nodes: algo nodes.
+	| graphType graph |
+	graphType := AIWeightedDAGFixture new.
+	graph :=graphType weightedDAG.
+	hits nodes: graph nodes.
 	hits  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

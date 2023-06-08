@@ -6,7 +6,7 @@ Graph Class:
 4. Simple Graphs
 "
 Class {
-	#name : #AICyclicNonWeightedSimpleGraph,
+	#name : #AICyclicNonWeightedSimpleFixture,
 	#superclass : #Object,
 	#instVars : [
 		'aseCircuitGraph',
@@ -21,7 +21,7 @@ Class {
 }
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> aseCircuitGraph [
+AICyclicNonWeightedSimpleFixture >> aseCircuitGraph [
 
 	"https://i.imgur.com/t1S6dG4.jpeg"
 
@@ -38,7 +38,7 @@ AICyclicNonWeightedSimpleGraph >> aseCircuitGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> aseSccGraph [
+AICyclicNonWeightedSimpleFixture >> aseSccGraph [
 
 	| nodes edges graph|
 	nodes := $a to: $e.
@@ -51,7 +51,7 @@ AICyclicNonWeightedSimpleGraph >> aseSccGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> cycleGraph [
+AICyclicNonWeightedSimpleFixture >> cycleGraph [
 
 	"https://i.imgur.com/MNtwA56.jpeg"
 
@@ -66,7 +66,7 @@ AICyclicNonWeightedSimpleGraph >> cycleGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> dependencyGraph [
+AICyclicNonWeightedSimpleFixture >> dependencyGraph [
 
 	| nodes edges graph|
 	nodes := $a to: $k.
@@ -81,7 +81,7 @@ AICyclicNonWeightedSimpleGraph >> dependencyGraph [
 ]
 
 { #category : #initialization }
-AICyclicNonWeightedSimpleGraph >> initialize [ 
+AICyclicNonWeightedSimpleFixture >> initialize [ 
   super initialize .
   aseCircuitGraph := self aseCircuitGraph . 
   aseSccGraph := self aseSccGraph .
@@ -93,7 +93,7 @@ AICyclicNonWeightedSimpleGraph >> initialize [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> moduleGraph [
+AICyclicNonWeightedSimpleFixture >> moduleGraph [
 
 	| nodes edges graph |
 	nodes := #('v1' 'v2' 'v3' 'v4' 'v5'	'v6' 'v7' 'v8' 'v9' 'v10' 'v11').
@@ -115,7 +115,7 @@ AICyclicNonWeightedSimpleGraph >> moduleGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> nestedCycleGraph [
+AICyclicNonWeightedSimpleFixture >> nestedCycleGraph [
 
 	"https://i.imgur.com/6lk0pmR.jpeg"
 
@@ -132,7 +132,7 @@ AICyclicNonWeightedSimpleGraph >> nestedCycleGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedSimpleGraph >> simpleGraphForHits [
+AICyclicNonWeightedSimpleFixture >> simpleGraphForHits [
 
 	"https://i.imgur.com/FvqrFbf.png"
 

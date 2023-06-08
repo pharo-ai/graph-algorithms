@@ -16,12 +16,12 @@ AILongestPathInDCGTest >> setUp [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeUnconnectedWeightedGraph.
-	longestPathAlgo nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeUnconnectedWeightedGraph.
+	longestPathAlgo nodes: graph nodes.
 	longestPathAlgo  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -44,12 +44,12 @@ AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraph [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeWeightedGraph.
-	longestPathAlgo nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph.
+	longestPathAlgo nodes: graph nodes.
 	longestPathAlgo  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -71,12 +71,12 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeWeightedGraph2.
-	longestPathAlgo nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph2.
+	longestPathAlgo nodes: graph nodes.
 	longestPathAlgo  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -99,12 +99,12 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 { #category : #tests }
 AILongestPathInDCGTest >> testNegativeWeightedGraphReconstrucPath [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeWeightedGraph.
-	longestPathAlgo nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph.
+	longestPathAlgo nodes: graph nodes.
 	longestPathAlgo  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

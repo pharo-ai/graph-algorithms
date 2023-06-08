@@ -6,7 +6,7 @@ Graph Class:
 4. Complex Graphs
 "
 Class {
-	#name : #AICyclicWeightedComplexGraph,
+	#name : #AICyclicWeightedComplexFixture,
 	#superclass : #Object,
 	#instVars : [
 		'complexWeightedGraph',
@@ -18,7 +18,7 @@ Class {
 }
 
 { #category : #fixtures }
-AICyclicWeightedComplexGraph >> complexWeightedGraph [
+AICyclicWeightedComplexFixture >> complexWeightedGraph [
 
 	"https://i.imgur.com/LAy4W3Z.jpeg"
 
@@ -38,7 +38,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph [
 ]
 
 { #category : #fixtures }
-AICyclicWeightedComplexGraph >> complexWeightedGraph2 [
+AICyclicWeightedComplexFixture >> complexWeightedGraph2 [
 
 	"https://i.imgur.com/Syyd7YI.png"
 
@@ -54,7 +54,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph2 [
 ]
 
 { #category : #fixtures }
-AICyclicWeightedComplexGraph >> complexWeightedGraph3 [
+AICyclicWeightedComplexFixture >> complexWeightedGraph3 [
 
 	"https://i.imgur.com/0kgPUQM.png"
 
@@ -71,7 +71,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph3 [
 ]
 
 { #category : #fixtures }
-AICyclicWeightedComplexGraph >> complexWeightedGraph4 [
+AICyclicWeightedComplexFixture >> complexWeightedGraph4 [
 	"https://imgur.com/Szd19hW"
 
 	| nodes edges graph |
@@ -93,7 +93,7 @@ AICyclicWeightedComplexGraph >> complexWeightedGraph4 [
 ]
 
 { #category : #initialization }
-AICyclicWeightedComplexGraph >> initialize [ 
+AICyclicWeightedComplexFixture >> initialize [ 
   super initialize .
   complexWeightedGraph := self complexWeightedGraph . 
   complexWeightedGraph2 := self complexWeightedGraph2 .

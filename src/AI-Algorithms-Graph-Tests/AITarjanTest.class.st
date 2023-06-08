@@ -16,11 +16,11 @@ AITarjanTest >> setUp [
 { #category : #tests }
 AITarjanTest >> testComplexCycle [
 
-	| a b c d f e g h graph algo|
-	graph := AICyclicNonWeightedComplexGraph new.
-	algo := graph complexCycleGraph.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	| a b c d f e g h graphType graph|
+	graphType := AICyclicNonWeightedComplexFixture new.
+	graph := graphType complexCycleGraph.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	tarjan run.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
@@ -52,11 +52,11 @@ AITarjanTest >> testComplexCycle [
 { #category : #tests }
 AITarjanTest >> testComplexCycle2 [
 
-	| graph algo |
-	graph := AICyclicNonWeightedComplexGraph new.
-	algo := graph complexCycleGraph2.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	| graphType graph|
+	graphType := AICyclicNonWeightedComplexFixture new.
+	graph := graphType complexCycleGraph2.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	tarjan run.
 	#( $a $c $g $h $i ) do: [ :each |
 		self deny: (tarjan findNode: each) isInCycle ].
@@ -70,11 +70,11 @@ AITarjanTest >> testComplexCycle2 [
 { #category : #tests }
 AITarjanTest >> testCycle [
 
-	| a b c cycleNodesOfA graph algo|
-	graph := AICyclicNonWeightedSimpleGraph new.
-	algo := graph cycleGraph.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	| a b c cycleNodesOfA graphType graph|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType cycleGraph.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	tarjan run.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
@@ -90,11 +90,11 @@ AITarjanTest >> testCycle [
 { #category : #tests }
 AITarjanTest >> testNestedCycle [
 
-	| a b c cycleNodesOfC d f e g h cycleNodesOfI i graph algo|
-	graph := AICyclicNonWeightedSimpleGraph new.
-	algo := graph nestedCycleGraph.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	| a b c cycleNodesOfC d f e g h cycleNodesOfI i graphType graph|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType nestedCycleGraph.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	tarjan run.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
@@ -121,11 +121,11 @@ AITarjanTest >> testNestedCycle [
 { #category : #tests }
 AITarjanTest >> testNoCycle [
 
-	| graph algo|
-	graph := AINonWeightedDAG new.
-	algo := graph simpleGraph.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	| graphType graph|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType simpleGraph.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	tarjan run.
 	tarjan nodes do: [ :n | self deny: n isInCycle ]
 ]
@@ -133,11 +133,11 @@ AITarjanTest >> testNoCycle [
 { #category : #tests }
 AITarjanTest >> testStronglyConnectedGraph [
 
-	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graph algo|
-	graph := AICyclicNonWeightedComplexGraph new.
-	algo := graph stronglyConnectedGraph.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graphType graph|
+	graphType := AICyclicNonWeightedComplexFixture new.
+	graph := graphType stronglyConnectedGraph.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	tarjan run.
 	nodeA := tarjan findNode: $a.
 	nodeB := tarjan findNode: $b.
@@ -161,12 +161,12 @@ AITarjanTest >> testStronglyConnectedGraph [
 { #category : #tests }
 AITarjanTest >> testStronglyConnectedGraphWithObjects [
 
-	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graph algo|
-	graph := AICyclicNonWeightedComplexGraph new.
+	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graphType graph|
+	graphType := AICyclicNonWeightedComplexFixture new.
 	persons := DummyTestingPerson generateNinePersonArray.
-	algo := graph stronglyConnectedGraph: persons.
-	tarjan nodes: algo nodes.
-	tarjan edges: algo edges from: #first to: #second.
+	graph := graphType stronglyConnectedGraph: persons.
+	tarjan nodes: graph nodes.
+	tarjan edges: graph edges from: #first to: #second.
 	
 	tarjan run.
 	nodeA := tarjan findNode: (persons at: 1).

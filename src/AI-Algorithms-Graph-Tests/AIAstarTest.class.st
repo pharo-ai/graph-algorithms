@@ -16,12 +16,12 @@ AIAstarTest >> setUp [
 { #category : #tests }
 AIAstarTest >> testAseBasicCircuit [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph aseCircuitWeightedGraph.
-	astar nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -42,12 +42,12 @@ AIAstarTest >> testAseBasicCircuit [
 { #category : #tests }
 AIAstarTest >> testAseBasicCircuitBacktrack [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph aseCircuitWeightedGraph.
-	astar nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -77,12 +77,12 @@ AIAstarTest >> testAseBasicCircuitBacktrack [
 AIAstarTest >> testComplexWeightedGraph2 [
 
 
-	|graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph2.
-	astar nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -98,12 +98,12 @@ AIAstarTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph2.
-	astar nodes: algo nodes.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -141,12 +141,12 @@ AIAstarTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph3 [
 
-	|graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph3.
-	astar nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -161,12 +161,12 @@ AIAstarTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph3.
-	astar nodes: algo nodes.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -198,12 +198,12 @@ AIAstarTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIAstarTest >> testSimpleWeightedGraph [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	astar nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -218,12 +218,12 @@ AIAstarTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIAstarTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	astar nodes: algo nodes.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	astar nodes: graph nodes.
 	astar 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

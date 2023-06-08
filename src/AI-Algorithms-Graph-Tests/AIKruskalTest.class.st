@@ -23,12 +23,12 @@ AIKruskalTest >> setUp [
 { #category : #tests }
 AIKruskalTest >> testMaxSpanningTreeComplex [
 
-	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph.
-	kruskal nodes: algo nodes.
+	| tree expectedEdges graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph.
+	kruskal nodes: graph nodes.
 	kruskal  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -50,12 +50,12 @@ AIKruskalTest >> testMaxSpanningTreeComplex [
 { #category : #tests }
 AIKruskalTest >> testMaxSpanningTreeSimple [
 
-	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	kruskal nodes: algo nodes.
+	| tree expectedEdges graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	kruskal nodes: graph nodes.
 	kruskal  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -72,12 +72,12 @@ AIKruskalTest >> testMaxSpanningTreeSimple [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeComplex [
 
-	| tree graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph.
-	kruskal nodes: algo nodes.
+	| tree graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph.
+	kruskal nodes: graph nodes.
 	kruskal  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -91,12 +91,12 @@ AIKruskalTest >> testMinSpanningTreeComplex [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 
-	| tree graph algo |
-	graph := AIWeightedDAG new.
-	algo :=graph withoutCyclesComplexWeightedGraph.
-	kruskal nodes: algo nodes.
+	| tree graphType graph |
+	graphType := AIWeightedDAGFixture new.
+	graph :=graphType withoutCyclesComplexWeightedGraph.
+	kruskal nodes: graph nodes.
 	kruskal  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -110,12 +110,12 @@ AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 { #category : #tests }
 AIKruskalTest >> testMinSpanningTreeSimple [
 
-	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	kruskal nodes: algo nodes.
+	| tree expectedEdges graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	kruskal nodes: graph nodes.
 	kruskal  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

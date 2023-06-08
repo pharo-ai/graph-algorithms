@@ -64,7 +64,7 @@ edges do: [ :edge |
      ].
 c lines pushBack.
 interaction := RSLabeled new.
-interaction text: [ :edgeModel | 'Model: ', edgeModel asString ].
+interaction text: [ :edgeModel | edgeModel asString ].
 interaction location inner; middle.
 interaction shapeBuilder labelShape
     fontSize: 12;

@@ -17,12 +17,12 @@ AILongestPathInDAGTest >> setUp [
 { #category : #tests }
 AILongestPathInDAGTest >> testWeightedDAG [
 
-	| longestPath graph algo |
-	graph := AIWeightedDAG new.
-	algo :=graph weightedDAG.
-	longestPathAlgo nodes: algo nodes.
+	| longestPath graphType graph |
+	graphType := AIWeightedDAGFixture new.
+	graph :=graphType weightedDAG.
+	longestPathAlgo nodes: graph nodes.
 	longestPathAlgo  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -54,12 +54,12 @@ AILongestPathInDAGTest >> testWeightedDAG [
 { #category : #tests }
 AILongestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
-	| longestPath graph algo |
-	graph := AIWeightedDAG new.
-	algo :=graph withoutCyclesComplexWeightedGraph.
-	longestPathAlgo nodes: algo nodes.
+	| longestPath graphType graph |
+	graphType := AIWeightedDAGFixture new.
+	graph :=graphType withoutCyclesComplexWeightedGraph.
+	longestPathAlgo nodes: graph nodes.
 	longestPathAlgo  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

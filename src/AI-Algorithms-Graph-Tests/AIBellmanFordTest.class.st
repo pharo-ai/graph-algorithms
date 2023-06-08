@@ -19,12 +19,12 @@ AIBellmanFordTest >> setUp [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeUnconnectedWeightedGraph.
-	bellmanFord nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeUnconnectedWeightedGraph.
+	bellmanFord nodes: graph nodes.
 	bellmanFord 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -47,12 +47,12 @@ AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeWeightedGraph [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeWeightedGraph.
-	bellmanFord nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph.
+	bellmanFord nodes: graph nodes.
 	bellmanFord 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -74,12 +74,12 @@ AIBellmanFordTest >> testNegativeWeightedGraph [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeWeightedGraph2 [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeWeightedGraph2.
-	bellmanFord nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph2.
+	bellmanFord nodes: graph nodes.
 	bellmanFord 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -102,12 +102,12 @@ AIBellmanFordTest >> testNegativeWeightedGraph2 [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeWeightedGraphReconstrucPath [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph negativeWeightedGraph.
-	bellmanFord nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph.
+	bellmanFord nodes: graph nodes.
 	bellmanFord 
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

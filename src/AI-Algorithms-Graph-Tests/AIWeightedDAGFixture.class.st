@@ -5,7 +5,7 @@ Graph Class:
 3. Directed graphs
 "
 Class {
-	#name : #AIWeightedDAG,
+	#name : #AIWeightedDAGFixture,
 	#superclass : #Object,
 	#instVars : [
 		'weightedDAG',
@@ -15,14 +15,14 @@ Class {
 }
 
 { #category : #initialization }
-AIWeightedDAG >> initialize [ 
+AIWeightedDAGFixture >> initialize [ 
   super initialize .
   weightedDAG := self weightedDAG . 
   withoutCyclesComplexWeightedGraph := self withoutCyclesComplexWeightedGraph .
 ]
 
 { #category : #fixtures }
-AIWeightedDAG >> weightedDAG [
+AIWeightedDAGFixture >> weightedDAG [
 
 	"https://i.imgur.com/D5zMoQI.png"
 
@@ -38,7 +38,7 @@ AIWeightedDAG >> weightedDAG [
 ]
 
 { #category : #fixtures }
-AIWeightedDAG >> withoutCyclesComplexWeightedGraph [
+AIWeightedDAGFixture >> withoutCyclesComplexWeightedGraph [
 
 	"This is a disconnected graph"
 

@@ -17,12 +17,12 @@ AIPrimTest >> setUp [
 { #category : #tests }
 AIPrimTest >> testMinSpanningTreeComplex2 [
 
-	| tree graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph4.
-	prim nodes: algo nodes.
+	| tree graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph4.
+	prim nodes: graph nodes.
 	prim  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -36,12 +36,12 @@ AIPrimTest >> testMinSpanningTreeComplex2 [
 { #category : #tests }
 AIPrimTest >> testMinimumSpanningTreeComplex [
 
-	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph3.
-	prim nodes: algo nodes.
+	| tree expectedEdges graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	prim nodes: graph nodes.
 	prim  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -58,12 +58,12 @@ AIPrimTest >> testMinimumSpanningTreeComplex [
 { #category : #tests }
 AIPrimTest >> testMinimumSpanningTreeSimple [
 
-	| tree expectedEdges graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph2.
-	prim nodes: algo nodes.
+	| tree expectedEdges graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph2.
+	prim nodes: graph nodes.
 	prim  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.

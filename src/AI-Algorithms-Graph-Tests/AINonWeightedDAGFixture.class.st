@@ -5,7 +5,7 @@ Graph Class:
 3. Directed graphs
 "
 Class {
-	#name : #AINonWeightedDAG,
+	#name : #AINonWeightedDAGFixture,
 	#superclass : #Object,
 	#instVars : [
 		'moduleGraph2',
@@ -17,7 +17,7 @@ Class {
 }
 
 { #category : #initialization }
-AINonWeightedDAG >> initialize [ 
+AINonWeightedDAGFixture >> initialize [ 
   super initialize .
   moduleGraph2 := self moduleGraph2 . 
   simpleGraph := self simpleGraph .
@@ -26,7 +26,7 @@ AINonWeightedDAG >> initialize [
 ]
 
 { #category : #fixtures }
-AINonWeightedDAG >> moduleGraph2 [
+AINonWeightedDAGFixture >> moduleGraph2 [
 
 	"sample graph from Habib et al for modular decomposition"
 
@@ -43,7 +43,7 @@ AINonWeightedDAG >> moduleGraph2 [
 ]
 
 { #category : #fixtures }
-AINonWeightedDAG >> simpleGraph [
+AINonWeightedDAGFixture >> simpleGraph [
 
 	"https://i.imgur.com/uJwu5xS.jpeg"
 
@@ -58,7 +58,7 @@ AINonWeightedDAG >> simpleGraph [
 ]
 
 { #category : #fixtures }
-AINonWeightedDAG >> withoutCyclesComplexGraph [
+AINonWeightedDAGFixture >> withoutCyclesComplexGraph [
 
 	"for longest path algo"
 	"This is a disconnected graph"
@@ -78,7 +78,7 @@ AINonWeightedDAG >> withoutCyclesComplexGraph [
 ]
 
 { #category : #fixtures }
-AINonWeightedDAG >> withoutCyclesMediumGraph [
+AINonWeightedDAGFixture >> withoutCyclesMediumGraph [
 
 	"for longest path algo"
 	"https://i.imgur.com/Vx3QwZF.jpeg"

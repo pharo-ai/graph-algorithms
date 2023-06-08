@@ -6,7 +6,7 @@ Graph Class:
 4. Complex Graphs
 "
 Class {
-	#name : #AICyclicNonWeightedComplexGraph,
+	#name : #AICyclicNonWeightedComplexFixture,
 	#superclass : #Object,
 	#instVars : [
 		'complexCycleGraph',
@@ -19,7 +19,7 @@ Class {
 }
 
 { #category : #fixtures }
-AICyclicNonWeightedComplexGraph >> complexCycleGraph [
+AICyclicNonWeightedComplexFixture >> complexCycleGraph [
 
 	"https://i.imgur.com/4trPCcb.jpeg"
 
@@ -36,7 +36,7 @@ AICyclicNonWeightedComplexGraph >> complexCycleGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedComplexGraph >> complexCycleGraph2 [
+AICyclicNonWeightedComplexFixture >> complexCycleGraph2 [
 	| nodes edges graph|
 	nodes := $a to: $i.
 	edges := #( #($a $b) 	#($a $f)
@@ -53,7 +53,7 @@ AICyclicNonWeightedComplexGraph >> complexCycleGraph2 [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedComplexGraph >> complexUndirectedGraph [
+AICyclicNonWeightedComplexFixture >> complexUndirectedGraph [
 
 	"https://i.imgur.com/qK2zsYb.png"
 
@@ -73,7 +73,7 @@ AICyclicNonWeightedComplexGraph >> complexUndirectedGraph [
 ]
 
 { #category : #initialization }
-AICyclicNonWeightedComplexGraph >> initialize [ 
+AICyclicNonWeightedComplexFixture >> initialize [ 
   |persons|
   super initialize .
   complexCycleGraph := self complexCycleGraph . 
@@ -85,7 +85,7 @@ AICyclicNonWeightedComplexGraph >> initialize [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph [
+AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph [
 
 	"This a graph for 4 strongly connected components "
 	"https://i.imgur.com/NA87YUP.png"
@@ -103,7 +103,7 @@ AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph: objects [
+AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph: objects [
 
 	"This is the exact same graph as #stronglyConnectedGraph: but using a custom object"
 	| edges graph|
@@ -123,7 +123,7 @@ AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph: objects [
 ]
 
 { #category : #fixtures }
-AICyclicNonWeightedComplexGraph >> stronglyConnectedGraph: graphBuilder withObjects: objects [
+AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph: graphBuilder withObjects: objects [
 
 	"This is the exact same graph as #stronglyConnectedGraph: but using a custom object"
 	| edges |

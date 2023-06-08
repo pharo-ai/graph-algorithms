@@ -16,12 +16,12 @@ AIDijkstraTest >> setUp [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuit [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph aseCircuitWeightedGraph.
-	dijkstra nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -42,12 +42,12 @@ AIDijkstraTest >> testAseBasicCircuit [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuitBacktrack [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph aseCircuitWeightedGraph.
-	dijkstra nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -77,12 +77,12 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
-	|graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph2.
-	dijkstra nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -98,12 +98,12 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph2.
-	dijkstra nodes: algo nodes.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -141,12 +141,12 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
-	|graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph3.
-	dijkstra nodes: algo nodes.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -161,12 +161,12 @@ AIDijkstraTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath graph algo |
-	graph := AICyclicWeightedComplexGraph new.
-	algo :=graph complexWeightedGraph3.
-	dijkstra nodes: algo nodes.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -198,12 +198,12 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraph [
 
-	|graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	dijkstra nodes: algo nodes.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
@@ -218,12 +218,12 @@ AIDijkstraTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath graph algo |
-	graph := AICyclicWeightedSimpleGraph new.
-	algo :=graph simpleWeightedGraph.
-	dijkstra nodes: algo nodes.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	dijkstra nodes: graph nodes.
 	dijkstra  
-	   edges: algo edges
+	   edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
