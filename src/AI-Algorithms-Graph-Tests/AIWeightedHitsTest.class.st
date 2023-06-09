@@ -17,7 +17,15 @@ AIWeightedHitsTest >> setUp [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted [
 
-	AIGraphFixture complexWeightedGraph: hits.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -27,7 +35,15 @@ AIWeightedHitsTest >> testComplexWeighted [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted2 [
 
-	AIGraphFixture complexWeightedGraph2: hits.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -37,7 +53,15 @@ AIWeightedHitsTest >> testComplexWeighted2 [
 { #category : #tests }
 AIWeightedHitsTest >> testComplexWeighted3 [
 
-	AIGraphFixture complexWeightedGraph3: hits.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -47,7 +71,15 @@ AIWeightedHitsTest >> testComplexWeighted3 [
 { #category : #tests }
 AIWeightedHitsTest >> testSimpleW [
 
-	AIGraphFixture simpleWeightedGraph: hits.
+	| graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -57,7 +89,15 @@ AIWeightedHitsTest >> testSimpleW [
 { #category : #tests }
 AIWeightedHitsTest >> testWithoutCyclesComplexWeightedGraph [
 
-	AIGraphFixture withoutCyclesComplexWeightedGraph: hits.
+	| graphType graph |
+	graphType := AIWeightedDAGFixture new.
+	graph :=graphType weightedDAG.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.

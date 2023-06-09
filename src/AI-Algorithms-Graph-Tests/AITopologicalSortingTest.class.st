@@ -19,8 +19,11 @@ AITopologicalSortingTest >> setUp [
 { #category : #tests }
 AITopologicalSortingTest >> testSimpleGraph [
 
-	| sortedItems |
-	AIGraphFixture simpleGraph: sorter.
+	| sortedItems graphType graph|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType simpleGraph.
+	sorter nodes: graph nodes.
+	sorter edges: graph edges from: #first to: #second.
 	sorter run.
 	sortedItems := sorter topologicalSortedElements.
 	"First level: A, D
@@ -52,16 +55,23 @@ AITopologicalSortingTest >> testSortStringHierarchy [
 { #category : #tests }
 AITopologicalSortingTest >> testSortWithCycle [
 
-	AIGraphFixture cycleGraph: sorter.
+	| graphType graph|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType cycleGraph.
+	sorter nodes: graph nodes.
+	sorter edges: graph edges from: #first to: #second.
 	self should: [ sorter run ] raise: Error
 ]
 
 { #category : #tests }
 AITopologicalSortingTest >> testSortWithReducedGraph [
 
-	| graphReducer result |
+	| graphReducer result graphType graph|
 	graphReducer := AIGraphReducer new.
-	AIGraphFixture complexCycleGraph2: graphReducer.
+	graphType:= AICyclicNonWeightedComplexFixture new.
+	graph := graphType complexCycleGraph2.
+	graphReducer nodes: graph nodes.
+	graphReducer edges: graph edges from: #first to: #second.
 	sorter addNodesFromDifferentGraph: graphReducer run.
 	result := sorter run.
 
@@ -78,8 +88,11 @@ AITopologicalSortingTest >> testSortWithReducedGraph [
 { #category : #tests }
 AITopologicalSortingTest >> testWithoutCyclesComplexGraph [
 
-	| sortedItems |
-	AIGraphFixture withoutCyclesComplexGraph: sorter.
+	| sortedItems graphType graph|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType withoutCyclesComplexGraph.
+	sorter nodes: graph nodes.
+	sorter edges: graph edges from: #first to: #second.
 	sorter run.
 	sortedItems := sorter topologicalSortedElements.
 	"There are several possible topological orders with this combinations:
@@ -100,8 +113,11 @@ AITopologicalSortingTest >> testWithoutCyclesComplexGraph [
 { #category : #tests }
 AITopologicalSortingTest >> testWithoutCyclesMediumGraph [
 
-	| sortedItems |
-	AIGraphFixture withoutCyclesMediumGraph: sorter.
+	| sortedItems graphType graph|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType withoutCyclesMediumGraph.
+	sorter nodes: graph nodes.
+	sorter edges: graph edges from: #first to: #second.
 	sorter run.
 	sortedItems := sorter topologicalSortedElements.
 	"A, B must come first. E and G come after A. C and H come after B. D comes after H. F comes after D and G."
