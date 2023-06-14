@@ -46,7 +46,7 @@ AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 AIGraphAlgorithm >> addNodeFor: aModel [
 
 	^ self
-		  findNode: aModel
+		  findNodeBinary: aModel
 		  ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
 ]
 
@@ -152,7 +152,7 @@ AIGraphAlgorithm >> findBinaryBlock: aModel [
 
 	"New implementation of the algos to have better performances to find nodes. The nodes and edges are sorted from low to high according to their has number."
 
-	^ [ :aNode | aModel hash - aNode model hash ]
+	^ nodes detect: [ :aNode | aModel hash - aNode model hash ]
 ]
 
 { #category : #accessing }
@@ -188,6 +188,69 @@ AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 		  ifNone: [  ]"
 
 	^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock
+]
+
+{ #category : #accessing }
+AIGraphAlgorithm >> findNodeBinary: aModel [
+
+   | low high mid |
+   low := 1.
+   high := nodes size.
+
+   [low <= high] whileTrue: [
+      mid := (low + high) // 2.
+      ((nodes at: mid) model) = aModel
+         ifTrue: [^ (nodes at: mid)]
+         ifFalse: [
+            (((nodes at: mid) model) asString) > (aModel asString )
+               ifTrue: [high := mid - 1]
+               ifFalse: [low := mid + 1]
+         ]
+   ].
+]
+
+{ #category : #accessing }
+AIGraphAlgorithm >> findNodeBinary: aModel ifAbsent: aBlock [
+
+   | low high mid return|
+   return := SortedCollection new.
+   low := 1.
+   high := nodes size.
+
+   [low <= high] whileTrue: [
+      mid := (low + high) // 2.
+      ((nodes at: mid) model) = aModel
+         ifTrue: [ return add: (nodes at: mid)]
+         ifFalse: [
+            (((nodes at: mid) model) asString) > (aModel asString )
+               ifTrue: [high := mid - 1]
+               ifFalse: [low := mid + 1]
+         ]
+   ].
+
+^ return detect: [ :node | node model = aModel ] ifNone: aBlock
+]
+
+{ #category : #accessing }
+AIGraphAlgorithm >> findNodeBinary: aModel ifFound: aBlock [
+
+   | low high mid return|
+   return := SortedCollection new.
+   low := 1.
+   high := nodes size.
+
+   [low <= high] whileTrue: [
+      mid := (low + high) // 2.
+      ((nodes at: mid) model) = aModel
+         ifTrue: [ return add: (nodes at: mid)]
+         ifFalse: [
+            (((nodes at: mid) model) asString) > (aModel asString )
+               ifTrue: [high := mid - 1]
+               ifFalse: [low := mid + 1]
+         ]
+   ].
+
+^ return detect: [ :node | node model = aModel ] ifFound: aBlock
 ]
 
 { #category : #accessing }
