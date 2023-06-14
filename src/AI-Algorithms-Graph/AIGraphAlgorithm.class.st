@@ -147,14 +147,6 @@ AIGraphAlgorithm >> emptyGraph [
 	nodes := nodes copyEmpty
 ]
 
-{ #category : #private }
-AIGraphAlgorithm >> findBinaryBlock: aModel [
-
-	"New implementation of the algos to have better performances to find nodes. The nodes and edges are sorted from low to high according to their has number."
-
-	^ nodes detect: [ :aNode | aModel hash - aNode model hash ]
-]
-
 { #category : #accessing }
 AIGraphAlgorithm >> findEdge: aModel [
 
