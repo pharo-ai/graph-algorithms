@@ -194,7 +194,7 @@ AIGraphAlgorithm >> findNodeBinary: aModel [
       ((nodes at: mid) model) = aModel
          ifTrue: [^ (nodes at: mid)]
          ifFalse: [
-            (((nodes at: mid) model) asString) > (aModel asString )
+            (((nodes at: mid) model) hash) > (aModel hash )
                ifTrue: [high := mid - 1]
                ifFalse: [low := mid + 1]
          ]
@@ -205,16 +205,19 @@ AIGraphAlgorithm >> findNodeBinary: aModel [
 AIGraphAlgorithm >> findNodeBinary: aModel ifAbsent: aBlock [
 
    | low high mid return|
-   return := SortedCollection new.
+   return := OrderedCollection new.
    low := 1.
    high := nodes size.
 
    [low <= high] whileTrue: [
       mid := (low + high) // 2.
       ((nodes at: mid) model) = aModel
-         ifTrue: [ return add: (nodes at: mid)]
+         ifTrue: [ return add: (nodes at: mid).
+	                low := mid + 1.
+	                high := mid - 1.
+	]
          ifFalse: [
-            (((nodes at: mid) model) asString) > (aModel asString )
+            (((nodes at: mid) model) hash) > (aModel hash)
                ifTrue: [high := mid - 1]
                ifFalse: [low := mid + 1]
          ]
@@ -227,16 +230,19 @@ AIGraphAlgorithm >> findNodeBinary: aModel ifAbsent: aBlock [
 AIGraphAlgorithm >> findNodeBinary: aModel ifFound: aBlock [
 
    | low high mid return|
-   return := SortedCollection new.
+   return := OrderedCollection new.
    low := 1.
    high := nodes size.
 
    [low <= high] whileTrue: [
       mid := (low + high) // 2.
       ((nodes at: mid) model) = aModel
-         ifTrue: [ return add: (nodes at: mid)]
+         ifTrue: [ return add: (nodes at: mid).
+	                low := mid + 1.
+	                high := mid - 1.
+	]
          ifFalse: [
-            (((nodes at: mid) model) asString) > (aModel asString )
+            (((nodes at: mid) model) hash) > (aModel hash)
                ifTrue: [high := mid - 1]
                ifFalse: [low := mid + 1]
          ]
