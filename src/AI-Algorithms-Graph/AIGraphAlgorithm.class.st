@@ -46,7 +46,7 @@ AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 AIGraphAlgorithm >> addNodeFor: aModel [
 
 	^ self
-		  findNodeBinary: aModel
+		  findNode: aModel
 		  ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
 ]
 
@@ -160,32 +160,7 @@ AIGraphAlgorithm >> findNode: aModel [
 
 	"^ nodes findBinary: (self findBinaryBlock: aModel)."
 
-	^ nodes detect: [ :node | node model = aModel ]
-]
-
-{ #category : #accessing }
-AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
-
-	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
-
-	^ nodes detect: [ :node | node model = aModel ] ifNone: aBlock
-]
-
-{ #category : #accessing }
-AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
-
-	"^ nodes
-		  findBinary: (self findBinaryBlock: aModel)
-		  do: aBlock
-		  ifNone: [  ]"
-
-	^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock
-]
-
-{ #category : #accessing }
-AIGraphAlgorithm >> findNodeBinary: aModel [
-
-   | low high mid |
+	| low high mid |
    low := 1.
    high := nodes size.
 
@@ -199,56 +174,37 @@ AIGraphAlgorithm >> findNodeBinary: aModel [
                ifFalse: [low := mid + 1]
          ]
    ].
+
+^nil.
 ]
 
 { #category : #accessing }
-AIGraphAlgorithm >> findNodeBinary: aModel ifAbsent: aBlock [
+AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
-   | low high mid return|
+	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
+
+	| return |
+
    return := OrderedCollection new.
-   low := 1.
-   high := nodes size.
-
-   [low <= high] whileTrue: [
-      mid := (low + high) // 2.
-      ((nodes at: mid) model) = aModel
-         ifTrue: [ return add: (nodes at: mid).
-	                low := mid + 1.
-	                high := mid - 1.
-	]
-         ifFalse: [
-            (((nodes at: mid) model) hash) > (aModel hash)
-               ifTrue: [high := mid - 1]
-               ifFalse: [low := mid + 1]
-         ]
-   ].
-
-^ return detect: [ :node | node model = aModel ] ifNone: aBlock
+   return add: (self findNode: aModel).
+   (return at: 1) isNil ifTrue: [ ^ (aBlock value)].
+   ^ return detect: [ :node | node model = aModel ] ifNone: aBlock
 ]
 
 { #category : #accessing }
-AIGraphAlgorithm >> findNodeBinary: aModel ifFound: aBlock [
+AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 
-   | low high mid return|
+	"^ nodes
+		  findBinary: (self findBinaryBlock: aModel)
+		  do: aBlock
+		  ifNone: [  ]"
+
+	| return |
+
    return := OrderedCollection new.
-   low := 1.
-   high := nodes size.
-
-   [low <= high] whileTrue: [
-      mid := (low + high) // 2.
-      ((nodes at: mid) model) = aModel
-         ifTrue: [ return add: (nodes at: mid).
-	                low := mid + 1.
-	                high := mid - 1.
-	]
-         ifFalse: [
-            (((nodes at: mid) model) hash) > (aModel hash)
-               ifTrue: [high := mid - 1]
-               ifFalse: [low := mid + 1]
-         ]
-   ].
-
-^ return detect: [ :node | node model = aModel ] ifFound: aBlock
+   return add: (self findNode: aModel).
+   (return at: 1) isNil ifTrue: [ return := OrderedCollection new. ].
+   ^ return detect: [ :aNode | aNode model = aModel ] ifFound: aBlock
 ]
 
 { #category : #accessing }
