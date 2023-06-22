@@ -10,27 +10,13 @@ Class {
 	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
-{ #category : #action }
+{ #category : #'drawing - roassal' }
 AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 
-	| canvas box label arrowHeight marker attachedPoint interaction |
+	| canvas arrowHeight marker attachedPoint interaction |
 	canvas := RSCanvas new.
-
-	canvas addAll: (RSComposite models: nodes forEach: [ :shape :model |
-			 label := RSLabel new
-				          text: model asString;
-				          color: Color black;
-				          yourself.
-			 box := RSCircle new
-				        extent: label extent y @ label extent y;
-				        color: Color white;
-				        borderColor: Color black.
-			 shape
-				 add: box;
-				 add: label;
-				 yourself ]).
+	canvas addAll: (self nodesAsRoassalShapes).
 	canvas nodes @ RSDraggable new.
-
 	canvas @ RSCanvasController new.
 
 	arrowHeight := 10.
@@ -38,17 +24,19 @@ AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 	marker := marker asMarker.
 	marker offset: arrowHeight / 2.
 	attachedPoint := RSBorderAttachPoint new
-		                 endOffset: arrowHeight / 2;
-		                 yourself.
+		endOffset: arrowHeight / 2;
+		yourself.
+
 	edges do: [ :edge |
 		canvas add: (RSLine new
-				 markerEnd: marker;
-				 attachPoint: attachedPoint;
-				 color: Color black;
-				 from: (canvas nodes shapeFromModel: edge first) children second;
-				 to: (canvas nodes shapeFromModel: edge second) children second;
-				 model: edge third;
-				 yourself) ].
+			markerEnd: marker;
+			attachPoint: attachedPoint;
+			color: Color black;
+			from: (canvas nodes shapeFromModel: edge first) children second;
+			to: (canvas nodes shapeFromModel: edge second) children second;
+			model: edge third;
+			yourself) ].
+
 	canvas lines pushBack.
 	interaction := RSLabeled new.
 	interaction text: [ :edgeModel | edgeModel asString ].
@@ -56,8 +44,9 @@ AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 		inner;
 		middle.
 	interaction shapeBuilder labelShape
-		fontSize: 12;
-		bold.
+		color: Color black;
+		fontSize: 8.
+
 	canvas lines @ interaction.
 	
 	RSForceBasedLayout new

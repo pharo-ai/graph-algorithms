@@ -8,7 +8,7 @@ Class {
 	#category : #'AI-Algorithms-Graph-Tests-Fixture'
 }
 
-{ #category : #action }
+{ #category : #'drawing - roassal' }
 AIGraphTestFixtureStructure >> buildGraphCanvas [
 
 	^ self subclassResponsibility
@@ -26,7 +26,7 @@ AIGraphTestFixtureStructure >> edges: anObject [
 	edges := anObject
 ]
 
-{ #category : #action }
+{ #category : #inspector }
 AIGraphTestFixtureStructure >> inspectGraph [
 
 	<inspectorPresentationOrder: 0 title: 'Graph'>
@@ -37,7 +37,7 @@ AIGraphTestFixtureStructure >> inspectGraph [
 		  yourself
 ]
 
-{ #category : #action }
+{ #category : #inspector }
 AIGraphTestFixtureStructure >> inspectGraphContext: aContext [
 
 	aContext withoutEvaluator
@@ -53,4 +53,26 @@ AIGraphTestFixtureStructure >> nodes [
 AIGraphTestFixtureStructure >> nodes: asObject [
 
 	nodes := asObject
+]
+
+{ #category : #'drawing - roassal' }
+AIGraphTestFixtureStructure >> nodesAsRoassalShapes [
+
+	|nodesAsRoassalShapes |
+
+	nodesAsRoassalShapes := RSComposite models: nodes forEach: [ :shape :model |
+		| box label |
+		label := RSLabel new
+			text: model asString;
+			color: Color black;
+			yourself.
+		box := RSCircle new
+			extent: label extent y @ label extent y;
+			color: Color white;
+			borderColor: Color black.
+		shape
+			add: box;
+			add: label;
+			yourself ].
+	^ nodesAsRoassalShapes
 ]
