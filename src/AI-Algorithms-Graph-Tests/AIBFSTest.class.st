@@ -16,7 +16,11 @@ AIBFSTest >> setUp [
 { #category : #tests }
 AIBFSTest >> testAseGraph [
 
-	AIGraphFixture aseCircuitGraph: bfsp.
+	|graph graphType|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType aseCircuitGraph.
+	bfsp nodes: graph nodes.
+	bfsp edges: graph edges from: #first to: #second.
 	self assert: (#( $a $b $c ) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#( $d $b $c ) hasEqualElements: (bfsp runFrom: $d to: $c)).
 	self assert: (#( $e $a ) hasEqualElements: (bfsp runFrom: $e to: $a)).
@@ -31,7 +35,11 @@ AIBFSTest >> testAseGraph [
 { #category : #tests }
 AIBFSTest >> testAseSccGraph [
 
-	AIGraphFixture aseCircuitGraph: bfsp.
+	|graph graphType|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType aseCircuitGraph.
+	bfsp nodes: graph nodes.
+	bfsp edges: graph edges from: #first to: #second.
 	self assert: (#( $a $b $d $e ) hasEqualElements: (bfsp runFrom: $a to: $e)).
 	self assert: (#( $b $d ) hasEqualElements: (bfsp runFrom: $b to: $d)).
 	self assert: (#( $a $b $d ) hasEqualElements: (bfsp runFrom: $a to: $d))
@@ -40,7 +48,11 @@ AIBFSTest >> testAseSccGraph [
 { #category : #tests }
 AIBFSTest >> testComplexUndirectedGraph [
 
-	AIGraphFixture complexUndirectedGraph: bfsp.
+	|graph graphType|
+	graphType := AICyclicNonWeightedComplexFixture new.
+	graph := graphType complexUndirectedGraph.
+	bfsp nodes: graph nodes.
+	bfsp edges: graph edges from: #first to: #second.
 	self assert: (#( 10 8 0 7 3 ) hasEqualElements: (bfsp runFrom: 10 to: 3)).
 	self assert: (bfsp runFrom: 10 to: 12) size equals: 4.
 	self assert: (#( 10 8 0 11 ) hasEqualElements: (bfsp runFrom: 10 to: 11)).
@@ -53,7 +65,11 @@ AIBFSTest >> testComplexUndirectedGraph [
 { #category : #tests }
 AIBFSTest >> testSimpleGraph [
 
-	AIGraphFixture simpleGraph: bfsp.
+	|graph graphType|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType simpleGraph.
+	bfsp nodes: graph nodes.
+	bfsp edges: graph edges from: #first to: #second.
 	self assert: (#( $a $b $c ) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#( $d $c ) hasEqualElements: (bfsp runFrom: $d to: $c))
 ]
@@ -61,7 +77,11 @@ AIBFSTest >> testSimpleGraph [
 { #category : #tests }
 AIBFSTest >> testWithoutCyclesComplexGraph [
 
-	AIGraphFixture withoutCyclesComplexGraph: bfsp.
+	|graph graphType|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType withoutCyclesComplexGraph.
+	bfsp nodes: graph nodes.
+	bfsp edges: graph edges from: #first to: #second.
 	self assert: (#( $b $c $o $p $s ) hasEqualElements: (bfsp runFrom: $b to: $s)).
 	self assert: (#( $b $h $d $i $r ) hasEqualElements: (bfsp runFrom: $b to: $r))
 ]

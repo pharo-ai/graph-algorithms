@@ -19,7 +19,15 @@ AIBellmanFordTest >> setUp [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 
-	AIGraphFixture negativeUnconnectedWeightedGraph: bellmanFord.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeUnconnectedWeightedGraph.
+	bellmanFord nodes: graph nodes.
+	bellmanFord 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	bellmanFord start: 0.
 	bellmanFord run.
@@ -39,7 +47,15 @@ AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeWeightedGraph [
 
-	AIGraphFixture negativeWeightedGraph: bellmanFord.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph.
+	bellmanFord nodes: graph nodes.
+	bellmanFord 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	bellmanFord start: 0.
 	bellmanFord run.
@@ -58,7 +74,15 @@ AIBellmanFordTest >> testNegativeWeightedGraph [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeWeightedGraph2 [
 
-	AIGraphFixture negativeWeightedGraph2: bellmanFord.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph2.
+	bellmanFord nodes: graph nodes.
+	bellmanFord 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	bellmanFord start: 0.
 	bellmanFord run.
@@ -78,7 +102,15 @@ AIBellmanFordTest >> testNegativeWeightedGraph2 [
 { #category : #tests }
 AIBellmanFordTest >> testNegativeWeightedGraphReconstrucPath [
 
-	AIGraphFixture negativeWeightedGraph: bellmanFord.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType negativeWeightedGraph.
+	bellmanFord nodes: graph nodes.
+	bellmanFord 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	bellmanFord runFrom: 0 to: 8.
 	self assertCollection: bellmanFord reconstructPath asArray equals: #( 0 1 5 6 7 8).

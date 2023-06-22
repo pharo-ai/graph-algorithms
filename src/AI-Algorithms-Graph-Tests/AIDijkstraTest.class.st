@@ -16,7 +16,15 @@ AIDijkstraTest >> setUp [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuit [
 
-	AIGraphFixture aseCircuitWeightedGraph: dijkstra.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	dijkstra runFrom: $a.
 	self assert: 1 equals: (dijkstra findNode: $b) pathDistance.
 	self assert: 3 equals: (dijkstra findNode: $e) pathDistance.
@@ -34,7 +42,15 @@ AIDijkstraTest >> testAseBasicCircuit [
 { #category : #tests }
 AIDijkstraTest >> testAseBasicCircuitBacktrack [
 
-	AIGraphFixture aseCircuitWeightedGraph: dijkstra.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	self assert: (#( $a $b ) hasEqualElements: (dijkstra
 				  runFrom: $a to: $b;
@@ -61,7 +77,15 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
-	AIGraphFixture complexWeightedGraph2: dijkstra.
+	|graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	dijkstra runFrom: 0.
 	self assert: (dijkstra findNode: 1) pathDistance equals: 4.
@@ -74,8 +98,15 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph2: dijkstra.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := dijkstra
 		                runFrom: 0 to: 1;
 		                reconstructPath.
@@ -110,7 +141,15 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
-	AIGraphFixture complexWeightedGraph3: dijkstra.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	dijkstra runFrom: $a.
 	self assert: (dijkstra findNode: $b) pathDistance equals: 3.
@@ -122,8 +161,15 @@ AIDijkstraTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph3: dijkstra.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := dijkstra
 		                runFrom: $a to: $b;
 		                reconstructPath.
@@ -152,7 +198,15 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraph [
 
-	AIGraphFixture simpleWeightedGraph: dijkstra.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	dijkstra runFrom: 1.
 	self assert: (dijkstra findNode: 2) pathDistance equals: 5.
@@ -164,8 +218,15 @@ AIDijkstraTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIDijkstraTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath |
-	AIGraphFixture simpleWeightedGraph: dijkstra.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := dijkstra
 		                runFrom: 1 to: 2;
 		                reconstructPath.

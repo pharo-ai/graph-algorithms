@@ -17,7 +17,11 @@ AIHitsTest >> setUp [
 { #category : #tests }
 AIHitsTest >> testComplexCycle [
 
-	AIGraphFixture complexCycleGraph: hits.
+	| graphType graph|
+	graphType := AICyclicNonWeightedComplexFixture new.
+	graph := graphType complexCycleGraph.
+	hits nodes: graph nodes.
+	hits edges: graph edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -27,7 +31,15 @@ AIHitsTest >> testComplexCycle [
 { #category : #tests }
 AIHitsTest >> testComplexWCycle [
 
-	AIGraphFixture complexWeightedGraph: hits.
+	| graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -37,7 +49,11 @@ AIHitsTest >> testComplexWCycle [
 { #category : #tests }
 AIHitsTest >> testCycle [
 
-	AIGraphFixture cycleGraph: hits.
+	| graphType graph|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType cycleGraph.
+	hits nodes: graph nodes.
+	hits edges: graph edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -47,7 +63,11 @@ AIHitsTest >> testCycle [
 { #category : #tests }
 AIHitsTest >> testGraphForHits [
 
-	AIGraphFixture simpleGraphForHits: hits.
+	| graphType graph|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType simpleGraphForHits.
+	hits nodes: graph nodes.
+	hits edges: graph edges from: #first to: #second.
 	hits k: 3.
 	hits run.
 	hits nodes do: [ :node |
@@ -58,7 +78,11 @@ AIHitsTest >> testGraphForHits [
 { #category : #tests }
 AIHitsTest >> testNestedCycle [
 
-	AIGraphFixture nestedCycleGraph: hits.
+	| graphType graph|
+	graphType := AICyclicNonWeightedSimpleFixture new.
+	graph := graphType nestedCycleGraph.
+	hits nodes: graph nodes.
+	hits edges: graph edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -68,7 +92,11 @@ AIHitsTest >> testNestedCycle [
 { #category : #tests }
 AIHitsTest >> testSimple [
 
-	AIGraphFixture simpleGraph: hits.
+	| graphType graph|
+	graphType := AINonWeightedDAGFixture new.
+	graph := graphType simpleGraph.
+	hits nodes: graph nodes.
+	hits edges: graph edges from: #first to: #second.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.
@@ -78,7 +106,15 @@ AIHitsTest >> testSimple [
 { #category : #tests }
 AIHitsTest >> testSimpleW [
 
-	AIGraphFixture simpleWeightedGraph: hits.
+	| graphType graph|
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph := graphType simpleWeightedGraph.
+	hits nodes: graph nodes.
+	hits  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	hits run.
 	hits nodes do: [ :node |
 		self deny: node hub equals: 1.

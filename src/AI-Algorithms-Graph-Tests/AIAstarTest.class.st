@@ -16,7 +16,15 @@ AIAstarTest >> setUp [
 { #category : #tests }
 AIAstarTest >> testAseBasicCircuit [
 
-	AIGraphFixture aseCircuitWeightedGraph: astar.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	astar runFrom: $a.
 	self assert: 1 equals: (astar findNode: $b) pathDistance.
 	self assert: 3 equals: (astar findNode: $e) pathDistance.
@@ -34,7 +42,15 @@ AIAstarTest >> testAseBasicCircuit [
 { #category : #tests }
 AIAstarTest >> testAseBasicCircuitBacktrack [
 
-	AIGraphFixture aseCircuitWeightedGraph: astar.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	self assert: (#( $a $b ) hasEqualElements: (astar
 				  runFrom: $a to: $b;
@@ -61,7 +77,15 @@ AIAstarTest >> testAseBasicCircuitBacktrack [
 AIAstarTest >> testComplexWeightedGraph2 [
 
 
-	AIGraphFixture complexWeightedGraph2: astar.
+	|graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	astar runFrom: 0.
 	self assert: (astar findNode: 1) pathDistance equals: 4.
@@ -74,8 +98,15 @@ AIAstarTest >> testComplexWeightedGraph2 [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph2BackTracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph2: astar.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph2.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := astar
 		                runFrom: 0 to: 1;
 		                reconstructPath.
@@ -110,7 +141,15 @@ AIAstarTest >> testComplexWeightedGraph2BackTracking [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph3 [
 
-	AIGraphFixture complexWeightedGraph3: astar.
+	|graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	astar runFrom: $a.
 	self assert: (astar findNode: $b) pathDistance equals: 3.
@@ -122,8 +161,15 @@ AIAstarTest >> testComplexWeightedGraph3 [
 { #category : #tests }
 AIAstarTest >> testComplexWeightedGraph3Backtracking [
 
-	| shortestPath |
-	AIGraphFixture complexWeightedGraph3: astar.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedComplexFixture new.
+	graph :=graphType complexWeightedGraph3.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := astar
 		                runFrom: $a to: $b;
 		                reconstructPath.
@@ -152,7 +198,15 @@ AIAstarTest >> testComplexWeightedGraph3Backtracking [
 { #category : #tests }
 AIAstarTest >> testSimpleWeightedGraph [
 
-	AIGraphFixture simpleWeightedGraph: astar.
+	|graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 
 	astar runFrom: 1.
 	self assert: (astar findNode: 2) pathDistance equals: 5.
@@ -164,8 +218,15 @@ AIAstarTest >> testSimpleWeightedGraph [
 { #category : #tests }
 AIAstarTest >> testSimpleWeightedGraphBacktracking [
 
-	| shortestPath |
-	AIGraphFixture simpleWeightedGraph: astar.
+	| shortestPath graphType graph |
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType simpleWeightedGraph.
+	astar nodes: graph nodes.
+	astar 
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
 	shortestPath := astar
 		                runFrom: 1 to: 2;
 		                reconstructPath.
