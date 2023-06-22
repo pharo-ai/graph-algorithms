@@ -31,7 +31,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph [
 	            #( $k $g 5 ) #( $m $n 7 ) #( $m $o 6 ) #( $n $c 5 )
 	            #( $p $b 5 ) #( $q $i 4 ) ).
 
-	graph:= AIGraphWeightedStructureFixture new.
+	graph:= AIGraphWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -47,7 +47,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph2 [
 	edges := #( #( 0 1 5 ) #( 0 2 1 ) #( 1 2 2 ) #( 1 4 20 ) #( 1 3 3 )
 	            #( 2 1 3 ) #( 2 4 12 ) #( 3 2 3 ) #( 3 4 2 ) #( 3 5 6 )
 	            #( 4 5 1 ) ).
-	graph:= AIGraphWeightedStructureFixture new.
+	graph:= AIGraphWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -64,7 +64,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph3 [
 	            #( $b $d 2 ) #( $b $e 2 ) #( $c $b 5 ) #( $c $e 5 )
 	            #( $d $a 1 ) #( $d $b 2 ) #( $d $e 1 ) #( $e $b 2 )
 	            #( $e $c 5 ) #( $e $d 1 ) ).
-	graph:= AIGraphWeightedStructureFixture new.
+	graph:= AIGraphWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -86,7 +86,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph4 [
 	            #( 9 8 7 ) #( 9 11 24 ) #( 9 12 9 ) #( 10 8 9 )
 	            #( 10 11 9 ) #( 11 9 24 ) #( 11 10 9 ) #( 11 12 16 )
 	            #( 12 5 23 ) #( 12 9 9 ) #( 12 11 16 ) ).
-	graph:= AIGraphWeightedStructureFixture new.
+	graph:= AIGraphWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph

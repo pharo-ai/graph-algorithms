@@ -36,7 +36,7 @@ AINonWeightedDAGFixture >> moduleGraph2 [
 	            #( $w $v ) #( $v $b ) #( $v $d ) #( $v $z ) #( $z $b )
 	            #( $a $d ) #( $c $v ) #( $c $z ) #( $d $b ) #( $d $z ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -51,7 +51,7 @@ AINonWeightedDAGFixture >> simpleGraph [
 	nodes := $a to: $d.
 	edges := #( #( $a $b ) #( $b $c ) #( $d $c ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -71,7 +71,7 @@ AINonWeightedDAGFixture >> withoutCyclesComplexGraph [
 	            #( $h $d ) #( $i $r ) #( $j $k ) #( $j $l ) #( $l $m )
 	            #( $l $n ) #( $o $p ) #( $q $p ) #( $p $s ) #( $r $s ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -88,7 +88,7 @@ AINonWeightedDAGFixture >> withoutCyclesMediumGraph [
 	edges := #( #( $a $e ) #( $a $g ) #( $b $c ) #( $b $h ) #( $d $f )
 	            #( $g $f ) #( $h $d ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph

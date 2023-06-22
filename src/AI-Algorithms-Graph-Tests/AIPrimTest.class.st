@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'prim'
 	],
-	#category : #'AI-Algorithms-Graph-Tests'
+	#category : #'AI-Algorithms-Graph-Tests-Tests'
 }
 
 { #category : #running }
