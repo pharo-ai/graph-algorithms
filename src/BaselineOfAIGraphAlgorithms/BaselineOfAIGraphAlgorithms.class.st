@@ -15,15 +15,12 @@ BaselineOfAIGraphAlgorithms >> baseline: spec [
 
 		"Packages"
 		spec package: 'AI-Algorithms-Graph-Components'.
-		
 		spec
 			package: 'AI-Algorithms-Graph'
 			with: [ spec requires: #( 'AI-Algorithms-Graph-Components' ) ]..
-		
 		spec
 		    package: 'AI-Algorithms-Graph-Tests' with: [ 
 			spec requires: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components' ) ] ].
-	
 		spec
 			package: 'AI-Algorithms-Graph-Generators'
 			with: [ spec requires: #( 'AI-Algorithms-Graph' 'AI-Algorithms-Graph-Components' ) ].
