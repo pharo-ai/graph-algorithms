@@ -49,7 +49,7 @@ Class {
 	#name : #AIDinic,
 	#superclass : #AIGraphAlgorithm,
 	#instVars : [
-		'mapping',
+		'adjList',
 		'queue',
 		'start',
 		'sink'
@@ -57,16 +57,33 @@ Class {
 	#category : #'AI-Algorithms-Graph'
 }
 
+{ #category : #configuration }
+AIDinic >> addAdjList [
+
+	| arr fromNode |
+	self nodes do: [ :n | adjList at: n put: OrderedCollection new ].
+	self edges doWithIndex: [ :e :i |
+		fromNode := e from.
+		arr := adjList at: fromNode.
+		arr add: i ]
+]
+
+{ #category : #accessing }
+AIDinic >> adjList [
+
+	^ adjList
+]
+
 { #category : #backtracking }
 AIDinic >> bfs [
 	"This method uses bfs on the residual graph to construct a level graph.
 	The level graph assigns levels or distances to each node, indicating the shortest path from the source.
-	The ret boolean indicates if there exists and augmenting path(path from source to sink) in the residual level graph."
+	The returnBool boolean indicates if there exists and augmenting path(path from source to sink) in the residual level graph."
 
-	| node ind ret |
+	| node ind returnBool |
 	[ queue isNotEmpty ] whileTrue: [
 		node := queue removeFirst.
-		ind := mapping at: node.
+		ind := adjList at: node.
 		ind do: [ :i |
 			| e n |
 			e := edges at: i.
@@ -74,16 +91,14 @@ AIDinic >> bfs [
 			e capacity - e flow >= 1 & (n level = -1) ifTrue: [
 				n level: node level + 1.
 				queue addLast: n ] ] ].
-	ret := sink level == -1.
-	^ ret
+	returnBool := sink level == -1.
+	^ returnBool
 ]
 
 { #category : #configuration }
 AIDinic >> currentIndexSetup [
 
-	| nod |
-	nod := self nodes.
-	nod do: [ :n | n currentIndex: 1 ]
+	self nodes do: [ :n | n currentIndex: 1 ]
 ]
 
 { #category : #backtracking }
@@ -91,20 +106,19 @@ AIDinic >> dfs: fromNode pushed: p [
 	"This method uses DFS-style algorithm to find a blocking flow (A blocking flow is a flow that saturates all the edges on the path, preventing any further flow) along the augmenting path.
 This performs a series of depth-first searches on the residual graph, exploring the edges with positive residual capacity."
 
-	| arr cid id edg reverseEdg toNode tr min |
-	p == 0 ifTrue: [ ^ 0 ].
+	| arr cid edg reverseEdg toNode tr min |
+	p = 0 ifTrue: [ ^ 0 ].
 	fromNode == sink ifTrue: [ ^ p ].
 
-	arr := mapping at: fromNode.
+	arr := adjList at: fromNode.
 	cid := fromNode currentIndex.
 	tr := 0.
 
 	[ cid <= arr size ] whileTrue: [
-		id := arr at: cid.
-		edg := edges at: id.
+		edg := edges at: (arr at: cid).
 		toNode := edg to.
 		"Checking if the TO NODE is one level greater than FROM NODE, and for positive residual capacity"
-		fromNode level + 1 == toNode level & (edg capacity - edg flow >= 1)
+		fromNode level + 1 = toNode level & (edg capacity - edg flow >= 1)
 			ifTrue: [
 				fromNode currentIndex: cid.
 				"Calculating the minimum value between the current positive residual capacity and the pushed value from previous iterations"
@@ -112,7 +126,7 @@ This performs a series of depth-first searches on the residual graph, exploring 
 				"The recursive call of DFS"
 				tr := self dfs: toNode pushed: min ].
 
-		tr == 0 ifFalse: [
+		tr = 0 ifFalse: [
 			edg flow: edg flow + tr.
 			reverseEdg := self reverseEdge: toNode to: fromNode.
 			reverseEdg flow: reverseEdg flow - tr.
@@ -129,53 +143,31 @@ AIDinic >> edgeClass [
 ]
 
 { #category : #initialization }
-AIDinic >> initialize [ 
+AIDinic >> initialize [
+
 	super initialize.
-	mapping:= Dictionary new.
-	queue := LinkedList new.
+	adjList := Dictionary new.
+	queue := LinkedList new
 ]
 
 { #category : #configuration }
-AIDinic >> initializeAndBfs [
+AIDinic >> initializeBfs [
 	"This method 
  - Initialises all the levels and current index of the nodes
  - Runs the bfs method to get the level graph
  - Returns a boolean based on whether the there exists an augmenting path or not."
 
-	| bfsBool |
 	self levelSetup.
 	self currentIndexSetup.
 	start level: 0.
 	queue addLast: start.
-	bfsBool := self bfs.
-	^ bfsBool
+	^ self bfs
 ]
 
 { #category : #configuration }
 AIDinic >> levelSetup [
 
-	| nod |
-	nod := self nodes.
-	nod do: [ :n | n level: -1 ]
-]
-
-{ #category : #configuration }
-AIDinic >> mapConfig [
-
-	| edg nod arr fromNode |
-	edg := self edges.
-	nod := self nodes.
-	nod do: [ :n | mapping at: n put: OrderedCollection new ].
-	edg doWithIndex: [ :e :i |
-		fromNode := e from.
-		arr := mapping at: fromNode.
-		arr add: i ]
-]
-
-{ #category : #accessing }
-AIDinic >> mapping [
-
-	^ mapping
+	self nodes do: [ :n | n level: -1 ]
 ]
 
 { #category : #utilities }
@@ -194,33 +186,28 @@ AIDinic >> nodeClass [
 { #category : #utilities }
 AIDinic >> reverseEdge: fromNode to: toNode [
 
-	| arr e |
-	arr := mapping at: fromNode.
-	arr do: [ :i |
+	| e |
+	(adjList at: fromNode) do: [ :i |
 		e := edges at: i.
-		e to == toNode & (e capacity == 0) ifTrue: [ ^e ] ].
+		e to == toNode & (e capacity = 0) ifTrue: [ ^ e ] ]
 ]
 
 { #category : #running }
 AIDinic >> run [
 
-	| finalFlow bfsBool pushed maxValue breakLoop |
-	self mapConfig.
-	maxValue := SmallInteger maxVal.
+	| finalFlow pushed breakLoop |
+	self addAdjList.
 	finalFlow := 0.
 	breakLoop := true.
 
-	bfsBool := self initializeAndBfs.
-	bfsBool ifTrue: [ ^ 0 ].
+	self initializeBfs ifTrue: [ ^ 0 ].
 
 	[ breakLoop ] whileTrue: [
-		pushed := self dfs: start pushed: maxValue.
-		[ pushed == 0 ] whileFalse: [
+		pushed := self dfs: start pushed: SmallInteger maxVal.
+		[ pushed = 0 ] whileFalse: [
 			finalFlow := finalFlow + pushed.
-			pushed := self dfs: start pushed: maxValue ].
-
-		bfsBool := self initializeAndBfs.
-		bfsBool ifTrue: [ breakLoop := false ] ].
+			pushed := self dfs: start pushed: SmallInteger maxVal ].
+		self initializeBfs ifTrue: [ breakLoop := false ] ].
 	^ finalFlow
 ]
 
