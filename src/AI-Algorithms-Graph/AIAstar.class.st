@@ -176,10 +176,7 @@ AIAstar >> run [
 						] 
 				].
 			].
-	].
-
-   "send := OrderedCollection new.
-   ^send"
+	]
 ]
 
 { #category : #running }

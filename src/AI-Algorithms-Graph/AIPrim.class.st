@@ -65,10 +65,7 @@ AIPrim >> run [
 			curEdge := edge asTuple.
 			fromNode := self findNode: curEdge first.
 			toNode := self findNode: curEdge second.
-			fromNode == curNode & (curEdge third < toNode distance)
-			& toNode visited not ifTrue: [
+			fromNode == curNode & (curEdge third < toNode distance) & toNode visited not ifTrue: [
 				toNode previousNode: curNode.
-				toNode distance: curEdge third ] ] ].
-
-	^ treeEdges
+				toNode distance: curEdge third ] ] ]
 ]
