@@ -52,6 +52,10 @@ spec
   - HITS: Hyperlink-Induced Topic Search
   - Topological Sort
   - Shortest Path in DAG
+  - Longest path in DAG
+  - Longest path in any type of graph
+  - Dinic: strongly polynomial algorithm for computing the maximum flow in a flow network
+  - A* algorithm: searching algorithm for having the shortest path
 
 ## How to use the graph algorithms
 

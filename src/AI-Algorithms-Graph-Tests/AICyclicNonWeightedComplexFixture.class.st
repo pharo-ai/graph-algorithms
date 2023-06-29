@@ -29,7 +29,7 @@ AICyclicNonWeightedComplexFixture >> complexCycleGraph [
 	            #( $c $d ) #( $d $f ) #( $f $c ) #( $g $h ) #( $g $d )
 	            #( $h $g ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -46,7 +46,7 @@ AICyclicNonWeightedComplexFixture >> complexCycleGraph2 [
 					#($e $b) 	#($e $d) 	#($e $h)
 					#($f $b) 	#($f $e) 	#($f $d)
 					#($g $b) 	#($g $a) 	#($g $e) 	#($g $f) 	#($g $d) 	#($g $i) ).
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -66,7 +66,7 @@ AICyclicNonWeightedComplexFixture >> complexUndirectedGraph [
 	            #( 10 1 ) #( 10 8 ) #( 11 7 ) #( 11 0 ) #( 12 2 )
 	            #( 12 9 ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -96,7 +96,7 @@ AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph [
 	            #( $c $d ) #( $d $e ) #( $e $d ) #( $f $b ) #( $f $e )
 	            #( $f $h ) #( $g $f ) #( $h $e ) #( $h $g ) #( $i $g )
 	            #( $i $h ) #( $i $i ) ).
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -116,7 +116,7 @@ AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph: objects [
 		        { objects at: 8. objects at: 5 }. { objects at: 8. objects at: 7 }.
 		        { objects at: 9. objects at: 7 }. { objects at: 9. objects at: 8 }.
 		        { objects at: 9. objects at: 9 } }.
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: objects .
 	graph edges: edges.
 	^graph

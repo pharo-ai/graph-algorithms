@@ -31,7 +31,7 @@ AICyclicNonWeightedSimpleFixture >> aseCircuitGraph [
 	            #( $c $f ) #( $d $b ) #( $d $e ) #( $e $a ) #( $f $g )
 	            #( $g $h ) #( $h $g ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -44,7 +44,7 @@ AICyclicNonWeightedSimpleFixture >> aseSccGraph [
 	nodes := $a to: $e.
 	edges := #( #( $a $b ) #( $b $a ) #( $b $c ) #( $b $d ) #( $c $d )
 	            #( $d $b ) #( $d $e ) #( $e $a ) ).
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -59,7 +59,7 @@ AICyclicNonWeightedSimpleFixture >> cycleGraph [
 	nodes := $a to: $d.
 	edges := #( #( $a $b ) #( $b $c ) #( $c $a ) #( $d $c ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -74,7 +74,7 @@ AICyclicNonWeightedSimpleFixture >> dependencyGraph [
 	            #( $d $g ) #( $d $i ) #( $e $c ) #( $e $f ) #( $f $j )
 	            #( $g $f ) #( $g $h ) #( $g $i ) #( $h $j ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -108,7 +108,7 @@ AICyclicNonWeightedSimpleFixture >> moduleGraph [
 		('v8' 'v9') ('v8' 'v10') ('v8' 'v11')
 		('v9' 'v10') ('v9' 'v11')).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -125,7 +125,7 @@ AICyclicNonWeightedSimpleFixture >> nestedCycleGraph [
 	            #( $b $e ) #( $e $b ) #( $e $f ) #( $f $g ) #( $g $h )
 	            #( $h $f ) #( $g $i ) #( $i $g ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
@@ -144,7 +144,7 @@ AICyclicNonWeightedSimpleFixture >> simpleGraphForHits [
 	            #( 'N2' 'N3' ) #( 'N2' 'N4' ) #( 'N3' 'N1' )
 	            #( 'N3' 'N4' ) #( 'N4' 'N4' ) ).
 
-	graph:= AIGraphNonWeightedStructureFixture new.
+	graph:= AIGraphNonWeightedFixtureStructure new.
 	graph nodes: nodes.
 	graph edges: edges.
 	^graph
