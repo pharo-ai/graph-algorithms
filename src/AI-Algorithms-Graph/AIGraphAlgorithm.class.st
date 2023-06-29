@@ -158,36 +158,28 @@ AIGraphAlgorithm >> findBinaryBlock: aModel [
 { #category : #accessing }
 AIGraphAlgorithm >> findEdge: aModel [
 
-	"^ edges findBinary: (self findBinaryBlock: aModel)"
-
-	^ edges detect: [ :edge | edge model = aModel ]
+	^ edges findBinary: (self findBinaryBlock: aModel)
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel [
 
-	"^ nodes findBinary: (self findBinaryBlock: aModel)."
-
-	^ nodes detect: [ :node | node model = aModel ]
+	^ nodes findBinary: (self findBinaryBlock: aModel).
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
-	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
-
-	^ nodes detect: [ :node | node model = aModel ] ifNone: aBlock
+	^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 
-	"^ nodes
+	^ nodes
 		  findBinary: (self findBinaryBlock: aModel)
 		  do: aBlock
-		  ifNone: [  ]"
-
-	^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock
+		  ifNone: [  ]
 ]
 
 { #category : #accessing }
