@@ -139,7 +139,7 @@ This performs a series of depth-first searches on the residual graph, exploring 
 { #category : #configuration }
 AIDinic >> edgeClass [
 
-	^ AINetworkFLowEdge
+	^ AINetworkFlowEdge
 ]
 
 { #category : #initialization }

@@ -3,7 +3,7 @@ This class represents an edge in the Dinic's Algorithm.
 Each edge has a capacity and a flow property.
 "
 Class {
-	#name : #AINetworkFLowEdge,
+	#name : #AINetworkFlowEdge,
 	#superclass : #AIGraphEdge,
 	#instVars : [
 		'capacity',
@@ -13,32 +13,32 @@ Class {
 }
 
 { #category : #accessing }
-AINetworkFLowEdge >> asTuple [ 
+AINetworkFlowEdge >> asTuple [ 
 	^{from model. to model. capacity. flow}
 ]
 
 { #category : #accessing }
-AINetworkFLowEdge >> capacity [
+AINetworkFlowEdge >> capacity [
 	^capacity
 ]
 
 { #category : #accessing }
-AINetworkFLowEdge >> capacity: aValue [
+AINetworkFlowEdge >> capacity: aValue [
 	capacity := aValue
 ]
 
 { #category : #accessing }
-AINetworkFLowEdge >> flow [ 
+AINetworkFlowEdge >> flow [ 
 	^flow
 
 ]
 
 { #category : #accessing }
-AINetworkFLowEdge >> flow: anObject [
+AINetworkFlowEdge >> flow: anObject [
 	flow:=anObject 
 ]
 
 { #category : #initialization }
-AINetworkFLowEdge >> initialize [ 
+AINetworkFlowEdge >> initialize [ 
 	flow:=0
 ]
