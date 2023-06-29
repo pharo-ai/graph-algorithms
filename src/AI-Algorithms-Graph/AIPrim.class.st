@@ -6,6 +6,9 @@ For more, see: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 Class {
 	#name : #AIPrim,
 	#superclass : #AIGraphAlgorithm,
+	#instVars : [
+		'minimumSpanningEdges'
+	],
 	#category : #'AI-Algorithms-Graph'
 }
 
@@ -18,7 +21,8 @@ AIPrim >> edgeClass [
 { #category : #initialization }
 AIPrim >> initialize [
 
-	super initialize
+	super initialize.
+	minimumSpanningEdges := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -33,6 +37,13 @@ AIPrim >> minNode [
 	^ lowNode
 ]
 
+{ #category : #accessing }
+AIPrim >> minimumSpanningPath [
+
+	self run.
+	^ minimumSpanningEdges
+]
+
 { #category : #configuration }
 AIPrim >> nodeClass [
 
@@ -42,10 +53,8 @@ AIPrim >> nodeClass [
 { #category : #running }
 AIPrim >> run [
 
-	| curNode curEdge treeEdges fromNode toNode primEdge |
+	| curNode curEdge fromNode toNode primEdge |
 	nodes do: [ :each | each distance: Float infinity ].
-
-	treeEdges := OrderedCollection new.
 
 	nodes first
 		distance: 0;
@@ -59,7 +68,7 @@ AIPrim >> run [
 				            curNode previousNode model.
 				            curNode model.
 				            curNode distance }.
-			treeEdges add: (self findEdge: primEdge) ].
+			minimumSpanningEdges add: (self findEdge: primEdge) ].
 
 		edges do: [ :edge |
 			curEdge := edge asTuple.
@@ -68,7 +77,5 @@ AIPrim >> run [
 			fromNode == curNode & (curEdge third < toNode distance)
 			& toNode visited not ifTrue: [
 				toNode previousNode: curNode.
-				toNode distance: curEdge third ] ] ].
-
-	^ treeEdges
+				toNode distance: curEdge third ] ] ]
 ]

@@ -19,14 +19,14 @@ AIPrimTest >> testMinSpanningTreeComplex2 [
 
 	| tree graphType graph |
 	graphType := AICyclicWeightedComplexFixture new.
-	graph :=graphType complexWeightedGraph4.
+	graph := graphType complexWeightedGraph4.
 	prim nodes: graph nodes.
-	prim  
-	   edges: graph edges
+	prim
+		edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
-	tree := prim run collect: [ :e | e asTuple ].
+	tree := prim minimumSpanningPath collect: [ :e | e asTuple ].
 	self assert: tree size equals: 11.
 	self
 		assert: (tree inject: 0 into: [ :sum :edge | sum + edge third ])
@@ -45,7 +45,7 @@ AIPrimTest >> testMinimumSpanningTreeComplex [
 		from: #first
 		to: #second
 		weight: #third.
-	tree := prim run collect: [ :e | e asTuple ].
+	tree := prim minimumSpanningPath collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( $a $d 1 ) #( $d $e 1 ) #( $d $b 2 )
 	                    #( $e $c 5 ) ).
@@ -60,14 +60,14 @@ AIPrimTest >> testMinimumSpanningTreeSimple [
 
 	| tree expectedEdges graphType graph |
 	graphType := AICyclicWeightedSimpleFixture new.
-	graph :=graphType simpleWeightedGraph2.
+	graph := graphType simpleWeightedGraph2.
 	prim nodes: graph nodes.
-	prim  
-	   edges: graph edges
+	prim
+		edges: graph edges
 		from: #first
 		to: #second
 		weight: #third.
-	tree := prim run collect: [ :e | e asTuple ].
+	tree := prim minimumSpanningPath collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( 1 2 3 ) #( 2 3 1 ) #( 3 4 2 ) #( 4 5 3 ) ).
 	self assertCollection: tree hasSameElements: expectedEdges.
