@@ -10,6 +10,7 @@ Class {
 	#instVars : [
 		'nodes',
 		'edges',
+		'dictNodes',
 		'sortingBlock'
 	],
 	#category : #'AI-Algorithms-Graph-Core'
@@ -45,9 +46,15 @@ AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 { #category : #'building - graph' }
 AIGraphAlgorithm >> addNodeFor: aModel [
 
+| newNode |
+
 	^ self
 		  findNode: aModel
-		  ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
+		  ifAbsent: [ 
+			newNode := (self nodeClass with: aModel).
+			nodes add: newNode .
+			dictNodes at: aModel put: newNode .
+			 ]
 ]
 
 { #category : #'building - graph' }
@@ -164,7 +171,8 @@ AIGraphAlgorithm >> findEdge: aModel [
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel [
 
-	^ nodes findBinary: (self findBinaryBlock: aModel).
+	^ dictNodes at: aModel.
+	"^ nodes findBinary: (self findBinaryBlock: aModel)."
 ]
 
 { #category : #accessing }
@@ -193,7 +201,8 @@ AIGraphAlgorithm >> initialize [
 
 	sortingBlock := [ :a :b | a model hash <= b model hash ].
 	nodes := SortedCollection sortUsing: sortingBlock.
-	edges := SortedCollection sortUsing: sortingBlock
+	edges := SortedCollection sortUsing: sortingBlock.
+	dictNodes := Dictionary new.
 ]
 
 { #category : #configuration }
