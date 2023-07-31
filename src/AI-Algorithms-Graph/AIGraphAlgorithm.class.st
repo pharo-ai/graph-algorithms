@@ -172,13 +172,16 @@ AIGraphAlgorithm >> findEdge: aModel [
 AIGraphAlgorithm >> findNode: aModel [
 
 	^ dictNodes at: aModel.
+	"Write error messages for when dictionary is empty and if node doesn't exist"
 	"^ nodes findBinary: (self findBinaryBlock: aModel)."
 ]
 
 { #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
-	^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock
+	^dictNodes at: aModel ifAbsent: aBlock.
+	"Add test cases for specifically this new functionality"
+	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
 ]
 
 { #category : #accessing }
