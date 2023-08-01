@@ -10,7 +10,8 @@ Class {
 	#instVars : [
 		'nodes',
 		'edges',
-		'sortingBlock'
+		'sortingBlock',
+		'dictNodes'
 	],
 	#category : #'AI-Algorithms-Graph-Core'
 }
@@ -45,9 +46,14 @@ AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 { #category : #'building - graph' }
 AIGraphAlgorithm >> addNodeFor: aModel [
 
+	| newNode |
 	^ self
 		  findNode: aModel
-		  ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
+		  ifAbsent: [ 
+			newNode := (self nodeClass with: aModel).
+			nodes add: newNode .
+			dictNodes at: aModel put: newNode .
+			 ]
 ]
 
 { #category : #'building - graph' }
@@ -168,7 +174,11 @@ AIGraphAlgorithm >> findNode: aModel [
 
 	"^ nodes findBinary: (self findBinaryBlock: aModel)."
 
-	^ nodes detect: [ :node | node model = aModel ]
+	"^ nodes detect: [ :node | node model = aModel ]"
+	
+	(dictNodes includesKey: aModel) ifTrue: [ ^ dictNodes at: aModel ]. 
+	Error signal: ('No Element in Graph : ',(aModel asString) ).  
+
 ]
 
 { #category : #accessing }
@@ -176,7 +186,9 @@ AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
 	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
 
-	^ nodes detect: [ :node | node model = aModel ] ifNone: aBlock
+	"^ nodes detect: [ :node | node model = aModel ] ifNone: aBlock"
+	
+	^dictNodes at: aModel ifAbsent: aBlock.
 ]
 
 { #category : #accessing }
@@ -187,7 +199,9 @@ AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 		  do: aBlock
 		  ifNone: [  ]"
 
-	^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock
+	"^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock"
+	
+	^dictNodes at: aModel ifPresent: aBlock.
 ]
 
 { #category : #accessing }
@@ -201,7 +215,8 @@ AIGraphAlgorithm >> initialize [
 
 	sortingBlock := [ :a :b | a model hash <= b model hash ].
 	nodes := SortedCollection sortUsing: sortingBlock.
-	edges := SortedCollection sortUsing: sortingBlock
+	edges := SortedCollection sortUsing: sortingBlock.
+	dictNodes := Dictionary new.
 ]
 
 { #category : #configuration }
