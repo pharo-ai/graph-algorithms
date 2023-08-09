@@ -11,7 +11,7 @@ Class {
 		'nodes',
 		'edges',
 		'sortingBlock',
-		'dictNodes'
+		'nodeDictionary'
 	],
 	#category : #'AI-Algorithms-Graph-Core'
 }
@@ -52,7 +52,7 @@ AIGraphAlgorithm >> addNodeFor: aModel [
 		  ifAbsent: [ 
 			newNode := (self nodeClass with: aModel).
 			nodes add: newNode .
-			dictNodes at: aModel put: newNode .
+			nodeDictionary at: aModel put: newNode .
 			 ]
 ]
 
@@ -176,7 +176,7 @@ AIGraphAlgorithm >> findNode: aModel [
 
 	"^ nodes detect: [ :node | node model = aModel ]"
 	
-	(dictNodes includesKey: aModel) ifTrue: [ ^ dictNodes at: aModel ]. 
+	(nodeDictionary includesKey: aModel) ifTrue: [ ^ nodeDictionary at: aModel ]. 
 	Error signal: ('No Element in Graph : ',(aModel asString) ).  
 
 ]
@@ -188,7 +188,7 @@ AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
 	"^ nodes detect: [ :node | node model = aModel ] ifNone: aBlock"
 	
-	^dictNodes at: aModel ifAbsent: aBlock.
+	^nodeDictionary  at: aModel ifAbsent: aBlock.
 ]
 
 { #category : #accessing }
@@ -201,7 +201,7 @@ AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 
 	"^ nodes detect: [ :aNode | aNode model = aModel ] ifFound: aBlock"
 	
-	^dictNodes at: aModel ifPresent: aBlock.
+	^nodeDictionary at: aModel ifPresent: aBlock.
 ]
 
 { #category : #accessing }
@@ -216,7 +216,7 @@ AIGraphAlgorithm >> initialize [
 	sortingBlock := [ :a :b | a model hash <= b model hash ].
 	nodes := SortedCollection sortUsing: sortingBlock.
 	edges := SortedCollection sortUsing: sortingBlock.
-	dictNodes := Dictionary new.
+	nodeDictionary := Dictionary new.
 ]
 
 { #category : #configuration }
