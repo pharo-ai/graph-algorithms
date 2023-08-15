@@ -29,3 +29,71 @@ AIGraphAlgorithmTest >> testAddNodesFromChildrenBlock [
 				WideSymbol }.
 	self assert: (builder findNode: ByteSymbol) adjacentNodes isEmpty
 ]
+
+{ #category : #'as yet unclassified' }
+AIGraphAlgorithmTest >> testingAddingNodes [
+
+   |graphType graph dijkstra|
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra := AIDijkstra new.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
+		
+	self assert: 8 equals: (dijkstra nodes) size.
+	dijkstra addNodeFor: $i.
+	self assert: 9 equals: (dijkstra nodes) size.
+	self assert: Float infinity equals: (dijkstra findNode: $i) pathDistance.
+	
+]
+
+{ #category : #'as yet unclassified' }
+AIGraphAlgorithmTest >> testingFindingNodes [
+
+   |graphType graph dijkstra|
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra := AIDijkstra new.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
+		
+	self assert: Float infinity equals: (dijkstra findNode: $g) pathDistance.
+]
+
+{ #category : #'as yet unclassified' }
+AIGraphAlgorithmTest >> testingNodeDictionary [
+
+	|graphType graph dijkstra|
+	graphType := AICyclicWeightedSimpleFixture new.
+	graph :=graphType aseCircuitWeightedGraph.
+	dijkstra := AIDijkstra new.
+	dijkstra nodes: graph nodes.
+	dijkstra  
+	   edges: graph edges
+		from: #first
+		to: #second
+		weight: #third.
+	dijkstra runFrom: $a.
+	self assert: 1 equals: (dijkstra findNode: $b) pathDistance.
+	self assert: 8 equals: (dijkstra nodes) size.
+	
+	dijkstra addNodeFor: $i.
+	self assert: 9 equals: (dijkstra nodes) size.
+	self assert: Float infinity equals: (dijkstra findNode: $i) pathDistance.
+
+	dijkstra reset.
+	dijkstra runFrom: $c.
+	self assert: 2 equals: (dijkstra findNode: $b) pathDistance.
+
+	dijkstra reset.
+	dijkstra runFrom: $h.
+	self assert: Float infinity equals: (dijkstra findNode: $a) pathDistance
+]
