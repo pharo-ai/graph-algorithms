@@ -69,6 +69,38 @@ AIGraphAlgorithmTest >> testingFindingNodes [
 ]
 
 { #category : #'as yet unclassified' }
+AIGraphAlgorithmTest >> testingInsertGraphLayout [
+
+	|gr v1 v2 v3 v4 layout used bfsp|
+	gr := Graph new.
+	v1 := gr addVertexWithValue: 1.
+	v2 := gr addVertexWithValue: 2.
+	v2 setNewHeight: 10.
+	v3 := gr addVertexWithValue: 3.
+	v3 setNewHeight: 30.
+	v4 := gr addVertexWithValue: 4.
+	v4 setNewHeight: 20.
+	gr addEdgeFrom: v3 to: v1;
+		addEdgeFrom: v3 to: v4;
+		addEdgeFrom: v4 to: v2.
+	used := LinkedList new.
+	used add: v1;
+		add: v2;
+		add: v3;
+		add: v4.
+	layout :=GraphWeightedCircleLayout  new.
+	layout doExecute: (used).
+
+
+	bfsp := AIBFS new.
+	bfsp insertGraphLayout: gr.
+	self assert: 4 equals: (bfsp nodes) size.
+	self assert: (#( 3 4 2 ) hasEqualElements: (bfsp
+				  runFrom: 3 to: 2;
+				  reconstructPath)).
+]
+
+{ #category : #'as yet unclassified' }
 AIGraphAlgorithmTest >> testingNodeDictionary [
 
 	|graphType graph dijkstra|

@@ -219,6 +219,30 @@ AIGraphAlgorithm >> initialize [
 	nodeDictionary := Dictionary new.
 ]
 
+{ #category : #'building - graph' }
+AIGraphAlgorithm >> insertGraphLayout: gr [
+
+"Reconfigures Graph to the added layout graph"
+
+| glvertices gledges put gnodes gedges |
+glvertices:= gr vertices.
+gledges:= gr edges.
+
+gnodes := OrderedCollection new.
+gedges := OrderedCollection new.
+
+glvertices do: [:each | gnodes add: each model].
+
+gledges do: [:each | 
+	put := OrderedCollection new.
+	put add: (each from) model.
+	put add: (each to) model.
+	gedges add: put].
+
+self nodes: gnodes.
+self edges: gedges from: #first to: #second.
+]
+
 { #category : #configuration }
 AIGraphAlgorithm >> nodeClass [
 
