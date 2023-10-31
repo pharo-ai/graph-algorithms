@@ -10,47 +10,49 @@ The algorithm is:
 - IF (v pathWeight > u pathWeight + weight(u, v)) THEN v pathWeight: u pathWeight + weight(u, v) 
 "
 Class {
-	#name : #AIShortestPathInDAG,
-	#superclass : #AIGraphAlgorithm,
+	#name : 'AIShortestPathInDAG',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'start',
 		'end'
 	],
-	#category : #'AI-Algorithms-Graph-Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Shortest path'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIShortestPathInDAG >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIShortestPathInDAG >> end [
 
 	^ end
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIShortestPathInDAG >> end: aModel [
 
 	end := self findNode: aModel
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> initializePathWeights [
 
 	nodes do: [ :node | node pathDistance: Float infinity ].
 	start pathDistance: 0
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIShortestPathInDAG >> nodeClass [
 
 	^ AIPathDistanceNode
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> reconstructPath [
 
 	| path previous |
@@ -65,7 +67,7 @@ AIShortestPathInDAG >> reconstructPath [
 	^ path
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> run [
 
 	| stack sortedNode |
@@ -80,14 +82,14 @@ AIShortestPathInDAG >> run [
 				ifTrue: [ self updatePathDistance: nextEdge previousNode: sortedNode ] ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
@@ -95,19 +97,19 @@ AIShortestPathInDAG >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIShortestPathInDAG >> start [
 
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIShortestPathInDAG >> start: aModel [
 
 	start := self findNode: aModel
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> topologicalSortedNodes [
 
 	| topSorter  |
@@ -118,7 +120,7 @@ AIShortestPathInDAG >> topologicalSortedNodes [
 	^ topSorter topologicalSortedElements
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAG >> updatePathDistance: edge previousNode: previousNode [
 
 	edge to pathDistance: previousNode pathDistance + edge weight.
