@@ -14,35 +14,37 @@ shortestPath := bfs runFrom: 1 to: 4
 This will return `#( 1 4 )`.
 "
 Class {
-	#name : #AIBFS,
-	#superclass : #AIGraphAlgorithm,
+	#name : 'AIBFS',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'start',
 		'end',
 		'queue'
 	],
-	#category : #'AI-Algorithms-Graph-Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Shortest path'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIBFS >> end [
 
 	^ end
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIBFS >> end: endModel [
 
 	end := self findNode: endModel
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIBFS >> nodeClass [
 
 	^ AIBFSNode
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 AIBFS >> reconstructPath [
 
 	| path previous |
@@ -57,7 +59,7 @@ AIBFS >> reconstructPath [
 	^ path
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 AIBFS >> resetValues [
 
 	nodes do: [ :aNode |
@@ -67,7 +69,7 @@ AIBFS >> resetValues [
 			distance: nil ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBFS >> run [
 
 	| node neighbours |
@@ -89,14 +91,14 @@ AIBFS >> run [
 				next previousNode: node ] ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBFS >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBFS >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
@@ -104,13 +106,13 @@ AIBFS >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIBFS >> start [
 
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIBFS >> start: startModel [
 
 	start := self findNode: startModel

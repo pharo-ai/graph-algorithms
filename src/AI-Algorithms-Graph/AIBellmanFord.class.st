@@ -2,34 +2,36 @@
 The Bellman Ford algorithm calculates the shortest path in any kind of graph. The graph edges can have negative weights and this algo hanldes negative cycles. If a negative cycle is detected, the path distance of that node is set to negative infinity
 "
 Class {
-	#name : #AIBellmanFord,
-	#superclass : #AIGraphAlgorithm,
+	#name : 'AIBellmanFord',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'start',
 		'end'
 	],
-	#category : #'AI-Algorithms-Graph-Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Shortest path'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIBellmanFord >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIBellmanFord >> end: aModel [
 
 	end := (self findNode: aModel)
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIBellmanFord >> nodeClass [
 
 	^ AIPathDistanceNode
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 AIBellmanFord >> reconstructPath [
 
 	| path previous |
@@ -47,7 +49,7 @@ AIBellmanFord >> reconstructPath [
 	^ path
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBellmanFord >> relaxEdges [
 
 	| anEdgeHasBeenRelaxed |
@@ -65,7 +67,7 @@ AIBellmanFord >> relaxEdges [
 		anEdgeHasBeenRelaxed ifFalse: [ ^ self ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBellmanFord >> relaxEdgesToNegativeInfinity [
 
 	"This method is called after a first relaxation has ocurred already. The algorithm is the same as the previous one but with the only difference that now if an edge can be relaxed we set the path distance as negative infinity because means that the edge is part of a negative cycle."
@@ -84,7 +86,7 @@ AIBellmanFord >> relaxEdgesToNegativeInfinity [
 		anEdgeHasBeenRelaxed ifFalse: [ ^ self ] ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 AIBellmanFord >> reset [
 
 	self nodes do: [ :node |
@@ -93,7 +95,7 @@ AIBellmanFord >> reset [
 			previousNode: nil ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBellmanFord >> run [
 
 	start pathDistance: 0.
@@ -105,14 +107,14 @@ AIBellmanFord >> run [
 	self relaxEdgesToNegativeInfinity
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBellmanFord >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIBellmanFord >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
@@ -120,7 +122,7 @@ AIBellmanFord >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIBellmanFord >> start: aModel [
 
 	start := (self findNode: aModel).

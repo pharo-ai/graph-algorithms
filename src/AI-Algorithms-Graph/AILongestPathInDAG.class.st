@@ -10,47 +10,49 @@ The algorithm is:
 - IF (v pathWeight > u pathWeight + (-1)*weight(u, v)) THEN v pathWeight: u pathWeight + weight(u, v) 
 "
 Class {
-	#name : #AILongestPathInDAG,
-	#superclass : #AIGraphAlgorithm,
+	#name : 'AILongestPathInDAG',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'start',
 		'end'
 	],
-	#category : #'AI-Algorithms-Graph-Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Shortest path'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AILongestPathInDAG >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AILongestPathInDAG >> end [
 
 	^ end
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AILongestPathInDAG >> end: aModel [
 
 	end := self findNode: aModel
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> initializePathWeights [
 
 	nodes do: [ :node | node pathDistance: Float infinity ].
 	start pathDistance: 0
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AILongestPathInDAG >> nodeClass [
 
 	^ AIPathDistanceNode
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> reconstructPath [
 
 	| path previous |
@@ -65,7 +67,7 @@ AILongestPathInDAG >> reconstructPath [
 	^ path
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> run [
 
 	| stack sortedNode |
@@ -80,14 +82,14 @@ AILongestPathInDAG >> run [
 				self updatePathDistance: nextEdge previousNode: sortedNode ] ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
@@ -95,19 +97,19 @@ AILongestPathInDAG >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AILongestPathInDAG >> start [
 
 	^ start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AILongestPathInDAG >> start: aModel [
 
 	start := self findNode: aModel
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> topologicalSortedNodes [
 
 	| topSorter  |
@@ -118,7 +120,7 @@ AILongestPathInDAG >> topologicalSortedNodes [
 	^ topSorter topologicalSortedElements
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAG >> updatePathDistance: edge previousNode: previousNode [
 
 	edge to pathDistance: previousNode pathDistance + edge weight.

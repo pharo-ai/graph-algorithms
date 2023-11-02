@@ -6,22 +6,24 @@ circuitsNodes instance variable will collect all nodes created by merging nodes 
 This algorithm is not merging the weights of the graph. However, reducing a weighted graphs needs an specific way of doing it according to the use case.
 "
 Class {
-	#name : #AIGraphReducer,
-	#superclass : #AIGraphAlgorithm,
+	#name : 'AIGraphReducer',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'circuits',
 		'collapsedNodes'
 	],
-	#category : #'AI-Algorithms-Graph-Strongly Connected Components'
+	#category : 'AI-Algorithms-Graph-Strongly Connected Components',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Strongly Connected Components'
 }
 
-{ #category : #updating }
+{ #category : 'updating' }
 AIGraphReducer >> addCollapsedNodes [
 
 	nodes addAll: collapsedNodes
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 AIGraphReducer >> adjacenciesFor: aMergedNodeList [
 
 	"Obtains the adjacent nodes of the merged nodes. Then removes the references to the same merged nodes (to avoid referencing a merged node). Because all the merged nodes are now a same 'reduced' node"
@@ -31,7 +33,7 @@ AIGraphReducer >> adjacenciesFor: aMergedNodeList [
 		    as: Set) difference: aMergedNodeList) asOrderedCollection
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIGraphReducer >> findCircuits [
 
 	| tarjanCircuits |
@@ -43,20 +45,20 @@ AIGraphReducer >> findCircuits [
 		            circuit collect: [ :each | self findNode: each ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIGraphReducer >> initialize [
 	super initialize.
 	collapsedNodes := OrderedCollection new.
 	circuits := OrderedCollection new
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIGraphReducer >> nodeClass [
 
 	^ AIReducedGraphNode
 ]
 
-{ #category : #reducing }
+{ #category : 'reducing' }
 AIGraphReducer >> reduceGraph [
 
 	circuits do: [ :each | self reduceNodesInCircuit: each ].
@@ -65,7 +67,7 @@ AIGraphReducer >> reduceGraph [
 	self replaceReferencesToMergedNodes
 ]
 
-{ #category : #reducing }
+{ #category : 'reducing' }
 AIGraphReducer >> reduceNodesInCircuit: aCircuit [
 
 	"This method created a reduced node (called circuit node) that contains all the nodes that are inside a circuit inside a strongly connected component that the Tarjan algorithm found."
@@ -77,14 +79,14 @@ AIGraphReducer >> reduceNodesInCircuit: aCircuit [
 			 yourself)
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 AIGraphReducer >> removeMergedNodes [
 
 	nodes removeAll:
 		(collapsedNodes flatCollect: [ :each | each mergedNodes ])
 ]
 
-{ #category : #reducing }
+{ #category : 'reducing' }
 AIGraphReducer >> replaceReferencesToMergedNode: aReducedNode [
 
 	"Replace the adjacencies of aReducedNode to merged nodes to reference the reduced node instead. For example, is aReducedNode has an an adjacency to node A, but node A has been reduced to node R, replace the adjacency of A with R."
@@ -105,14 +107,14 @@ AIGraphReducer >> replaceReferencesToMergedNode: aReducedNode [
 		addAll: newAdjacencies asSet
 ]
 
-{ #category : #reducing }
+{ #category : 'reducing' }
 AIGraphReducer >> replaceReferencesToMergedNodes [
 
 	nodes do: [ :reducedNode |
 		self replaceReferencesToMergedNode: reducedNode ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIGraphReducer >> run [
 
 	self findCircuits.
