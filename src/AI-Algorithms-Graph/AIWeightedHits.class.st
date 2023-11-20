@@ -8,14 +8,12 @@ For more information, refer to this papers:
 Where is detailed how using a weighted graph can improve the results of the Hits algorithm.
 "
 Class {
-	#name : 'AIWeightedHits',
-	#superclass : 'AIHits',
-	#category : 'AI-Algorithms-Graph-Hits',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Hits'
+	#name : #AIWeightedHits,
+	#superclass : #AIHits,
+	#category : 'AI-Algorithms-Graph-Hits'
 }
 
-{ #category : 'running' }
+{ #category : #running }
 AIWeightedHits >> computeAuthoritiesFor: aNode [
 
 	aNode auth: (aNode incomingEdges
@@ -23,7 +21,7 @@ AIWeightedHits >> computeAuthoritiesFor: aNode [
 			 into: [ :sum :edge | sum + (edge weight * edge from hub) ])
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIWeightedHits >> computeHubsFor: aNode [
 
 	aNode hub: (aNode outgoingEdges
@@ -31,13 +29,13 @@ AIWeightedHits >> computeHubsFor: aNode [
 			 into: [ :sum :edge | sum + (edge weight * edge to auth) ])
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIWeightedHits >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIWeightedHits >> nodeClass [
 
 	^ AIWeightedHitsNode

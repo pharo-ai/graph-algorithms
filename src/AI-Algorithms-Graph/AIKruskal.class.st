@@ -6,48 +6,46 @@ See https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
 For having the time complexity of O(E log E) this algorithm uses the disjoint-set data structure. See the node class of this algorithm for more information about that data structure. Uses the disjoint-set to check, in linear time, if a cycle will be formed when joining two edges.
 "
 Class {
-	#name : 'AIKruskal',
-	#superclass : 'AIGraphAlgorithm',
+	#name : #AIKruskal,
+	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'sortBlock'
 	],
-	#category : 'AI-Algorithms-Graph-Kruskal',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Kruskal'
+	#category : 'AI-Algorithms-Graph-Kruskal'
 }
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIKruskal >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 AIKruskal >> initialize [
 
 	super initialize.
 	self minSpanningTree
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIKruskal >> maxSpanningTree [
 
 	sortBlock := [ :e1 :e2 | e1 weight > e2 weight ]
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIKruskal >> minSpanningTree [
 
 	sortBlock := [ :e1 :e2 | e1 weight < e2 weight ]
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIKruskal >> nodeClass [
 
 	^ AIDisjointSetNode
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIKruskal >> run [
 
 	| treeEdges sortedEdges |

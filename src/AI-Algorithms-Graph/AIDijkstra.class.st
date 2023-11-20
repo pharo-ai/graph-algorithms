@@ -5,36 +5,34 @@ Dijkstra's algorithm is an algorithm for finding the shortest paths between node
 The current implementation of this algo is the naive one. To improve it, Implement the data structure ""priority queue"" is needed. That is the key to improve the time complexity. Now, the priority queue is implemented as a list and the method `removeMostPromisingPair:` does a iteration to the list O(N) to retrieve the most promising pair. We can implement the priority queue as heap for example.
 "
 Class {
-	#name : 'AIDijkstra',
-	#superclass : 'AIGraphAlgorithm',
+	#name : #AIDijkstra,
+	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end'
 	],
-	#category : 'AI-Algorithms-Graph-Shortest path',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path'
 }
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIDijkstra >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIDijkstra >> end [
 
 	^ end
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIDijkstra >> end: endModel [
 
 	end := (self findNode: endModel)
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AIDijkstra >> newPriorityQueue [
 
 	"We use the Heap object defined in the SequenceableCollections package."
@@ -42,19 +40,19 @@ AIDijkstra >> newPriorityQueue [
 	^ Heap new
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIDijkstra >> nodeClass [
 
 	^ AIPathDistanceNode
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIDijkstra >> pathDistance [
 
 	^ self end pathDistance
 ]
 
-{ #category : 'backtracking' }
+{ #category : #backtracking }
 AIDijkstra >> reconstructPath [
 
 	| path previous |
@@ -69,13 +67,13 @@ AIDijkstra >> reconstructPath [
 	^ path
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AIDijkstra >> removeMostPromisingPair: aPriorityQueue [
 
 	^ aPriorityQueue removeFirst
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 AIDijkstra >> reset [
 
 	self nodes do: [ :node |
@@ -85,7 +83,7 @@ AIDijkstra >> reset [
 			previousNode: nil ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIDijkstra >> run [
 
 	| pq |
@@ -114,14 +112,14 @@ AIDijkstra >> run [
 						pq add: edge to] ] ] ] ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIDijkstra >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIDijkstra >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
@@ -129,20 +127,20 @@ AIDijkstra >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIDijkstra >> start [
 
 	^ start
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIDijkstra >> start: startModel [
 
 	start := (self findNode: startModel).
 	start pathDistance: 0
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 AIDijkstra >> updateDistance: newDistance of: aNode previousNode: previousNode [
 
 	aNode previousNode: previousNode.

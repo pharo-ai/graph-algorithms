@@ -5,26 +5,24 @@ I store edges and nodes and provides convenience methods to add, access and find
 Once configured, send the run message to execute the algorithm.
 "
 Class {
-	#name : 'AIGraphAlgorithm',
-	#superclass : 'Object',
+	#name : #AIGraphAlgorithm,
+	#superclass : #Object,
 	#instVars : [
 		'nodes',
 		'edges',
 		'sortingBlock',
 		'nodeDictionary'
 	],
-	#category : 'AI-Algorithms-Graph-Core',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Core'
+	#category : #'AI-Algorithms-Graph-Base'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 AIGraphAlgorithm class >> isAbstract [
 
 	^ self = AIGraphAlgorithm
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 
 	| edge sourceNode targetNode |
@@ -45,7 +43,7 @@ AIGraphAlgorithm >> addEdge: edgeModel from: sourceBlock to: targetBlock [
 			  edge ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> addNodeFor: aModel [
 
 	| newNode |
@@ -58,7 +56,7 @@ AIGraphAlgorithm >> addNodeFor: aModel [
 			 ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 
 	"recursively add nodes from the model"
@@ -80,7 +78,7 @@ AIGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 			to: [ :each | each second ] ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> addNodesFromDifferentGraph: aNodeList [
 
 	"Adds nodes from another graph. This is useful for example when you want to add all the nodes, and its adjacencies, from one graph to another. For example, first running a graph reducing algo and then do a topological sort. First create the graph reduced graph and then add its nodes to a topological sort graph. "
@@ -94,26 +92,26 @@ AIGraphAlgorithm >> addNodesFromDifferentGraph: aNodeList [
 				to: [ :each | each value ] ] ]
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIGraphAlgorithm >> edgeClass [
 
 	^ nil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> edges [
 
 	^ edges
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source to: target [
 
 	aCollection do: [ :eModel |
 		self addEdge: eModel from: source to: target ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source to: target weight: weightFunction [
 
 	| edge |
@@ -122,7 +120,7 @@ AIGraphAlgorithm >> edges: aCollection from: source to: target weight: weightFun
 		edge ifNotNil: [ edge weight: (weightFunction value: eModel) ] ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 
 	aCollection do: [ :eModel |
@@ -135,7 +133,7 @@ AIGraphAlgorithm >> edges: aCollection from: source toAll: targets [
 				to: [ :each | each second ] ] ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> edgesByPair: aCollection [
 
 	" aCollection must be a collection where the incoming edge has to be in the first position and the outgoing esge has to be in the second position.
@@ -148,14 +146,14 @@ AIGraphAlgorithm >> edgesByPair: aCollection [
 		to: [ :each | each second ] ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> emptyGraph [
 
 	edges := edges copyEmpty.
 	nodes := nodes copyEmpty
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 AIGraphAlgorithm >> findBinaryBlock: aModel [
 
 	"New implementation of the algos to have better performances to find nodes. The nodes and edges are sorted from low to high according to their has number."
@@ -163,7 +161,7 @@ AIGraphAlgorithm >> findBinaryBlock: aModel [
 	^ [ :aNode | aModel hash - aNode model hash ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> findEdge: aModel [
 
 	"^ edges findBinary: (self findBinaryBlock: aModel)"
@@ -171,7 +169,7 @@ AIGraphAlgorithm >> findEdge: aModel [
 	^ edges detect: [ :edge | edge model = aModel ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel [
 
 	"^ nodes findBinary: (self findBinaryBlock: aModel)."
@@ -183,7 +181,7 @@ AIGraphAlgorithm >> findNode: aModel [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 
 	"^ nodes findBinary: (self findBinaryBlock: aModel) ifNone: aBlock"
@@ -193,7 +191,7 @@ AIGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 	^nodeDictionary  at: aModel ifAbsent: aBlock.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 
 	"^ nodes
@@ -206,13 +204,13 @@ AIGraphAlgorithm >> findNode: aModel ifFound: aBlock [
 	^nodeDictionary at: aModel ifPresent: aBlock.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> graph [
 
 	^ {  nodes. edges }
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 AIGraphAlgorithm >> initialize [
 
 	sortingBlock := [ :a :b | a model hash <= b model hash ].
@@ -221,31 +219,31 @@ AIGraphAlgorithm >> initialize [
 	nodeDictionary := Dictionary new.
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIGraphAlgorithm >> nodeClass [
 
 	^ AIGraphNode
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIGraphAlgorithm >> nodes [
 
 	^ nodes
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> nodes: aNodeList [
 
 	aNodeList do: [ :model | self addNodeFor: model ]
 ]
 
-{ #category : 'building - graph' }
+{ #category : #'building - graph' }
 AIGraphAlgorithm >> rawNodes: aRawNodeList [
 
 	nodes := aRawNodeList
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIGraphAlgorithm >> run [
 
 	self subclassResponsibility

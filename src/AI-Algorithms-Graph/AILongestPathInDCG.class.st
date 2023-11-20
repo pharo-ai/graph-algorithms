@@ -2,42 +2,40 @@
 A variation of Bellman Ford algorithm that calculates the longest path in any kind of graph (including Directed Cyclic Graphs (DCG)). The graph edges can have negative weights and this algo hanldes negative cycles. If a negative cycle is detected, the path distance of that node is set to negative infinity.
 "
 Class {
-	#name : 'AILongestPathInDCG',
-	#superclass : 'AIGraphAlgorithm',
+	#name : #AILongestPathInDCG,
+	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end'
 	],
-	#category : 'AI-Algorithms-Graph-Shortest path',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path'
 }
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AILongestPathInDCG >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AILongestPathInDCG >> end: aModel [
 
 	end := (self findNode: aModel)
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AILongestPathInDCG >> nodeClass [
 
 	^ AIPathDistanceNode
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AILongestPathInDCG >> pathPositive [
 
 	self nodes do: [ :node | node pathDistance: -1 * node pathDistance ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AILongestPathInDCG >> reconstructPath [
 
 	| path previous |
@@ -55,7 +53,7 @@ AILongestPathInDCG >> reconstructPath [
 	^ path
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AILongestPathInDCG >> relaxEdges [
 
 	| anEdgeHasBeenRelaxed |
@@ -73,7 +71,7 @@ AILongestPathInDCG >> relaxEdges [
 		anEdgeHasBeenRelaxed ifFalse: [ ^ self ] ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AILongestPathInDCG >> relaxEdgesToNegativeInfinity [
 	"This method is called after a first relaxation has ocurred already. The algorithm is the
 	same as the previous one but with the only difference that now if an edge can be relaxed
@@ -94,7 +92,7 @@ AILongestPathInDCG >> relaxEdgesToNegativeInfinity [
 		anEdgeHasBeenRelaxed ifFalse: [ ^ self ] ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AILongestPathInDCG >> reset [
 
 	self nodes do: [ :node |
@@ -103,7 +101,7 @@ AILongestPathInDCG >> reset [
 			previousNode: nil ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AILongestPathInDCG >> run [
 
 	self reset.
@@ -117,14 +115,14 @@ AILongestPathInDCG >> run [
 	self pathPositive
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AILongestPathInDCG >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AILongestPathInDCG >> runFrom: startModel to: endModel [
 
 	self runFrom: startModel.
@@ -132,7 +130,7 @@ AILongestPathInDCG >> runFrom: startModel to: endModel [
 	^ self reconstructPath
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AILongestPathInDCG >> start: aModel [
 
 	start := self findNode: aModel.

@@ -4,25 +4,24 @@ Prim's algorithm (also known as Jarník's algorithm) is a greedy algorithm that 
 For more, see: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 "
 Class {
-	#name : 'AIPrim',
-	#superclass : 'AIGraphAlgorithm',
-	#category : 'AI-Algorithms-Graph',
-	#package : 'AI-Algorithms-Graph'
+	#name : #AIPrim,
+	#superclass : #AIGraphAlgorithm,
+	#category : #'AI-Algorithms-Graph-Prim'
 }
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIPrim >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 AIPrim >> initialize [
 
 	super initialize
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIPrim >> minNode [
 
 	| lowNode lowKey |
@@ -34,13 +33,13 @@ AIPrim >> minNode [
 	^ lowNode
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIPrim >> nodeClass [
 
 	^ AIBFSNode
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIPrim >> run [
 
 	| curNode curEdge treeEdges fromNode toNode primEdge |

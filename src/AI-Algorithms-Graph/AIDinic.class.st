@@ -54,7 +54,7 @@ Class {
 		'start',
 		'sink'
 	],
-	#category : #'AI-Algorithms-Graph'
+	#category : #'AI-Algorithms-Graph-Dinic'
 }
 
 { #category : #configuration }

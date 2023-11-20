@@ -21,18 +21,16 @@ AITopologicalSorting sort: #( 1 2 3 4 5 6 7 8 9 10 ) followingIncomingProperty: 
 ```
 "
 Class {
-	#name : 'AITopologicalSorting',
-	#superclass : 'AIGraphAlgorithm',
+	#name : #AITopologicalSorting,
+	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'topologicalSortedElements',
 		'nodesWithNoIncomingEdges'
 	],
-	#category : 'AI-Algorithms-Graph-Topological Sorting',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Topological Sorting'
+	#category : 'AI-Algorithms-Graph-Topological Sorting'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 AITopologicalSorting class >> nodes: aCollection incomingEdgesProperty: aValuable [
 
 	^ self new
@@ -41,32 +39,32 @@ AITopologicalSorting class >> nodes: aCollection incomingEdgesProperty: aValuabl
 		  yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 AITopologicalSorting class >> sort: nodes followingIncomingProperty: aValuable [
 
 	^ (self nodes: nodes incomingEdgesProperty: aValuable) run
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 AITopologicalSorting >> addIncomingEdgesFollowing: aBlock [
 
 	self edges: (nodes flatCollect: [ :node | (aBlock value: node model) collect: [ :each | node model -> each ] ]) from: #key to: #value
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AITopologicalSorting >> gatherNoIncomingNodes [
 
 	nodesWithNoIncomingEdges addAll:
 		(nodes select: [ :node | node isLeaf ])
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 AITopologicalSorting >> graphHasEdges [
 
 	^ nodes anySatisfy: [ :node | node adjacentNodes isNotEmpty ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AITopologicalSorting >> initializeElements [
 
 	topologicalSortedElements := OrderedCollection new.
@@ -75,13 +73,13 @@ AITopologicalSorting >> initializeElements [
 	nodesWithNoIncomingEdges := LinkedList new
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AITopologicalSorting >> nodeClass [
 
 	^ AINodeWithPrevious
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 AITopologicalSorting >> removeEdgesOf: aNode [
 
 	aNode adjacentNodes do: [ :node |
@@ -90,7 +88,7 @@ AITopologicalSorting >> removeEdgesOf: aNode [
 	aNode adjacentNodes: #(  )
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AITopologicalSorting >> run [
 
 	self initializeElements.
@@ -105,7 +103,7 @@ AITopologicalSorting >> run [
 	^ topologicalSortedElements
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AITopologicalSorting >> topologicalSortedElements [
 
 	^ topologicalSortedElements

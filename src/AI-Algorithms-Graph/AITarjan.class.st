@@ -16,19 +16,17 @@ tarjan stronglyConnectedComponents
 
 "
 Class {
-	#name : 'AITarjan',
-	#superclass : 'AIGraphAlgorithm',
+	#name : #AITarjan,
+	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'stack',
 		'runningIndex',
 		'sccs'
 	],
-	#category : 'AI-Algorithms-Graph-Strongly Connected Components',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Strongly Connected Components'
+	#category : 'AI-Algorithms-Graph-Strongly Connected Components'
 }
 
-{ #category : 'running' }
+{ #category : #running }
 AITarjan >> addNewSccForNode: aTarjanNode [
 
 	| currentNode stronglyConnectedComponent |
@@ -43,13 +41,13 @@ AITarjan >> addNewSccForNode: aTarjanNode [
 	stronglyConnectedComponent do: [ :each | each cycleNodes: stronglyConnectedComponent ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AITarjan >> circuits [
 
 	^ self stronglyConnectedComponents select: [ :each | each size > 1 ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 AITarjan >> isRootNode: aTarjanNode [
 
 	"Finding a 'root' node means that we found a strongly connected component. The 'root' node represents the beginning of that strongly connected component"
@@ -57,20 +55,20 @@ AITarjan >> isRootNode: aTarjanNode [
 	^ aTarjanNode tarjanIndex = aTarjanNode tarjanLowlink
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AITarjan >> nodeClass [
 
 	^ AITarjanNode
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AITarjan >> putOnStack: aTarjanNode [
 
 	stack push: aTarjanNode.
 	aTarjanNode inStack: true
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AITarjan >> run [
 
 	sccs := OrderedCollection new.
@@ -81,14 +79,14 @@ AITarjan >> run [
 	^ self stronglyConnectedComponents
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AITarjan >> stronglyConnectedComponents [
 
 	sccs ifNil: [ self run ].
 	^ sccs collect: [ :component | component collect: [ :each | each model ] ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AITarjan >> traverse: aTarjanNode [
 
 	aTarjanNode tarjanIndex: runningIndex.

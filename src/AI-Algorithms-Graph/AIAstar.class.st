@@ -4,36 +4,34 @@ A* is a graph traversal and path search algorithm, which is used in many fields 
 Pseudocode and implementation for the approach is taken from: https://github.com/tatut/aoc2021-smalltalk/blob/main/src/AoC2021/AStar.class.st 
 "
 Class {
-	#name : 'AIAstar',
-	#superclass : 'AIGraphAlgorithm',
+	#name : #AIAstar,
+	#superclass : #AIGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end'
 	],
-	#category : 'AI-Algorithms-Graph-Shortest path',
-	#package : 'AI-Algorithms-Graph',
-	#tag : 'Shortest path'
+	#category : 'AI-Algorithms-Graph-Shortest path'
 }
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIAstar >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIAstar >> end [
 
 	^ end
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIAstar >> end: endModel [
 
 	end := self findNode: endModel
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIAstar >> heuristicFrom: startModel to: endModel [
 	"We are using a version of dijkstra algorithm here with all weights the for every node
 	(value 1).
@@ -80,27 +78,27 @@ AIAstar >> heuristicFrom: startModel to: endModel [
 	^ pathD
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AIAstar >> newPriorityQueue [
 	"We use the Heap object defined in the SequenceableCollections package."
 
 	^ Heap new
 ]
 
-{ #category : 'configuration' }
+{ #category : #configuration }
 AIAstar >> nodeClass [
 
 	^ AIPathDistanceNode
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIAstar >> pathDistance [
 	"Needs to be editted"
 
 	^ self end pathDistance
 ]
 
-{ #category : 'backtracking' }
+{ #category : #backtracking }
 AIAstar >> reconstructPath [
 
 	| path previous |
@@ -115,13 +113,13 @@ AIAstar >> reconstructPath [
 	^ path
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 AIAstar >> removeMostPromisingPair: aPriorityQueue [
 
 	^ aPriorityQueue removeFirst
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 AIAstar >> reset [
 
 	self nodes do: [ :node |
@@ -131,7 +129,7 @@ AIAstar >> reset [
 			previousNode: nil ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIAstar >> run [
 
 	| pq cameFrom gScore fScore gs fs |
@@ -181,14 +179,14 @@ AIAstar >> run [
 	]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIAstar >> runFrom: startModel [
 
 	self start: startModel.
 	self run
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 AIAstar >> runFrom: startModel to: endModel [
 
 	self start: startModel.
@@ -196,20 +194,20 @@ AIAstar >> runFrom: startModel to: endModel [
 	^ self run
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIAstar >> start [
 
 	^ start
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 AIAstar >> start: startModel [
 
 	start := self findNode: startModel.
 	start pathDistance: 0
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 AIAstar >> updateDistance: newDistance of: aNode previousNode: previousNode [
 
 	aNode previousNode: previousNode.
