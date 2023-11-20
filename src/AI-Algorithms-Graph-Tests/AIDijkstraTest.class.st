@@ -1,19 +1,21 @@
 Class {
-	#name : #AIDijkstraTest,
-	#superclass : #TestCase,
+	#name : 'AIDijkstraTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'dijkstra'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIDijkstraTest >> setUp [
 	super setUp.
 	dijkstra := AIDijkstra new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testAseBasicCircuit [
 
 	|graphType graph |
@@ -39,7 +41,7 @@ AIDijkstraTest >> testAseBasicCircuit [
 	self assert: Float infinity equals: (dijkstra findNode: $a) pathDistance
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testAseBasicCircuitBacktrack [
 
 	|graphType graph |
@@ -73,7 +75,7 @@ AIDijkstraTest >> testAseBasicCircuitBacktrack [
 				  reconstructPath))
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testComplexWeightedGraph2 [
 
 
@@ -95,7 +97,7 @@ AIDijkstraTest >> testComplexWeightedGraph2 [
 	self assert: (dijkstra findNode: 5) pathDistance equals: 10
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 
 	| shortestPath graphType graph |
@@ -138,7 +140,7 @@ AIDijkstraTest >> testComplexWeightedGraph2BackTracking [
 	dijkstra reset
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testComplexWeightedGraph3 [
 
 	| graphType graph |
@@ -158,7 +160,7 @@ AIDijkstraTest >> testComplexWeightedGraph3 [
 	self assert: (dijkstra findNode: $e) pathDistance equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 
 	| shortestPath graphType graph |
@@ -195,7 +197,7 @@ AIDijkstraTest >> testComplexWeightedGraph3Backtracking [
 	dijkstra reset
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testSimpleWeightedGraph [
 
 	|graphType graph |
@@ -215,7 +217,7 @@ AIDijkstraTest >> testSimpleWeightedGraph [
 	self assert: (dijkstra findNode: 5) pathDistance equals: 3
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDijkstraTest >> testSimpleWeightedGraphBacktracking [
 
 	| shortestPath graphType graph |

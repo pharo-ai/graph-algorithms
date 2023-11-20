@@ -2,22 +2,24 @@
 An AIShortestPathInDAGTest is a test class for testing the behavior of AIShortestPathInDAG
 "
 Class {
-	#name : #AIShortestPathInDAGTest,
-	#superclass : #TestCase,
+	#name : 'AIShortestPathInDAGTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'shortestPathAlgo'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIShortestPathInDAGTest >> setUp [
 
 	super setUp.
 	shortestPathAlgo := AIShortestPathInDAG new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIShortestPathInDAGTest >> testWeightedDAG [
 
 	| shortestPath graphType graph |
@@ -54,7 +56,7 @@ AIShortestPathInDAGTest >> testWeightedDAG [
 	self assert: shortestPath asArray equals: #(  )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIShortestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
 	| shortestPath graphType graph |

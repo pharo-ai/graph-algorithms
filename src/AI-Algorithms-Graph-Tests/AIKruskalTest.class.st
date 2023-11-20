@@ -1,14 +1,16 @@
 Class {
-	#name : #AIKruskalTest,
-	#superclass : #TestCase,
+	#name : 'AIKruskalTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'nodes',
 		'kruskal'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIKruskalTest >> setUp [
 
 	super setUp.
@@ -20,7 +22,7 @@ AIKruskalTest >> setUp [
 	nodes add: AIDisjointSetNode new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIKruskalTest >> testMaxSpanningTreeComplex [
 
 	| tree expectedEdges graphType graph |
@@ -47,7 +49,7 @@ AIKruskalTest >> testMaxSpanningTreeComplex [
 		equals: 223
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIKruskalTest >> testMaxSpanningTreeSimple [
 
 	| tree expectedEdges graphType graph |
@@ -69,7 +71,7 @@ AIKruskalTest >> testMaxSpanningTreeSimple [
 		equals: 17
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIKruskalTest >> testMinSpanningTreeComplex [
 
 	| tree graphType graph |
@@ -88,7 +90,7 @@ AIKruskalTest >> testMinSpanningTreeComplex [
 		equals: 164
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 
 	| tree graphType graph |
@@ -107,7 +109,7 @@ AIKruskalTest >> testMinSpanningTreeComplexDisconnected [
 		equals: 95
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIKruskalTest >> testMinSpanningTreeSimple [
 
 	| tree expectedEdges graphType graph |

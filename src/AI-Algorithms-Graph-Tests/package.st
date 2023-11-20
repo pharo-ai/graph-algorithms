@@ -1,1 +1,1 @@
-Package { #name : #'AI-Algorithms-Graph-Tests' }
+Package { #name : 'AI-Algorithms-Graph-Tests' }

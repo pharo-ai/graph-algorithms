@@ -1,19 +1,21 @@
 Class {
-	#name : #AITarjanTest,
-	#superclass : #TestCase,
+	#name : 'AITarjanTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'tarjan'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AITarjanTest >> setUp [
 	super setUp.
 	tarjan := AITarjan new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testComplexCycle [
 
 	| a b c d f e g h graphType graph|
@@ -49,7 +51,7 @@ AITarjanTest >> testComplexCycle [
 	self assertCollection: h cycleNodes hasSameElements: (Array with: g)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testComplexCycle2 [
 
 	| graphType graph|
@@ -67,7 +69,7 @@ AITarjanTest >> testComplexCycle2 [
 		hasSameElements: #( $b $e $d $f )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testCycle [
 
 	| a b c cycleNodesOfA graphType graph|
@@ -87,7 +89,7 @@ AITarjanTest >> testCycle [
 	self assert: (a cycleNodes includesAll: cycleNodesOfA)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testNestedCycle [
 
 	| a b c cycleNodesOfC d f e g h cycleNodesOfI i graphType graph|
@@ -118,7 +120,7 @@ AITarjanTest >> testNestedCycle [
 	self assert: (i cycleNodes includesAll: cycleNodesOfI)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testNoCycle [
 
 	| graphType graph|
@@ -130,7 +132,7 @@ AITarjanTest >> testNoCycle [
 	tarjan nodes do: [ :n | self deny: n isInCycle ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testStronglyConnectedGraph [
 
 	| nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graphType graph|
@@ -158,7 +160,7 @@ AITarjanTest >> testStronglyConnectedGraph [
 			nodeH }
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITarjanTest >> testStronglyConnectedGraphWithObjects [
 
 	| persons nodeA nodeD nodeF nodeB nodeC nodeE nodeG nodeH graphType graph|

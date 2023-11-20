@@ -5,23 +5,25 @@ Graph Class:
 3. Directed graphs
 "
 Class {
-	#name : #AIWeightedDAGFixture,
-	#superclass : #Object,
+	#name : 'AIWeightedDAGFixture',
+	#superclass : 'Object',
 	#instVars : [
 		'weightedDAG',
 		'withoutCyclesComplexWeightedGraph'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIWeightedDAGFixture >> initialize [ 
   super initialize .
   weightedDAG := self weightedDAG . 
   withoutCyclesComplexWeightedGraph := self withoutCyclesComplexWeightedGraph .
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AIWeightedDAGFixture >> weightedDAG [
 
 	"https://i.imgur.com/D5zMoQI.png"
@@ -37,7 +39,7 @@ AIWeightedDAGFixture >> weightedDAG [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AIWeightedDAGFixture >> withoutCyclesComplexWeightedGraph [
 
 	"This is a disconnected graph"

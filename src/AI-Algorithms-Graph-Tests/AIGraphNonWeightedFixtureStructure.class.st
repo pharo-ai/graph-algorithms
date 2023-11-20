@@ -4,12 +4,14 @@ Structure of Non Weighted Graphs
   - edges
 "
 Class {
-	#name : #AIGraphNonWeightedFixtureStructure,
-	#superclass : #AIGraphTestFixtureStructure,
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#name : 'AIGraphNonWeightedFixtureStructure',
+	#superclass : 'AIGraphTestFixtureStructure',
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #'drawing - roassal' }
+{ #category : 'drawing - roassal' }
 AIGraphNonWeightedFixtureStructure >> buildGraphCanvas [
 
 	| canvas |

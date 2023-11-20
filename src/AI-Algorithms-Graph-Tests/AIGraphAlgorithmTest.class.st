@@ -2,12 +2,14 @@
 A MalGraphAlgorithmTest is a test class for testing the behavior of MalGraphAlgorithm
 "
 Class {
-	#name : #AIGraphAlgorithmTest,
-	#superclass : #TestCase,
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#name : 'AIGraphAlgorithmTest',
+	#superclass : 'TestCase',
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphAlgorithmTest >> testAddNodesFromChildrenBlock [
 
 	| builder |
@@ -30,7 +32,7 @@ AIGraphAlgorithmTest >> testAddNodesFromChildrenBlock [
 	self assert: (builder findNode: ByteSymbol) adjacentNodes isEmpty
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 AIGraphAlgorithmTest >> testingAddingNodes [
 
    |graphType graph dijkstra|
@@ -51,7 +53,7 @@ AIGraphAlgorithmTest >> testingAddingNodes [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 AIGraphAlgorithmTest >> testingFindingNodes [
 
    |graphType graph dijkstra|
@@ -68,7 +70,7 @@ AIGraphAlgorithmTest >> testingFindingNodes [
 	self assert: Float infinity equals: (dijkstra findNode: $g) pathDistance.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 AIGraphAlgorithmTest >> testingNodeDictionary [
 
 	|graphType graph dijkstra|

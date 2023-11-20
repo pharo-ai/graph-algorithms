@@ -1,19 +1,21 @@
 Class {
-	#name : #AIBFSTest,
-	#superclass : #TestCase,
+	#name : 'AIBFSTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'bfsp'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIBFSTest >> setUp [
 	super setUp.
 	bfsp := AIBFS new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBFSTest >> testAseGraph [
 
 	|graph graphType|
@@ -32,7 +34,7 @@ AIBFSTest >> testAseGraph [
 	self assert: (#() hasEqualElements: (bfsp runFrom: $f to: $a))
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBFSTest >> testAseSccGraph [
 
 	|graph graphType|
@@ -45,7 +47,7 @@ AIBFSTest >> testAseSccGraph [
 	self assert: (#( $a $b $d ) hasEqualElements: (bfsp runFrom: $a to: $d))
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBFSTest >> testComplexUndirectedGraph [
 
 	|graph graphType|
@@ -62,7 +64,7 @@ AIBFSTest >> testComplexUndirectedGraph [
 	self assert: (#( 4 3 2 12 9 ) hasEqualElements: (bfsp runFrom: 4 to: 9))
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBFSTest >> testSimpleGraph [
 
 	|graph graphType|
@@ -74,7 +76,7 @@ AIBFSTest >> testSimpleGraph [
 	self assert: (#( $d $c ) hasEqualElements: (bfsp runFrom: $d to: $c))
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBFSTest >> testWithoutCyclesComplexGraph [
 
 	|graph graphType|

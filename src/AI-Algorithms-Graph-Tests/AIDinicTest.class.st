@@ -1,20 +1,21 @@
 Class {
-	#name : #AIDinicTest,
-	#superclass : #TestCase,
+	#name : 'AIDinicTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'dinic'
 	],
-	#category : #'AI-Algorithms-Graph-Tests'
+	#category : 'AI-Algorithms-Graph-Tests',
+	#package : 'AI-Algorithms-Graph-Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIDinicTest >> setUp [
 
 	super setUp.
 	dinic := AIDinic new.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDinicTest >> testComplexFlow [
 
 	| graphType graph value |
@@ -34,7 +35,7 @@ AIDinicTest >> testComplexFlow [
 	self assert: value equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIDinicTest >> testSimpleFlow [
 
 	| graphType graph value |

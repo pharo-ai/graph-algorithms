@@ -1,19 +1,21 @@
 Class {
-	#name : #AILongestPathInDCGTest,
-	#superclass : #TestCase,
+	#name : 'AILongestPathInDCGTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'longestPathAlgo'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Shortest path'
+	#category : 'AI-Algorithms-Graph-Tests-Shortest path',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Shortest path'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDCGTest >> setUp [
 	super setUp.
 	longestPathAlgo := AILongestPathInDCG new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 
 	|graphType graph |
@@ -41,7 +43,7 @@ AILongestPathInDCGTest >> testNegativeUnconnectedWeightedGraph [
 	self assert: (longestPathAlgo findNode: 9) pathDistance equals: 200
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AILongestPathInDCGTest >> testNegativeWeightedGraph [
 
 	|graphType graph |
@@ -68,7 +70,7 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph [
 	self assert: (longestPathAlgo findNode: 9) pathDistance equals: 200
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 
 	|graphType graph |
@@ -96,7 +98,7 @@ AILongestPathInDCGTest >> testNegativeWeightedGraph2 [
 	self assert: (longestPathAlgo findNode: 9) pathDistance equals: 200
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AILongestPathInDCGTest >> testNegativeWeightedGraphReconstrucPath [
 
 	|graphType graph |
