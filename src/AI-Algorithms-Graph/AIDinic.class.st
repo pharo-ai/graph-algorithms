@@ -46,18 +46,20 @@ value:= dinic run.
 value.
 "
 Class {
-	#name : #AIDinic,
-	#superclass : #AIGraphAlgorithm,
+	#name : 'AIDinic',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'adjList',
 		'queue',
 		'start',
 		'sink'
 	],
-	#category : #'AI-Algorithms-Graph'
+	#category : 'AI-Algorithms-Graph-Dinic',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Dinic'
 }
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIDinic >> addAdjList [
 
 	| arr fromNode |
@@ -68,13 +70,13 @@ AIDinic >> addAdjList [
 		arr add: i ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIDinic >> adjList [
 
 	^ adjList
 ]
 
-{ #category : #backtracking }
+{ #category : 'backtracking' }
 AIDinic >> bfs [
 	"This method uses bfs on the residual graph to construct a level graph.
 	The level graph assigns levels or distances to each node, indicating the shortest path from the source.
@@ -95,13 +97,13 @@ AIDinic >> bfs [
 	^ returnBool
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIDinic >> currentIndexSetup [
 
 	self nodes do: [ :n | n currentIndex: 1 ]
 ]
 
-{ #category : #backtracking }
+{ #category : 'backtracking' }
 AIDinic >> dfs: fromNode pushed: p [
 	"This method uses DFS-style algorithm to find a blocking flow (A blocking flow is a flow that saturates all the edges on the path, preventing any further flow) along the augmenting path.
 This performs a series of depth-first searches on the residual graph, exploring the edges with positive residual capacity."
@@ -136,13 +138,13 @@ This performs a series of depth-first searches on the residual graph, exploring 
 	^ 0
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIDinic >> edgeClass [
 
 	^ AINetworkFlowEdge
 ]
 
-{ #category : #'building - graph' }
+{ #category : 'building - graph' }
 AIDinic >> edges: aCollection from: source to: target capacity: capacityFunction [
 
 	| edge edgeRev|
@@ -153,7 +155,7 @@ AIDinic >> edges: aCollection from: source to: target capacity: capacityFunction
 		edgeRev ifNotNil: [ edgeRev capacity:0 ].]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIDinic >> initialize [
 
 	super initialize.
@@ -161,7 +163,7 @@ AIDinic >> initialize [
 	queue := LinkedList new
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIDinic >> initializeBfs [
 	"This method 
  - Initialises all the levels and current index of the nodes
@@ -175,26 +177,26 @@ AIDinic >> initializeBfs [
 	^ self bfs
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIDinic >> levelSetup [
 
 	self nodes do: [ :n | n level: -1 ]
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 AIDinic >> minimumValue: firstNumber compare: secondNumber [
 
 	firstNumber > secondNumber ifTrue: [ ^ secondNumber ].
 	^ firstNumber
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 AIDinic >> nodeClass [
 
 	^ AIDinicNode
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 AIDinic >> reverseEdge: fromNode to: toNode [
 
 	| e |
@@ -203,7 +205,7 @@ AIDinic >> reverseEdge: fromNode to: toNode [
 		e to == toNode & (e capacity = 0) ifTrue: [ ^ e ] ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIDinic >> run [
 
 	| finalFlow pushed breakLoop |
@@ -222,7 +224,7 @@ AIDinic >> run [
 	^ finalFlow
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIDinic >> setStartNode: startNode sinkNode: sinkNode [
 
 	start := startNode.

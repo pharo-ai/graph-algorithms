@@ -6,8 +6,9 @@ For more, see: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 Class {
 	#name : 'AIPrim',
 	#superclass : 'AIGraphAlgorithm',
-	#category : 'AI-Algorithms-Graph',
-	#package : 'AI-Algorithms-Graph'
+	#category : 'AI-Algorithms-Graph-Prim',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Prim'
 }
 
 { #category : 'configuration' }
