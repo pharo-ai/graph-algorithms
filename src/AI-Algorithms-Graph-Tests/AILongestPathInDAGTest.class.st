@@ -1,20 +1,22 @@
 Class {
-	#name : #AILongestPathInDAGTest,
-	#superclass : #TestCase,
+	#name : 'AILongestPathInDAGTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'longestPathAlgo'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AILongestPathInDAGTest >> setUp [
 
 	super setUp.
 	longestPathAlgo := AILongestPathInDAG new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AILongestPathInDAGTest >> testWeightedDAG [
 
 	| longestPath graphType graph |
@@ -51,7 +53,7 @@ AILongestPathInDAGTest >> testWeightedDAG [
 	self assert: longestPath asArray equals: #(  )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AILongestPathInDAGTest >> testWithoutCyclesComplexWeightedGraph [
 
 	| longestPath graphType graph |

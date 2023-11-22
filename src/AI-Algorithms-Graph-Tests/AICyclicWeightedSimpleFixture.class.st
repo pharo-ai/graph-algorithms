@@ -6,8 +6,8 @@ Graph Class:
 4. Simple Graphs
 "
 Class {
-	#name : #AICyclicWeightedSimpleFixture,
-	#superclass : #Object,
+	#name : 'AICyclicWeightedSimpleFixture',
+	#superclass : 'Object',
 	#instVars : [
 		'aseCircuitWeightedGraph',
 		'aseWeightedCircuitGraph',
@@ -17,10 +17,12 @@ Class {
 		'simpleWeightedGraph',
 		'simpleWeightedGraph2'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> aseCircuitWeightedGraph [
 
 	"This is the same graph, but with weights of 1 to all edges"
@@ -38,7 +40,7 @@ AICyclicWeightedSimpleFixture >> aseCircuitWeightedGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> aseWeightedCircuitGraph [
 
 	| nodes edges graph |
@@ -53,7 +55,7 @@ AICyclicWeightedSimpleFixture >> aseWeightedCircuitGraph [
 	^graph
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AICyclicWeightedSimpleFixture >> initialize [ 
   super initialize .
   aseCircuitWeightedGraph := self aseCircuitWeightedGraph . 
@@ -65,7 +67,7 @@ AICyclicWeightedSimpleFixture >> initialize [
   simpleWeightedGraph2 := self simpleWeightedGraph2 .
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> negativeUnconnectedWeightedGraph [
 
 	"https://i.imgur.com/EKPxvx7.png"
@@ -81,7 +83,7 @@ AICyclicWeightedSimpleFixture >> negativeUnconnectedWeightedGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> negativeWeightedGraph [
 
 	"https://i.imgur.com/GsnrKtx.png"
@@ -98,7 +100,7 @@ AICyclicWeightedSimpleFixture >> negativeWeightedGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> negativeWeightedGraph2 [
 
 	"https://i.imgur.com/R3EV1pl.png"
@@ -114,7 +116,7 @@ AICyclicWeightedSimpleFixture >> negativeWeightedGraph2 [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> simpleWeightedGraph [
 
 	"https://i.imgur.com/AQTX2hz.jpeg"
@@ -130,7 +132,7 @@ AICyclicWeightedSimpleFixture >> simpleWeightedGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedSimpleFixture >> simpleWeightedGraph2 [
 	"https://imgur.com/6Mjdngn"
 

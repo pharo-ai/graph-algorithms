@@ -6,8 +6,8 @@ Graph Class:
 4. Complex Graphs
 "
 Class {
-	#name : #AICyclicNonWeightedComplexFixture,
-	#superclass : #Object,
+	#name : 'AICyclicNonWeightedComplexFixture',
+	#superclass : 'Object',
 	#instVars : [
 		'complexCycleGraph',
 		'complexCycleGraph2',
@@ -15,10 +15,12 @@ Class {
 		'stronglyConnectedGraph',
 		'stronglyConnectedGraphWithObjects'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicNonWeightedComplexFixture >> complexCycleGraph [
 
 	"https://i.imgur.com/4trPCcb.jpeg"
@@ -35,7 +37,7 @@ AICyclicNonWeightedComplexFixture >> complexCycleGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicNonWeightedComplexFixture >> complexCycleGraph2 [
 	| nodes edges graph|
 	nodes := $a to: $i.
@@ -52,7 +54,7 @@ AICyclicNonWeightedComplexFixture >> complexCycleGraph2 [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicNonWeightedComplexFixture >> complexUndirectedGraph [
 
 	"https://i.imgur.com/qK2zsYb.png"
@@ -72,7 +74,7 @@ AICyclicNonWeightedComplexFixture >> complexUndirectedGraph [
 	^graph
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AICyclicNonWeightedComplexFixture >> initialize [ 
   |persons|
   super initialize .
@@ -84,7 +86,7 @@ AICyclicNonWeightedComplexFixture >> initialize [
   stronglyConnectedGraphWithObjects := self stronglyConnectedGraph: persons.
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph [
 
 	"This a graph for 4 strongly connected components "
@@ -102,7 +104,7 @@ AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph: objects [
 
 	"This is the exact same graph as #stronglyConnectedGraph: but using a custom object"
@@ -122,7 +124,7 @@ AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph: objects [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicNonWeightedComplexFixture >> stronglyConnectedGraph: graphBuilder withObjects: objects [
 
 	"This is the exact same graph as #stronglyConnectedGraph: but using a custom object"

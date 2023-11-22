@@ -5,18 +5,20 @@ Graph Class:
 3. Directed graphs
 "
 Class {
-	#name : #AINonWeightedDAGFixture,
-	#superclass : #Object,
+	#name : 'AINonWeightedDAGFixture',
+	#superclass : 'Object',
 	#instVars : [
 		'moduleGraph2',
 		'simpleGraph',
 		'withoutCyclesComplexGraph',
 		'withoutCyclesMediumGraph'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AINonWeightedDAGFixture >> initialize [ 
   super initialize .
   moduleGraph2 := self moduleGraph2 . 
@@ -25,7 +27,7 @@ AINonWeightedDAGFixture >> initialize [
   withoutCyclesMediumGraph := self withoutCyclesMediumGraph .
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AINonWeightedDAGFixture >> moduleGraph2 [
 
 	"sample graph from Habib et al for modular decomposition"
@@ -42,7 +44,7 @@ AINonWeightedDAGFixture >> moduleGraph2 [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AINonWeightedDAGFixture >> simpleGraph [
 
 	"https://i.imgur.com/uJwu5xS.jpeg"
@@ -57,7 +59,7 @@ AINonWeightedDAGFixture >> simpleGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AINonWeightedDAGFixture >> withoutCyclesComplexGraph [
 
 	"for longest path algo"
@@ -77,7 +79,7 @@ AINonWeightedDAGFixture >> withoutCyclesComplexGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AINonWeightedDAGFixture >> withoutCyclesMediumGraph [
 
 	"for longest path algo"

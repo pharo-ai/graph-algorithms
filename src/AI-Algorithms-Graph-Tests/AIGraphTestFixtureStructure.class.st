@@ -1,32 +1,34 @@
 Class {
-	#name : #AIGraphTestFixtureStructure,
-	#superclass : #Object,
+	#name : 'AIGraphTestFixtureStructure',
+	#superclass : 'Object',
 	#instVars : [
 		'nodes',
 		'edges'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #'drawing - roassal' }
+{ #category : 'drawing - roassal' }
 AIGraphTestFixtureStructure >> buildGraphCanvas [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphTestFixtureStructure >> edges [
 
 	^ edges
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphTestFixtureStructure >> edges: anObject [
 
 	edges := anObject
 ]
 
-{ #category : #inspector }
+{ #category : 'inspector' }
 AIGraphTestFixtureStructure >> inspectGraph [
 
 	<inspectorPresentationOrder: 0 title: 'Graph'>
@@ -37,25 +39,25 @@ AIGraphTestFixtureStructure >> inspectGraph [
 		  yourself
 ]
 
-{ #category : #inspector }
+{ #category : 'inspector' }
 AIGraphTestFixtureStructure >> inspectGraphContext: aContext [
 
 	aContext withoutEvaluator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphTestFixtureStructure >> nodes [
 
 	^ nodes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphTestFixtureStructure >> nodes: asObject [
 
 	nodes := asObject
 ]
 
-{ #category : #'drawing - roassal' }
+{ #category : 'drawing - roassal' }
 AIGraphTestFixtureStructure >> nodesAsRoassalShapes [
 
 	|nodesAsRoassalShapes |

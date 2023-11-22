@@ -1,19 +1,21 @@
 Class {
-	#name : #AIAstarTest,
-	#superclass : #TestCase,
+	#name : 'AIAstarTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'astar'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIAstarTest >> setUp [
 	super setUp.
 	astar := AIAstar new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testAseBasicCircuit [
 
 	|graphType graph |
@@ -39,7 +41,7 @@ AIAstarTest >> testAseBasicCircuit [
 	self assert: Float infinity equals: (astar findNode: $a) pathDistance
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testAseBasicCircuitBacktrack [
 
 	|graphType graph |
@@ -73,7 +75,7 @@ AIAstarTest >> testAseBasicCircuitBacktrack [
 				  reconstructPath))
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testComplexWeightedGraph2 [
 
 
@@ -95,7 +97,7 @@ AIAstarTest >> testComplexWeightedGraph2 [
 	self assert: (astar findNode: 5) pathDistance equals: 10
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testComplexWeightedGraph2BackTracking [
 
 	| shortestPath graphType graph |
@@ -138,7 +140,7 @@ AIAstarTest >> testComplexWeightedGraph2BackTracking [
 	astar reset
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testComplexWeightedGraph3 [
 
 	|graphType graph |
@@ -158,7 +160,7 @@ AIAstarTest >> testComplexWeightedGraph3 [
 	self assert: (astar findNode: $e) pathDistance equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testComplexWeightedGraph3Backtracking [
 
 	| shortestPath graphType graph |
@@ -195,7 +197,7 @@ AIAstarTest >> testComplexWeightedGraph3Backtracking [
 	astar reset
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testSimpleWeightedGraph [
 
 	|graphType graph |
@@ -215,7 +217,7 @@ AIAstarTest >> testSimpleWeightedGraph [
 	self assert: (astar findNode: 5) pathDistance equals: 3
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIAstarTest >> testSimpleWeightedGraphBacktracking [
 
 	| shortestPath graphType graph |

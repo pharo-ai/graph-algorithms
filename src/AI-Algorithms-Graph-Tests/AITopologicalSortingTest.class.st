@@ -2,21 +2,23 @@
 A MalTopologicalSortingTest is a test class for testing the behavior of MalTopologicalSorting
 "
 Class {
-	#name : #AITopologicalSortingTest,
-	#superclass : #TestCase,
+	#name : 'AITopologicalSortingTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'sorter'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AITopologicalSortingTest >> setUp [
 	super setUp.
 	sorter := AITopologicalSorting new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITopologicalSortingTest >> testSimpleGraph [
 
 	| sortedItems graphType graph|
@@ -33,7 +35,7 @@ AITopologicalSortingTest >> testSimpleGraph [
 	self assert: sortedItems asArray equals: #( $a $d $b $c )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITopologicalSortingTest >> testSortStringHierarchy [
 
 	| result topologicalOrder |
@@ -52,7 +54,7 @@ AITopologicalSortingTest >> testSortStringHierarchy [
 	self assertCollection: result equals: topologicalOrder
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITopologicalSortingTest >> testSortWithCycle [
 
 	| graphType graph|
@@ -63,7 +65,7 @@ AITopologicalSortingTest >> testSortWithCycle [
 	self should: [ sorter run ] raise: Error
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITopologicalSortingTest >> testSortWithReducedGraph [
 
 	| graphReducer result graphType graph|
@@ -85,7 +87,7 @@ AITopologicalSortingTest >> testSortWithReducedGraph [
 	self assert: (result at: 6) equals: $h
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITopologicalSortingTest >> testWithoutCyclesComplexGraph [
 
 	| sortedItems graphType graph|
@@ -110,7 +112,7 @@ AITopologicalSortingTest >> testWithoutCyclesComplexGraph [
 		#( $a $b $j $e $g $c $h $k $l $o $q $d $m $n $p $f $i $r $s )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AITopologicalSortingTest >> testWithoutCyclesMediumGraph [
 
 	| sortedItems graphType graph|

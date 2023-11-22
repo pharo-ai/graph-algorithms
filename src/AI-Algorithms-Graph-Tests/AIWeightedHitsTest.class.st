@@ -1,20 +1,22 @@
 Class {
-	#name : #AIWeightedHitsTest,
-	#superclass : #TestCase,
+	#name : 'AIWeightedHitsTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'hits'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIWeightedHitsTest >> setUp [
 
 	super setUp.
 	hits := AIWeightedHits new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIWeightedHitsTest >> testComplexWeighted [
 
 	| graphType graph |
@@ -32,7 +34,7 @@ AIWeightedHitsTest >> testComplexWeighted [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIWeightedHitsTest >> testComplexWeighted2 [
 
 	| graphType graph |
@@ -50,7 +52,7 @@ AIWeightedHitsTest >> testComplexWeighted2 [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIWeightedHitsTest >> testComplexWeighted3 [
 
 	| graphType graph |
@@ -68,7 +70,7 @@ AIWeightedHitsTest >> testComplexWeighted3 [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIWeightedHitsTest >> testSimpleW [
 
 	| graphType graph |
@@ -86,7 +88,7 @@ AIWeightedHitsTest >> testSimpleW [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIWeightedHitsTest >> testWithoutCyclesComplexWeightedGraph [
 
 	| graphType graph |

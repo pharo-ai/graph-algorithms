@@ -1,20 +1,22 @@
 Class {
-	#name : #AIHitsTest,
-	#superclass : #TestCase,
+	#name : 'AIHitsTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'hits'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIHitsTest >> setUp [
 
 	super setUp.
 	hits := AIHits new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testComplexCycle [
 
 	| graphType graph|
@@ -28,7 +30,7 @@ AIHitsTest >> testComplexCycle [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testComplexWCycle [
 
 	| graphType graph |
@@ -46,7 +48,7 @@ AIHitsTest >> testComplexWCycle [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testCycle [
 
 	| graphType graph|
@@ -60,7 +62,7 @@ AIHitsTest >> testCycle [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testGraphForHits [
 
 	| graphType graph|
@@ -75,7 +77,7 @@ AIHitsTest >> testGraphForHits [
 		self deny: node auth equals: 0 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testNestedCycle [
 
 	| graphType graph|
@@ -89,7 +91,7 @@ AIHitsTest >> testNestedCycle [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testSimple [
 
 	| graphType graph|
@@ -103,7 +105,7 @@ AIHitsTest >> testSimple [
 		self deny: node auth equals: 1 ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIHitsTest >> testSimpleW [
 
 	| graphType graph|

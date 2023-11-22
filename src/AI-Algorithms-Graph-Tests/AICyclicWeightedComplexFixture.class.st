@@ -6,18 +6,20 @@ Graph Class:
 4. Complex Graphs
 "
 Class {
-	#name : #AICyclicWeightedComplexFixture,
-	#superclass : #Object,
+	#name : 'AICyclicWeightedComplexFixture',
+	#superclass : 'Object',
 	#instVars : [
 		'complexWeightedGraph',
 		'complexWeightedGraph2',
 		'complexWeightedGraph3',
 		'complexWeightedGraph4'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedComplexFixture >> complexWeightedGraph [
 
 	"https://i.imgur.com/LAy4W3Z.jpeg"
@@ -37,7 +39,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedComplexFixture >> complexWeightedGraph2 [
 
 	"https://i.imgur.com/Syyd7YI.png"
@@ -53,7 +55,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph2 [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedComplexFixture >> complexWeightedGraph3 [
 
 	"https://i.imgur.com/0kgPUQM.png"
@@ -70,7 +72,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph3 [
 	^graph
 ]
 
-{ #category : #fixtures }
+{ #category : 'fixtures' }
 AICyclicWeightedComplexFixture >> complexWeightedGraph4 [
 	"https://imgur.com/Szd19hW"
 
@@ -92,7 +94,7 @@ AICyclicWeightedComplexFixture >> complexWeightedGraph4 [
 	^graph
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AICyclicWeightedComplexFixture >> initialize [ 
   super initialize .
   complexWeightedGraph := self complexWeightedGraph . 

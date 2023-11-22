@@ -2,21 +2,23 @@
 An AIBellmanFordTest is a test class for testing the behavior of AIBellmanFord
 "
 Class {
-	#name : #AIBellmanFordTest,
-	#superclass : #TestCase,
+	#name : 'AIBellmanFordTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'bellmanFord'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Shortest path'
+	#category : 'AI-Algorithms-Graph-Tests-Shortest path',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Shortest path'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIBellmanFordTest >> setUp [
 	super setUp.
 	bellmanFord := AIBellmanFord new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 
 	|graphType graph |
@@ -44,7 +46,7 @@ AIBellmanFordTest >> testNegativeUnconnectedWeightedGraph [
 	self assert: (bellmanFord findNode: 9) pathDistance equals: Float negativeInfinity
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBellmanFordTest >> testNegativeWeightedGraph [
 
 	|graphType graph |
@@ -71,7 +73,7 @@ AIBellmanFordTest >> testNegativeWeightedGraph [
 	self assert: (bellmanFord findNode: 9) pathDistance equals: Float negativeInfinity
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBellmanFordTest >> testNegativeWeightedGraph2 [
 
 	|graphType graph |
@@ -99,7 +101,7 @@ AIBellmanFordTest >> testNegativeWeightedGraph2 [
 	self assert: (bellmanFord findNode: 9) pathDistance equals: Float negativeInfinity
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIBellmanFordTest >> testNegativeWeightedGraphReconstrucPath [
 
 	|graphType graph |

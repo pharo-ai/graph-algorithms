@@ -1,13 +1,15 @@
 Class {
-	#name : #AIGraphReducerTest,
-	#superclass : #TestCase,
+	#name : 'AIGraphReducerTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'graphReducer'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #helpers }
+{ #category : 'helpers' }
 AIGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 
 	aNodeList collect: [ :each | each model ] thenDo: [ :model |
@@ -16,21 +18,21 @@ AIGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 			description: model asString , ' should not be referenced!' ]
 ]
 
-{ #category : #helpers }
+{ #category : 'helpers' }
 AIGraphReducerTest >> mergedNodesIn: aNodeList [
 
-	^ (aNodeList select: [ :node | node mergedNodes notNil ])
+	^ (aNodeList select: [ :node | node mergedNodes isNotNil ])
 		  flatCollect: #mergedNodes
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 AIGraphReducerTest >> setUp [
 
 	super setUp.
 	graphReducer := AIGraphReducer new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testAdjacenciesFor [
 
 	| nodes graphType graph|
@@ -48,7 +50,7 @@ AIGraphReducerTest >> testAdjacenciesFor [
 		equals: #( $a $b $d $e $i )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testComplexCycle [
 
 	| mergedNodes graphType graph|
@@ -73,7 +75,7 @@ AIGraphReducerTest >> testComplexCycle [
 			 collapsedNode includesAll: #( $c $d $f ) ])
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testComplexCycle2 [
 
 	| graphType graph|
@@ -86,7 +88,7 @@ AIGraphReducerTest >> testComplexCycle2 [
 	self assert: (graphReducer nodes at: 6) mergedNodes size equals: 4
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testComplexCycleReferences [
 
 	| mergedNodes reducedNodeA reducedNodeB reducedNodeE reducedNodeCDF reducedNodeGH graphType graph|
@@ -135,7 +137,7 @@ AIGraphReducerTest >> testComplexCycleReferences [
 	self assert: reducedNodeCDF adjacentNodes size equals: 1
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 
 	| initialGraph graphType graph|
@@ -148,7 +150,7 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycle [
 	self assert: initialGraph equals: graphReducer graph
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 
 	| reducedNodeA reducedNodeB reducedNodeC reducedNodeD graphType graph|
@@ -177,7 +179,7 @@ AIGraphReducerTest >> testGraphReducingWhenNoCycleReferences [
 	self assert: reducedNodeC adjacentNodes isEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 
 	| graphType graph|
@@ -191,7 +193,7 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 
 	| graphType graph|
@@ -205,7 +207,7 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesC2 [
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 
 	| graphType graph|
@@ -219,7 +221,7 @@ AIGraphReducerTest >> testMergedNodesNotReferencedInNextNodesForSCG [
 		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testNoCycle [
 
 	| graphType graph|
@@ -234,7 +236,7 @@ AIGraphReducerTest >> testNoCycle [
 			description: node asString , ' node is in cycle!' ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testStronglyConnectedGraph [
 
 	| nodeModels nodeModelsCollection graphType graph|
@@ -256,7 +258,7 @@ AIGraphReducerTest >> testStronglyConnectedGraph [
 		aNodeModel includesAll: #( $f $g $h ) ])
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIGraphReducerTest >> testStronglyConnectedGraphReferences [
 
 	| reducedNodeI mergedNodes reducedNodeABC reducedNodeDE reducedNodeFGH graphType graph|

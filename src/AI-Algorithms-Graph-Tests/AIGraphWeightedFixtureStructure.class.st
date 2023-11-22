@@ -5,12 +5,14 @@ Structure of Weighted Graphs
   - weight
 "
 Class {
-	#name : #AIGraphWeightedFixtureStructure,
-	#superclass : #AIGraphTestFixtureStructure,
-	#category : #'AI-Algorithms-Graph-Tests-Fixture'
+	#name : 'AIGraphWeightedFixtureStructure',
+	#superclass : 'AIGraphTestFixtureStructure',
+	#category : 'AI-Algorithms-Graph-Tests-Fixture',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Fixture'
 }
 
-{ #category : #'drawing - roassal' }
+{ #category : 'drawing - roassal' }
 AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 
 	| canvas arrowHeight marker attachedPoint interaction |

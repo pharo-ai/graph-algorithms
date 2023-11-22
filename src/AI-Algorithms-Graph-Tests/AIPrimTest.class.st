@@ -1,20 +1,22 @@
 Class {
-	#name : #AIPrimTest,
-	#superclass : #TestCase,
+	#name : 'AIPrimTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'prim'
 	],
-	#category : #'AI-Algorithms-Graph-Tests-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 AIPrimTest >> setUp [
 
 	super setUp.
 	prim := AIPrim new.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIPrimTest >> testMinSpanningTreeComplex2 [
 
 	| tree graphType graph |
@@ -33,7 +35,7 @@ AIPrimTest >> testMinSpanningTreeComplex2 [
 		equals: 112
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIPrimTest >> testMinimumSpanningTreeComplex [
 
 	| tree expectedEdges graphType graph |
@@ -55,7 +57,7 @@ AIPrimTest >> testMinimumSpanningTreeComplex [
 		equals: 9
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 AIPrimTest >> testMinimumSpanningTreeSimple [
 
 	| tree expectedEdges graphType graph |
