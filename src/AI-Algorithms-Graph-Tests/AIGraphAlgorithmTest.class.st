@@ -32,7 +32,7 @@ AIGraphAlgorithmTest >> testAddNodesFromChildrenBlock [
 	self assert: (builder findNode: ByteSymbol) adjacentNodes isEmpty
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'tests' }
 AIGraphAlgorithmTest >> testingAddingNodes [
 
    |graphType graph dijkstra|
@@ -53,7 +53,7 @@ AIGraphAlgorithmTest >> testingAddingNodes [
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'tests' }
 AIGraphAlgorithmTest >> testingFindingNodes [
 
    |graphType graph dijkstra|
@@ -70,7 +70,7 @@ AIGraphAlgorithmTest >> testingFindingNodes [
 	self assert: Float infinity equals: (dijkstra findNode: $g) pathDistance.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'tests' }
 AIGraphAlgorithmTest >> testingNodeDictionary [
 
 	|graphType graph dijkstra|
