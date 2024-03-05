@@ -30,10 +30,11 @@ This library contains several graphs algorithms. The nodes in the graph can be a
 ## How to install it
 
 ```smalltalk
-Metacello new
-    repository: 'github://pharo-ai/graph-algorithms';
-    baseline: 'AIGraphAlgorithms';
-    load
+EpMonitor disableDuring: [
+    Metacello new
+        repository: 'github://pharo-ai/graph-algorithms';
+        baseline: 'AIGraphAlgorithms';
+        load ]
 ```
 
 ## How to depend on it
