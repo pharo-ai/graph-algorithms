@@ -34,14 +34,6 @@ AIDijkstra >> end: endModel [
 	end := (self findNode: endModel)
 ]
 
-{ #category : 'actions' }
-AIDijkstra >> newPriorityQueue [
-
-	"We use the Heap object defined in the SequenceableCollections package."
-
-	^ Heap new
-]
-
 { #category : 'configuration' }
 AIDijkstra >> nodeClass [
 
@@ -89,7 +81,7 @@ AIDijkstra >> reset [
 AIDijkstra >> run [
 
 	| pq |
-	pq := self newPriorityQueue.
+	pq := Heap new.
 	pq sortBlock: [ :element1 :element2 | (element1 priority ) <= (element2 priority )].
 	start priority: 0.
 	pq add: start.
