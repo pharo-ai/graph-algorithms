@@ -6,6 +6,9 @@ For more, see: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 Class {
 	#name : 'AIPrim',
 	#superclass : 'AIGraphAlgorithm',
+	#instVars : [ 
+		'treeEdges' 
+	],
 	#category : 'AI-Algorithms-Graph-Prim',
 	#package : 'AI-Algorithms-Graph',
 	#tag : 'Prim'
@@ -33,6 +36,12 @@ AIPrim >> minNode [
 			lowKey := each distance.
 			lowNode := each ] ].
 	^ lowNode
+]
+
+{ #category : 'accessing' }
+AIPrim >> reconstructMST [
+	
+	^ treeEdges
 ]
 
 { #category : 'configuration' }
@@ -71,6 +80,5 @@ AIPrim >> run [
 			& toNode visited not ifTrue: [
 				toNode previousNode: curNode.
 				toNode distance: curEdge third ] ] ].
-
-	^ treeEdges
+				
 ]
