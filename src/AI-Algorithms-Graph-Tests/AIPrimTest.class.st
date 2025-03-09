@@ -19,7 +19,7 @@ AIPrimTest >> setUp [
 { #category : 'tests' }
 AIPrimTest >> testMinSpanningTreeComplex2 [
 
-	| tree graphType graph |
+	| resultEdges graphType graph |
 	graphType := AICyclicWeightedComplexFixture new.
 	graph :=graphType complexWeightedGraph4.
 	prim nodes: graph nodes.
@@ -28,17 +28,18 @@ AIPrimTest >> testMinSpanningTreeComplex2 [
 		from: #first
 		to: #second
 		weight: #third.
-	tree := prim run collect: [ :e | e asTuple ].
-	self assert: tree size equals: 11.
+	prim run.
+	resultEdges := prim minimumSpanningTreeEdges collect: [ :e | e asTuple ].
+	self assert: resultEdges size equals: 11.
 	self
-		assert: (tree inject: 0 into: [ :sum :edge | sum + edge third ])
+		assert: (resultEdges inject: 0 into: [ :sum :edge | sum + edge third ])
 		equals: 112
 ]
 
 { #category : 'tests' }
 AIPrimTest >> testMinimumSpanningTreeComplex [
 
-	| tree expectedEdges graphType graph |
+	| resultEdges expectedEdges graphType graph |
 	graphType := AICyclicWeightedComplexFixture new.
 	graph :=graphType complexWeightedGraph3.
 	prim nodes: graph nodes.
@@ -47,20 +48,21 @@ AIPrimTest >> testMinimumSpanningTreeComplex [
 		from: #first
 		to: #second
 		weight: #third.
-	tree := prim run collect: [ :e | e asTuple ].
+	prim run.
+	resultEdges := prim minimumSpanningTreeEdges collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( $a $d 1 ) #( $d $e 1 ) #( $d $b 2 )
 	                    #( $e $c 5 ) ).
-	self assertCollection: tree hasSameElements: expectedEdges.
+	self assertCollection: resultEdges hasSameElements: expectedEdges.
 	self
-		assert: (tree inject: 0 into: [ :sum :edge | sum + edge third ])
+		assert: (resultEdges inject: 0 into: [ :sum :edge | sum + edge third ])
 		equals: 9
 ]
 
 { #category : 'tests' }
 AIPrimTest >> testMinimumSpanningTreeSimple [
 
-	| tree expectedEdges graphType graph |
+	| resultEdges expectedEdges graphType graph |
 	graphType := AICyclicWeightedSimpleFixture new.
 	graph :=graphType simpleWeightedGraph2.
 	prim nodes: graph nodes.
@@ -69,11 +71,12 @@ AIPrimTest >> testMinimumSpanningTreeSimple [
 		from: #first
 		to: #second
 		weight: #third.
-	tree := prim run collect: [ :e | e asTuple ].
+	prim run.
+	resultEdges := prim minimumSpanningTreeEdges collect: [ :e | e asTuple ].
 
 	expectedEdges := #( #( 1 2 3 ) #( 2 3 1 ) #( 3 4 2 ) #( 4 5 3 ) ).
-	self assertCollection: tree hasSameElements: expectedEdges.
+	self assertCollection: resultEdges hasSameElements: expectedEdges.
 	self
-		assert: (tree inject: 0 into: [ :sum :edge | sum + edge third ])
+		assert: (resultEdges inject: 0 into: [ :sum :edge | sum + edge third ])
 		equals: 9
 ]
