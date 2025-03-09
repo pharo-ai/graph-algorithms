@@ -39,7 +39,7 @@ AIPrim >> minNode [
 ]
 
 { #category : 'accessing' }
-AIPrim >> reconstructMST [
+AIPrim >> minimumSpanningTreeEdges [
 	
 	^ treeEdges
 ]
@@ -53,7 +53,7 @@ AIPrim >> nodeClass [
 { #category : 'running' }
 AIPrim >> run [
 
-	| curNode curEdge treeEdges fromNode toNode primEdge |
+	| curNode curEdge fromNode toNode primEdge |
 	nodes do: [ :each | each distance: Float infinity ].
 
 	treeEdges := OrderedCollection new.
