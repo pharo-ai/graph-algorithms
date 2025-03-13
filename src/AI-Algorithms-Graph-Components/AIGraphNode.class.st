@@ -2,79 +2,81 @@
 Default representation of a graph vertex (node).
 "
 Class {
-	#name : #AIGraphNode,
-	#superclass : #Object,
+	#name : 'AIGraphNode',
+	#superclass : 'Object',
 	#instVars : [
 		'model',
 		'adjacentNodes'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AIGraphNode class >> with: aModel [
 
 	^ self new model: aModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> adjacentNodes [
 
 	^ adjacentNodes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> adjacentNodes: aNodeList [
 
 	adjacentNodes := aNodeList
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> from: sourceNode [
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> from: sourceNode edge: anEdge [
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIGraphNode >> initialize [
 
 	super initialize.
 	adjacentNodes := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> label [
 
 	^ 'Node: '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> model [
 
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> model: aModel [
 
 	model := aModel
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AIGraphNode >> printOn: stream [
 
 	stream nextPutAll: self label.
 	model printOn: stream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> to: targetNode [
 
 	adjacentNodes add: targetNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIGraphNode >> to: targetNode edge: anEdge [
 ]

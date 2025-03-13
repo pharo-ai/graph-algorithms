@@ -1,1 +1,1 @@
-Package { #name : #'AI-Algorithms-Graph-Components' }
+Package { #name : 'AI-Algorithms-Graph-Components' }

@@ -3,31 +3,33 @@ Node used by the MalReducedGraph algorithm.
 It has an additional instance variable to track merged nodes.
 "
 Class {
-	#name : #AIReducedGraphNode,
-	#superclass : #AIGraphNode,
+	#name : 'AIReducedGraphNode',
+	#superclass : 'AIGraphNode',
 	#instVars : [
 		'mergedNodes'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIReducedGraphNode >> label [
 
 	^ 'Merged nodes: '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIReducedGraphNode >> mergedNodes [
 	^ mergedNodes
 ]
 
-{ #category : #setting }
+{ #category : 'setting' }
 AIReducedGraphNode >> mergedNodes: aNodeList [
 	mergedNodes := aNodeList
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AIReducedGraphNode >> printOn: stream [
 
 	stream nextPutAll: self label.

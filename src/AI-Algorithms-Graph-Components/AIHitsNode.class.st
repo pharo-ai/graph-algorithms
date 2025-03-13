@@ -2,36 +2,38 @@
 I am a node used for the Hits algorithm
 "
 Class {
-	#name : #AIHitsNode,
-	#superclass : #AINodeWithPrevious,
+	#name : 'AIHitsNode',
+	#superclass : 'AINodeWithPrevious',
 	#instVars : [
 		'auth',
 		'hub'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIHitsNode >> auth [
 	^ auth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIHitsNode >> auth: anObject [
 	auth := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIHitsNode >> hub [
 	^ hub
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIHitsNode >> hub: anObject [
 	hub := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIHitsNode >> initialize [
 
 	super initialize.
@@ -39,13 +41,13 @@ AIHitsNode >> initialize [
 	hub := 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIHitsNode >> label [
 
 	^ 'H '
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AIHitsNode >> printOn: aStream [
 
 	aStream nextPut: $(.

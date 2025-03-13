@@ -6,8 +6,8 @@ For more, see: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 Class {
 	#name : 'AIPrim',
 	#superclass : 'AIGraphAlgorithm',
-	#instVars : [ 
-		'treeEdges' 
+	#instVars : [
+		'treeEdges'
 	],
 	#category : 'AI-Algorithms-Graph-Prim',
 	#package : 'AI-Algorithms-Graph',
