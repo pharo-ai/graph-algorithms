@@ -7,43 +7,45 @@ Tha instance variable `cycleNodes` is a list that contains all the other nodes t
 
 "
 Class {
-	#name : #AITarjanNode,
-	#superclass : #AIGraphNode,
+	#name : 'AITarjanNode',
+	#superclass : 'AIGraphNode',
 	#instVars : [
 		'index',
 		'lowlink',
 		'inStack',
 		'cycleNodes'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AITarjanNode >> cycleNodes [
 
 	^ cycleNodes
 ]
 
-{ #category : #setting }
+{ #category : 'setting' }
 AITarjanNode >> cycleNodes: anObject [
 
 	cycleNodes := anObject copy.
 	cycleNodes remove: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AITarjanNode >> inStack [
 
 	^ inStack
 ]
 
-{ #category : #setting }
+{ #category : 'setting' }
 AITarjanNode >> inStack: aBoolean [
 
 	inStack := aBoolean
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AITarjanNode >> initialize [
 
 	super initialize.
@@ -52,49 +54,49 @@ AITarjanNode >> initialize [
 	inStack := false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AITarjanNode >> isInCycle [
 
 	^ self cycleNodes isNotEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AITarjanNode >> isTarjanUndefined [
 
 	^ index = -1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AITarjanNode >> label [
 
 	^ 'Tarjan Node: '
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 AITarjanNode >> popped [
 
 	inStack := false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AITarjanNode >> tarjanIndex [
 
 	^ index
 ]
 
-{ #category : #setting }
+{ #category : 'setting' }
 AITarjanNode >> tarjanIndex: anInteger [
 
 	index := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AITarjanNode >> tarjanLowlink [
 
 	^ lowlink
 ]
 
-{ #category : #setting }
+{ #category : 'setting' }
 AITarjanNode >> tarjanLowlink: anInteger [
 
 	lowlink := anInteger

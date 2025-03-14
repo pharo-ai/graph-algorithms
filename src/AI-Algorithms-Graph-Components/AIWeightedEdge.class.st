@@ -8,21 +8,23 @@ Instance Variables
 	weight: <Number>
 "
 Class {
-	#name : #AIWeightedEdge,
-	#superclass : #AIGraphEdge,
+	#name : 'AIWeightedEdge',
+	#superclass : 'AIGraphEdge',
 	#instVars : [
 		'weight'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Edges'
+	#category : 'AI-Algorithms-Graph-Components-Edges',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Edges'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedEdge >> asTuple [
 
 	^ {from model. to model. weight}
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AIWeightedEdge >> printOn: aStream [
 
 	self from printOn: aStream.
@@ -32,12 +34,12 @@ AIWeightedEdge >> printOn: aStream [
 	self weight printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedEdge >> weight [
 	^ weight
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedEdge >> weight: anObject [
 	weight := anObject
 ]

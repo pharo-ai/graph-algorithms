@@ -13,15 +13,17 @@ But, when you call the method `find` I path compress the nodes to make all the n
 I am used by the Kruskal's algorithm to find cycles in a graph with a constant time.
 "
 Class {
-	#name : #AIDisjointSetNode,
-	#superclass : #AIGraphNode,
+	#name : 'AIDisjointSetNode',
+	#superclass : 'AIGraphNode',
 	#instVars : [
 		'parent'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIDisjointSetNode >> find [
 
 	| root next node |
@@ -41,38 +43,38 @@ AIDisjointSetNode >> find [
 	^ root
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIDisjointSetNode >> initialize [
 
 	super initialize.
 	self makeSet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIDisjointSetNode >> label [
 
 	^ 'DSN '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIDisjointSetNode >> makeSet [
 
 	parent := self
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 AIDisjointSetNode >> parent [
 
 	^ parent
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 AIDisjointSetNode >> parent: anObject [
 
 	parent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIDisjointSetNode >> union: aDSNode [
 
 	| root1 root2 |

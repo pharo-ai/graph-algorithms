@@ -2,8 +2,8 @@
 I am a node that is used in the Dijkstra algorithm
 "
 Class {
-	#name : #AIPathDistanceNode,
-	#superclass : #AIGraphNode,
+	#name : 'AIPathDistanceNode',
+	#superclass : 'AIGraphNode',
 	#instVars : [
 		'previousNode',
 		'visited',
@@ -11,10 +11,12 @@ Class {
 		'pathDistance',
 		'priority'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIPathDistanceNode >> initialize [
 
 	super initialize.
@@ -25,37 +27,37 @@ AIPathDistanceNode >> initialize [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> outgoingEdges [
 
 	^ outgoingEdges
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> pathDistance [
 
 	^ pathDistance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> pathDistance: anObject [
 
 	pathDistance := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> previousNode [
 
 	^ previousNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> previousNode: aNode [
 
 	previousNode := aNode
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AIPathDistanceNode >> printOn: aStream [
 
 	super printOn: aStream.
@@ -64,32 +66,32 @@ AIPathDistanceNode >> printOn: aStream [
 		nextPutAll: pathDistance asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> priority [ 
 	
 	^ priority 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> priority: anInteger [
 	
 	priority := anInteger.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> to: aNode edge: anEdge [
 
 	outgoingEdges add: anEdge.
 	adjacentNodes add: aNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> visited [
 
 	^ visited
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIPathDistanceNode >> visited: anObject [
 
 	visited := anObject

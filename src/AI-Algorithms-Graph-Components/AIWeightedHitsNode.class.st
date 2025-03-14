@@ -2,29 +2,31 @@
 I am a node used for the weighted hits algorithm
 "
 Class {
-	#name : #AIWeightedHitsNode,
-	#superclass : #AIHitsNode,
+	#name : 'AIWeightedHitsNode',
+	#superclass : 'AIHitsNode',
 	#instVars : [
 		'outgoingEdges',
 		'incomingEdges'
 	],
-	#category : #'AI-Algorithms-Graph-Components-Nodes'
+	#category : 'AI-Algorithms-Graph-Components-Nodes',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Nodes'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedHitsNode >> from: aNode edge: anEdge [
 
 	incomingNodes add: aNode.
 	incomingEdges add: anEdge
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedHitsNode >> incomingEdges [
 
 	^ incomingEdges
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 AIWeightedHitsNode >> initialize [
 
 	super initialize.
@@ -32,19 +34,19 @@ AIWeightedHitsNode >> initialize [
 	incomingEdges := OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedHitsNode >> label [
 
 	^ 'WH '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedHitsNode >> outgoingEdges [
 
 	^ outgoingEdges
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AIWeightedHitsNode >> to: aNode edge: anEdge [
 
 	adjacentNodes add: aNode.
