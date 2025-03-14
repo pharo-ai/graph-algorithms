@@ -19,8 +19,7 @@ Class {
 	#instVars : [
 		'start',
 		'end',
-		'stack',
-		'time'
+		'stack'
 	],
 	#category : 'AI-Algorithms-Graph-Shortest path',
 	#package : 'AI-Algorithms-Graph',
@@ -67,13 +66,12 @@ AIDFS >> reconstructPath [
 { #category : 'actions' }
 AIDFS >> resetValues [
 
-	time := 0.
 	nodes do: [ :aNode |
 		aNode
 			visited: false;
-			previousNode: nil;
-			discoveryTime: 0;
-			finishTime: 0 ]
+			previousNode: nil
+			
+			]
 ]
 
 { #category : 'running' }
@@ -84,8 +82,6 @@ AIDFS >> run [
 
 	stack := LinkedList new.
 	start visited: true.
-	time := time + 1.
-	start discoveryTime: time.
 	stack addLast: start.
 
 	[ stack isNotEmpty ] whileTrue: [
@@ -97,14 +93,10 @@ AIDFS >> run [
 		unvisitedNeighbor
 			ifNotNil: [ "Process unvisited neighbor"
 				unvisitedNeighbor visited: true.
-				time := time + 1.
-				unvisitedNeighbor discoveryTime: time.
 				unvisitedNeighbor previousNode: node.
 				stack addLast: unvisitedNeighbor ]
 			ifNil: [ "Backtrack when no more unvisited neighbors"
-				stack removeLast.
-				time := time + 1.
-				node finishTime: time ] ]
+				stack removeLast. ] ]
 ]
 
 { #category : 'running' }
