@@ -30,8 +30,9 @@ AIFloydWarshallTest >> testAllPairsDistances [
 		to: #second
 		weight: #third.
 
-	result := floydWarshall runAndGetAllPairsDistances.
-
+	floydWarshall run.
+	result := floydWarshall getAllPairsDistances.
+	
 	self assert: (result at: { 1. 2 }) equals: 3.
 	self assert: (result at: { 1. 5 }) equals: 8.
 	self assert: (result at: { 3. 5 }) equals: 5
@@ -51,8 +52,9 @@ AIFloydWarshallTest >> testAllPairsPaths [
 		to: #second
 		weight: #third.
 
-	result := floydWarshall runAndGetAllPairsPaths.
-
+	floydWarshall run.
+	result := floydWarshall getAllPairsPaths.
+	
 	self assert: (result at: { 1. 2 }) equals: #( 1 2 ).
 	self assert: (result at: { 1. 5 }) equals: #( 1 5 ).
 	self assert: (result at: { 3. 5 }) equals: #( 3 4 5 )

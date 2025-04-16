@@ -27,6 +27,22 @@ Class {
 	#tag : 'Shortest path'
 }
 
+{ #category : 'private' }
+AIFloydWarshall >> computeAllPairsShortestPaths [
+
+	nodes do: [ :k |
+        nodes do: [ :i |
+            nodes do: [ :j |
+                | currentDist throughK |
+                currentDist := distanceMatrix at: {i. j}.
+                ((distanceMatrix at: {i. k}) ~= Float infinity and: [
+                   (distanceMatrix at: {k. j}) ~= Float infinity ]) ifTrue: [
+                    throughK := (distanceMatrix at: {i. k}) + (distanceMatrix at: {k. j}).
+                    throughK < currentDist ifTrue: [
+                        distanceMatrix at: {i. j} put: throughK.
+                        nextMatrix at: {i. j} put: (nextMatrix at: {i. k}) ] ] ] ] ]
+]
+
 { #category : 'configuration' }
 AIFloydWarshall >> distanceFrom: sourceModel to: destinationModel [
 
@@ -46,6 +62,56 @@ AIFloydWarshall >> distanceMatrix [
 AIFloydWarshall >> edgeClass [
 	
 	^ AIWeightedEdge
+]
+
+{ #category : 'running' }
+AIFloydWarshall >> getAllPairsDistances [
+
+	| result |
+	
+	result := Dictionary new.
+	nodes do: [ :source |
+		nodes do: [ :destination |
+			result
+				at: {
+						source model.
+						destination model }
+				put: (distanceMatrix at: {
+							 source.
+							 destination }) ] ].
+
+	^ result
+]
+
+{ #category : 'running' }
+AIFloydWarshall >> getAllPairsPaths [
+
+	| result |
+	result := Dictionary new.
+	nodes do: [ :source |
+		nodes do: [ :destination |
+			result
+				at: {
+						source model.
+						destination model }
+				put: (self pathFrom: source model to: destination model) ] ].
+	^ result
+]
+
+{ #category : 'private' }
+AIFloydWarshall >> handleNegativeCycles [
+
+	nodes do: [ :v | (distanceMatrix at: {v. v}) < 0 ifTrue: [ hasNegativeCycle := true ] ].
+    
+    hasNegativeCycle ifTrue: [
+        nodes do: [ :k |
+            (distanceMatrix at: {k. k}) < 0 ifTrue: [
+                nodes do: [ :i |
+                    nodes do: [ :j |
+                        ((distanceMatrix at: {i. k}) ~= Float infinity and: [
+                           (distanceMatrix at: {k. j}) ~= Float infinity ]) ifTrue: [
+                            distanceMatrix at: {i. j} put: Float negativeInfinity.
+                            nextMatrix at: {i. j} put: nil ] ] ] ] ] ]
 ]
 
 { #category : 'accessing' }
@@ -131,96 +197,8 @@ AIFloydWarshall >> reset [
 AIFloydWarshall >> run [
 
 	self reset.
-
-	nodes do: [ :k |
-		nodes do: [ :i |
-			nodes do: [ :j |
-				| currentDist throughK |
-				currentDist := distanceMatrix at: {
-						               i.
-						               j }.
-				((distanceMatrix at: {
-						  i.
-						  k }) ~= Float infinity and: [
-					 (distanceMatrix at: {
-							  k.
-							  j }) ~= Float infinity ]) ifTrue: [
-					throughK := (distanceMatrix at: {
-							             i.
-							             k }) + (distanceMatrix at: {
-							             k.
-							             j }).
-					throughK < currentDist ifTrue: [
-						distanceMatrix
-							at: {
-									i.
-									j }
-							put: throughK.
-						nextMatrix
-							at: {
-									i.
-									j }
-							put: (nextMatrix at: {
-										 i.
-										 k }) ] ] ] ] ].
-
-	nodes do: [ :v |
-		(distanceMatrix at: {
-				 v.
-				 v }) < 0 ifTrue: [ hasNegativeCycle := true ] ].
-
-	hasNegativeCycle ifTrue: [
-		nodes do: [ :k |
-			(distanceMatrix at: {
-					 k.
-					 k }) < 0 ifTrue: [
-				nodes do: [ :i |
-					nodes do: [ :j |
-						((distanceMatrix at: {
-								  i.
-								  k }) ~= Float infinity and: [
-							 (distanceMatrix at: {
-									  k.
-									  j }) ~= Float infinity ]) ifTrue: [
-							distanceMatrix
-								at: {
-										i.
-										j }
-								put: Float negativeInfinity.
-							nextMatrix
-								at: {
-										i.
-										j }
-								put: nil ] ] ] ] ] ]
-]
-
-{ #category : 'running' }
-AIFloydWarshall >> runAndGetAllPairsDistances [
-
-	| result |
-	self run.
-
-	result := Dictionary new.
-	nodes do: [ :source |
-		nodes do: [ :destination |
-			result at: {source model. destination model} put: (distanceMatrix at: {source. destination}).
-		].
-	].
-
-	^ result
-]
-
-{ #category : 'running' }
-AIFloydWarshall >> runAndGetAllPairsPaths [
-
-	| result |
-    self run.
-    result := Dictionary new.
-    nodes do: [ :source |
-        nodes do: [ :destination |
-            result at: {source model. destination model} 
-                put: (self pathFrom: source model to: destination model) ] ].
-    ^ result
+    self computeAllPairsShortestPaths.
+    self handleNegativeCycles.
 ]
 
 { #category : 'configuration' }
