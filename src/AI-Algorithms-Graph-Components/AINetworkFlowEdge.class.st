@@ -43,3 +43,9 @@ AINetworkFlowEdge >> flow: anObject [
 AINetworkFlowEdge >> initialize [ 
 	flow:=0
 ]
+
+{ #category : 'accessing' }
+AINetworkFlowEdge >> residualCapacity [
+	"Return the residual capacity of this edge"
+	^ capacity - flow
+]
