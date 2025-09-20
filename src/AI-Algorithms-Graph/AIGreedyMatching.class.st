@@ -20,7 +20,7 @@ Instantiate me with `newMinimumWeighted` for the greedy minimum weighted matchin
 Instantiate me with `newMaximumCardinality` for the greedy maximum cardinality matching algorithm.
 
 Examples:
-See in my test class examples of how to use me.
+See in my commented test class examples of how to use me.
 "
 Class {
 	#name : 'AIGreedyMatching',

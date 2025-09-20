@@ -1,3 +1,13 @@
+"
+The tests can be grouped as follows:
+- If the fixture's optimal matching is known, test that the greedy result approximates by the half at least. 
+- For (generated) complete graphs, test that the greedy result is (near-)perfect.
+- If the fixture's optimal matching is not known, test that the greedy result is at best perfect.  
+- Miscellaneous
+  - Test that loops are not considered for matching.
+  - Test that the greedy method is not optimal.
+  - Test that the class AIGreedyMatching shouldn't implement the new method.
+"
 Class {
 	#name : 'AIGreedyMatchingTest',
 	#superclass : 'TestCase',
@@ -5,6 +15,53 @@ Class {
 	#package : 'AI-Algorithms-Graph-Tests',
 	#tag : 'Tests'
 }
+
+{ #category : 'fixtures' }
+AIGreedyMatchingTest >> bipartiteCompleteGraphWithVertices: numberOfVerticesA and: numberOfVerticesB [
+	"Answer a complete bipartite graph of size numberOfVerticesA,numberOfVerticesB."
+
+	| oddNodes evenNodes allNodes edges |
+	oddNodes := 1 to: numberOfVerticesA * 2 by: 2.
+	evenNodes := 2 to: numberOfVerticesB * 2 by: 2.
+	edges := oddNodes
+		         inject: OrderedCollection new
+		         into: [ :collection :from |
+				         collection addAll: (evenNodes collect: [ :to |
+							          {
+								          from.
+								          to } ]).
+				         collection ].
+	allNodes := oddNodes asOrderedCollection
+		            addAll: evenNodes;
+		            yourself.
+	^ {
+		  allNodes.
+		  edges }
+]
+
+{ #category : 'fixtures' }
+AIGreedyMatchingTest >> completeGraphWithVertices: numberOfVertices [
+	"Answer a complete graph of size numberOfVertices."
+
+	| nodes edges nodesCopy |
+	nodes := 1 to: numberOfVertices.
+	"This to avoid the following (unjustified?) warning: 'Modifies collection while iterating over it'."
+	nodesCopy := nodes.
+	edges := nodes
+		         inject: OrderedCollection new
+		         into: [ :collection :from |
+				         | adjacentEdges |
+				         adjacentEdges := (nodesCopy copyWithout: from) collect: [ :to |
+						                          {
+							                          from.
+							                          to } ].
+				         collection
+					         addAll: adjacentEdges;
+					         yourself ].
+	^ {
+		  nodes.
+		  edges }
+]
 
 { #category : 'fixtures' }
 AIGreedyMatchingTest >> graphForProvingNotOptimalWeight [
@@ -21,6 +78,28 @@ AIGreedyMatchingTest >> graphForProvingNotOptimalWeight [
 			         $c.
 			         (1 + Number epsilon) }.
 		         #( $c $d 1 ) }.
+	^ {
+		  nodes.
+		  edges }
+]
+
+{ #category : 'fixtures' }
+AIGreedyMatchingTest >> mwmfSampleWeigthedGraph [
+	"Answer the sample graph (slightly modified to get different maximum and minimum matching weight sums) of the Maximum Weighted Matching Finder online app available at https://mwmatching.johnridesa.bike.
+This is an app for finding optimal matches on weighted graphs. The user can enter any example graph with weights at will in order to calculate an optimal maximum weighted matching or the maximum cardinality. It is also possible to dually calculate an optimal minimum weighted matching by subtracting all edge weights in the graph from the maximum weight.
+- The maximum weighted matching sums 155.
+- The maximum cardinality is 5.
+- The minimum weighted matching sums 145."
+
+	| nodes edges |
+	nodes := #( #john #gabriel #james #joseph #mary #michael #paul #peter
+	            #raphael #andrew ).
+	edges := #( #( #raphael #andrew 40 ) #( #andrew #gabriel 30 )
+	            #( #gabriel #raphael 50 ) #( #gabriel #joseph 55 )
+	            #( #james #paul 10 ) #( #john #peter 10 )
+	            #( #joseph #michael 60 ) #( #joseph #mary 40 )
+	            #( #mary #paul 15 ) #( #mary #michael 40 )
+	            #( #michael #raphael 55 ) #( #peter #raphael 30 ) ).
 	^ {
 		  nodes.
 		  edges }
@@ -48,6 +127,40 @@ AIGreedyMatchingTest >> newMinimumWeighted [
 AIGreedyMatchingTest >> singleNodeGraphWithLoop [
 
 	^ #( #( $a ) #( #( $a $a ) ) )
+]
+
+{ #category : 'tests' }
+AIGreedyMatchingTest >> testCompleteBipartiteRegularGraph [
+
+	| algorithm graph |
+	algorithm := self newMaximumCardinality.
+	"A bipartite graph is regular if it is balanced (both parts have the same cardinality)."
+	graph := self bipartiteCompleteGraphWithVertices: 10 and: 10.
+	algorithm nodes: graph first.
+	algorithm edges: graph second from: #first to: #second.
+	"For a regular bipartite graph, it exists a perfect matching."
+	self assert: algorithm run size equals: algorithm nodes size // 2
+]
+
+{ #category : 'tests' }
+AIGreedyMatchingTest >> testCompleteGraph [
+
+	self testCompleteGraphVertices: 5.
+	self testCompleteGraphVertices: 6.
+	self testCompleteGraphVertices: 10.
+	self testCompleteGraphVertices: 11
+]
+
+{ #category : 'tests' }
+AIGreedyMatchingTest >> testCompleteGraphVertices: aNumberOfVertices [
+
+	| algorithm graph |
+	algorithm := self newMaximumCardinality.
+	graph := self completeGraphWithVertices: aNumberOfVertices.
+	algorithm nodes: graph first.
+	algorithm edges: graph second from: #first to: #second.
+	"For a complete graph, the greedy algorithm finds always a (near-)perfect matching."
+	self assert: algorithm run size equals: aNumberOfVertices // 2
 ]
 
 { #category : 'tests' }
@@ -137,16 +250,16 @@ AIGreedyMatchingTest >> testCyclicWeightedSimple [
 ]
 
 { #category : 'tests' }
-AIGreedyMatchingTest >> testIsAtMostPerfectWithAlgorithm: aAIGreedyMatching graph: graph [
+AIGreedyMatchingTest >> testIsAtMostPerfectWithAlgorithm: aAIGreedyMatching weightedGraph: weightedGraph [
 
-	aAIGreedyMatching nodes: graph nodes.
+	aAIGreedyMatching nodes: weightedGraph nodes.
 	aAIGreedyMatching
-		edges: graph edges
+		edges: weightedGraph edges
 		from: #first
 		to: #second
 		weight: #third.
 	"Is at most a (near-)perfect matching."
-	self assert: aAIGreedyMatching run size <= (graph nodes size // 2)
+	self assert: aAIGreedyMatching run size <= (weightedGraph nodes size // 2)
 ]
 
 { #category : 'tests' }
@@ -174,19 +287,63 @@ AIGreedyMatchingTest >> testMaximumCardinalityIsAtMostPerfectForGraph: graph [
 ]
 
 { #category : 'tests' }
-AIGreedyMatchingTest >> testMaximumWeightedIsAtMostPerfectForGraph: graph [
+AIGreedyMatchingTest >> testMaximumWeightedIsAtMostPerfectForGraph: weightedGraph [
 
 	self
 		testIsAtMostPerfectWithAlgorithm: self newMaximumWeighted
-		graph: graph
+		weightedGraph: weightedGraph
 ]
 
 { #category : 'tests' }
-AIGreedyMatchingTest >> testMinimumWeightedIsAtMostPerfectForGraph: graph [
+AIGreedyMatchingTest >> testMinimumWeightedIsAtMostPerfectForGraph: weightedGraph [
 
 	self
 		testIsAtMostPerfectWithAlgorithm: self newMinimumWeighted 
-		graph: graph
+		weightedGraph: weightedGraph
+]
+
+{ #category : 'tests' }
+AIGreedyMatchingTest >> testMwmfSampleMaximumCardinality [
+
+	| algorithm sampleGraph |
+	algorithm := self newMaximumCardinality.
+	sampleGraph := self mwmfSampleWeigthedGraph.
+	algorithm nodes: sampleGraph first.
+	algorithm edges: sampleGraph second from: #first to: #second.
+	"The optimal maximum cardinality for this sample graph is 5."
+	self assert: algorithm run size >= (5 / 2)
+]
+
+{ #category : 'tests' }
+AIGreedyMatchingTest >> testMwmfSampleMaximumWeight [
+
+	| algorithm sampleGraph |
+	algorithm := self newMaximumWeighted.
+	sampleGraph := self mwmfSampleWeigthedGraph.
+	algorithm nodes: sampleGraph first.
+	algorithm
+		edges: sampleGraph second
+		from: #first
+		to: #second
+		weight: #third.
+	"The optimal maximum weight for this sample graph is 155."
+	self assert: (algorithm run sum: #weight) >= (155 / 2)
+]
+
+{ #category : 'tests' }
+AIGreedyMatchingTest >> testMwmfSampleMinimumWeight [
+
+	| algorithm sampleGraph |
+	algorithm := self newMinimumWeighted.
+	sampleGraph := self mwmfSampleWeigthedGraph.
+	algorithm nodes: sampleGraph first.
+	algorithm
+		edges: sampleGraph second
+		from: #first
+		to: #second
+		weight: #third.
+	"The optimal minimum weight for this sample graph is 145."
+	self assert: (algorithm run sum: #weight) <= (145 * 2)
 ]
 
 { #category : 'tests' }
