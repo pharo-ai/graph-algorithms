@@ -29,12 +29,12 @@ AIGraphTestFixtureStructure >> edges: anObject [
 ]
 
 { #category : 'inspector' }
-AIGraphTestFixtureStructure >> inspectGraph [
+AIGraphTestFixtureStructure >> inspectGraph: aBuilder [
 
 	<inspectorPresentationOrder: 0 title: 'Graph'>
 	| c |
 	c := self buildGraphCanvas.
-	^ SpRoassal3InspectorPresenter new
+	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
 		  canvas: c;
 		  yourself
 ]
