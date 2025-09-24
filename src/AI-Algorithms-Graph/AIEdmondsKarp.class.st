@@ -46,16 +46,16 @@ AIEdmondsKarp >> edgeClass [
 ]
 
 { #category : 'building - graph' }
-AIEdmondsKarp >> edges: aCollection from: source to: target capacity: capacityFunction [
+AIEdmondsKarp >> edges: aCollection from: aSource to: target capacity: capacityFunction [
 	| edge reverseEdge |
 	aCollection do: [ :eModel |
-		edge := self addEdge: eModel from: source to: target.
+		edge := self addEdge: eModel from: aSource to: target.
 		edge ifNotNil: [ 
 			edge capacity: (capacityFunction value: eModel).
 			edge flow: 0 ].
 		
 		"Add reverse edge with 0 capacity for residual graph"
-		reverseEdge := self addEdge: eModel from: target to: source.
+		reverseEdge := self addEdge: eModel from: target to: aSource.
 		reverseEdge ifNotNil: [ 
 			reverseEdge capacity: 0.
 			reverseEdge flow: 0 ] ]

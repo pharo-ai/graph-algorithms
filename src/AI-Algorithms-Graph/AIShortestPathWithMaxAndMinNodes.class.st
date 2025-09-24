@@ -17,7 +17,7 @@ Class {
 		'start',
 		'isMaxNodePredicate',
 		'active',
-		'C'
+		'c'
 	],
 	#category : 'AI-Algorithms-Graph-Shortest path',
 	#package : 'AI-Algorithms-Graph',
@@ -25,48 +25,48 @@ Class {
 }
 
 { #category : 'running' }
-AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: c [
+AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: number [
 
 	| memo isMaxNode v |
 	"start == a"
 	v := self findNode: aModel.
 
-	memo := C at: { v. start } ifAbsentPut: [ Dictionary new ].
+	memo := c at: { v. start } ifAbsentPut: [ Dictionary new ].
 
 	memo keysAndValuesDo: [ :key :val |
-		(key <= c and: val = 1) ifTrue: [ ^ 1 ] ].
+		(key <= number and: val = 1) ifTrue: [ ^ 1 ] ].
 
 	memo keysAndValuesDo: [ :key :val |
-		(key >= c and: val = -1) ifTrue: [ ^ -1 ] ].
+		(key >= number and: val = -1) ifTrue: [ ^ -1 ] ].
 
 	memo keysAndValuesDo: [ :key :val |
-		(key <= c and: val = 0) ifTrue: [ ^ 0 ] ].
+		(key <= number and: val = 0) ifTrue: [ ^ 0 ] ].
 
-	(v = start and: c >= 0) ifTrue: [ ^ 1 ].
+	(v = start and: number >= 0) ifTrue: [ ^ 1 ].
 
 	v incomingEdges ifEmpty: [ ^ -1 ].
 
 	active at: v ifPresent: [ :d |
-		^ c > d
+		^ number > d
 			  ifTrue: [ -1 ]
 			  ifFalse: [ 0 ] ].
 
-	active at: v put: c.
+	active at: v put: number.
 	isMaxNode := isMaxNodePredicate value: v model.
 	v incomingEdges do: [ :e |
 		| u res prev |
 		u := e from.
-		res := self distanceTo: u model isLessThan: c - e weight.
-		prev := memo at: c ifAbsent: [isMaxNode
+		res := self distanceTo: u model isLessThan: number - e weight.
+		prev := memo at: number ifAbsent: [isMaxNode
 													ifTrue: [ 1 ]
 													ifFalse: [ -1 ]].
-		memo at: c put: (isMaxNode
+		memo at: number put: (isMaxNode
 			ifTrue: [ prev min: res ]
 			ifFalse: [ prev max: res ])
 	].
 	active removeKey: v.
 
-	^ memo at: c
+	^ memo at: number
 ]
 
 { #category : 'configuration' }
@@ -91,7 +91,7 @@ AIShortestPathWithMaxAndMinNodes >> isMaxNodePredicate: aBlock [
 { #category : 'initialization' }
 AIShortestPathWithMaxAndMinNodes >> memoDictionary: aDictionary [
 
-	C := aDictionary
+	c := aDictionary
 ]
 
 { #category : 'configuration' }
