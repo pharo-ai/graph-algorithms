@@ -1,71 +1,74 @@
 "
-Concepts:
+##Concepts
+In graph theory, a *matching* (also known as an *independent edge set*) in an undirected graph is a set of edges without common vertices.
 The maximum weight matching problem consists of finding in a weighted graph a matching for which the sum of weights is maximized.
 Dually, for the minimum weight matching problem, the sum of weights is minimized.
 A maximum matching (also known as maximum-cardinality matching) is a matching that contains the largest possible number of edges.
 Maximum matching is not to be confused with maximal matching.
 More on these concepts in https://en.wikipedia.org/wiki/Matching_(graph_theory).
+(Don't confuse with another meaning of *graph matching* that is computing the similarity of graphs).
 
-Greedy algorithm:
-The greedy matching algorithm doesn't always find the optimal solution.
-However, it is a 2 approximation (greedy result >= 1/2 optimal result).
-These two claims are concisely proven for the maximum weight matching in the following lecture at page 1:
+##Greedy algorithm
+For finding matchings in a graph, I provide a version of the well studied greedy algorithms for matching, which are considerably easy to implement.
+However, in contrast to [more elaborated matching algorithms](https://brilliant.org/wiki/matching-algorithms), a greedy graph matching algorithm doesn't always find the optimal solution. 
+Nevertheless, it is a **2-approximation** (greedy result >= 1/2 optimal result).
+These two claims are concisely proven for the maximum weight matching at the beginning of the following lecture:
 https://www.cs.cornell.edu/courses/cs6820/2014fa/matchingNotes.pdf
 A greedy matching algorithm can be efficient as about O(|E| log(|V|)).
 By the way: A greedy matching algorithm always finds a maximal matching.
 
-Usage:
+##Usage
 Instantiate me with `newMaximumWeighted` for the greedy maximum weighted matching algorithm.
 Instantiate me with `newMinimumWeighted` for the greedy minimum weighted matching algorithm.
 Instantiate me with `newMaximumCardinality` for the greedy maximum cardinality matching algorithm.
 
-Examples:
+##Examples
 See in my commented test class examples of how to use me.
 "
 Class {
-	#name : 'AIGreedyMatching',
+	#name : 'AIGraphMatchingAlgorithm',
 	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'edgeClass',
 		'preprocessingSortBlock'
 	],
-	#category : 'AI-Algorithms-Graph-Matching',
+	#category : 'AI-Algorithms-Graph-Graph Matching',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Matching'
+	#tag : 'Graph Matching'
 }
 
 { #category : 'instance creation' }
-AIGreedyMatching class >> new [
+AIGraphMatchingAlgorithm class >> new [
 
 	^ self shouldNotImplement
 ]
 
 { #category : 'instance creation' }
-AIGreedyMatching class >> newMaximumCardinality [
+AIGraphMatchingAlgorithm class >> newMaximumCardinality [
 
 	^ self basicNew initializeMaximumCardinality
 ]
 
 { #category : 'instance creation' }
-AIGreedyMatching class >> newMaximumWeighted [
+AIGraphMatchingAlgorithm class >> newMaximumWeighted [
 
 	^ self basicNew initializeMaximumWeighted
 ]
 
 { #category : 'instance creation' }
-AIGreedyMatching class >> newMinimumWeighted [
+AIGraphMatchingAlgorithm class >> newMinimumWeighted [
 
 	^ self basicNew initializeMinimumWeighted
 ]
 
 { #category : 'configuration' }
-AIGreedyMatching >> edgeClass [
+AIGraphMatchingAlgorithm >> edgeClass [
 
 	^ edgeClass
 ]
 
 { #category : 'initialization' }
-AIGreedyMatching >> initializeMaximumCardinality [
+AIGraphMatchingAlgorithm >> initializeMaximumCardinality [
 
 	self initialize.
 	edgeClass := AIGraphEdge.
@@ -78,7 +81,7 @@ AIGreedyMatching >> initializeMaximumCardinality [
 ]
 
 { #category : 'initialization' }
-AIGreedyMatching >> initializeMaximumWeighted [
+AIGraphMatchingAlgorithm >> initializeMaximumWeighted [
 
 	self initialize.
 	edgeClass := AIWeightedEdge.
@@ -86,7 +89,7 @@ AIGreedyMatching >> initializeMaximumWeighted [
 ]
 
 { #category : 'initialization' }
-AIGreedyMatching >> initializeMinimumWeighted [
+AIGraphMatchingAlgorithm >> initializeMinimumWeighted [
 
 	self initialize.
 	edgeClass := AIWeightedEdge.
@@ -94,11 +97,11 @@ AIGreedyMatching >> initializeMinimumWeighted [
 ]
 
 { #category : 'running' }
-AIGreedyMatching >> run [
+AIGraphMatchingAlgorithm >> run [
 
 	| matchingEdges eligibleEdges |
 	matchingEdges := Set new.
-	"Loops are not eligible for matching."
+	"Loops are not eligible."
 	eligibleEdges := self edges reject: [ :edge | edge from = edge to ].
 	preprocessingSortBlock ifNotNil: [ :sortBlock |
 		eligibleEdges sort: preprocessingSortBlock ].
