@@ -1,12 +1,12 @@
 "
-I am a matching relating an element in group A with an element in group B.
+I am pairing an element in group A with an element in group B.
 "
 Class {
 	#name : 'AIStableMatchingEdge',
 	#superclass : 'AIGraphEdge',
 	#instVars : [
-		'nodeOfGroupA',
-		'nodeOfGroupB'
+		'contenderInGroupA',
+		'contenderInGroupB'
 	],
 	#category : 'AI-Algorithms-Graph-Components-Edges',
 	#package : 'AI-Algorithms-Graph-Components',
@@ -16,33 +16,33 @@ Class {
 { #category : 'comparing' }
 AIStableMatchingEdge >> = anObject [
 	^ self class = anObject class
-			and: [ self nodeOfGroupA = anObject nodeOfGroupA
-						and: [ self nodeOfGroupB = anObject nodeOfGroupB ] ]
+			and: [ self contenderInGroupA = anObject contenderInGroupA
+						and: [ self contenderInGroupB = anObject contenderInGroupB ] ]
+]
+
+{ #category : 'accessing' }
+AIStableMatchingEdge >> contenderInGroupA [
+	^ contenderInGroupA
+]
+
+{ #category : 'accessing' }
+AIStableMatchingEdge >> contenderInGroupA: anAIStableMatchingNode [
+	contenderInGroupA := anAIStableMatchingNode
+]
+
+{ #category : 'accessing' }
+AIStableMatchingEdge >> contenderInGroupB [
+	^ contenderInGroupB
+]
+
+{ #category : 'accessing' }
+AIStableMatchingEdge >> contenderInGroupB: anAIStableMatchingNode [
+	contenderInGroupB := anAIStableMatchingNode
 ]
 
 { #category : 'comparing' }
 AIStableMatchingEdge >> hash [
-	^ self nodeOfGroupA hash bitXor: self nodeOfGroupB hash
-]
-
-{ #category : 'accessing' }
-AIStableMatchingEdge >> nodeOfGroupA [
-	^ nodeOfGroupA
-]
-
-{ #category : 'accessing' }
-AIStableMatchingEdge >> nodeOfGroupA: anObject [
-	nodeOfGroupA := anObject
-]
-
-{ #category : 'accessing' }
-AIStableMatchingEdge >> nodeOfGroupB [
-	^ nodeOfGroupB
-]
-
-{ #category : 'accessing' }
-AIStableMatchingEdge >> nodeOfGroupB: anObject [
-	nodeOfGroupB := anObject
+	^ self contenderInGroupA hash bitXor: self contenderInGroupB hash
 ]
 
 { #category : 'printing' }
@@ -50,8 +50,8 @@ AIStableMatchingEdge >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream << $(.
-	self nodeOfGroupA printOn: aStream.
+	self contenderInGroupA printOn: aStream.
 	aStream << $,.
-	self nodeOfGroupB printOn: aStream.
+	self contenderInGroupB printOn: aStream.
 	aStream <<$)
 ]

@@ -1,7 +1,7 @@
 "
 I am a node of group A or group B in the bipartite graph that models the stable matching problem.
 
-I have a list of all nodes in the other group, sorted in the order of my preference.
+I require a preference list of all nodes in the other group, sorted in the order of my preference.
 "
 Class {
 	#name : 'AIStableMatchingNode',
@@ -9,30 +9,12 @@ Class {
 	#instVars : [
 		'preferences',
 		'lastProposedIndex',
-		'data',
-		'marriage'
+		'pairing'
 	],
 	#category : 'AI-Algorithms-Graph-Components-Nodes',
 	#package : 'AI-Algorithms-Graph-Components',
 	#tag : 'Nodes'
 }
-
-{ #category : 'instance creation' }
-AIStableMatchingNode class >> data: anObject [
-	^ self new
-		data: anObject;
-		yourself
-]
-
-{ #category : 'accessing' }
-AIStableMatchingNode >> data [
-	^ data
-]
-
-{ #category : 'accessing' }
-AIStableMatchingNode >> data: anObject [
-	data := anObject
-]
 
 { #category : 'initialization' }
 AIStableMatchingNode >> initialize [
@@ -42,7 +24,7 @@ AIStableMatchingNode >> initialize [
 
 { #category : 'accessing' }
 AIStableMatchingNode >> isFree [
-	^ self marriage isNil
+	^ self pairing isNil
 ]
 
 { #category : 'accessing' }
@@ -56,18 +38,18 @@ AIStableMatchingNode >> lastProposedIndex: anObject [
 ]
 
 { #category : 'accessing' }
-AIStableMatchingNode >> marriage [
-	^ marriage
-]
-
-{ #category : 'accessing' }
-AIStableMatchingNode >> marriage: anObject [
-	marriage := anObject
-]
-
-{ #category : 'accessing' }
 AIStableMatchingNode >> nextPreferenceToPropose [
 	^ self preferences at: (lastProposedIndex := lastProposedIndex + 1)
+]
+
+{ #category : 'accessing' }
+AIStableMatchingNode >> pairing [
+	^ pairing
+]
+
+{ #category : 'accessing' }
+AIStableMatchingNode >> pairing: anAIStableMatchingEdge [
+	pairing := anAIStableMatchingEdge
 ]
 
 { #category : 'testing' }

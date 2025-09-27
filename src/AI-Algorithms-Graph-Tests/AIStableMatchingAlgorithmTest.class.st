@@ -22,26 +22,14 @@ Class {
 AIStableMatchingAlgorithmTest >> setUp [
 
 	super setUp.
-	
-	a1 := AIStableMatchingNode new
-		      data: 'm1';
-		      yourself.
-	a2 := AIStableMatchingNode new
-		      data: 'm2';
-		      yourself.
-	a3 := AIStableMatchingNode new
-		      data: 'm3';
-		      yourself.
 
-	b1 := AIStableMatchingNode new
-		      data: 'w1';
-		      yourself.
-	b2 := AIStableMatchingNode new
-		      data: 'w2';
-		      yourself.
-	b3 := AIStableMatchingNode new
-		      data: 'w3';
-		      yourself.
+	a1 := AIStableMatchingNode with: 'a1'.
+	a2 := AIStableMatchingNode with: 'a2'.
+	a3 := AIStableMatchingNode with: 'a3'.
+
+	b1 := AIStableMatchingNode with: 'b1'.
+	b2 := AIStableMatchingNode with: 'b2'.
+	b3 := AIStableMatchingNode with: 'b3'.
 
 	a1 preferences: {
 			b3.
@@ -69,195 +57,401 @@ AIStableMatchingAlgorithmTest >> setUp [
 			a2.
 			a3 }.
 
-	algorithm := AIStableMatchingAlgorithm new
-		          groupA: {
-				          a1.
-				          a2.
-				          a3 };
-		          groupB: {
-				          b1.
-				          b2.
-				          b3 };
-		          yourself
+	algorithm := AIStableMatchingAlgorithm
+		             groupA: {
+				             a1.
+				             a2.
+				             a3 }
+		             groupB: {
+				             b1.
+				             b2.
+				             b3 }
 ]
 
 { #category : 'tests-accessing' }
-AIStableMatchingAlgorithmTest >> testFirstInGroupAHavingAMatchingToProposeTo [
+AIStableMatchingAlgorithmTest >> testFirstContenderInGroupAHavingAMatchingToProposeTo [
+
 	self
-		assert: algorithm firstInGroupAHavingAMatchingToProposeTo equals: a1.
-	
+		assert: algorithm firstContenderInAHavingAMatchingToProposeTo
+		equals: a1.
+
 	a1
 		nextPreferenceToPropose;
 		nextPreferenceToPropose;
 		nextPreferenceToPropose.
-	
+
 	self
-		assert: algorithm firstInGroupAHavingAMatchingToProposeTo equals: a2.
-	
+		assert: algorithm firstContenderInAHavingAMatchingToProposeTo
+		equals: a2.
+
 	a2
 		nextPreferenceToPropose;
 		nextPreferenceToPropose;
 		nextPreferenceToPropose.
-	
+
 	self
-		assert: algorithm firstInGroupAHavingAMatchingToProposeTo equals: a3.
+		assert: algorithm firstContenderInAHavingAMatchingToProposeTo
+		equals: a3
 ]
 
 { #category : 'tests-computation' }
 AIStableMatchingAlgorithmTest >> testMatchWith [
+
 	| matchingEdge |
-	matchingEdge := AIStableMatchingEdge new nodeOfGroupA: a1; nodeOfGroupB: b1; yourself.
+	matchingEdge := AIStableMatchingEdge new
+		                contenderInGroupA: a1;
+		                contenderInGroupB: b1;
+		                yourself.
 	self
 		assert: a1 isFree;
 		assert: b1 isFree.
 	algorithm match: a1 with: b1.
 	self
 		assert: (algorithm stableMatching includes: matchingEdge);
-		assert: a1 marriage equals: matchingEdge;
-		assert: b1 marriage equals: matchingEdge;
+		assert: a1 pairing equals: matchingEdge;
+		assert: b1 pairing equals: matchingEdge;
 		deny: a1 isFree;
 		deny: b1 isFree
 ]
 
 { #category : 'tests-computation' }
-AIStableMatchingAlgorithmTest >> testStableMarriage [
+AIStableMatchingAlgorithmTest >> testStableMarriageExample [
+
 	| abe bob col dan ed fred gav hal ian jon abi bea cath dee eve fay gay hope ivy jan s matching marriages |
-	abe := AIStableMatchingNode new
-		data: 'abe';
-		yourself.
-	bob := AIStableMatchingNode new
-		data: 'bob';
-		yourself.
-	col := AIStableMatchingNode new
-		data: 'col';
-		yourself.
-	dan := AIStableMatchingNode new
-		data: 'dan';
-		yourself.
-	ed := AIStableMatchingNode new
-		data: 'ed';
-		yourself.
-	fred := AIStableMatchingNode new
-		data: 'fred';
-		yourself.
-	gav := AIStableMatchingNode new
-		data: 'gav';
-		yourself.
-	hal := AIStableMatchingNode new
-		data: 'hal';
-		yourself.
-	ian := AIStableMatchingNode new
-		data: 'ian';
-		yourself.
-	jon := AIStableMatchingNode new
-		data: 'jon';
-		yourself.
-	abi := AIStableMatchingNode new
-		data: 'abi';
-		yourself.
-	bea := AIStableMatchingNode new
-		data: 'bea';
-		yourself.
-	cath := AIStableMatchingNode new
-		data: 'cath';
-		yourself.
-	dee := AIStableMatchingNode new
-		data: 'dee';
-		yourself.
-	eve := AIStableMatchingNode new
-		data: 'eve';
-		yourself.
-	fay := AIStableMatchingNode new
-		data: 'fay';
-		yourself.
-	gay := AIStableMatchingNode new
-		data: 'gay';
-		yourself.
-	hope := AIStableMatchingNode new
-		data: 'hope';
-		yourself.
-	ivy := AIStableMatchingNode new
-		data: 'ivy';
-		yourself.
-	jan := AIStableMatchingNode new
-		data: 'jan';
-		yourself.
-    abe
-        preferences: {abi.eve.cath.ivy.jan.dee.fay.bea.hope.gay}.
-    bob
-        preferences: {cath.hope.abi.dee.eve.fay.bea.jan.ivy.gay}.
-    col
-        preferences: {hope.eve.abi.dee.bea.fay.ivy.gay.cath.jan}.
-    dan
-        preferences: {ivy.fay.dee.gay.hope.eve.jan.bea.cath.abi}.
-    ed
-        preferences: {jan.dee.bea.cath.fay.eve.abi.ivy.hope.gay}.
-    fred
-        preferences: {bea.abi.dee.gay.eve.ivy.cath.jan.hope.fay}.
-    gav
-        preferences: {gay.eve.ivy.bea.cath.abi.dee.hope.jan.fay}.
-    hal
-        preferences: {abi.eve.hope.fay.ivy.cath.jan.bea.gay.dee}.
-    ian
-        preferences: {hope.cath.dee.gay.bea.abi.fay.ivy.jan.eve}.
-    jon
-        preferences: {abi.fay.jan.gay.eve.bea.dee.cath.ivy.hope}.
-    abi
-        preferences: {bob.fred.jon.gav.ian.abe.dan.ed.col.hal}.
-    bea
-        preferences: {bob.abe.col.fred.gav.dan.ian.ed.jon.hal}.
-    cath
-        preferences: {fred.bob.ed.gav.hal.col.ian.abe.dan.jon}.
-    dee
-        preferences: {fred.jon.col.abe.ian.hal.gav.dan.bob.ed}.
-    eve
-        preferences: {jon.hal.fred.dan.abe.gav.col.ed.ian.bob}.
-    fay
-        preferences: {bob.abe.ed.ian.jon.dan.fred.gav.col.hal}.
-    gay
-        preferences: {jon.gav.hal.fred.bob.abe.col.ed.dan.ian}.
-    hope
-        preferences: {gav.jon.bob.abe.ian.dan.hal.ed.col.fred}.
-	ivy
-		preferences: {ian.col.hal.gav.fred.bob.abe.ed.	jon.dan}.
-	jan
-		preferences: {ed.hal.gav.abe.bob.jon.col.ian.fred.dan}.
-	s := AIStableMatchingAlgorithm new
-		groupA: {abe.bob.col.dan.ed.fred.gav.hal.ian.jon};
-		groupB: {abi.bea.cath.dee.eve.fay.gay.hope.ivy.jan};
-		run;
-		yourself.
+	abe := AIStableMatchingNode with: 'abe'.
+	bob := AIStableMatchingNode with: 'bob'.
+	col := AIStableMatchingNode with: 'col'.
+	dan := AIStableMatchingNode with: 'dan'.
+	ed := AIStableMatchingNode with: 'ed'.
+	fred := AIStableMatchingNode with: 'fred'.
+	gav := AIStableMatchingNode with: 'gav'.
+	hal := AIStableMatchingNode with: 'hal'.
+	ian := AIStableMatchingNode with: 'ian'.
+	jon := AIStableMatchingNode with: 'jon'.
+	abi := AIStableMatchingNode with: 'abi'.
+	bea := AIStableMatchingNode with: 'bea'.
+	cath := AIStableMatchingNode with: 'cath'.
+	dee := AIStableMatchingNode with: 'dee'.
+	eve := AIStableMatchingNode with: 'eve'.
+	fay := AIStableMatchingNode with: 'fay'.
+	gay := AIStableMatchingNode with: 'gay'.
+	hope := AIStableMatchingNode with: 'hope'.
+	ivy := AIStableMatchingNode with: 'ivy'.
+	jan := AIStableMatchingNode with: 'jan'.
+
+	abe preferences: {
+			abi.
+			eve.
+			cath.
+			ivy.
+			jan.
+			dee.
+			fay.
+			bea.
+			hope.
+			gay }.
+	bob preferences: {
+			cath.
+			hope.
+			abi.
+			dee.
+			eve.
+			fay.
+			bea.
+			jan.
+			ivy.
+			gay }.
+	col preferences: {
+			hope.
+			eve.
+			abi.
+			dee.
+			bea.
+			fay.
+			ivy.
+			gay.
+			cath.
+			jan }.
+	dan preferences: {
+			ivy.
+			fay.
+			dee.
+			gay.
+			hope.
+			eve.
+			jan.
+			bea.
+			cath.
+			abi }.
+	ed preferences: {
+			jan.
+			dee.
+			bea.
+			cath.
+			fay.
+			eve.
+			abi.
+			ivy.
+			hope.
+			gay }.
+	fred preferences: {
+			bea.
+			abi.
+			dee.
+			gay.
+			eve.
+			ivy.
+			cath.
+			jan.
+			hope.
+			fay }.
+	gav preferences: {
+			gay.
+			eve.
+			ivy.
+			bea.
+			cath.
+			abi.
+			dee.
+			hope.
+			jan.
+			fay }.
+	hal preferences: {
+			abi.
+			eve.
+			hope.
+			fay.
+			ivy.
+			cath.
+			jan.
+			bea.
+			gay.
+			dee }.
+	ian preferences: {
+			hope.
+			cath.
+			dee.
+			gay.
+			bea.
+			abi.
+			fay.
+			ivy.
+			jan.
+			eve }.
+	jon preferences: {
+			abi.
+			fay.
+			jan.
+			gay.
+			eve.
+			bea.
+			dee.
+			cath.
+			ivy.
+			hope }.
+	abi preferences: {
+			bob.
+			fred.
+			jon.
+			gav.
+			ian.
+			abe.
+			dan.
+			ed.
+			col.
+			hal }.
+	bea preferences: {
+			bob.
+			abe.
+			col.
+			fred.
+			gav.
+			dan.
+			ian.
+			ed.
+			jon.
+			hal }.
+	cath preferences: {
+			fred.
+			bob.
+			ed.
+			gav.
+			hal.
+			col.
+			ian.
+			abe.
+			dan.
+			jon }.
+	dee preferences: {
+			fred.
+			jon.
+			col.
+			abe.
+			ian.
+			hal.
+			gav.
+			dan.
+			bob.
+			ed }.
+	eve preferences: {
+			jon.
+			hal.
+			fred.
+			dan.
+			abe.
+			gav.
+			col.
+			ed.
+			ian.
+			bob }.
+	fay preferences: {
+			bob.
+			abe.
+			ed.
+			ian.
+			jon.
+			dan.
+			fred.
+			gav.
+			col.
+			hal }.
+	gay preferences: {
+			jon.
+			gav.
+			hal.
+			fred.
+			bob.
+			abe.
+			col.
+			ed.
+			dan.
+			ian }.
+	hope preferences: {
+			gav.
+			jon.
+			bob.
+			abe.
+			ian.
+			dan.
+			hal.
+			ed.
+			col.
+			fred }.
+	ivy preferences: {
+			ian.
+			col.
+			hal.
+			gav.
+			fred.
+			bob.
+			abe.
+			ed.
+			jon.
+			dan }.
+	jan preferences: {
+			ed.
+			hal.
+			gav.
+			abe.
+			bob.
+			jon.
+			col.
+			ian.
+			fred.
+			dan }.
+	s := AIStableMatchingAlgorithm
+		     groupA: {
+				     abe.
+				     bob.
+				     col.
+				     dan.
+				     ed.
+				     fred.
+				     gav.
+				     hal.
+				     ian.
+				     jon }
+		     groupB: {
+				     abi.
+				     bea.
+				     cath.
+				     dee.
+				     eve.
+				     fay.
+				     gay.
+				     hope.
+				     ivy.
+				     jan }.
+	s run.
 	matching := s stableMatching.
 	marriages := {
-		{ jon . abi }.
-		{ fred . bea }.
-		{ bob . cath }.
-		{ col . dee }.
-		{ hal . eve }.
-		{ dan . fay }.
-		{ gav . gay }.
-		{ ian . hope }.
-		{ abe . ivy }.
-		{ ed . jan } }.
-	self assert: (matching allSatisfy: [ :any1 | marriages anySatisfy: [ :any2 | any1 nodeOfGroupA = any2 first and: [ any1 nodeOfGroupB = any2 second ] ] ])
+		             {
+			             jon.
+			             abi }.
+		             {
+			             fred.
+			             bea }.
+		             {
+			             bob.
+			             cath }.
+		             {
+			             col.
+			             dee }.
+		             {
+			             hal.
+			             eve }.
+		             {
+			             dan.
+			             fay }.
+		             {
+			             gav.
+			             gay }.
+		             {
+			             ian.
+			             hope }.
+		             {
+			             abe.
+			             ivy }.
+		             {
+			             ed.
+			             jan } }.
+	self assert: (matching allSatisfy: [ :any1 |
+				 marriages anySatisfy: [ :any2 |
+					 any1 contenderInGroupA = any2 first and: [
+						 any1 contenderInGroupB = any2 second ] ] ])
 ]
 
 { #category : 'tests-computation' }
 AIStableMatchingAlgorithmTest >> testStableMatching [
+
 	algorithm run.
-	
-	{ { a1 . b3 } . { a2 . b2 } . { a3 . b1 } } do: [ :arr |
-		self
-			assert: (algorithm stableMatching anySatisfy: [ :any | any nodeOfGroupA = arr first and: [ any nodeOfGroupB = arr second ] ]) ]
+
+	{
+		{
+			a1.
+			b3 }.
+		{
+			a2.
+			b2 }.
+		{
+			a3.
+			b1 } } do: [ :arr |
+			self assert: (algorithm stableMatching anySatisfy: [ :any |
+					 any contenderInGroupA = arr first and: [
+						 any contenderInGroupB = arr second ] ]) ]
 ]
 
 { #category : 'tests-computation' }
 AIStableMatchingAlgorithmTest >> testUnmatch [
+
 	| matchingEdge |
-	matchingEdge := AIStableMatchingEdge new nodeOfGroupA: a1; nodeOfGroupB: b1; yourself.
+	matchingEdge := AIStableMatchingEdge new
+		                contenderInGroupA: a1;
+		                contenderInGroupB: b1;
+		                yourself.
 	algorithm match: a1 with: b1.
 	self assert: (algorithm stableMatching includes: matchingEdge).
-	
+
 	algorithm unmatch: matchingEdge.
 	self deny: (algorithm stableMatching includes: matchingEdge)
 ]

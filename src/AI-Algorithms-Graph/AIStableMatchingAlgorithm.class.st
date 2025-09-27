@@ -2,6 +2,8 @@
 I am a solver for the classic stable matching problem. I use the Gale-Shapley (Deferred Acceptance) algorithm.
 Mass General Shapley and Alvin Roth won the Nobel Prize in Economics in 2012 for the Gale-Shapley algorithm and their work on applying it in practice.
 
+I require that my two contender groups A and B are equaly sized and of course disjunct.
+
 "
 Class {
 	#name : 'AIStableMatchingAlgorithm',
@@ -17,8 +19,18 @@ Class {
 	#tag : 'Graph Matching'
 }
 
+{ #category : 'instance creation' }
+AIStableMatchingAlgorithm class >> groupA: groupA groupB: groupB [
+	"Answer a new instance of mine with groupA and groupB being each a Set of AIStableMatchingNode of equal size and disjunct."
+
+	^ self new
+		  groupA: groupA;
+		  groupB: groupB;
+		  yourself
+]
+
 { #category : 'accessing' }
-AIStableMatchingAlgorithm >> firstInGroupAHavingAMatchingToProposeTo [
+AIStableMatchingAlgorithm >> firstContenderInAHavingAMatchingToProposeTo [
 	"^ self groupA detect: [ :nodeInA | nodeInA isFree and: [ nodeInA stillHasPreference ] ] ifNone: [ nil ]"
 	^ [ freeNodesInAWithPreferenceFIFO removeFirst ] on: CollectionIsEmpty do: [ nil ]
 ]
@@ -54,13 +66,39 @@ AIStableMatchingAlgorithm >> initialize [
 AIStableMatchingAlgorithm >> match: man with: woman [
 	| marriage |
 	marriage := AIStableMatchingEdge new
-						nodeOfGroupA: man;
-						nodeOfGroupB: woman;
+						contenderInGroupA: man;
+						contenderInGroupB: woman;
 						yourself.
-	man marriage: marriage.
-	woman marriage: marriage.
+	man pairing: marriage.
+	woman pairing: marriage.
 	self stableMatching
 		add: marriage
+]
+
+{ #category : 'configuration' }
+AIStableMatchingAlgorithm >> nodeClass [
+
+	^ AIStableMatchingNode
+]
+
+{ #category : 'running' }
+AIStableMatchingAlgorithm >> run [
+
+	| contenderInA |
+	[ (contenderInA := self firstContenderInAHavingAMatchingToProposeTo) isNotNil ]
+		whileTrue: [
+				| contenderInB |
+				contenderInB := contenderInA nextPreferenceToPropose.
+				contenderInB isFree
+					ifTrue: [ self match: contenderInA with: contenderInB ]
+					ifFalse: [
+							| currentPairing |
+							currentPairing := contenderInB pairing.
+							(contenderInB prefer: contenderInA over: currentPairing contenderInGroupA)
+								ifTrue: [
+										self unmatch: currentPairing.
+										self match: contenderInA with: contenderInB ]
+								ifFalse: [ freeNodesInAWithPreferenceFIFO addLast: contenderInA ] ] ]
 ]
 
 { #category : 'accessing' }
@@ -75,12 +113,12 @@ AIStableMatchingAlgorithm >> stableMatching: anObject [
 
 { #category : 'computation' }
 AIStableMatchingAlgorithm >> unmatch: aSTStableMatchingEdge [
-	aSTStableMatchingEdge nodeOfGroupA
-		marriage: nil.
-	aSTStableMatchingEdge nodeOfGroupA stillHasPreference
-		ifTrue: [ freeNodesInAWithPreferenceFIFO addLast: aSTStableMatchingEdge nodeOfGroupA ].
-	aSTStableMatchingEdge nodeOfGroupB
-		marriage: nil.
+	aSTStableMatchingEdge contenderInGroupA
+		pairing: nil.
+	aSTStableMatchingEdge contenderInGroupA stillHasPreference
+		ifTrue: [ freeNodesInAWithPreferenceFIFO addLast: aSTStableMatchingEdge contenderInGroupA ].
+	aSTStableMatchingEdge contenderInGroupB
+		pairing: nil.
 	self stableMatching
 		remove: aSTStableMatchingEdge
 ]
