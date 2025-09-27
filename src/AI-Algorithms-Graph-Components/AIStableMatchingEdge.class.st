@@ -1,17 +1,25 @@
 "
 I am pairing an element in group A with an element in group B.
+
+Instantiate me with class method ```#contenderInGroupA:contenderInGroupB:```.
 "
 Class {
 	#name : 'AIStableMatchingEdge',
 	#superclass : 'AIGraphEdge',
-	#instVars : [
-		'contenderInGroupA',
-		'contenderInGroupB'
-	],
 	#category : 'AI-Algorithms-Graph-Components-Edges',
 	#package : 'AI-Algorithms-Graph-Components',
 	#tag : 'Edges'
 }
+
+{ #category : 'instance creation' }
+AIStableMatchingEdge class >> contenderInGroupA: contenderInGroupA contenderInGroupB: contenderInGroupB [
+"Answer a new instance of mine with the given AIStableMatchingNodes."
+
+	^ self new
+		  from: contenderInGroupA;
+		  to: contenderInGroupB;
+		  yourself
+]
 
 { #category : 'comparing' }
 AIStableMatchingEdge >> = anObject [
@@ -22,36 +30,17 @@ AIStableMatchingEdge >> = anObject [
 
 { #category : 'accessing' }
 AIStableMatchingEdge >> contenderInGroupA [
-	^ contenderInGroupA
-]
 
-{ #category : 'accessing' }
-AIStableMatchingEdge >> contenderInGroupA: anAIStableMatchingNode [
-	contenderInGroupA := anAIStableMatchingNode
+	^ from
 ]
 
 { #category : 'accessing' }
 AIStableMatchingEdge >> contenderInGroupB [
-	^ contenderInGroupB
-]
 
-{ #category : 'accessing' }
-AIStableMatchingEdge >> contenderInGroupB: anAIStableMatchingNode [
-	contenderInGroupB := anAIStableMatchingNode
+	^ to
 ]
 
 { #category : 'comparing' }
 AIStableMatchingEdge >> hash [
 	^ self contenderInGroupA hash bitXor: self contenderInGroupB hash
-]
-
-{ #category : 'printing' }
-AIStableMatchingEdge >> printOn: aStream [
-	super printOn: aStream.
-	
-	aStream << $(.
-	self contenderInGroupA printOn: aStream.
-	aStream << $,.
-	self contenderInGroupB printOn: aStream.
-	aStream <<$)
 ]

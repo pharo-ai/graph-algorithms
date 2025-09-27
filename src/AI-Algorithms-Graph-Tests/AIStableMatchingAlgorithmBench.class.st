@@ -11,17 +11,17 @@ Class {
 
 { #category : 'generation' }
 AIStableMatchingAlgorithmBench class >> generateRandomProblemWith: groupSize [
+
 	| groupA groupB |
 	groupA := (1 to: groupSize) collect: [ :i | AIStableMatchingNode new ].
 	groupB := (1 to: groupSize) collect: [ :i | AIStableMatchingNode new ].
-	
-	groupA do: [ :elementInA | elementInA preferences: groupB copy shuffle ].
-	groupB do: [ :elementInB | elementInB preferences: groupA copy shuffle ].
-	
-	^ AIStableMatchingAlgorithm new
-		groupA: groupA;
-		groupB: groupB;
-		yourself
+
+	groupA do: [ :elementInA |
+		elementInA preferences: groupB copy shuffle ].
+	groupB do: [ :elementInB |
+		elementInB preferences: groupA copy shuffle ].
+
+	^ AIStableMatchingAlgorithm groupA: groupA groupB: groupB
 ]
 
 { #category : 'benchmarking' }

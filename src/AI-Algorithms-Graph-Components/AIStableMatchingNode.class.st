@@ -73,16 +73,6 @@ AIStableMatchingNode >> preferences: anObject [
 	preferences := anObject
 ]
 
-{ #category : 'printing' }
-AIStableMatchingNode >> printOn: aStream [
-	super printOn: aStream.
-	aStream
-		<< $(.
-	self data printOn: aStream.
-	aStream
-		<< $)
-]
-
 { #category : 'testing' }
 AIStableMatchingNode >> stillHasPreference [
 	^ lastProposedIndex < self preferences size

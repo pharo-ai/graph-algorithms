@@ -18,6 +18,30 @@ Class {
 	#tag : 'Tests'
 }
 
+{ #category : 'fixtures' }
+AIStableMatchingAlgorithmTest >> abc_xyzBipartitionWithPreferences [
+	"Example taken from https://en.wikipedia.org/wiki/Stable_matching_problem#Different_stable_matchings"
+
+	| a b c x y z |
+	a := AIStableMatchingNode with: 'a'.
+	b := AIStableMatchingNode with: 'b'.
+	c := AIStableMatchingNode with: 'c'.
+	x := AIStableMatchingNode with: 'x'.
+	y := AIStableMatchingNode with: 'y'.
+	z := AIStableMatchingNode with: 'z'.
+
+	a preferences: { y. x. z }.
+	b preferences: { z. y. x }.
+	c preferences: { x. z. y }.
+	x preferences: { b. a. c }.
+	y preferences: { c. b. a }.
+	z preferences: { a. c. b }.
+			
+  ^ Array with: { a . b . c } with: { x . y . z }
+
+
+]
+
 { #category : 'running' }
 AIStableMatchingAlgorithmTest >> setUp [
 
@@ -68,11 +92,59 @@ AIStableMatchingAlgorithmTest >> setUp [
 				             b3 }
 ]
 
-{ #category : 'tests-accessing' }
+{ #category : 'tests' }
+AIStableMatchingAlgorithmTest >> testBestMatchingForABC [
+
+	| abc xyz algorithmFavouringABC bestStableMatchingForGroupABC |
+	abc := self abc_xyzBipartitionWithPreferences first.
+	xyz := self abc_xyzBipartitionWithPreferences second.
+	algorithmFavouringABC := (AIStableMatchingAlgorithm
+		                          groupA: abc
+		                          groupB: xyz) run.
+	bestStableMatchingForGroupABC := Set
+		                                 with: (AIStableMatchingEdge
+				                                  contenderInGroupA: abc first
+				                                  contenderInGroupB: xyz second)
+		                                 with: (AIStableMatchingEdge
+				                                  contenderInGroupA: abc second
+				                                  contenderInGroupB: xyz third)
+		                                 with: (AIStableMatchingEdge
+				                                  contenderInGroupA: abc third
+				                                  contenderInGroupB: xyz first).
+	self
+		assert: (algorithmFavouringABC stableMatching collect: [ :each | each asTuple ])
+		equals: (bestStableMatchingForGroupABC collect: [ :each | each asTuple ])
+]
+
+{ #category : 'tests' }
+AIStableMatchingAlgorithmTest >> testBestMatchingForXYZ [
+
+	| abc xyz algorithmFavouringXYZ bestStableMatchingForGroupXYZ |
+	abc := self abc_xyzBipartitionWithPreferences first.
+	xyz := self abc_xyzBipartitionWithPreferences second.
+	algorithmFavouringXYZ := (AIStableMatchingAlgorithm
+		                          groupA: xyz
+		                          groupB: abc) run.
+	bestStableMatchingForGroupXYZ := Set
+		                                 with: (AIStableMatchingEdge
+				                                  contenderInGroupA: xyz third
+				                                  contenderInGroupB: abc first)
+		                                 with: (AIStableMatchingEdge
+				                                  contenderInGroupA: xyz first
+				                                  contenderInGroupB: abc second)
+		                                 with: (AIStableMatchingEdge
+				                                  contenderInGroupA: xyz second
+				                                  contenderInGroupB: abc third).
+	self
+		assert: (algorithmFavouringXYZ stableMatching collect: [ :each | each asTuple ])
+		equals: (bestStableMatchingForGroupXYZ collect: [ :each | each asTuple ])
+]
+
+{ #category : 'tests' }
 AIStableMatchingAlgorithmTest >> testFirstContenderInGroupAHavingAMatchingToProposeTo [
 
 	self
-		assert: algorithm firstContenderInAHavingAMatchingToProposeTo
+		assert: algorithm nextProposer
 		equals: a1.
 
 	a1
@@ -81,7 +153,7 @@ AIStableMatchingAlgorithmTest >> testFirstContenderInGroupAHavingAMatchingToProp
 		nextPreferenceToPropose.
 
 	self
-		assert: algorithm firstContenderInAHavingAMatchingToProposeTo
+		assert: algorithm nextProposer
 		equals: a2.
 
 	a2
@@ -90,22 +162,21 @@ AIStableMatchingAlgorithmTest >> testFirstContenderInGroupAHavingAMatchingToProp
 		nextPreferenceToPropose.
 
 	self
-		assert: algorithm firstContenderInAHavingAMatchingToProposeTo
+		assert: algorithm nextProposer
 		equals: a3
 ]
 
-{ #category : 'tests-computation' }
+{ #category : 'tests' }
 AIStableMatchingAlgorithmTest >> testMatchWith [
 
 	| matchingEdge |
-	matchingEdge := AIStableMatchingEdge new
-		                contenderInGroupA: a1;
-		                contenderInGroupB: b1;
-		                yourself.
+	matchingEdge := AIStableMatchingEdge
+		                contenderInGroupA: a1
+		                contenderInGroupB: b1.
 	self
 		assert: a1 isFree;
 		assert: b1 isFree.
-	algorithm match: a1 with: b1.
+	algorithm matchContenderInGroupA: a1 withContenderInGroupB: b1.
 	self
 		assert: (algorithm stableMatching includes: matchingEdge);
 		assert: a1 pairing equals: matchingEdge;
@@ -114,7 +185,7 @@ AIStableMatchingAlgorithmTest >> testMatchWith [
 		deny: b1 isFree
 ]
 
-{ #category : 'tests-computation' }
+{ #category : 'tests' }
 AIStableMatchingAlgorithmTest >> testStableMarriageExample [
 
 	| abe bob col dan ed fred gav hal ian jon abi bea cath dee eve fay gay hope ivy jan s matching marriages |
@@ -421,7 +492,7 @@ AIStableMatchingAlgorithmTest >> testStableMarriageExample [
 						 any1 contenderInGroupB = any2 second ] ] ])
 ]
 
-{ #category : 'tests-computation' }
+{ #category : 'tests' }
 AIStableMatchingAlgorithmTest >> testStableMatching [
 
 	algorithm run.
@@ -441,15 +512,14 @@ AIStableMatchingAlgorithmTest >> testStableMatching [
 						 any contenderInGroupB = arr second ] ]) ]
 ]
 
-{ #category : 'tests-computation' }
+{ #category : 'tests' }
 AIStableMatchingAlgorithmTest >> testUnmatch [
 
 	| matchingEdge |
-	matchingEdge := AIStableMatchingEdge new
-		                contenderInGroupA: a1;
-		                contenderInGroupB: b1;
-		                yourself.
-	algorithm match: a1 with: b1.
+	matchingEdge := AIStableMatchingEdge
+		                contenderInGroupA: a1
+		                contenderInGroupB: b1.
+	algorithm matchContenderInGroupA: a1 withContenderInGroupB: b1.
 	self assert: (algorithm stableMatching includes: matchingEdge).
 
 	algorithm unmatch: matchingEdge.

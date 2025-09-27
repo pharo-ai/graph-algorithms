@@ -1,8 +1,19 @@
 "
-I am a solver for the classic stable matching problem. I use the Gale-Shapley (Deferred Acceptance) algorithm.
-Mass General Shapley and Alvin Roth won the Nobel Prize in Economics in 2012 for the Gale-Shapley algorithm and their work on applying it in practice.
+I am a solver for the classic Stable Matching Problem, also known as Stable Marriage Problem.
+I use the Gale-Shapley (Deferred Acceptance) algorithm.
 
+Requirement:
 I require that my two contender groups A and B are equaly sized and of course disjunct.
+
+Result:
+The algorithm answers always a stable matching. 
+However, it yields the one that is best for group A and worst for group B.
+
+Usage:
+Instantiate me with class method ```#groupA:groupB:```.
+
+By the way:
+Mass General Shapley and Alvin Roth won the Nobel Prize in Economics in 2012 for the Gale-Shapley algorithm and their work on applying it in practice.
 
 "
 Class {
@@ -12,7 +23,7 @@ Class {
 		'stableMatching',
 		'groupA',
 		'groupB',
-		'freeNodesInAWithPreferenceFIFO'
+		'freeProposersWithPreference'
 	],
 	#category : 'AI-Algorithms-Graph-Graph Matching',
 	#package : 'AI-Algorithms-Graph',
@@ -23,16 +34,8 @@ Class {
 AIStableMatchingAlgorithm class >> groupA: groupA groupB: groupB [
 	"Answer a new instance of mine with groupA and groupB being each a Set of AIStableMatchingNode of equal size and disjunct."
 
-	^ self new
-		  groupA: groupA;
-		  groupB: groupB;
-		  yourself
-]
-
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> firstContenderInAHavingAMatchingToProposeTo [
-	"^ self groupA detect: [ :nodeInA | nodeInA isFree and: [ nodeInA stillHasPreference ] ] ifNone: [ nil ]"
-	^ [ freeNodesInAWithPreferenceFIFO removeFirst ] on: CollectionIsEmpty do: [ nil ]
+	^ self new initializeWithBipartition:
+		  (Array with: groupA with: groupB)
 ]
 
 { #category : 'accessing' }
@@ -41,38 +44,41 @@ AIStableMatchingAlgorithm >> groupA [
 ]
 
 { #category : 'accessing' }
-AIStableMatchingAlgorithm >> groupA: anObject [
-	groupA := anObject.
-	freeNodesInAWithPreferenceFIFO := LinkedList newFrom: groupA
-]
-
-{ #category : 'accessing' }
 AIStableMatchingAlgorithm >> groupB [
 	^ groupB
-]
-
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> groupB: anObject [
-	groupB := anObject
 ]
 
 { #category : 'initialization' }
 AIStableMatchingAlgorithm >> initialize [
 	super initialize.
-	self stableMatching: Set new
+	stableMatching := Set new
+]
+
+{ #category : 'initialization' }
+AIStableMatchingAlgorithm >> initializeWithBipartition: bipartition [
+	"Initialize with the bipartition given as group pair."
+
+	groupA := bipartition first.
+	freeProposersWithPreference := LinkedList newFrom: groupA.
+	groupB := bipartition second
 ]
 
 { #category : 'computation' }
-AIStableMatchingAlgorithm >> match: man with: woman [
-	| marriage |
-	marriage := AIStableMatchingEdge new
-						contenderInGroupA: man;
-						contenderInGroupB: woman;
-						yourself.
-	man pairing: marriage.
-	woman pairing: marriage.
-	self stableMatching
-		add: marriage
+AIStableMatchingAlgorithm >> matchContenderInGroupA: contenderInGroupA withContenderInGroupB: contenderInGroupB [
+
+	| pairing |
+	pairing := AIStableMatchingEdge
+		           contenderInGroupA: contenderInGroupA
+		           contenderInGroupB: contenderInGroupB.
+	contenderInGroupA pairing: pairing.
+	contenderInGroupB pairing: pairing.
+	self stableMatching add: pairing
+]
+
+{ #category : 'accessing' }
+AIStableMatchingAlgorithm >> nextProposer [
+	"^ self groupA detect: [ :nodeInA | nodeInA isFree and: [ nodeInA stillHasPreference ] ] ifNone: [ nil ]"
+	^ [ freeProposersWithPreference removeFirst ] on: CollectionIsEmpty do: [ nil ]
 ]
 
 { #category : 'configuration' }
@@ -85,20 +91,20 @@ AIStableMatchingAlgorithm >> nodeClass [
 AIStableMatchingAlgorithm >> run [
 
 	| contenderInA |
-	[ (contenderInA := self firstContenderInAHavingAMatchingToProposeTo) isNotNil ]
+	[ (contenderInA := self nextProposer) isNotNil ]
 		whileTrue: [
 				| contenderInB |
 				contenderInB := contenderInA nextPreferenceToPropose.
 				contenderInB isFree
-					ifTrue: [ self match: contenderInA with: contenderInB ]
+					ifTrue: [ self matchContenderInGroupA: contenderInA withContenderInGroupB: contenderInB ]
 					ifFalse: [
 							| currentPairing |
 							currentPairing := contenderInB pairing.
 							(contenderInB prefer: contenderInA over: currentPairing contenderInGroupA)
 								ifTrue: [
 										self unmatch: currentPairing.
-										self match: contenderInA with: contenderInB ]
-								ifFalse: [ freeNodesInAWithPreferenceFIFO addLast: contenderInA ] ] ]
+										self matchContenderInGroupA: contenderInA withContenderInGroupB: contenderInB ]
+								ifFalse: [ freeProposersWithPreference addLast: contenderInA ] ] ]
 ]
 
 { #category : 'accessing' }
@@ -106,17 +112,12 @@ AIStableMatchingAlgorithm >> stableMatching [
 	^ stableMatching
 ]
 
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> stableMatching: anObject [
-	stableMatching := anObject
-]
-
 { #category : 'computation' }
 AIStableMatchingAlgorithm >> unmatch: aSTStableMatchingEdge [
 	aSTStableMatchingEdge contenderInGroupA
 		pairing: nil.
 	aSTStableMatchingEdge contenderInGroupA stillHasPreference
-		ifTrue: [ freeNodesInAWithPreferenceFIFO addLast: aSTStableMatchingEdge contenderInGroupA ].
+		ifTrue: [ freeProposersWithPreference addLast: aSTStableMatchingEdge contenderInGroupA ].
 	aSTStableMatchingEdge contenderInGroupB
 		pairing: nil.
 	self stableMatching
