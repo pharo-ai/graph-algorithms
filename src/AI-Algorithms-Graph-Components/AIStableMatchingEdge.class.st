@@ -1,12 +1,12 @@
 "
-I am a mariage between a man (SMMarried) and a woman (SMMarried).
+I am a matching relating an element in group A with an element in group B.
 "
 Class {
 	#name : 'AIStableMatchingEdge',
-	#superclass : 'Object',
+	#superclass : 'AIGraphEdge',
 	#instVars : [
-		'man',
-		'woman'
+		'nodeOfGroupA',
+		'nodeOfGroupB'
 	],
 	#category : 'AI-Algorithms-Graph-Components-Edges',
 	#package : 'AI-Algorithms-Graph-Components',
@@ -16,23 +16,33 @@ Class {
 { #category : 'comparing' }
 AIStableMatchingEdge >> = anObject [
 	^ self class = anObject class
-			and: [ self man = anObject man
-						and: [ self woman = anObject woman ] ]
+			and: [ self nodeOfGroupA = anObject nodeOfGroupA
+						and: [ self nodeOfGroupB = anObject nodeOfGroupB ] ]
 ]
 
 { #category : 'comparing' }
 AIStableMatchingEdge >> hash [
-	^ self man hash bitXor: self woman hash
+	^ self nodeOfGroupA hash bitXor: self nodeOfGroupB hash
 ]
 
 { #category : 'accessing' }
-AIStableMatchingEdge >> man [
-	^ man
+AIStableMatchingEdge >> nodeOfGroupA [
+	^ nodeOfGroupA
 ]
 
 { #category : 'accessing' }
-AIStableMatchingEdge >> man: anObject [
-	man := anObject
+AIStableMatchingEdge >> nodeOfGroupA: anObject [
+	nodeOfGroupA := anObject
+]
+
+{ #category : 'accessing' }
+AIStableMatchingEdge >> nodeOfGroupB [
+	^ nodeOfGroupB
+]
+
+{ #category : 'accessing' }
+AIStableMatchingEdge >> nodeOfGroupB: anObject [
+	nodeOfGroupB := anObject
 ]
 
 { #category : 'printing' }
@@ -40,18 +50,8 @@ AIStableMatchingEdge >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream << $(.
-	self man printOn: aStream.
+	self nodeOfGroupA printOn: aStream.
 	aStream << $,.
-	self woman printOn: aStream.
+	self nodeOfGroupB printOn: aStream.
 	aStream <<$)
-]
-
-{ #category : 'accessing' }
-AIStableMatchingEdge >> woman [
-	^ woman
-]
-
-{ #category : 'accessing' }
-AIStableMatchingEdge >> woman: anObject [
-	woman := anObject
 ]

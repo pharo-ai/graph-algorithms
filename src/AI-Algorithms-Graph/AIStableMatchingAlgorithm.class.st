@@ -1,110 +1,86 @@
 "
-I am a solver for the stable marriage problem. I use the David Gale and Lloyd Shapley algorithm.
+I am a solver for the classic stable matching problem. I use the Gale-Shapley (Deferred Acceptance) algorithm.
+Mass General Shapley and Alvin Roth won the Nobel Prize in Economics in 2012 for the Gale-Shapley algorithm and their work on applying it in practice.
+
 "
 Class {
 	#name : 'AIStableMatchingAlgorithm',
-	#superclass : 'Object',
+	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
-		'men',
-		'women',
-		'marriages',
-		'freeMenWithPreferenceFIFO'
+		'stableMatching',
+		'groupA',
+		'groupB',
+		'freeNodesInAWithPreferenceFIFO'
 	],
 	#category : 'AI-Algorithms-Graph-Graph Matching',
 	#package : 'AI-Algorithms-Graph',
 	#tag : 'Graph Matching'
 }
 
-{ #category : 'computation' }
-AIStableMatchingAlgorithm >> divorce: marriage [
-	marriage man
-		marriage: nil.
-	marriage man stillHasPreference
-		ifTrue: [ freeMenWithPreferenceFIFO addLast: marriage man ].
-	marriage woman
-		marriage: nil.
-	self marriages
-		remove: marriage
+{ #category : 'accessing' }
+AIStableMatchingAlgorithm >> firstInGroupAHavingAMatchingToProposeTo [
+	"^ self groupA detect: [ :nodeInA | nodeInA isFree and: [ nodeInA stillHasPreference ] ] ifNone: [ nil ]"
+	^ [ freeNodesInAWithPreferenceFIFO removeFirst ] on: CollectionIsEmpty do: [ nil ]
 ]
 
 { #category : 'accessing' }
-AIStableMatchingAlgorithm >> firstManHavingAWomanToProposeTo [
-	"^ self men detect: [ :man | man isFree and: [ man stillHasPreference ] ] ifNone: [ nil ]"
-	^ [ freeMenWithPreferenceFIFO removeFirst ] on: CollectionIsEmpty do: [ nil ]
+AIStableMatchingAlgorithm >> groupA [
+	^ groupA
+]
+
+{ #category : 'accessing' }
+AIStableMatchingAlgorithm >> groupA: anObject [
+	groupA := anObject.
+	freeNodesInAWithPreferenceFIFO := LinkedList newFrom: groupA
+]
+
+{ #category : 'accessing' }
+AIStableMatchingAlgorithm >> groupB [
+	^ groupB
+]
+
+{ #category : 'accessing' }
+AIStableMatchingAlgorithm >> groupB: anObject [
+	groupB := anObject
 ]
 
 { #category : 'initialization' }
 AIStableMatchingAlgorithm >> initialize [
 	super initialize.
-	self marriages: Set new
-]
-
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> marriages [
-	^ marriages
-]
-
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> marriages: anObject [
-	marriages := anObject
+	self stableMatching: Set new
 ]
 
 { #category : 'computation' }
-AIStableMatchingAlgorithm >> marry: man with: woman [
+AIStableMatchingAlgorithm >> match: man with: woman [
 	| marriage |
 	marriage := AIStableMatchingEdge new
-						man: man;
-						woman: woman;
+						nodeOfGroupA: man;
+						nodeOfGroupB: woman;
 						yourself.
 	man marriage: marriage.
 	woman marriage: marriage.
-	self marriages
+	self stableMatching
 		add: marriage
 ]
 
 { #category : 'accessing' }
-AIStableMatchingAlgorithm >> men [
-	^ men
-]
-
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> men: anObject [
-	men := anObject.
-	freeMenWithPreferenceFIFO := LinkedList newFrom: men
-]
-
-{ #category : 'computation' }
-AIStableMatchingAlgorithm >> solve [
-	self stableMatching.
-	^ self marriages
-]
-
-{ #category : 'computation' }
 AIStableMatchingAlgorithm >> stableMatching [
-	|man|
-	[ (man := self firstManHavingAWomanToProposeTo) isNotNil ]
-		whileTrue: [ | woman|
-			woman := man nextPreferenceToPropose.
-			woman isFree
-				ifTrue: [ 
-					self marry: man with: woman ]
-				ifFalse: [ |actualMariage|
-					actualMariage := woman marriage.
-					(woman prefer: man over: actualMariage man)
-						ifTrue: [ 
-							self divorce: actualMariage.
-							self marry: man with: woman ]
-						ifFalse: [ 
-							freeMenWithPreferenceFIFO
-								addLast: man ] ] ]
+	^ stableMatching
 ]
 
 { #category : 'accessing' }
-AIStableMatchingAlgorithm >> women [
-	^ women
+AIStableMatchingAlgorithm >> stableMatching: anObject [
+	stableMatching := anObject
 ]
 
-{ #category : 'accessing' }
-AIStableMatchingAlgorithm >> women: anObject [
-	women := anObject
+{ #category : 'computation' }
+AIStableMatchingAlgorithm >> unmatch: aSTStableMatchingEdge [
+	aSTStableMatchingEdge nodeOfGroupA
+		marriage: nil.
+	aSTStableMatchingEdge nodeOfGroupA stillHasPreference
+		ifTrue: [ freeNodesInAWithPreferenceFIFO addLast: aSTStableMatchingEdge nodeOfGroupA ].
+	aSTStableMatchingEdge nodeOfGroupB
+		marriage: nil.
+	self stableMatching
+		remove: aSTStableMatchingEdge
 ]

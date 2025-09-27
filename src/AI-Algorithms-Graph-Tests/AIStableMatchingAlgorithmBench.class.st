@@ -1,3 +1,6 @@
+"
+I support benchmarking the AIStableMatchingAlgorithm class.
+"
 Class {
 	#name : 'AIStableMatchingAlgorithmBench',
 	#superclass : 'Object',
@@ -7,17 +10,17 @@ Class {
 }
 
 { #category : 'generation' }
-AIStableMatchingAlgorithmBench class >> generateRandomProblemWith: numberOfContender [
-	| men women |
-	men := (1 to: numberOfContender) collect: [ :i | AIStableMatchingNode new ].
-	women := (1 to: numberOfContender) collect: [ :i | AIStableMatchingNode new ].
+AIStableMatchingAlgorithmBench class >> generateRandomProblemWith: groupSize [
+	| groupA groupB |
+	groupA := (1 to: groupSize) collect: [ :i | AIStableMatchingNode new ].
+	groupB := (1 to: groupSize) collect: [ :i | AIStableMatchingNode new ].
 	
-	men do: [ :man | man preferences: women copy shuffle ].
-	women do: [ :woman | woman preferences: men copy shuffle ].
+	groupA do: [ :elementInA | elementInA preferences: groupB copy shuffle ].
+	groupB do: [ :elementInB | elementInB preferences: groupA copy shuffle ].
 	
 	^ AIStableMatchingAlgorithm new
-		men: men;
-		women: women;
+		groupA: groupA;
+		groupB: groupB;
 		yourself
 ]
 
@@ -30,7 +33,7 @@ AIStableMatchingAlgorithmBench >> benchmark: nTimes upToPower: power [
 		times := OrderedCollection new.
 		(1 to: nTimes) do: [ :j | |solver|
 			solver := (self generateRandomProblemWith: size). 
-			times add: [ solver stableMatching ] timeToRun ] displayingProgress: 'Iterations'.
+			times add: [ solver run ] timeToRun ] displayingProgress: 'Iterations'.
 		result add: { size }, times ] displayingProgress: 'Size loop'.
 	^ result
 ]

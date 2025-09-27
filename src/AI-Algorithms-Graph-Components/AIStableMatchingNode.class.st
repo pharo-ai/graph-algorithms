@@ -1,11 +1,11 @@
 "
-I represent a contender for a mariage.
+I am a node of group A or group B in the bipartite graph that models the stable matching problem.
 
-I have a list of contender sorted in the order of my preference.
+I have a list of all nodes in the other group, sorted in the order of my preference.
 "
 Class {
 	#name : 'AIStableMatchingNode',
-	#superclass : 'Object',
+	#superclass : 'AIGraphNode',
 	#instVars : [
 		'preferences',
 		'lastProposedIndex',

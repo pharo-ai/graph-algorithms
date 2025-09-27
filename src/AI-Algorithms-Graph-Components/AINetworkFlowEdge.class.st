@@ -9,8 +9,9 @@ Class {
 		'capacity',
 		'flow'
 	],
-	#category : 'AI-Algorithms-Graph-Components',
-	#package : 'AI-Algorithms-Graph-Components'
+	#category : 'AI-Algorithms-Graph-Components-Edges',
+	#package : 'AI-Algorithms-Graph-Components',
+	#tag : 'Edges'
 }
 
 { #category : 'accessing' }

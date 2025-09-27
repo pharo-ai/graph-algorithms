@@ -1,5 +1,5 @@
 "
-A SMContenderTest is a test class for testing the behavior of SMContender
+I test the behaviour of AIStableMatchingNode.
 "
 Class {
 	#name : 'AIStableMatchingNodeTest',

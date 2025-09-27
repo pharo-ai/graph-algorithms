@@ -1,17 +1,17 @@
 "
-A SMSolverTest is a test class for testing the behavior of SMSolver
+I test the behavior of AIStableMatchingAlgorithm.
 "
 Class {
 	#name : 'AIStableMatchingAlgorithmTest',
 	#superclass : 'TestCase',
 	#instVars : [
-		'm1',
-		'm2',
-		'm3',
-		'w1',
-		'w2',
-		'w3',
-		'solver'
+		'algorithm',
+		'a1',
+		'a2',
+		'a3',
+		'b1',
+		'b2',
+		'b3'
 	],
 	#category : 'AI-Algorithms-Graph-Tests-Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
@@ -23,124 +23,104 @@ AIStableMatchingAlgorithmTest >> setUp [
 
 	super setUp.
 	
-	m1 := AIStableMatchingNode new
+	a1 := AIStableMatchingNode new
 		      data: 'm1';
 		      yourself.
-	m2 := AIStableMatchingNode new
+	a2 := AIStableMatchingNode new
 		      data: 'm2';
 		      yourself.
-	m3 := AIStableMatchingNode new
+	a3 := AIStableMatchingNode new
 		      data: 'm3';
 		      yourself.
 
-	w1 := AIStableMatchingNode new
+	b1 := AIStableMatchingNode new
 		      data: 'w1';
 		      yourself.
-	w2 := AIStableMatchingNode new
+	b2 := AIStableMatchingNode new
 		      data: 'w2';
 		      yourself.
-	w3 := AIStableMatchingNode new
+	b3 := AIStableMatchingNode new
 		      data: 'w3';
 		      yourself.
 
-	m1 preferences: {
-			w3.
-			w2.
-			w1 }.
-	m2 preferences: {
-			w2.
-			w3.
-			w1 }.
-	m3 preferences: {
-			w1.
-			w2.
-			w3 }.
+	a1 preferences: {
+			b3.
+			b2.
+			b1 }.
+	a2 preferences: {
+			b2.
+			b3.
+			b1 }.
+	a3 preferences: {
+			b1.
+			b2.
+			b3 }.
 
-	w1 preferences: {
-			m1.
-			m2.
-			m3 }.
-	w2 preferences: {
-			m2.
-			m3.
-			m1 }.
-	w3 preferences: {
-			m1.
-			m2.
-			m3 }.
+	b1 preferences: {
+			a1.
+			a2.
+			a3 }.
+	b2 preferences: {
+			a2.
+			a3.
+			a1 }.
+	b3 preferences: {
+			a1.
+			a2.
+			a3 }.
 
-	solver := AIStableMatchingAlgorithm new
-		          men: {
-				          m1.
-				          m2.
-				          m3 };
-		          women: {
-				          w1.
-				          w2.
-				          w3 };
+	algorithm := AIStableMatchingAlgorithm new
+		          groupA: {
+				          a1.
+				          a2.
+				          a3 };
+		          groupB: {
+				          b1.
+				          b2.
+				          b3 };
 		          yourself
 ]
 
-{ #category : 'tests-computation' }
-AIStableMatchingAlgorithmTest >> testDivorce [
-	| marriage |
-	marriage := AIStableMatchingEdge new man: m1; woman: w1; yourself.
-	solver marry: m1 with: w1.
-	self assert: (solver marriages includes: marriage).
-	
-	solver divorce: marriage.
-	self deny: (solver marriages includes: marriage)
-]
-
 { #category : 'tests-accessing' }
-AIStableMatchingAlgorithmTest >> testFirstManHavingAWomanToProposeTo [
+AIStableMatchingAlgorithmTest >> testFirstInGroupAHavingAMatchingToProposeTo [
 	self
-		assert: solver firstManHavingAWomanToProposeTo equals: m1.
+		assert: algorithm firstInGroupAHavingAMatchingToProposeTo equals: a1.
 	
-	m1
+	a1
 		nextPreferenceToPropose;
 		nextPreferenceToPropose;
 		nextPreferenceToPropose.
 	
 	self
-		assert: solver firstManHavingAWomanToProposeTo equals: m2.
+		assert: algorithm firstInGroupAHavingAMatchingToProposeTo equals: a2.
 	
-	m2
+	a2
 		nextPreferenceToPropose;
 		nextPreferenceToPropose;
 		nextPreferenceToPropose.
 	
 	self
-		assert: solver firstManHavingAWomanToProposeTo equals: m3.
+		assert: algorithm firstInGroupAHavingAMatchingToProposeTo equals: a3.
 ]
 
 { #category : 'tests-computation' }
-AIStableMatchingAlgorithmTest >> testMarryWith [
-	| marriage |
-	marriage := AIStableMatchingEdge new man: m1; woman: w1; yourself.
+AIStableMatchingAlgorithmTest >> testMatchWith [
+	| matchingEdge |
+	matchingEdge := AIStableMatchingEdge new nodeOfGroupA: a1; nodeOfGroupB: b1; yourself.
 	self
-		assert: m1 isFree;
-		assert: w1 isFree.
-	solver marry: m1 with: w1.
+		assert: a1 isFree;
+		assert: b1 isFree.
+	algorithm match: a1 with: b1.
 	self
-		assert: (solver marriages includes: marriage);
-		assert: m1 marriage equals: marriage;
-		assert: w1 marriage equals: marriage;
-		deny: m1 isFree;
-		deny: w1 isFree
+		assert: (algorithm stableMatching includes: matchingEdge);
+		assert: a1 marriage equals: matchingEdge;
+		assert: b1 marriage equals: matchingEdge;
+		deny: a1 isFree;
+		deny: b1 isFree
 ]
 
 { #category : 'tests-computation' }
-AIStableMatchingAlgorithmTest >> testStableMatching [
-	solver stableMatching.
-	
-	{ { m1 . w3 } . { m2 . w2 } . { m3 . w1 } } do: [ :arr |
-		self
-			assert: (solver marriages anySatisfy: [ :any | any man = arr first and: [ any woman = arr second ] ]) ]
-]
-
-{ #category : 'tests-computation' }
-AIStableMatchingAlgorithmTest >> testStableMatching2 [
+AIStableMatchingAlgorithmTest >> testStableMarriage [
 	| abe bob col dan ed fred gav hal ian jon abi bea cath dee eve fay gay hope ivy jan s matching marriages |
 	abe := AIStableMatchingNode new
 		data: 'abe';
@@ -243,11 +223,11 @@ AIStableMatchingAlgorithmTest >> testStableMatching2 [
 	jan
 		preferences: {ed.hal.gav.abe.bob.jon.col.ian.fred.dan}.
 	s := AIStableMatchingAlgorithm new
-		men: {abe.bob.col.dan.ed.fred.gav.hal.ian.jon};
-		women: {abi.bea.cath.dee.eve.fay.gay.hope.ivy.jan};
-		stableMatching;
+		groupA: {abe.bob.col.dan.ed.fred.gav.hal.ian.jon};
+		groupB: {abi.bea.cath.dee.eve.fay.gay.hope.ivy.jan};
+		run;
 		yourself.
-	matching := s marriages.
+	matching := s stableMatching.
 	marriages := {
 		{ jon . abi }.
 		{ fred . bea }.
@@ -259,5 +239,25 @@ AIStableMatchingAlgorithmTest >> testStableMatching2 [
 		{ ian . hope }.
 		{ abe . ivy }.
 		{ ed . jan } }.
-	self assert: (matching allSatisfy: [ :any1 | marriages anySatisfy: [ :any2 | any1 man = any2 first and: [ any1 woman = any2 second ] ] ])
+	self assert: (matching allSatisfy: [ :any1 | marriages anySatisfy: [ :any2 | any1 nodeOfGroupA = any2 first and: [ any1 nodeOfGroupB = any2 second ] ] ])
+]
+
+{ #category : 'tests-computation' }
+AIStableMatchingAlgorithmTest >> testStableMatching [
+	algorithm run.
+	
+	{ { a1 . b3 } . { a2 . b2 } . { a3 . b1 } } do: [ :arr |
+		self
+			assert: (algorithm stableMatching anySatisfy: [ :any | any nodeOfGroupA = arr first and: [ any nodeOfGroupB = arr second ] ]) ]
+]
+
+{ #category : 'tests-computation' }
+AIStableMatchingAlgorithmTest >> testUnmatch [
+	| matchingEdge |
+	matchingEdge := AIStableMatchingEdge new nodeOfGroupA: a1; nodeOfGroupB: b1; yourself.
+	algorithm match: a1 with: b1.
+	self assert: (algorithm stableMatching includes: matchingEdge).
+	
+	algorithm unmatch: matchingEdge.
+	self deny: (algorithm stableMatching includes: matchingEdge)
 ]
