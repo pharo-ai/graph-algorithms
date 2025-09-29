@@ -4,8 +4,9 @@ Test class for the Edmonds-Karp algorithm
 Class {
 	#name : 'AIEdmondsKarpTest',
 	#superclass : 'TestCase',
-	#category : 'AI-Algorithms-Graph-Tests',
-	#package : 'AI-Algorithms-Graph-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
 { #category : 'tests' }

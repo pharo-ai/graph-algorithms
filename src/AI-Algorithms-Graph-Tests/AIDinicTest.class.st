@@ -4,8 +4,9 @@ Class {
 	#instVars : [
 		'dinic'
 	],
-	#category : 'AI-Algorithms-Graph-Tests',
-	#package : 'AI-Algorithms-Graph-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Tests'
 }
 
 { #category : 'running' }

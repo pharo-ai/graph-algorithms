@@ -1,4 +1,5 @@
 "
+I compute an approximation either of the maximum-weight, the minimum-weight or the maximum-cardinality matching.
 ##Concepts
 In graph theory, a *matching* (also known as an *independent edge set*) in an undirected graph is a set of edges without common vertices.
 The maximum weight matching problem consists of finding in a weighted graph a matching for which the sum of weights is maximized.
