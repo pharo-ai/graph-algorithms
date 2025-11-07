@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'prim'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Minimum Spanning Tree Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Minimum Spanning Tree Tests'
 }
 
 { #category : 'running' }

@@ -10,9 +10,9 @@ Where is detailed how using a weighted graph can improve the results of the Hits
 Class {
 	#name : 'AIWeightedHits',
 	#superclass : 'AIHits',
-	#category : 'AI-Algorithms-Graph-Hits',
+	#category : 'AI-Algorithms-Graph-Link Analysis',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Hits'
+	#tag : 'Link Analysis'
 }
 
 { #category : 'running' }

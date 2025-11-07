@@ -11,9 +11,9 @@ Class {
 	#instVars : [
 		'sortBlock'
 	],
-	#category : 'AI-Algorithms-Graph-Kruskal',
+	#category : 'AI-Algorithms-Graph-Minimum Spanning Tree',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Kruskal'
+	#tag : 'Minimum Spanning Tree'
 }
 
 { #category : 'configuration' }

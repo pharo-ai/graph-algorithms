@@ -4,9 +4,9 @@ A MalGraphAlgorithmTest is a test class for testing the behavior of MalGraphAlgo
 Class {
 	#name : 'AIGraphAlgorithmTest',
 	#superclass : 'TestCase',
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Basic Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Basic Tests'
 }
 
 { #category : 'tests' }

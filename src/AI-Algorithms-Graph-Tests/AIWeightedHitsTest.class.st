@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'hits'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Basic Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Basic Tests'
 }
 
 { #category : 'running' }

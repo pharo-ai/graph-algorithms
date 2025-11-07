@@ -9,9 +9,9 @@ Class {
 		'b',
 		'c'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Graph Matching Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Graph Matching Tests'
 }
 
 { #category : 'running' }

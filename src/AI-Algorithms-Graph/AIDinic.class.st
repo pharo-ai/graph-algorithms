@@ -54,9 +54,9 @@ Class {
 		'start',
 		'sink'
 	],
-	#category : 'AI-Algorithms-Graph-Dinic',
+	#category : 'AI-Algorithms-Graph-Maximum Flow',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Dinic'
+	#tag : 'Maximum Flow'
 }
 
 { #category : 'configuration' }

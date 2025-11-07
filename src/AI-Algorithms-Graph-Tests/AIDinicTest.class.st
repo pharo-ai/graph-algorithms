@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'dinic'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Maximum Flow Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Maximum Flow Tests'
 }
 
 { #category : 'running' }

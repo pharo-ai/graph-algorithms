@@ -9,9 +9,9 @@ Class {
 	#instVars : [
 		'k'
 	],
-	#category : 'AI-Algorithms-Graph-Hits',
+	#category : 'AI-Algorithms-Graph-Link Analysis',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Hits'
+	#tag : 'Link Analysis'
 }
 
 { #category : 'running' }

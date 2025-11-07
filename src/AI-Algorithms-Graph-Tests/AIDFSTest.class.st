@@ -8,9 +8,9 @@ Class {
 	#instVars : [
 		'dfsp'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Shortest Path Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Shortest Path Tests'
 }
 
 { #category : 'running' }

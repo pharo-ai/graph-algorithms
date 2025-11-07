@@ -12,9 +12,9 @@ The tests can be grouped as follows:
 Class {
 	#name : 'AIGraphMatchingAlgorithmTest',
 	#superclass : 'TestCase',
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Graph Matching Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Graph Matching Tests'
 }
 
 { #category : 'fixtures' }

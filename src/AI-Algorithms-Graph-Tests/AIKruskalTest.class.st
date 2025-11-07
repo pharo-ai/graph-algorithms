@@ -2,24 +2,18 @@ Class {
 	#name : 'AIKruskalTest',
 	#superclass : 'TestCase',
 	#instVars : [
-		'nodes',
 		'kruskal'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Minimum Spanning Tree Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Minimum Spanning Tree Tests'
 }
 
 { #category : 'running' }
 AIKruskalTest >> setUp [
 
 	super setUp.
-	kruskal := AIKruskal new.
-	nodes := OrderedCollection new.
-	nodes add: AIDisjointSetNode new.
-	nodes add: AIDisjointSetNode new.
-	nodes add: AIDisjointSetNode new.
-	nodes add: AIDisjointSetNode new
+	kruskal := AIKruskal new
 ]
 
 { #category : 'tests' }

@@ -21,9 +21,9 @@ Class {
 		'end',
 		'queue'
 	],
-	#category : 'AI-Algorithms-Graph-Shortest path',
+	#category : 'AI-Algorithms-Graph-Shortest Path',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Shortest path'
+	#tag : 'Shortest Path'
 }
 
 { #category : 'accessing' }
