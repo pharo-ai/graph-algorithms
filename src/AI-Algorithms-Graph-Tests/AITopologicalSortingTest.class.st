@@ -7,9 +7,9 @@ Class {
 	#instVars : [
 		'sorter'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Topological Sorting Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Topological Sorting Tests'
 }
 
 { #category : 'running' }

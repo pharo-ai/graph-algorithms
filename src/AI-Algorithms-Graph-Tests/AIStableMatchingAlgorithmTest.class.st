@@ -13,9 +13,9 @@ Class {
 		'b2',
 		'b3'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Tests',
+	#category : 'AI-Algorithms-Graph-Tests-Graph Matching Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Tests'
+	#tag : 'Graph Matching Tests'
 }
 
 { #category : 'fixtures' }

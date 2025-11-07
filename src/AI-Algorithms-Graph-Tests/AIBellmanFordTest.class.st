@@ -7,9 +7,9 @@ Class {
 	#instVars : [
 		'bellmanFord'
 	],
-	#category : 'AI-Algorithms-Graph-Tests-Shortest path',
+	#category : 'AI-Algorithms-Graph-Tests-Shortest Path Tests',
 	#package : 'AI-Algorithms-Graph-Tests',
-	#tag : 'Shortest path'
+	#tag : 'Shortest Path Tests'
 }
 
 { #category : 'running' }
