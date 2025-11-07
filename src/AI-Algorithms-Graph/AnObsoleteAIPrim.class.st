@@ -4,7 +4,7 @@ Prim's algorithm (also known as Jarník's algorithm) is a greedy algorithm that 
 For more, see: https://en.wikipedia.org/wiki/Prim%27s_algorithm
 "
 Class {
-	#name : 'AIPrim',
+	#name : 'AnObsoleteAIPrim',
 	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'treeEdges'
@@ -15,19 +15,19 @@ Class {
 }
 
 { #category : 'configuration' }
-AIPrim >> edgeClass [
+AnObsoleteAIPrim >> edgeClass [
 
 	^ AIWeightedEdge
 ]
 
 { #category : 'initialization' }
-AIPrim >> initialize [
+AnObsoleteAIPrim >> initialize [
 
 	super initialize
 ]
 
 { #category : 'accessing' }
-AIPrim >> minNode [
+AnObsoleteAIPrim >> minNode [
 
 	| lowNode lowKey |
 	lowKey := Float infinity.
@@ -39,19 +39,19 @@ AIPrim >> minNode [
 ]
 
 { #category : 'accessing' }
-AIPrim >> minimumSpanningTreeEdges [
+AnObsoleteAIPrim >> minimumSpanningTreeEdges [
 	
 	^ treeEdges
 ]
 
 { #category : 'configuration' }
-AIPrim >> nodeClass [
+AnObsoleteAIPrim >> nodeClass [
 
 	^ AIBFSNode
 ]
 
 { #category : 'running' }
-AIPrim >> run [
+AnObsoleteAIPrim >> run [
 
 	| curNode curEdge fromNode toNode primEdge |
 	nodes do: [ :each | each distance: Float infinity ].
