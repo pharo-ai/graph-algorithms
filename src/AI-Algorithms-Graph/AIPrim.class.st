@@ -9,9 +9,9 @@ Class {
 	#instVars : [
 		'treeEdges'
 	],
-	#category : 'AI-Algorithms-Graph-Prim',
+	#category : 'AI-Algorithms-Graph-Minimum Spanning Tree',
 	#package : 'AI-Algorithms-Graph',
-	#tag : 'Prim'
+	#tag : 'Minimum Spanning Tree'
 }
 
 { #category : 'configuration' }
