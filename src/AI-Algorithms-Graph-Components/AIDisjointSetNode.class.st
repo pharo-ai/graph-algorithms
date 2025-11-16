@@ -56,7 +56,7 @@ AIDisjointSetNode >> label [
 	^ 'DSN '
 ]
 
-{ #category : 'accessing' }
+{ #category : 'initialization' }
 AIDisjointSetNode >> makeSet [
 
 	parent := self
