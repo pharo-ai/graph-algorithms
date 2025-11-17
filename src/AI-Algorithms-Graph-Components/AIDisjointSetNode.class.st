@@ -2,15 +2,15 @@
 From wikipedia:
 A disjoint-set data structure, also called a union–find data structure or merge–find set, is a data structure that stores a collection of disjoint (non-overlapping) sets. Equivalently, it stores a partition of a set into disjoint subsets. It provides operations for adding new sets, merging sets (replacing them by their union), and finding a representative member of a set. The last operation allows to find out efficiently if any two elements are in the same or different sets. 
 
-I have this time complexities for my operations:
-		
-Space:		O(n)	
-Search:	O(α(n)
-Merge:		O(α(n))
-α = amortized time complexity
-But, when you call the method `find` I path compress the nodes to make all the nodes in the same component point to the same parent. That means that the find and union operations will eventually take a time complexity of O(1). 
-
 I am used by the Kruskal's algorithm to find cycles in a graph with a constant time.
+When you call the method `find`, basically I path compress the nodes to make all the nodes in the same component point to the same parent. 
+I have this amortized time complexities for my operations `find` and `union` (that calls `find` twice):
+Space:		O(n)	
+Search:	O(α(n))
+Merge:		O(α(n))
+α = Inverse of Ackermann function, less than 5 for any practical input size n.
+
+Therefore, the `find` and `union` operations will eventually take a time complexity of O(1). 
 "
 Class {
 	#name : 'AIDisjointSetNode',
@@ -56,7 +56,7 @@ AIDisjointSetNode >> label [
 	^ 'DSN '
 ]
 
-{ #category : 'accessing' }
+{ #category : 'initialization' }
 AIDisjointSetNode >> makeSet [
 
 	parent := self
