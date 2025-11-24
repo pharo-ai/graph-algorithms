@@ -25,7 +25,7 @@ AIGraphNonWeightedFixtureStructure >> buildGraphCanvas [
 		withBorderAttachPoint;
 		shapes: canvas nodes;
 		useAssociations:
-			(edges collect: [ :each | each first -> each last ]).
+			(edges collect: [ :each | each first -> each second ]).
 
 	RSCircleLayout on: canvas nodes.
 	^ canvas

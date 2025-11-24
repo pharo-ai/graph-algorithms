@@ -34,7 +34,7 @@ AIGraphTestFixtureStructure >> inspectGraph: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Graph'>
 	| c |
 	c := self buildGraphCanvas.
-	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
+	^ (aBuilder instantiate: SpRoassalInspectorPresenter)
 		  canvas: c;
 		  yourself
 ]

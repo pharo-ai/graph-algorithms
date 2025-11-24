@@ -17,7 +17,7 @@ AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 
 	| canvas arrowHeight marker attachedPoint interaction |
 	canvas := RSCanvas new.
-	canvas addAll: (self nodesAsRoassalShapes).
+	canvas addAll: self nodesAsRoassalShapes.
 	canvas nodes @ RSDraggable new.
 	canvas @ RSCanvasController new.
 
@@ -26,18 +26,17 @@ AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 	marker := marker asMarker.
 	marker offset: arrowHeight / 2.
 	attachedPoint := RSBorderAttachPoint new
-		endOffset: arrowHeight / 2;
-		yourself.
-
-	edges do: [ :edge |
-		canvas add: (RSLine new
-			markerEnd: marker;
-			attachPoint: attachedPoint;
-			color: Color black;
-			from: (canvas nodes shapeFromModel: edge first) children second;
-			to: (canvas nodes shapeFromModel: edge second) children second;
-			model: edge third;
-			yourself) ].
+		                 endOffset: arrowHeight / 2;
+		                 yourself.
+	canvas addAll: (edges collect: [ :edge |
+				 RSLine new
+					 markerEnd: marker;
+					 attachPoint: attachedPoint;
+					 color: Color black;
+					 from: (canvas nodes shapeFromModel: edge first) children second;
+					 to: (canvas nodes shapeFromModel: edge second) children second;
+					 model: edge third;
+					 yourself ]).
 
 	canvas lines pushBack.
 	interaction := RSLabeled new.
@@ -50,7 +49,7 @@ AIGraphWeightedFixtureStructure >> buildGraphCanvas [
 		fontSize: 8.
 
 	canvas lines @ interaction.
-	
+
 	RSForceBasedLayout new
 		charge: -200;
 		on: canvas nodes.

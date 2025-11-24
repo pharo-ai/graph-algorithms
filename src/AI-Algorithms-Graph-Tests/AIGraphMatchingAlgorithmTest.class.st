@@ -18,20 +18,18 @@ Class {
 }
 
 { #category : 'fixtures' }
-AIGraphMatchingAlgorithmTest >> bipartiteCompleteGraphWithVerticesA: numberOfVerticesA andVerticesB: numberOfVerticesB [
-	"Answer a complete bipartite graph of size numberOfVerticesA,numberOfVerticesB."
+AIGraphMatchingAlgorithmTest >> bipartiteCompleteGraphWithNodesA: numberOfNodesA andNodesB: numberOfNodesB [
+	"Answer a complete bipartite graph of size numberOfNodesA,numberOfNodesB."
 
 	| oddNodes evenNodes allNodes edges |
-	oddNodes := 1 to: numberOfVerticesA * 2 by: 2.
-	evenNodes := 2 to: numberOfVerticesB * 2 by: 2.
-	edges := oddNodes
-		         inject: OrderedCollection new
-		         into: [ :collection :from |
-				         collection addAll: (evenNodes collect: [ :to |
-							          {
-								          from.
-								          to } ]).
-				         collection ].
+	oddNodes := 1 to: numberOfNodesA * 2 by: 2.
+	evenNodes := 2 to: numberOfNodesB * 2 by: 2.
+	edges := oddNodes inject: OrderedCollection new into: [ :collection :from |
+			         collection addAll: (evenNodes collect: [ :to |
+						          {
+							          from.
+							          to } ]).
+			         collection ].
 	allNodes := oddNodes asOrderedCollection
 		            addAll: evenNodes;
 		            yourself.
@@ -41,11 +39,11 @@ AIGraphMatchingAlgorithmTest >> bipartiteCompleteGraphWithVerticesA: numberOfVer
 ]
 
 { #category : 'fixtures' }
-AIGraphMatchingAlgorithmTest >> completeGraphWithVertices: numberOfVertices [
-	"Answer a complete graph of size numberOfVertices."
+AIGraphMatchingAlgorithmTest >> completeGraphWithNodes: numberOfNodes [
+	"Answer a complete graph of size numberOfNodes."
 
 	| nodes edges nodesCopy |
-	nodes := 1 to: numberOfVertices.
+	nodes := 1 to: numberOfNodes.
 	"This to avoid the following (unjustified?) warning: 'Modifies collection while iterating over it'."
 	nodesCopy := nodes.
 	edges := nodes
@@ -136,7 +134,7 @@ AIGraphMatchingAlgorithmTest >> testCompleteBipartiteRegularGraph [
 	| algorithm graph |
 	algorithm := self newMaximumCardinality.
 	"A bipartite graph is regular if it is balanced (both parts have the same cardinality)."
-	graph := self bipartiteCompleteGraphWithVerticesA: 10 andVerticesB: 10.
+	graph := self bipartiteCompleteGraphWithNodesA: 10 andNodesB: 10.
 	algorithm nodes: graph first.
 	algorithm edges: graph second from: #first to: #second.
 	"For a regular bipartite graph, it exists a perfect matching."
@@ -146,22 +144,21 @@ AIGraphMatchingAlgorithmTest >> testCompleteBipartiteRegularGraph [
 { #category : 'tests' }
 AIGraphMatchingAlgorithmTest >> testCompleteGraph [
 
-	self testCompleteGraphWithVertices: 5.
-	self testCompleteGraphWithVertices: 6.
-	self testCompleteGraphWithVertices: 10.
-	self testCompleteGraphWithVertices: 11
+	self testCompleteGraphWithNodes: 5.
+	self testCompleteGraphWithNodes: 6.
+	self testCompleteGraphWithNodes: 10.
+	self testCompleteGraphWithNodes: 11
 ]
 
 { #category : 'tests' }
-AIGraphMatchingAlgorithmTest >> testCompleteGraphWithVertices: numberOfVertices [
+AIGraphMatchingAlgorithmTest >> testCompleteGraphWithNodes: numberOfNodes [
 
 	| algorithm graph |
 	algorithm := self newMaximumCardinality.
-	graph := self completeGraphWithVertices: numberOfVertices.
+	graph := self completeGraphWithNodes: numberOfNodes.
 	algorithm nodes: graph first.
-	algorithm edges: graph second from: #first to: #second.
-	"For a complete graph, the greedy algorithm finds always a (near-)perfect matching."
-	self assert: algorithm run size equals: numberOfVertices // 2
+	algorithm edges: graph second from: #first to: #second. "For a complete graph, the greedy algorithm finds always a (near-)perfect matching."
+	self assert: algorithm run size equals: numberOfNodes // 2
 ]
 
 { #category : 'tests' }
@@ -251,23 +248,19 @@ AIGraphMatchingAlgorithmTest >> testCyclicWeightedSimple [
 ]
 
 { #category : 'tests' }
-AIGraphMatchingAlgorithmTest >> testDifferentVertices [
+AIGraphMatchingAlgorithmTest >> testDifferentNodes [
 
-	| algorithm graph distintVertices |
+	| algorithm graph distintNodes |
 	algorithm := self newMaximumCardinality.
-	graph := self completeGraphWithVertices: 8.
+	graph := self completeGraphWithNodes: 8.
 	algorithm nodes: graph first.
-	algorithm edges: graph second from: #first to: #second.
-
-	"A matching (aka independent edge set) has no common vertices."
-	distintVertices := algorithm run
-		                   inject: OrderedCollection new
-		                   into: [ :vertices :edge |
-				                   vertices
-					                   add: edge from;
-					                   add: edge to;
-					                   yourself ].
-	self assert: distintVertices size equals: distintVertices asSet size
+	algorithm edges: graph second from: #first to: #second. "A matching (aka independent edge set) has no common nodes."
+	distintNodes := algorithm run inject: OrderedCollection new into: [ :nodes :edge |
+			                nodes
+				                add: edge from;
+				                add: edge to;
+				                yourself ].
+	self assert: distintNodes size equals: distintNodes asSet size
 ]
 
 { #category : 'tests' }

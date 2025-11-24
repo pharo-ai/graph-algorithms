@@ -90,7 +90,7 @@ AIDinic >> bfs [
 			| e n |
 			e := edges at: i.
 			n := e to.
-			e capacity - e flow >= 1 & (n level = -1) ifTrue: [
+			e residualCapacity >= 1 & (n level = -1) ifTrue: [
 				n level: node level + 1.
 				queue addLast: n ] ] ].
 	returnBool := sink level == -1.
@@ -120,11 +120,11 @@ This performs a series of depth-first searches on the residual graph, exploring 
 		edg := edges at: (arr at: cid).
 		toNode := edg to.
 		"Checking if the TO NODE is one level greater than FROM NODE, and for positive residual capacity"
-		fromNode level + 1 = toNode level & (edg capacity - edg flow >= 1)
+		fromNode level + 1 = toNode level & (edg residualCapacity >= 1)
 			ifTrue: [
 				fromNode currentIndex: cid.
 				"Calculating the minimum value between the current positive residual capacity and the pushed value from previous iterations"
-				min := self minimumValue: edg capacity - edg flow compare: p.
+				min := self minimumValue: edg residualCapacity compare: p.
 				"The recursive call of DFS"
 				tr := self dfs: toNode pushed: min ].
 
