@@ -1,8 +1,10 @@
 "
-Structure of Weighted Graphs
-  - nodes
-  - edges
-  - weight
+I am the fixture structure for weighted graph fixtures.
+
+I contain the edges in an Array of Arrays, where for each of the latter:
+- The first element is the from node
+- The second element is the to node
+- The third element is the edge weight.
 "
 Class {
 	#name : 'AIGraphWeightedFixtureStructure',

@@ -1,7 +1,9 @@
 "
-Structure of Non Weighted Graphs
-  - nodes
-  - edges
+I am the fixture structure for unweighted graph fixtures.
+
+I contain the edges in an Array of Arrays, where for each of the latter:
+- The first element is the from node
+- The second element is the to node.
 "
 Class {
 	#name : 'AIGraphNonWeightedFixtureStructure',
