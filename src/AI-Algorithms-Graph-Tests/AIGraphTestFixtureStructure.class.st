@@ -1,3 +1,12 @@
+"
+I contain the basic graph fixture structure:
+- an Array of node models
+- an Array of weighted or unweighted edges.
+
+Furthermore, I am able to visualize the graph by Roassal's inspector integration.
+
+ 
+"
 Class {
 	#name : 'AIGraphTestFixtureStructure',
 	#superclass : 'Object',
@@ -34,7 +43,7 @@ AIGraphTestFixtureStructure >> inspectGraph: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Graph'>
 	| c |
 	c := self buildGraphCanvas.
-	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
+	^ (aBuilder instantiate: SpRoassalInspectorPresenter)
 		  canvas: c;
 		  yourself
 ]

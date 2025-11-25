@@ -82,11 +82,10 @@ AIEdmondsKarp >> findAugmentingPathBFS [
 		current = sink ifTrue: [ ^ true ].
 		
 		current outgoingEdges do: [ :edge |
-			| neighbor residualCapacity |
+			| neighbor |
 			neighbor := edge to.
-			residualCapacity := edge capacity - edge flow.
 			
-			(visited includes: neighbor) not & (residualCapacity > 0) ifTrue: [
+			(visited includes: neighbor) not & (edge residualCapacity > 0) ifTrue: [
 				queue addLast: neighbor.
 				visited add: neighbor.
 				parent at: neighbor put: edge ] ] ].
@@ -103,10 +102,9 @@ AIEdmondsKarp >> findBottleneckCapacity [
 	minCapacity := Float infinity.
 	
 	[ current ~= source ] whileTrue: [
-		| edge residualCapacity |
+		| edge |
 		edge := parent at: current.
-		residualCapacity := edge capacity - edge flow.
-		minCapacity := minCapacity min: residualCapacity.
+		minCapacity := minCapacity min: edge residualCapacity.
 		current := edge from ].
 	
 	^ minCapacity
