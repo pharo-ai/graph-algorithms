@@ -1,5 +1,6 @@
 "
-Dinic's algorithm is a graph algorithm used to solve the maximum flow problem efficiently. It is an improvement over the Ford-Fulkerson algorithm and is based on the concept of layering in the residual graph.
+Dinic's algorithm is a graph algorithm used to solve the maximum flow problem efficiently. 
+It is an improvement over the Ford-Fulkerson algorithm and is based on the concept of layering in the residual graph.
 
 Here's a summary of Dinic's algorithm:
 
@@ -9,21 +10,25 @@ Here's a summary of Dinic's algorithm:
 
 - While there exists an augmenting path (a path from the source to the sink in the level graph), do the following steps:
 
-	a. Use depth-first search (DFS) to find a blocking flow along the augmenting path. This flow is 		the maximum amount of flow that can be sent through the path.
+	a. Use depth-first search (DFS) to find a blocking flow along the augmenting path. This flow is the maximum amount of flow that can be sent through the path.
 
-	b. Update the residual graph by subtracting the blocking flow from forward edges and adding it to 		backward edges.
+	b. Update the residual graph by subtracting the blocking flow from forward edges and adding it to	backward edges.
 
 - Finally, the maximum flow is obtained by summing up the flows on all outgoing edges from the source.
 
-Dinic's algorithm is efficient due to the concept of layering. The algorithm increases the flow in the network by finding multiple disjoint augmenting paths in each iteration, resulting in faster convergence compared to the Ford-Fulkerson algorithm.
+Dinic's algorithm is efficient due to the concept of layering. 
+The algorithm increases the flow in the network by finding multiple disjoint augmenting paths in each iteration, resulting in faster convergence compared to the Ford-Fulkerson algorithm.
 
-The time complexity of Dinic's algorithm is O(V^2E), where V is the number of vertices and E is the number of edges. However, with the use of advanced data structures like dynamic trees, the time complexity can be improved to O(V^2E log(V)).
+The time complexity of Dinic's algorithm is $O(V^2 * E)$, where V is the number of vertices and E is the number of edges. 
+However, with the use of advanced data structures like dynamic trees, the time complexity can be improved to $O(V*E*log(V))$.
 
 Overall, Dinic's algorithm is a powerful method for solving the maximum flow problem, particularly for large-scale networks.
 
-Here's an example code snippet to run the Dinic's Algorithm:
+A good tutorial on Dinic's algorithm is here: https://www.tutorialspoint.com/graph_theory/graph_theory_dinics_algorithm.htm
 
-|nodes edges dinic value|
+Here's an example code snippet to run the Dinic's Algorithm:
+```
+| nodes edges dinic value |
 
 nodes := #( $1 $2 $3 $4 $5 $6 ).
 edges := #( #( $1 $2 10 ) #( $1 $3 10 ) 
@@ -44,6 +49,7 @@ dinic setStartNode: (dinic findNode: $1) sinkNode: (dinic findNode: $6).
 value:= dinic run.
 
 value.
+```
 "
 Class {
 	#name : 'AIDinic',
@@ -80,19 +86,19 @@ AIDinic >> adjList [
 AIDinic >> bfs [
 	"This method uses bfs on the residual graph to construct a level graph.
 	The level graph assigns levels or distances to each node, indicating the shortest path from the source.
-	The returnBool boolean indicates if there exists and augmenting path(path from source to sink) in the residual level graph."
+	The returnBool boolean indicates if there exists and augmenting path (path from source to sink) in the residual level graph."
 
 	| node ind returnBool |
 	[ queue isNotEmpty ] whileTrue: [
-		node := queue removeFirst.
-		ind := adjList at: node.
-		ind do: [ :i |
-			| e n |
-			e := edges at: i.
-			n := e to.
-			e residualCapacity >= 1 & (n level = -1) ifTrue: [
-				n level: node level + 1.
-				queue addLast: n ] ] ].
+			node := queue removeFirst.
+			ind := adjList at: node.
+			ind do: [ :i |
+					| e n |
+					e := edges at: i.
+					n := e to.
+					e residualCapacity >= 1 & (n level = -1) ifTrue: [
+							n level: node level + 1.
+							queue addLast: n ] ] ].
 	returnBool := sink level == -1.
 	^ returnBool
 ]
@@ -105,7 +111,8 @@ AIDinic >> currentIndexSetup [
 
 { #category : 'backtracking' }
 AIDinic >> dfs: fromNode pushed: p [
-	"This method uses DFS-style algorithm to find a blocking flow (A blocking flow is a flow that saturates all the edges on the path, preventing any further flow) along the augmenting path.
+	"This method uses DFS-style algorithm to find a blocking flow along the augmenting path.
+	A blocking flow is a flow that saturates all the edges on the path, preventing any further flow.
 This performs a series of depth-first searches on the residual graph, exploring the edges with positive residual capacity."
 
 	| arr cid edg reverseEdg toNode tr min |
@@ -117,24 +124,20 @@ This performs a series of depth-first searches on the residual graph, exploring 
 	tr := 0.
 
 	[ cid <= arr size ] whileTrue: [
-		edg := edges at: (arr at: cid).
-		toNode := edg to.
-		"Checking if the TO NODE is one level greater than FROM NODE, and for positive residual capacity"
-		fromNode level + 1 = toNode level & (edg residualCapacity >= 1)
-			ifTrue: [
-				fromNode currentIndex: cid.
-				"Calculating the minimum value between the current positive residual capacity and the pushed value from previous iterations"
-				min := self minimumValue: edg residualCapacity compare: p.
-				"The recursive call of DFS"
-				tr := self dfs: toNode pushed: min ].
+			edg := edges at: (arr at: cid).
+			toNode := edg to. "Checking if the TO NODE is one level greater than FROM NODE, and for positive residual capacity"
+			fromNode level + 1 = toNode level & (edg residualCapacity >= 1) ifTrue: [
+					fromNode currentIndex: cid. "Calculating the minimum value between the current positive residual capacity and the pushed value from previous iterations"
+					min := self minimumValue: edg residualCapacity compare: p. "The recursive call of DFS"
+					tr := self dfs: toNode pushed: min ].
 
-		tr = 0 ifFalse: [
-			edg flow: edg flow + tr.
-			reverseEdg := self reverseEdge: toNode to: fromNode.
-			reverseEdg flow: reverseEdg flow - tr.
-			^ tr ].
-		cid := cid + 1.
-		fromNode currentIndex: cid ].
+			tr = 0 ifFalse: [
+					edg flow: edg flow + tr.
+					reverseEdg := self reverseEdge: toNode to: fromNode.
+					reverseEdg flow: reverseEdg flow - tr.
+					^ tr ].
+			cid := cid + 1.
+			fromNode currentIndex: cid ].
 	^ 0
 ]
 
@@ -147,12 +150,12 @@ AIDinic >> edgeClass [
 { #category : 'building - graph' }
 AIDinic >> edges: aCollection from: source to: target capacity: capacityFunction [
 
-	| edge edgeRev|
+	| edge edgeRev |
 	aCollection do: [ :eModel |
-		edge := self addEdge: eModel from: source to: target.
-		edge ifNotNil: [ edge capacity: (capacityFunction value: eModel) ].
-		edgeRev := self addEdge: eModel from: target to: source.
-		edgeRev ifNotNil: [ edgeRev capacity:0 ].]
+			edge := self addEdge: eModel from: source to: target.
+			edge ifNotNil: [ edge capacity: (capacityFunction value: eModel) ].
+			edgeRev := self addEdge: eModel from: target to: source.
+			edgeRev ifNotNil: [ edgeRev capacity: 0 ] ]
 ]
 
 { #category : 'initialization' }

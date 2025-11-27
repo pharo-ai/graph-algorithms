@@ -1,5 +1,6 @@
 "
-The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing the maximum flow in a flow network. It uses breadth-first search to find the shortest augmenting path from source to sink in terms of the number of edges.
+The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing the maximum flow in a flow network.
+It uses breadth-first search to find the shortest augmenting path from source to sink in terms of the number of edges.
 
 The algorithm works by:
 1. Initialize flow to 0 for all edges
@@ -11,8 +12,12 @@ The algorithm works by:
 
 Time complexity: O(VE²) where V is the number of vertices and E is the number of edges.
 
+A good tutorial on Edmonds-Karp algorithm is here: https://www.w3schools.com/dsa/dsa_algo_graphs_edmondskarp.php
+A good lecture on Ford-Fulkerson method is here: https://theory.stanford.edu/~tim/w16/l/l1.pdf
+
 Example usage:
-|nodes edges edmondsKarp maxFlow|
+```
+| nodes edges edmondsKarp maxFlow |
 nodes := #( $s $a $b $t ).
 edges := #( #( $s $a 10 ) #( $s $b 8 ) #( $a $b 5 ) #( $a $t 10 ) #( $b $t 10 ) ).
 
@@ -26,6 +31,7 @@ edmondsKarp
 
 edmondsKarp source: $s sink: $t.
 maxFlow := edmondsKarp run.
+```
 "
 Class {
 	#name : 'AIEdmondsKarp',
