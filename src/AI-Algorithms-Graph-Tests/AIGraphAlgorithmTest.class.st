@@ -1,5 +1,5 @@
 "
-A MalGraphAlgorithmTest is a test class for testing the behavior of MalGraphAlgorithm
+AIGraphAlgorithmTest is a test class for testing the behavior of AIGraphAlgorithm.
 "
 Class {
 	#name : 'AIGraphAlgorithmTest',
