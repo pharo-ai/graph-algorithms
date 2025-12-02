@@ -35,56 +35,29 @@ AIAstar >> end: endModel [
 
 { #category : 'running' }
 AIAstar >> heuristicFrom: startModel to: endModel [
-	"We are using a version of dijkstra algorithm here with all weights the for every node
-	(value 1).
-	So it has the same time complexity as BFS and takes into account the number of nodes in 
-	between intermediate and goal as a heuristic function. Edge weight can be increased to add
-	more weight to heuristic part of Astar."
+	"We are using a version of Dijkstra's algorithm here with same weights for every node	(value 1).
+	So it has the same time complexity as BFS and takes into account the number of nodes between intermediate and goal as an heuristic function. 
+	The edge weights can be modified to make this heuristic part of AIStar more problem specific."
 
-	| dijkstra addEdges pathD use |
-	addEdges := OrderedCollection new.
-
-	edges do: [ :edge |
-		| efrom eto eval array |
-		efrom := edge from model.
-		eto := edge to model.
-		eval := edge weight.
-		array := OrderedCollection new.
-		array add: efrom.
-		array add: eto.
-		array add: eval.
-		addEdges add: array asArray
-		"Transcript show: array;cr." ].
-	addEdges := addEdges asArray.
-
-
+	| dijkstra addEdges |
+	addEdges := edges collect: [ :edge | edge asTuple ].
 
 	end ifNil: [ ^ 0 ].
 	endModel ifNil: [ ^ 0 ].
 
 	dijkstra := AIDijkstra new.
 	dijkstra nodes: (nodes first model to: nodes last model).
-	dijkstra edges: addEdges
+	dijkstra
+		edges: addEdges
 		from: [ :each | each first ]
 		to: [ :each | each second ]
-		weight: [ :each | each third ].
+		weight: [ :each | 1 ].
 
-	use := OrderedCollection new.
-	use add: startModel model.
-	use add: endModel model.
-	dijkstra start: use first.
-	dijkstra end: use second.
+	dijkstra start: startModel model.
+	dijkstra end: endModel model.
 	dijkstra run.
-	pathD := (dijkstra findNode: endModel model) pathDistance.
 
-	^ pathD
-]
-
-{ #category : 'actions' }
-AIAstar >> newPriorityQueue [
-	"We use the Heap object defined in the SequenceableCollections package."
-
-	^ Heap new
+	^ (dijkstra findNode: endModel model) pathDistance
 ]
 
 { #category : 'configuration' }

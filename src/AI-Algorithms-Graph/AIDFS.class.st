@@ -18,8 +18,7 @@ Class {
 	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'start',
-		'end',
-		'stack'
+		'end'
 	],
 	#category : 'AI-Algorithms-Graph-Shortest path',
 	#package : 'AI-Algorithms-Graph',
@@ -77,7 +76,7 @@ AIDFS >> resetValues [
 { #category : 'running' }
 AIDFS >> run [
 
-	| node unvisitedNeighbor |
+	| node unvisitedNeighbor stack |
 	self resetValues.
 
 	stack := LinkedList new.
