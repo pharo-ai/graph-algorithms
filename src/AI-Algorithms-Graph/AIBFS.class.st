@@ -18,8 +18,7 @@ Class {
 	#superclass : 'AIGraphAlgorithm',
 	#instVars : [
 		'start',
-		'end',
-		'queue'
+		'end'
 	],
 	#category : 'AI-Algorithms-Graph-Shortest path',
 	#package : 'AI-Algorithms-Graph',
@@ -72,7 +71,7 @@ AIBFS >> resetValues [
 { #category : 'running' }
 AIBFS >> run [
 
-	| node neighbours |
+	| node neighbours queue |
 	self resetValues.
 
 	queue := LinkedList with: start.

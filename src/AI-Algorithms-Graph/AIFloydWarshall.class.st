@@ -1,10 +1,12 @@
 "
-The Floyd-Warshall algorithm is used to find the shortest paths between all pairs of vertices in a weighted graph. This implementation works with both positive and negative edge weights (as long as there are no negative weight cycles) and can detect negative weight cycles in the graph.
+The Floyd-Warshall algorithm is used to find the shortest paths between all pairs of vertices in a weighted graph. 
+This implementation works with both positive and negative edge weights (as long as there are no negative weight cycles) and can detect negative weight cycles in the graph.
 
 The algorithm uses a distance matrix to track the shortest known distances between all pairs of nodes and a next matrix to reconstruct the shortest paths.
 
 Usage example:
 
+```
 fw := AIFloydWarshall new
     nodes: #(1 2 3);
     edges: { #(1 2 4). #(2 3 -2). #(3 1 1) }
@@ -13,6 +15,7 @@ fw := AIFloydWarshall new
 
 fw distanceFrom: 1 to: 3.  ""Returns 2""
 fw pathFrom: 1 to: 3.      ""Returns #(1 2 3)""
+```
 "
 Class {
 	#name : 'AIFloydWarshall',

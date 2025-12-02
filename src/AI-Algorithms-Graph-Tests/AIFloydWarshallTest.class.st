@@ -88,7 +88,7 @@ AIFloydWarshallTest >> testComplexWeightedGraph2 [
 	self assert: (floydWarshall pathFrom: 1 to: 5) equals: #( 1 3 4 5 ).
 	self assert: (floydWarshall pathFrom: 3 to: 5) equals: #( 3 4 5 ).
 
-	self assert: floydWarshall hasNegativeCycle equals: false
+	self deny: floydWarshall hasNegativeCycle
 ]
 
 { #category : 'tests' }
@@ -141,7 +141,7 @@ AIFloydWarshallTest >> testNegativeUnconnectedWeightedGraph [
 	self assert: (floydWarshall pathFrom: 0 to: 7) equals: #( 0 1 5 6 7 ).
 	self assert: (floydWarshall pathFrom: 0 to: 8) equals: #(  ).
 
-	self assert: floydWarshall hasNegativeCycle equals: true.
+	self assert: floydWarshall hasNegativeCycle.
 
 	self
 		assert: (floydWarshall distanceFrom: 0 to: 9)
@@ -175,18 +175,12 @@ AIFloydWarshallTest >> testNegativeWeightedGraph [
 	floydWarshall run.
 
 	self assert: (floydWarshall distanceFrom: 0 to: 8) equals: -20.
-	self
-		assert: (floydWarshall distanceFrom: 0 to: 9)
-		equals: Float negativeInfinity.
+	self assert: (floydWarshall distanceFrom: 0 to: 9) equals: Float negativeInfinity.
 
-	self
-		assert: (floydWarshall pathFrom: 0 to: 8)
-		equals: #( 0 1 5 6 7 8 ).
-	self
-		assert: (floydWarshall pathFrom: 0 to: 9)
-		equals: #( 'Path affected by negative cycle' ).
+	self assert: (floydWarshall pathFrom: 0 to: 8) equals: #( 0 1 5 6 7 8 ).
+	self assert: (floydWarshall pathFrom: 0 to: 9) equals: #( 'Path affected by negative cycle' ).
 
-	self assert: floydWarshall hasNegativeCycle equals: true
+	self assert: floydWarshall hasNegativeCycle
 ]
 
 { #category : 'tests' }
@@ -213,7 +207,7 @@ AIFloydWarshallTest >> testSimpleWeightedGraph [
 	self assert: (floydWarshall pathFrom: 2 to: 5) equals: #( 2 4 5 ).
 	self assert: (floydWarshall pathFrom: 3 to: 5) equals: #( 3 4 5 ).
 
-	self assert: floydWarshall hasNegativeCycle equals: false
+	self deny: floydWarshall hasNegativeCycle
 ]
 
 { #category : 'tests' }
@@ -236,12 +230,8 @@ AIFloydWarshallTest >> testWeightedDAG [
 	self assert: (floydWarshall distanceFrom: $B to: $F) equals: 18.
 	self assert: (floydWarshall distanceFrom: $G to: $F) equals: 17.
 
-	self
-		assert: (floydWarshall pathFrom: $A to: $F)
-		equals: #( $A $B $E $F ).
-	self
-		assert: (floydWarshall pathFrom: $G to: $F)
-		equals: #( $G $D $E $F ).
+	self assert: (floydWarshall pathFrom: $A to: $F) equals: #( $A $B $E $F ).
+	self assert: (floydWarshall pathFrom: $G to: $F) equals: #( $G $D $E $F ).
 
-	self assert: floydWarshall hasNegativeCycle equals: false
+	self deny: floydWarshall hasNegativeCycle
 ]
