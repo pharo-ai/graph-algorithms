@@ -1,3 +1,13 @@
+"
+I implement the Hopcroft-Karp algorithm to find the maximum-cardinality matching in a bipartite graph.
+
+It executes in strict O(E * sqrt(V)) time, making it significantly faster than standard Ford-Fulkerson or Edmonds-Karp approaches for bipartite structures.
+
+Key Implementation Details:
+- Strict Separation: Dynamically partitions the bipartite graph into U and V sets directly from the provided edges, bypassing standard wrapper limits.
+- Optimized Queues: BFS strict bounds use SmallInteger maxVal instead of float infinity to guarantee lightning-fast == identity checks.
+- Robust Augmenting Paths: DFS uses IdentityDictionary lookups to trace exactly the shortest augmenting paths without nilNode queue leakage.
+"
 Class {
 	#name : 'AIHopcroftKarp',
 	#superclass : 'AIGraphAlgorithm',
@@ -10,14 +20,10 @@ Class {
 		'adjacencyList',
 		'infinity'
 	],
-	#category : 'AI-Algorithms-Graph',
-	#package : 'AI-Algorithms-Graph'
+	#category : 'AI-Algorithms-Graph-Graph Matching',
+	#package : 'AI-Algorithms-Graph',
+	#tag : 'Graph Matching'
 }
-
-{ #category : 'as yet unclassified' }
-AIHopcroftKarp >> adjacentNodesOf: u [
-	^ adjacencyList at: u ifAbsent: [ #() ]
-]
 
 { #category : 'backtracking' }
 AIHopcroftKarp >> bfs [
@@ -61,7 +67,7 @@ AIHopcroftKarp >> dfs: u [
 	^ true
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
 AIHopcroftKarp >> findNeighborsOf: aNode [
 	(aNode respondsTo: #adjacentNodes) ifTrue: [ ^ aNode adjacentNodes ].
 	(aNode respondsTo: #outgoingNodes) ifTrue: [ ^ aNode outgoingNodes ].
@@ -89,6 +95,16 @@ AIHopcroftKarp >> initializeVariables [
 		neighbors isNotEmpty ifTrue: [ 
 			pairU at: node put: nilNode.
 			neighbors do: [ :v | pairV at: v put: nilNode ] ] ].
+]
+
+{ #category : 'accessing' }
+AIHopcroftKarp >> matchingEdgeTuples [
+	"Answer the matching edges found after the run."
+
+	| tuples |
+	tuples := OrderedCollection new: pairU size.
+	pairU associationsDo: [ :pair | tuples add: (Array with: pair key model with: pair value model) ].
+	^ tuples
 ]
 
 { #category : 'running' }
