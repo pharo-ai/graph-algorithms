@@ -1,8 +1,9 @@
 Class {
 	#name : 'AIHopcroftKarpTest',
 	#superclass : 'TestCase',
-	#category : 'AI-Algorithms-Graph-Tests',
-	#package : 'AI-Algorithms-Graph-Tests'
+	#category : 'AI-Algorithms-Graph-Tests-Graph Matching Tests',
+	#package : 'AI-Algorithms-Graph-Tests',
+	#tag : 'Graph Matching Tests'
 }
 
 { #category : 'tests' }
@@ -78,18 +79,22 @@ AIHopcroftKarpTest >> testCrownGraph [
 
 { #category : 'tests' }
 AIHopcroftKarpTest >> testDenseAsymmetric [
+
 	| algo nodes edges |
-	nodes := #(1 2 3 4 5 $A $B $C).
+	nodes := #( 1 2 3 4 5 $A $B $C ).
 	edges := OrderedCollection new.
-	
-	#(1 2 3 4 5) do: [ :u | 
-		#($A $B $C) do: [ :v | edges add: {u. v} ] ].
-		
+
+	#( 1 2 3 4 5 ) do: [ :u |
+			edges addAll: (#( $A $B $C ) collect: [ :v |
+						 {
+							 u.
+							 v } ]) ].
+
 	algo := AIHopcroftKarp new.
 	algo nodes: nodes.
 	algo edges: edges from: [ :e | e first ] to: [ :e | e second ].
-	
-	self assert: algo run equals: 3.
+
+	self assert: algo run equals: 3
 ]
 
 { #category : 'tests' }
@@ -139,12 +144,14 @@ AIHopcroftKarpTest >> testDisjointCompleteGraphs [
 
 { #category : 'tests' }
 AIHopcroftKarpTest >> testEmptyGraph [
+
 	| algo |
 	algo := AIHopcroftKarp new.
-	algo nodes: #().
-	algo edges: #() from: [ :e | e first ] to: [ :e | e second ].
-	
+	algo nodes: #(  ).
+	algo edges: #(  ) from: [ :e | e first ] to: [ :e | e second ].
+
 	self assert: algo run equals: 0.
+	self assert: algo matchingEdgeTuples isEmpty
 ]
 
 { #category : 'tests' }
@@ -315,12 +322,14 @@ AIHopcroftKarpTest >> testMixedObjectTypes [
 
 { #category : 'tests' }
 AIHopcroftKarpTest >> testNoEdges [
+
 	| algo |
 	algo := AIHopcroftKarp new.
-	algo nodes: #(1 2 3 $A $B $C).
-	algo edges: #() from: [ :e | e first ] to: [ :e | e second ].
-	
+	algo nodes: #( 1 2 3 $A $B $C ).
+	algo edges: #(  ) from: [ :e | e first ] to: [ :e | e second ].
+
 	self assert: algo run equals: 0.
+	self assert: algo matchingEdgeTuples isEmpty
 ]
 
 { #category : 'tests' }
@@ -463,18 +472,17 @@ AIHopcroftKarpTest >> testTreeStructure [
 
 { #category : 'tests' }
 AIHopcroftKarpTest >> testUniquePerfectMatching [
+
 	| algo nodes edges |
-	nodes := #(1 2 3 $A $B $C).
-	edges := #( 
-		#(1 $A) 
-		#(2 $A) #(2 $B) 
-		#(3 $A) #(3 $B) #(3 $C) ).
-	
+	nodes := #( 1 2 3 $A $B $C ).
+	edges := #( #( 1 $A ) #( 2 $A ) #( 2 $B ) #( 3 $A ) #( 3 $B ) #( 3 $C ) ).
+
 	algo := AIHopcroftKarp new.
 	algo nodes: nodes.
 	algo edges: edges from: [ :e | e first ] to: [ :e | e second ].
-	
+
 	self assert: algo run equals: 3.
+	self assert: algo matchingEdgeTuples asSet equals: #( #( 1 $A ) #( 2 $B ) #( 3 $C ) ) asSet
 ]
 
 { #category : 'tests' }
