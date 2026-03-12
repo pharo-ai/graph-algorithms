@@ -69,12 +69,7 @@ AIHopcroftKarp >> dfs: u [
 
 { #category : 'private' }
 AIHopcroftKarp >> findNeighborsOf: aNode [
-	(aNode respondsTo: #adjacentNodes) ifTrue: [ ^ aNode adjacentNodes ].
-	(aNode respondsTo: #outgoingNodes) ifTrue: [ ^ aNode outgoingNodes ].
-	(aNode respondsTo: #outgoingEdges) ifTrue: [ 
-		^ aNode outgoingEdges collect: [ :e | 
-			(e respondsTo: #to) ifTrue: [ e to ] ifFalse: [ e target ] ] ].
-	^ #()
+    ^ aNode adjacentNodes
 ]
 
 { #category : 'initialization' }
