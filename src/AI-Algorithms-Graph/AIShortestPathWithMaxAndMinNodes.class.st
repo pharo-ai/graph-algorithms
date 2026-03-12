@@ -17,7 +17,7 @@ Class {
 		'start',
 		'isMaxNodePredicate',
 		'active',
-		'c'
+		'memoizationCache'
 	],
 	#category : 'AI-Algorithms-Graph-Shortest path',
 	#package : 'AI-Algorithms-Graph',
@@ -27,10 +27,13 @@ Class {
 { #category : 'running' }
 AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: aNumber [
 
+	"Evaluates the algorithm lattice. 
+    Returns 1 (True), 0 (Reduced/Harmless Cycle), or -1 (False/Amplifying Cycle)."
+
     | v memo isMaxNode res |
     v := self findNode: aModel.
 
-    memo := c at: v ifAbsentPut: [ Dictionary new ].
+    memo := memoizationCache at: v ifAbsentPut: [ Dictionary new ].
     memo keysAndValuesDo: [ :limit :val |
         (limit <= aNumber and: [ val = 1 ]) ifTrue: [ ^ 1 ].
         (limit >= aNumber and: [ val = -1 ]) ifTrue: [ ^ -1 ].
@@ -78,7 +81,7 @@ AIShortestPathWithMaxAndMinNodes >> initialize [
 
     super initialize.
     active := Dictionary new.
-    c := Dictionary new.
+    memoizationCache := Dictionary new.
 ]
 
 { #category : 'initialization' }
@@ -90,7 +93,7 @@ AIShortestPathWithMaxAndMinNodes >> isMaxNodePredicate: aBlock [
 { #category : 'initialization' }
 AIShortestPathWithMaxAndMinNodes >> memoDictionary: aDictionary [
 
-	c := aDictionary
+	memoizationCache := aDictionary
 ]
 
 { #category : 'configuration' }
@@ -104,7 +107,7 @@ AIShortestPathWithMaxAndMinNodes >> run [
 
     start ifNil: [ Error signal: 'Start node must be set before running' ].
     active removeAll.
-    c removeAll.
+    memoizationCache removeAll.
 ]
 
 { #category : 'running' }
