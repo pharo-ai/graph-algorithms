@@ -25,48 +25,46 @@ Class {
 }
 
 { #category : 'running' }
-AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: number [
+AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: aNumber [
 
-	| memo isMaxNode v |
-	"start == a"
-	v := self findNode: aModel.
+    | v memo isMaxNode res |
+    v := self findNode: aModel.
 
-	memo := c at: { v. start } ifAbsentPut: [ Dictionary new ].
+    memo := c at: v ifAbsentPut: [ Dictionary new ].
+    memo keysAndValuesDo: [ :limit :val |
+        (limit <= aNumber and: [ val = 1 ]) ifTrue: [ ^ 1 ].
+        (limit >= aNumber and: [ val = -1 ]) ifTrue: [ ^ -1 ].
+        (limit <= aNumber and: [ val = 0 ]) ifTrue: [ ^ 0 ].
+    ].
 
-	memo keysAndValuesDo: [ :key :val |
-		(key <= number and: val = 1) ifTrue: [ ^ 1 ] ].
+    (v = start and: [ aNumber >= 0 ]) ifTrue: [ ^ 1 ].
 
-	memo keysAndValuesDo: [ :key :val |
-		(key >= number and: val = -1) ifTrue: [ ^ -1 ] ].
+    v incomingEdges ifEmpty: [ ^ -1 ].
 
-	memo keysAndValuesDo: [ :key :val |
-		(key <= number and: val = 0) ifTrue: [ ^ 0 ] ].
+    active at: v ifPresent: [ :d |
+        ^ aNumber > d 
+            ifTrue: [ -1 ] 
+            ifFalse: [ 0 ] 
+    ].
 
-	(v = start and: number >= 0) ifTrue: [ ^ 1 ].
+    active at: v put: aNumber.
+    isMaxNode := isMaxNodePredicate value: v model.
 
-	v incomingEdges ifEmpty: [ ^ -1 ].
+    res := isMaxNode ifTrue: [ 1 ] ifFalse: [ -1 ].
 
-	active at: v ifPresent: [ :d |
-		^ number > d
-			  ifTrue: [ -1 ]
-			  ifFalse: [ 0 ] ].
+    v incomingEdges do: [ :e |
+        | u prev |
+        u := e from.
+        prev := self distanceTo: u model isLessThan: (aNumber - e weight).
 
-	active at: v put: number.
-	isMaxNode := isMaxNodePredicate value: v model.
-	v incomingEdges do: [ :e |
-		| u res prev |
-		u := e from.
-		res := self distanceTo: u model isLessThan: number - e weight.
-		prev := memo at: number ifAbsent: [isMaxNode
-													ifTrue: [ 1 ]
-													ifFalse: [ -1 ]].
-		memo at: number put: (isMaxNode
-			ifTrue: [ prev min: res ]
-			ifFalse: [ prev max: res ])
-	].
-	active removeKey: v.
+        isMaxNode 
+            ifTrue: [ res := res min: prev ] 
+            ifFalse: [ res := res max: prev ]. 
+    ].
 
-	^ memo at: number
+    active removeKey: v.
+    memo at: aNumber put: res.
+    ^ res
 ]
 
 { #category : 'configuration' }
@@ -78,8 +76,9 @@ AIShortestPathWithMaxAndMinNodes >> edgeClass [
 { #category : 'initialization' }
 AIShortestPathWithMaxAndMinNodes >> initialize [
 
-	super initialize.
-	active := Dictionary new. "Deberia venir de arriba?"
+    super initialize.
+    active := Dictionary new.
+    c := Dictionary new.
 ]
 
 { #category : 'initialization' }
@@ -103,7 +102,16 @@ AIShortestPathWithMaxAndMinNodes >> nodeClass [
 { #category : 'running' }
 AIShortestPathWithMaxAndMinNodes >> run [
 
-	
+    start ifNil: [ Error signal: 'Start node must be set before running' ].
+    active removeAll.
+    c removeAll.
+]
+
+{ #category : 'running' }
+AIShortestPathWithMaxAndMinNodes >> runFrom: aModel [
+
+    self start: aModel.
+    self run.
 ]
 
 { #category : 'initialization' }
