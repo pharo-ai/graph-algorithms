@@ -17,7 +17,7 @@ Class {
 		'start',
 		'isMaxNodePredicate',
 		'active',
-		'c'
+		'memoizationCache'
 	],
 	#category : 'AI-Algorithms-Graph-Shortest path',
 	#package : 'AI-Algorithms-Graph',
@@ -25,48 +25,49 @@ Class {
 }
 
 { #category : 'running' }
-AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: number [
+AIShortestPathWithMaxAndMinNodes >> distanceTo: aModel isLessThan: aNumber [
 
-	| memo isMaxNode v |
-	"start == a"
-	v := self findNode: aModel.
+	"Evaluates the algorithm lattice. 
+    Returns 1 (True), 0 (Reduced/Harmless Cycle), or -1 (False/Amplifying Cycle)."
 
-	memo := c at: { v. start } ifAbsentPut: [ Dictionary new ].
+    | v memo isMaxNode res |
+    v := self findNode: aModel.
 
-	memo keysAndValuesDo: [ :key :val |
-		(key <= number and: val = 1) ifTrue: [ ^ 1 ] ].
+    memo := memoizationCache at: v ifAbsentPut: [ Dictionary new ].
+    memo keysAndValuesDo: [ :limit :val |
+        (limit <= aNumber and: [ val = 1 ]) ifTrue: [ ^ 1 ].
+        (limit >= aNumber and: [ val = -1 ]) ifTrue: [ ^ -1 ].
+        (limit <= aNumber and: [ val = 0 ]) ifTrue: [ ^ 0 ].
+    ].
 
-	memo keysAndValuesDo: [ :key :val |
-		(key >= number and: val = -1) ifTrue: [ ^ -1 ] ].
+    (v = start and: [ aNumber >= 0 ]) ifTrue: [ ^ 1 ].
 
-	memo keysAndValuesDo: [ :key :val |
-		(key <= number and: val = 0) ifTrue: [ ^ 0 ] ].
+    v incomingEdges ifEmpty: [ ^ -1 ].
 
-	(v = start and: number >= 0) ifTrue: [ ^ 1 ].
+    active at: v ifPresent: [ :d |
+        ^ aNumber > d 
+            ifTrue: [ -1 ] 
+            ifFalse: [ 0 ] 
+    ].
 
-	v incomingEdges ifEmpty: [ ^ -1 ].
+    active at: v put: aNumber.
+    isMaxNode := isMaxNodePredicate value: v model.
 
-	active at: v ifPresent: [ :d |
-		^ number > d
-			  ifTrue: [ -1 ]
-			  ifFalse: [ 0 ] ].
+    res := isMaxNode ifTrue: [ 1 ] ifFalse: [ -1 ].
 
-	active at: v put: number.
-	isMaxNode := isMaxNodePredicate value: v model.
-	v incomingEdges do: [ :e |
-		| u res prev |
-		u := e from.
-		res := self distanceTo: u model isLessThan: number - e weight.
-		prev := memo at: number ifAbsent: [isMaxNode
-													ifTrue: [ 1 ]
-													ifFalse: [ -1 ]].
-		memo at: number put: (isMaxNode
-			ifTrue: [ prev min: res ]
-			ifFalse: [ prev max: res ])
-	].
-	active removeKey: v.
+    v incomingEdges do: [ :e |
+        | u prev |
+        u := e from.
+        prev := self distanceTo: u model isLessThan: (aNumber - e weight).
 
-	^ memo at: number
+        isMaxNode 
+            ifTrue: [ res := res min: prev ] 
+            ifFalse: [ res := res max: prev ]. 
+    ].
+
+    active removeKey: v.
+    memo at: aNumber put: res.
+    ^ res
 ]
 
 { #category : 'configuration' }
@@ -78,8 +79,9 @@ AIShortestPathWithMaxAndMinNodes >> edgeClass [
 { #category : 'initialization' }
 AIShortestPathWithMaxAndMinNodes >> initialize [
 
-	super initialize.
-	active := Dictionary new. "Deberia venir de arriba?"
+    super initialize.
+    active := Dictionary new.
+    memoizationCache := Dictionary new.
 ]
 
 { #category : 'initialization' }
@@ -91,7 +93,7 @@ AIShortestPathWithMaxAndMinNodes >> isMaxNodePredicate: aBlock [
 { #category : 'initialization' }
 AIShortestPathWithMaxAndMinNodes >> memoDictionary: aDictionary [
 
-	c := aDictionary
+	memoizationCache := aDictionary
 ]
 
 { #category : 'configuration' }
@@ -103,7 +105,16 @@ AIShortestPathWithMaxAndMinNodes >> nodeClass [
 { #category : 'running' }
 AIShortestPathWithMaxAndMinNodes >> run [
 
-	
+    start ifNil: [ Error signal: 'Start node must be set before running' ].
+    active removeAll.
+    memoizationCache removeAll.
+]
+
+{ #category : 'running' }
+AIShortestPathWithMaxAndMinNodes >> runFrom: aModel [
+
+    self start: aModel.
+    self run.
 ]
 
 { #category : 'initialization' }
